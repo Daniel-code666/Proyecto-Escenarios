@@ -46,15 +46,18 @@ License - nucleoapp.com/license/
 /*----------------------------------
   add a square/circle background
 -----------------------------------*/
-.ni.square,
-.ni.circle {
+.ni.square{
   padding: 0.33333333em;
   vertical-align: -16%;
   background-color: #eee;
 }
-.ni.circle {
+/* .ni.circle {
+  padding: 0.33333333em;
+  vertical-align: -16%;
+  background-color: #542c86;
   border-radius: 50%;
-}
+} */
+
 /*------------------------
   list icons
 -------------------------*/

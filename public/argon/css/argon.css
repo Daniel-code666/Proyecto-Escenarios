@@ -8031,7 +8031,7 @@ button.bg-dark:focus
 
 .bg-default
 {
-    background-color: #172b4d !important;
+    background-color: #542c86 !important;
 }
 
 a.bg-default:hover,
@@ -15046,7 +15046,7 @@ button.bg-lighter:focus
 
 .bg-gradient-primary
 {
-    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+    background: linear-gradient(87deg, #ffffff 0, #ffffff 100%) !important;
 }
 
 .bg-gradient-secondary
@@ -15402,7 +15402,7 @@ button.section-darker:focus
 
 .bg-gradient-primary
 {
-    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+    background: linear-gradient(87deg, #ffffff 0, #ffffff 100%) !important;
 }
 
 .bg-gradient-secondary
@@ -18894,11 +18894,11 @@ textarea[resize='horizontal']
 
 .nav-link
 {
-    color: #525f7f;
+    color: #ffffff;
 }
 .nav-link:hover
 {
-    color: #5e72e4;
+    color: #beabe3;
 }
 .nav-link i.ni
 {
@@ -18990,6 +18990,7 @@ textarea[resize='horizontal']
 .navbar-horizontal .navbar-nav .nav-link .nav-link-inner--text
 {
     margin-left: .25rem;
+    color: #542c86;
 }
 
 .navbar-horizontal .navbar-brand
@@ -19003,7 +19004,7 @@ textarea[resize='horizontal']
 }
 .navbar-horizontal .navbar-brand img
 {
-    height: 30px;
+    height: 80px;
 }
 
 .navbar-horizontal .navbar-dark .navbar-brand
