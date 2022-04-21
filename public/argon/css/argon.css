@@ -2974,15 +2974,15 @@ fieldset:disabled a.btn
 .btn-primary
 {
     color: #fff;
-    border-color: #5e72e4;
-    background-color: #5e72e4;
+    border-color: #542c86;
+    background-color: #542c86;
     box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
 }
 .btn-primary:hover
 {
     color: #fff;
-    border-color: #5e72e4; 
-    background-color: #5e72e4;
+    border-color: #3b1c61; 
+    background-color: #3b1c61;
 }
 .btn-primary:focus,
 .btn-primary.focus
@@ -5702,7 +5702,7 @@ input[type='button'].btn-block
 
     word-wrap: break-word;
 
-    border: 1px solid rgba(0, 0, 0, .05);
+    border: 5px solid #542c86/*rgba(0, 0, 0, .05)*/;
     border-radius: .375rem; 
     background-color: #fff;
     background-clip: border-box;
