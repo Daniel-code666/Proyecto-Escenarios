@@ -7,7 +7,7 @@
 
     <title>{{ config('app.name', 'Argon Dashboard') }}</title>
     <!-- Favicon -->
-    <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
+    <link href="{{ asset('argon') }}/img/brand/logo.png" rel="icon" type="image/png">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!-- Icons -->
@@ -85,7 +85,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                 <div class=" dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Welcome!</h6>
+                    <h6 class="text-overflow m-0">Bienvenido</h6>
                 </div>
                 <a href="{{ route('profile.edit') }}" class="dropdown-item">
                     <i class="ni ni-single-02"></i>
@@ -186,11 +186,6 @@
                   <span class="nav-link-text">Tables</span>
                 </a>
             </li>
-                           <li class="nav-item mb-5 mr-4 ml-4 pl-1 bg-danger" style="position: absolute; bottom: 0;">
-                    <a class="nav-link text-white" href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" target="_blank">
-                        <i class="ni ni-cloud-download-95"></i> Upgrade to PRO
-                    </a>
-                </li>
         </ul>
         <!-- Divider -->
         <hr class="my-3">
@@ -278,11 +273,9 @@
     </ul>
 </div>
 </nav>    
-            <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
 <div class="container-fluid">
-    <div class="alert alert-danger" role="alert">
-        <strong>This is a PRO feature!</strong>
-      </div>
+    
     <div class="header-body">
         <!-- Card stats -->
         <div class="row">
@@ -390,7 +383,7 @@
                 </div>
                 
                 <div class="col-12">
-                                        </div>
+                </div>
 
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">
@@ -436,14 +429,14 @@
 <div class="row align-items-center justify-content-xl-between">
 <div class="col-xl-6">
     <div class="copyright text-center text-xl-left text-muted">
-        © 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a> &amp;
-        <a href="https://www.updivision.com" class="font-weight-bold ml-1" target="_blank">Updivision</a>
+        &copy; {{ now()->year }} <a href="https://www.idrd.gov.co" class="font-weight-bold ml-1" target="_blank">IDRD</a> &amp;
+        <a href="https://www.ucundinamarca.edu.co" class="font-weight-bold ml-1" target="_blank">Universidad de Cundinamarca</a>
     </div>
 </div>
 <div class="col-xl-6">
     <ul class="nav nav-footer justify-content-center justify-content-xl-end">
         <li class="nav-item">
-            <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+            <a href="https://www.idrd.gov.co" class="nav-link" target="_blank">Sobre nosotros</a>
         </li>
     </ul>
 </div>

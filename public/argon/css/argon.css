@@ -5707,6 +5707,24 @@ input[type='button'].btn-block
     background-color: #fff;
     background-clip: border-box;
 }
+
+.card-second-config
+{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    word-wrap: break-word;
+
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: .375rem; 
+    background-color: #fff;
+    background-clip: border-box;
+}
+
 .card > hr
 {
     margin-right: 0;
@@ -7927,7 +7945,7 @@ button.close
 
 .bg-primary
 {
-    background-color: #5e72e4 !important;
+    background-color: #542c86 !important;
 }
 
 a.bg-primary:hover,
@@ -8032,6 +8050,16 @@ button.bg-dark:focus
 .bg-default
 {
     background-color: #542c86 !important;
+}
+
+.bg-default-short
+{
+    background-color: whitesmoke !important;
+}
+
+.shortcut-text
+{
+    color:black;
 }
 
 a.bg-default:hover,
@@ -17583,7 +17611,7 @@ a.btn-icon-only
     padding-right: 0 !important; 
     padding-left: 0 !important;
 
-    background-color: transparent;
+    background-color: #542c86;
 }
 @media (min-width: 768px)
 {
