@@ -22,11 +22,26 @@
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
+            @if(auth()->user()->role_idrole == 3)
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @elseif(auth()->user()->role_idrole == 1 || auth()->user()->role_idrole == 2)
+                @auth()
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    @include('layouts.navbars.sidebar')
+                @endauth
+            @endif
+        @endauth
+
+        {{-- @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
             @include('layouts.navbars.sidebar')
-        @endauth
+        @endauth --}}
         
         <div class="main-content">
             @include('layouts.navbars.navbar')
@@ -36,6 +51,12 @@
         @guest()
             @include('layouts.footers.guest')
         @endguest
+
+        @auth()
+            @if(auth()->user()->role_idrole == 3)
+                @include('layouts.footers.guest')
+            @endif
+        @endauth
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

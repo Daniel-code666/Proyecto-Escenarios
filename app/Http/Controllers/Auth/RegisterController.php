@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -63,6 +65,26 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
+    {
+        try
+        {
+            $createdUser = $this->createUser($data);
+
+            if($createdUser)
+            {
+                $email = $data['email'];
+                $id = DB::select('call get_user_id(?)', array($email));
+                $userId = current((array) $id[0]);
+                DB::statement('call set_role(?,?)', array($email, $userId));    
+            }
+
+            return $createdUser;
+        }catch(Exception $ex){
+            return $createdUser;
+        }
+    }
+
+    private function createUser(array $data)
     {
         return User::create([
             'name' => $data['name'],
