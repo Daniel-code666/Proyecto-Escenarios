@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -27,7 +30,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
+    
     /**
      * Create a new controller instance.
      *
@@ -36,5 +39,36 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function Login()
+    {
+        $credentials = $this->validate(request(),[
+            'email'=>'email|required|string',
+            'password'=>'required|string'
+        ]);
+
+        try
+        {
+            if(Auth::attempt($credentials))
+            {
+                $roleStdClass = DB::table('users')->where('email', $credentials['email'])->select('role_idrole')->first();
+
+                $role = current((array) $roleStdClass);
+
+                session(['rol'=> $role]);
+
+                if($role == 3)
+                {
+                    return redirect()->route('main');
+                }
+
+                return redirect()->route('home');
+            }   
+
+        }catch(Exception $ex)
+        {
+            return back()->withErrors(['email' => trans('auth.failed')]);
+        }
     }
 }

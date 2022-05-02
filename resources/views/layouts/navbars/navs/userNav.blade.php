@@ -44,27 +44,17 @@
             <!-- Navbar items -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="{{ route('main') }}">
-                        <i class="ni ni-planet circle"></i>
-                        <span class="nav-link-inner--text">{{ __('Inicio') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="{{ route('register') }}">
-                        <i class="ni ni-circle-08 circle"></i>
-                        <span class="nav-link-inner--text">{{ __('Registrarse') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="{{ route('login') }}">
-                        <i class="ni ni-key-25 circle"></i>
-                        <span class="nav-link-inner--text">{{ __('Iniciar sesión') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="">
+                    <a class="nav-link nav-link-icon" href="{{ route('profile.edit') }}">
                         <i class="ni ni-single-02 circle"></i>
-                        <span class="nav-link-inner--text">{{ __('Escenarios') }}</span>
+                        <span class="nav-link-inner--text">{{ __('Ver perfil') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                        <i class="ni ni-key-25 circle"></i>
+                        <span class="nav-link-inner--text">{{ __('Cerrar sesión') }}</span>
                     </a>
                 </li>
             </ul>
