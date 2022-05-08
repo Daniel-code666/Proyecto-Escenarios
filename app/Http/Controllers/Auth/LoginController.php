@@ -64,6 +64,10 @@ class LoginController extends Controller
                 }
 
                 return redirect()->route('home');
+            }
+            else
+            {
+                return back()->withErrors(['email' => trans('auth.failed')]);
             }   
 
         }catch(Exception $ex)
