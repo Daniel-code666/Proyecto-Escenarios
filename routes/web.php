@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\StageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +42,12 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
 
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware(['auth', 'idrole']);
 Route::get('map', function () {return view('pages.maps');})->name('map')->middleware(['auth', 'idrole']);
+
+
+Route::get('escenarios', [App\Http\Controllers\StageController::class, 'index'])->name('stage')->middleware(['auth', 'idrole']);
+Route::get('escenarios/add', [App\Http\Controllers\StageController::class, 'create'])->name('stage.add')->middleware(['auth', 'idrole']);
+
+Route::get('inventarios', function () {return view('pages.inventary');})->name('inventary')->middleware(['auth', 'idrole']);
 Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade')->middleware(['auth', 'idrole']); 
 Route::get('icons', function () {return view('pages.icons');})->name('icons')->middleware(['auth', 'idrole']); 
 Route::get('table-list', function () {return view('pages.tables');})->name('table')->middleware(['auth', 'idrole']);
