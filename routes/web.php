@@ -23,13 +23,13 @@ Auth::routes(['verify' => true]);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
 
 // Route::get('/verify', [VerificationController::class])->name('verify');
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+//Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::post('/Login', 'App\Http\Controllers\Auth\LoginController@Login')->name('Login');
 
