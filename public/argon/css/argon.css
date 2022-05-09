@@ -511,7 +511,8 @@ h1,
 h2,
 .h2
 {
-    font-size: 1.25rem;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 h3,

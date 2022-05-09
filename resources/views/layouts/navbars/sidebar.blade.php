@@ -106,6 +106,17 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('stage') }}">
+                        <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('inventary') }}">
+                        <i class="ni ni-app text-blue"></i> {{ __('Inventario') }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('icons') }}">
                         <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
                     </a>
