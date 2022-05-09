@@ -27,7 +27,7 @@ Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->nam
 
 Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
 
-// Route::get('/verify', [VerificationController::class])->name('verify');
+// Route::get('/verify', [App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verify');
 
 //Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
