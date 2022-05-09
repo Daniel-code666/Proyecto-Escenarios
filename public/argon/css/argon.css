@@ -17615,6 +17615,10 @@ a.btn-icon-only
     background-color: #542c86;
 }
 
+#map {
+  height: 100%;
+}
+
 .navbar-top-white
 {
     position: absolute;
