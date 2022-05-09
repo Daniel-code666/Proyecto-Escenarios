@@ -46,6 +46,7 @@ Route::get('map', function () {return view('pages.maps');})->name('map')->middle
 
 Route::get('escenarios', [App\Http\Controllers\StageController::class, 'index'])->name('stage')->middleware(['auth', 'idrole']);
 Route::get('escenarios/add', [App\Http\Controllers\StageController::class, 'create'])->name('stage.add')->middleware(['auth', 'idrole']);
+Route::post('escenario', [App\Http\Controllers\StageController::class, 'store'])->name('stage.store')->middleware(['auth', 'idrole']);
 
 Route::get('inventarios', function () {return view('pages.inventary');})->name('inventary')->middleware(['auth', 'idrole']);
 Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade')->middleware(['auth', 'idrole']); 
