@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stage;
+use DateTime;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use SebastianBergmann\Environment\Console;
 
 class StageController extends Controller
@@ -15,7 +17,8 @@ class StageController extends Controller
      */
     public function index()
     {
-        return view('pages.stages.admin');
+        $datos['stages'] = Stage::paginate(5);
+        return view('pages.stages.admin', $datos);
     }
 
     /**
@@ -36,8 +39,16 @@ class StageController extends Controller
      */
     public function store(Request $request)
     {      
-        $datos = request()->all();
-        return response()->json($datos);
+        //$datos = request()->all();
+        $datos = request()->except('_token');
+
+        $datosToSend = new Stage();
+        $datosToSend = $datos;  
+        //$datosToSend->created_at = Carbon::now()->toTimeString();
+        //$datosToSend->updated_at = Carbon::now()->toTimeString();
+        Stage::insert($datosToSend);
+        //return response()->json($datosToSend);
+        return view('pages.stages.admin');
     }
 
     /**
