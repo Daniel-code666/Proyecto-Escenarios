@@ -77,7 +77,7 @@ class RegisterController extends Controller
                 $userId = current((array) $id[0]);
                 DB::statement('call set_role(?,?)', array($email, $userId));    
             }
-
+            
             return $createdUser;
         }catch(Exception $ex){
             return $createdUser;

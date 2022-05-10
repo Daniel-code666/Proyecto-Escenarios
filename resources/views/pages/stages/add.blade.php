@@ -106,7 +106,7 @@
 
                 </div>
 
-                <!-- Tercer fila -->
+                <!-- Cuarta fila -->
     
                 <div class="row">
     
@@ -117,11 +117,25 @@
                         </div>
                     </div>
 
-                </div>   
+                </div>
+
+                <hr>
+                <h2 class="card-title">Añadir ubicación del escenario</h2>
+                <hr>
+                
+                <!--Quinta fila-->
+                <div class="row">
+                    <div class="col">
+                        <div class="card border-0">
+                          <div id="map-default" class="map-canvas" data-lat="4.60971" data-lng="-74.08175" style="height: 600px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="row justify-content-md-center" style="margin-top: 10px">
                     <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
                 </div>          
-                
+               
             </form>
         </div>
             </div>
@@ -132,4 +146,9 @@
 @push('js')
 <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
 <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLkTMsqM_wWsRik7JueLXvAmcy3WOofCg"
+        async
+></script>
+
 @endpush
