@@ -70,14 +70,14 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Latitud</label>
-                            <input class="form-control" type="text" name="latitude">
+                            <input class="form-control" type="text" name="latitude" id="lat">
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Longitud</label>
-                            <input class="form-control" type="text" name="longitude">
+                            <input class="form-control" type="text" name="longitude" id="lng">
                         </div>
                     </div>
                    
