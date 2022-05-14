@@ -86,19 +86,19 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
                         <i class="fab fa-laravel" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Laravel Examples') }}</span>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Zona del administrador') }}</span>
                     </a>
 
                     <div class="collapse show" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    {{ __('User profile') }}
+                                <a  class="nav-link" href="{{ route('profile.edit') }}">
+                                    <i class="ni ni-circle-08 text-pink"></i> {{ __('Perfil de usuario') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.index') }}">
-                                    {{ __('User Management') }}
+                                    <i class="ni ni-badge"></i>{{ __('Administrar usuarios') }}
                                 </a>
                             </li>
                         </ul>
@@ -118,12 +118,12 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
+                        <i class="ni ni-single-copy-04 text-default"></i> {{ __('Reportes') }}
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
+                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Mapa de escenarios') }}
                     </a>
                 </li>
                 <li class="nav-item">
@@ -132,31 +132,31 @@
                       <span class="nav-link-text">Tables</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
                     </a>
-                </li>
+                </li> --}}
             </ul>
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-            <h6 class="navbar-heading text-muted">Documentation</h6>
+            <h6 class="navbar-heading text-muted">Soporte</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
                     <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/getting-started/overview.html">
-                        <i class="ni ni-spaceship"></i> Getting started
+                        <i class="ni ni-spaceship"></i> Manual del sitio
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/foundation/colors.html">
-                        <i class="ni ni-palette"></i> Foundation
+                        <i class="ni ni-palette"></i> Documentación
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Components
+                        <i class="ni ni-ui-04"></i> Contacto
                     </a>
                 </li>
             </ul>

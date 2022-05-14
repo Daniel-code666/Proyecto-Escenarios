@@ -13,7 +13,7 @@ function initMap() {
     var myLatlng = new google.maps.LatLng(lat, lng);
     var mapOptions = {
         zoom: 12,
-        scrollwheel: false,
+        scrollwheel: true,
         center: myLatlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
@@ -30,7 +30,7 @@ function initMap() {
     var contentString = marker.getPosition().lat();
 
     var infowindow = new google.maps.InfoWindow({
-        content: marker.getPosition()
+        content: String(marker.getPosition())
     });
 
     google.maps.event.addListener(marker, 'click', function() {
