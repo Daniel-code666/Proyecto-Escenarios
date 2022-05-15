@@ -48,21 +48,21 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Direccion</label>
-            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}"">
+            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}">
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Latitud</label>
-            <input class="form-control" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:''}}"">
+            <input class="form-control" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:''}}" id="lat">
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Longitud</label>
-            <input class="form-control" type="text" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:''}}"">
+            <input class="form-control" type="text" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:''}}"id="lng">
         </div>
     </div>
    
