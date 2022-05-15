@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('longitude',45);
             $table->Integer('capacity');
             $table->string('descripcion',500);
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

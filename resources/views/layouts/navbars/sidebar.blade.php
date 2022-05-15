@@ -106,7 +106,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('stage') }}">
+                    <a class="nav-link" href="{{ url('/escenario') }}">
                         <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
                     </a>
                 </li>

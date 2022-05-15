@@ -7,6 +7,8 @@ use DateTime;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use SebastianBergmann\Environment\Console;
+use Illuminate\Support\Facades\Storage;
+
 
 class StageController extends Controller
 {
@@ -17,8 +19,8 @@ class StageController extends Controller
      */
     public function index()
     {
-        $datos['stages'] = Stage::paginate(5);
-        return view('pages.stages.admin', $datos);
+        $stages['stages'] = Stage::paginate(5);
+        return view('pages.stages.admin', $stages);
     }
 
     /**
@@ -46,9 +48,12 @@ class StageController extends Controller
         $datosToSend = $datos;  
         //$datosToSend->created_at = Carbon::now()->toTimeString();
         //$datosToSend->updated_at = Carbon::now()->toTimeString();
+        if($request->hasFile('photo')){
+            $datosToSend['photo']=$request->file('photo')->store('uploads','public');
+        }
         Stage::insert($datosToSend);
         //return response()->json($datosToSend);
-        return view('pages.stages.admin');
+        return redirect('/escenario');
     }
 
     /**
@@ -68,9 +73,10 @@ class StageController extends Controller
      * @param  \App\Models\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function edit(Stage $stage)
+    public function edit($id)
     {
-        //
+        $stage = Stage::findOrFail($id);
+        return view('pages.stages.edit', compact('stage'));
     }
 
     /**
@@ -80,9 +86,26 @@ class StageController extends Controller
      * @param  \App\Models\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stage $stage)
+    public function update(Request $request, $id)
     {
-        //
+        $datos = request()->except('_token','_method');
+
+        $datosToSend = new Stage();
+        $datosToSend = $datos;  
+        //$datosToSend->created_at = Carbon::now()->toTimeString();
+        //$datosToSend->updated_at = Carbon::now()->toTimeString();
+        if($request->hasFile('photo')){
+            $stage = Stage::findOrFail($id);
+            Storage::delete('public/'.$stage->photo);
+            $datosToSend['photo']=$request->file('photo')->store('uploads','public');
+        }
+
+
+
+
+        Stage::where('id','=',$id)->update($datosToSend);
+        //return response()->json($datosToSend);
+        return redirect('/escenario');
     }
 
     /**
@@ -91,8 +114,9 @@ class StageController extends Controller
      * @param  \App\Models\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Stage $stage)
+    public function destroy($id)
     {
-        //
+        Stage::destroy($id);
+        return redirect('/escenario');
     }
 }

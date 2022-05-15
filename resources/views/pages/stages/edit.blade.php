@@ -7,11 +7,12 @@
 
         <div class="card" style="width: 100%;">
             <div class="card-body">
-              <h2 class="card-title">Crear escenario</h2>
+              <h2 class="card-title">Editar escenario</h2>
               <hr>
              
-              <form  action="{{ url('/escenario') }} "method="post" enctype="multipart/form-data">
+              <form  action="{{ url('/escenario/'.$stage->id) }} "method="post" enctype="multipart/form-data">
                 @csrf
+                {{method_field('PUT')}}
                 @include('pages.stages.form')          
                
               </form>
