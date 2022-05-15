@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 Auth::routes();
 
@@ -35,7 +35,7 @@ Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
 
 Route::post('/Login', 'App\Http\Controllers\Auth\LoginController@Login')->name('Login');
 
-Route::group(['middleware' => 'auth', 'verified'], function () {
+Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 });
