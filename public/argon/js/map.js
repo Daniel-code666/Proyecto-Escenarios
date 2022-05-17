@@ -6,32 +6,39 @@ var $map = $('#map-default'),
 
     function initMap() {
         map = document.getElementById('map-default');
-        // lat = map.getAttribute('data-lat');
-        lat = 4.60971;
-        // lng = map.getAttribute('data-lng');
-        lng = -74.08175;
-    
+        lat = document.getElementById('lat').value;
+        lng = document.getElementById('lng').value;
+        
         map = new google.maps.Map(document.getElementById('map-default'), {
             zoom: 12,
             scrollwheel: true,
             center: new google.maps.LatLng(4.60971, -74.08175),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
         });
+
+        if(lat != 0 || lng != 0){
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat, lng),
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'Ubicación',
+                draggable: true
+            });
+        }else{
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(4.60971, -74.08175),
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'Ubicación',
+                draggable: true
+            });
+        }
+        
+        const infowindow = new google.maps.InfoWindow();
     
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(4.60971, -74.08175),
-            map: map,
-            animation: google.maps.Animation.DROP,
-            // title: 'Marcador',
-            draggable: true
-        });
-    
-        var infowindow = new google.maps.InfoWindow({
-            content: String(marker.getPosition())
-        });
-    
-        google.maps.event.addListener(marker, 'click', function(evt) {
-            infowindow.open(map, marker); 
+        google.maps.event.addListener(marker, 'click', function(e) {
+            infowindow.open(map, this);
+            infowindow.setContent( e.latLng.lat().toFixed(6)+', '+e.latLng.lng().toFixed(6) ); 
         });
     
         google.maps.event.addListener(marker, 'dragend', function(evt){
