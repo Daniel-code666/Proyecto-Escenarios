@@ -1064,9 +1064,22 @@ pre code
     order: 12;
 }
 
+.offset-0{
+    margin-left: 1%;
+}
+
+.offset-0-fixed{
+    margin-left: 3%;
+}
+
 .offset-1
 {
     margin-left: 8.33333%;
+}
+
+.offset-1-fixed
+{
+    margin-left: 10.33333%;
 }
 
 .offset-2
@@ -18578,6 +18591,15 @@ textarea[resize='horizontal']
     position: relative;
 
     width: 100%;
+    height: 500px;
+
+    border-radius: .375rem;
+}
+
+.map-canvas-2{
+    position: relative;
+
+    width: 98%;
     height: 500px;
 
     border-radius: .375rem;

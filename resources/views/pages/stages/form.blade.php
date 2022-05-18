@@ -111,7 +111,7 @@
 <div class="row">
     <div class="col">
         <div class="card border-0">
-          <div id="map-default" class="map-canvas" data-lat="4.60971" data-lng="-74.08175" style="height: 600px;"></div>
+          <div id="map-default" class="map-canvas" style="height: 600px;"></div>
         </div>
     </div>
 </div>

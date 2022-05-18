@@ -23,6 +23,12 @@ class StageController extends Controller
         return view('pages.stages.admin', $stages);
     }
 
+    public function listStages()
+    {
+        $stages['stages'] = Stage::paginate(10);
+        return view('pages.stages.listStages', $stages);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -62,9 +68,11 @@ class StageController extends Controller
      * @param  \App\Models\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function show(Stage $stage)
+    public function show($id/*Stage $stage*/)
     {
-        //
+        $stage = Stage::find($id);
+
+        return view('pages.stages.guestStagesView', compact('stage'));
     }
 
     /**
