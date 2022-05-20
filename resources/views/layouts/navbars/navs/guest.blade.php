@@ -63,7 +63,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{route('listStages')}}">
-                        <i class="ni ni-single-02 circle"></i>
+                        <i class="ni ni-building circle"></i>
                         <span class="nav-link-inner--text">{{ __('Escenarios') }}</span>
                     </a>
                 </li>
