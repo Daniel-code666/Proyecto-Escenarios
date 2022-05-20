@@ -17,7 +17,6 @@
         <div class="col-md-4 ml-2">
             <a type="button" class="btn btn-primary" href="{{ url('/escenario/create') }}">Crear escenario</a>
         </div>
-
     </div>
     <hr>
     <div class="table-responsive m-2">

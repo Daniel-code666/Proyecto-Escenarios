@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 Auth::routes();
 
@@ -35,7 +35,7 @@ Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
 
 Route::post('/Login', 'App\Http\Controllers\Auth\LoginController@Login')->name('Login');
 
-Route::group(['middleware' => 'auth', 'verified'], function () {
+Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 });
@@ -43,14 +43,15 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware(['auth', 'idrole']);
 Route::get('map', function () {return view('pages.maps');})->name('map')->middleware(['auth', 'idrole']);
 
-
 /* Route::get('escenarios', [App\Http\Controllers\StageController::class, 'index'])->name('stage')->middleware(['auth', 'idrole']);
 Route::get('escenarios/add', [App\Http\Controllers\StageController::class, 'create'])->name('stage.add')->middleware(['auth', 'idrole']);
 Route::post('escenario', [App\Http\Controllers\StageController::class, 'store'])->name('stage.store')->middleware(['auth', 'idrole']);
 Route::delete('escenario/delete/{id}', [App\Http\Controllers\StageController::class, 'destroy'])->name('stage.destroy')->middleware(['auth', 'idrole']); */
 
-Route::resource('escenario', App\Http\Controllers\StageController::class);
+Route::resource('escenario', App\Http\Controllers\StageController::class)->middleware(['auth', 'idrole']);
 
+Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
+Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');
 
 Route::get('inventarios', function () {return view('pages.inventary');})->name('inventary')->middleware(['auth', 'idrole']);
 Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade')->middleware(['auth', 'idrole']); 
