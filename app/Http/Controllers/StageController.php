@@ -53,7 +53,7 @@ class StageController extends Controller
         }
         Stage::insert($datosToSend);
         //return response()->json($datosToSend);
-        return redirect('/escenario');
+        return redirect('/escenario')->with('mensaje','Escenario creado con éxito.');
     }
 
     /**
@@ -99,13 +99,9 @@ class StageController extends Controller
             Storage::delete('public/'.$stage->photo);
             $datosToSend['photo']=$request->file('photo')->store('uploads','public');
         }
-
-
-
-
         Stage::where('id','=',$id)->update($datosToSend);
         //return response()->json($datosToSend);
-        return redirect('/escenario');
+        return redirect('/escenario')->with('mensaje','Escenario editado con éxito.');
     }
 
     /**
@@ -116,7 +112,9 @@ class StageController extends Controller
      */
     public function destroy($id)
     {
-        Stage::destroy($id);
-        return redirect('/escenario');
+        $stage = Stage::findOrFail($id);
+        Storage::delete('public/'.$stage->photo);
+        Stage::destroy($id);   
+        return redirect('/escenario')->with('mensaje','Escenario eliminado con éxito.');
     }
 }
