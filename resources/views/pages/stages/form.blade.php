@@ -47,13 +47,8 @@
 
     <div class="col-md-3">
         <div class="form-group">
-<<<<<<< HEAD
-            <label for="example-text-input" class="form-control-label">Dirección</label>
-            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}">
-=======
             <label for="example-text-input" class="form-control-label">Direccion</label>
             <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}"  id="address">
->>>>>>> 69399c1a5fee2291c0b80e998dc20cccd77014e5
         </div>
     </div>
 
