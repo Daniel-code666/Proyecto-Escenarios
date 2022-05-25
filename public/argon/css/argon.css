@@ -582,6 +582,13 @@ hr
     border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
+.scroll{
+    height: 90px;
+    max-width: 450px;
+    word-break: break-all;
+    overflow-x: auto;
+}
+
 small,
 .small
 {
@@ -2323,6 +2330,15 @@ pre code
     {
         border: 0;
     }
+}
+
+.table-discipline{
+    max-width: 500px;
+    margin:0 auto;
+}
+
+.table-discipline td-discipline{
+    vertical-align: top;
 }
 
 .table-responsive

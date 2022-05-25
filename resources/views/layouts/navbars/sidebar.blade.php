@@ -111,6 +111,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/discipline') }}">
+                        <i class="ni ni-user-run text-blue"></i> {{ __('Disciplinas') }}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('inventary') }}">
                         <i class="ni ni-app text-blue"></i> {{ __('Inventario') }}
                     </a>

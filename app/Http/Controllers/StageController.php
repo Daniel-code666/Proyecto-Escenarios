@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stage;
+use App\Models\Disciplines;
 use DateTime;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use SebastianBergmann\Environment\Console;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\DB;
 
 class StageController extends Controller
 {
@@ -19,13 +20,18 @@ class StageController extends Controller
      */
     public function index()
     {
-        $stages['stages'] = Stage::paginate(5);
+        // $stages['stages'] = Stage::paginate(5);
+        
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->paginate(10);
+
         return view('pages.stages.admin', $stages);
     }
 
     public function listStages()
     {
-        $stages['stages'] = Stage::paginate(10);
+        //$stages['stages'] = Stage::paginate(10);
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->paginate(10);
+
         return view('pages.stages.listStages', $stages);
     }
 
@@ -36,7 +42,8 @@ class StageController extends Controller
      */
     public function create()
     {
-        return view('pages.stages.add');
+        $disciplines = Disciplines::all();
+        return view('pages.stages.add', compact('disciplines'));
     }
 
     /**
@@ -72,6 +79,13 @@ class StageController extends Controller
     {
         $stage = Stage::find($id);
 
+        // $stage = Stage::join('disciplines', 'disciplines.id', '=', 'stages.discipline')
+        //         ->where('id', $stageDef->id)
+        //         ->get();
+        // $stage = DB::table('stages as s')->join('disciplines as d', 'd.id', '=', 's.discipline')
+        //          ->where('s.id', $stageDef->id)
+        //          ->get();
+        
         return view('pages.stages.guestStagesView', compact('stage'));
     }
 
@@ -83,8 +97,9 @@ class StageController extends Controller
      */
     public function edit($id)
     {
+        $disciplines = Disciplines::all();
         $stage = Stage::findOrFail($id);
-        return view('pages.stages.edit', compact('stage'));
+        return view('pages.stages.edit', compact('stage'), compact('disciplines'));
     }
 
     /**

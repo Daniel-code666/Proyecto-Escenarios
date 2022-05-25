@@ -42,7 +42,7 @@
                             <h3>{{$stage->address}}</h3>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="offset-0-fixed">
                             <h4>Tamaño (m^2)</h4>
                         </div>
@@ -50,7 +50,7 @@
                             <h3>{{$stage->area}} m^2</h3>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="offset-0-fixed">
                             <h4>Capacidad</h4>
                         </div>

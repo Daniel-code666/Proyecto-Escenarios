@@ -9,11 +9,9 @@
     <div class="col-md-3">
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline" value="{{isset($stage->discipline)?$stage->discipline:''}}">
-            <option value="">Seleccionar</option>
-            <option value="1">Natación</option>
-            <option value="2">Futbol</option>
-            <option value="3">Baloncesto</option>
-            
+            @foreach ($disciplines as $discipline)
+                <option value="{{$discipline->id}}">{{$discipline->discipline_name}}</option>
+            @endforeach
         </select>
     </div>
 
@@ -74,7 +72,7 @@
 
     <div class="col-md-3">
         <label class="form-control-label">Estado</label>
-        <select class="form-control" name="id_category" value="{{isset($stage->id_category)?$stage->id_category:''}}">
+        <select required class="form-control" name="id_category" value="{{isset($stage->id_category)?$stage->id_category:''}}">
             <option value="">Seleccionar</option>
             <option value="1">Malo</option>
             <option value="2">Regular</option>

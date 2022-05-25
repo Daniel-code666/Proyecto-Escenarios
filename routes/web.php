@@ -50,6 +50,8 @@ Route::delete('escenario/delete/{id}', [App\Http\Controllers\StageController::cl
 
 Route::resource('escenario', App\Http\Controllers\StageController::class)->middleware(['auth', 'idrole']);
 
+Route::resource('discipline', App\Http\Controllers\DisciplinesController::class)->middleware(['auth', 'idrole']);
+
 Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
 Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');
 

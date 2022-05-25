@@ -22,6 +22,7 @@
                           <th scope="col" class="sort" data-sort="status">Foto</th>
                           <th scope="col" class="sort" data-sort="budget">Nombre</th>
                           <th scope="col" class="sort" data-sort="completion">Dirección</th>
+                          <th scope="col" class="sort" data-sort="completion">Disciplina</th>
                           <th scope="col" class="sort" data-sort="completion">Acciones</th>
                         </tr>
                       </thead>
@@ -32,6 +33,7 @@
                           <td><img src="{{asset('storage').'/'.$stage->photo}}" alt="" width="100"></td>
                           <td>{{$stage->name}}</td>
                           <td>{{$stage->address}}</td>
+                          <td>{{$stage->discipline_name}}</td>
                           <td>
                             <a type="button" class="btn btn-info" href="{{ route('show', ['id'=>$stage->id]) }}">Ver</a>
                           </td>
