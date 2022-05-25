@@ -127,6 +127,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/config') }}">
+                        <i class="ni ni-settings-gear-65"></i> {{ __('Configuraciones') }}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('table') }}">
                       <i class="ni ni-bullet-list-67 text-default"></i>
                       <span class="nav-link-text">Tables</span>
