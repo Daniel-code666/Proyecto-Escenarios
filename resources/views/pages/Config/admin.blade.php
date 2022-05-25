@@ -13,8 +13,8 @@
                   <h5 class="card-title text-center" style="font-size: 20px">Parametrizaciones</h5>
                     <hr>
                   <ul>
-                      <li><a href="#" class="">Disciplinas</a></li>
-                      <li><a href="#" class="">Estado de los escearios</a></li>
+                      <li><a href="{{url('/discipline')}}" class="">Disciplinas</a></li>
+                      <li><a href="{{url('/escenario')}}" class="">Estado de los escenarios</a></li>
                       <li><a href="#" class="">Estado de los inventarios</a></li>
                   </ul> 
                 </div>
@@ -26,8 +26,8 @@
                   <h5 class="card-title text-center" style="font-size: 20px">Otros</h5>
                     <hr>
                   <ul>
-                      <li><a href="#" class="">Disciplinas</a></li>
-                      <li><a href="#" class="">Estado de los escearios</a></li>
+                      <li><a href="{{url('/discipline')}}" class="">Disciplinas</a></li>
+                      <li><a href="{{url('/escenario')}}" class="">Estado de los escenarios</a></li>
                       <li><a href="#" class="">Estado de los inventarios</a></li>
                   </ul> 
                 </div>
