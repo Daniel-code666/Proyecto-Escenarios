@@ -39,32 +39,7 @@
     </div>
 </div>
 
-<!-- Segunda fila -->
 
-<div class="row">
-
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="example-text-input" class="form-control-label">Direccion</label>
-            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}"  id="address">
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="example-text-input" class="form-control-label">Latitud</label>
-            <input class="form-control" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:''}}" id="lat" readonly="true">
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="example-text-input" class="form-control-label">Longitud</label>
-            <input class="form-control" type="text" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:''}}"id="lng" readonly="true">
-        </div>
-    </div>
-   
-</div>
 
 <!-- Tercer fila -->
 
@@ -105,11 +80,38 @@
 <h2 class="card-title">Añadir ubicación del escenario</h2>
 <hr>
 
+<!-- Segunda fila -->
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="example-text-input" class="form-control-label">Direccion</label>
+            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}"  id="address">
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="example-text-input" class="form-control-label">Latitud</label>
+            <input class="form-control" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:''}}" id="lat" readonly="true">
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="example-text-input" class="form-control-label">Longitud</label>
+            <input class="form-control" type="text" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:''}}"id="lng" readonly="true">
+        </div>
+    </div>
+   
+</div>
+
 <!--Quinta fila-->
 <div class="row">
     <div class="col">
         <div class="card border-0">
-          <div id="map-default" class="map-canvas" style="height: 600px;"></div>
+          <div id="map-default" class="map-canvas" style="height: 500px;"></div>
         </div>
     </div>
 </div>
