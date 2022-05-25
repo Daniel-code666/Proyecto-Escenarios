@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\StageController;
-
+use App\Http\Controllers\ConfigurationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +54,8 @@ Route::resource('discipline', App\Http\Controllers\DisciplinesController::class)
 
 Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
 Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');
+
+Route::resource('config', App\Http\Controllers\ConfigurationController::class)->middleware(['auth', 'idrole']);
 
 Route::get('inventarios', function () {return view('pages.inventary');})->name('inventary')->middleware(['auth', 'idrole']);
 Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade')->middleware(['auth', 'idrole']); 
