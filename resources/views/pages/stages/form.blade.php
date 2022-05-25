@@ -10,7 +10,7 @@
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline" value="{{isset($stage->discipline)?$stage->discipline:''}}">
             @foreach ($disciplines as $discipline)
-                <option value="{{$discipline->id}}">{{$discipline->discipline_name}}</option>
+                <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
             @endforeach
         </select>
     </div>
