@@ -12,10 +12,10 @@
       </div>
     @endif
 
-    <h2 class="text-center fw-bold mt-2">Escenarios principales</h2>
+    <h2 class="text-center fw-bold mt-2">Sub escenarios</h2>
     <div class="row">
         <div class="col-md-4 ml-2">
-            <a type="button" class="btn btn-primary" href="{{ url('/escenario/create') }}">Crear escenario</a>
+            <a type="button" class="btn btn-primary" href="{{ url('/understage/create') }}">Crear subescenario</a>
         </div>
     </div>
     <hr>
@@ -26,23 +26,25 @@
               <th scope="col" class="sort" data-sort="name">Id</th>
               <th scope="col" class="sort" data-sort="status">Foto</th>
               <th scope="col" class="sort" data-sort="budget">Nombre</th>
+              <th scope="col" class="sort" data-sort="budget">Escenario principal</th>
               <th scope="col" class="sort" data-sort="completion">Dirección</th>
               <th scope="col" class="sort" data-sort="completion">Disciplina</th>
               <th scope="col" class="sort" data-sort="completion">Acciones</th>
             </tr>
           </thead>
           <tbody class="list">
-            @foreach ($stages as $stage)
+            @foreach ($underStages as $underStage)
             <tr>
-              <td>{{$stage->id}}</td>
-              <td><img src="{{asset('storage').'/'.$stage->photo}}" alt="" width="100"></td>
-              <td>{{$stage->name}}</td>
-              <td>{{$stage->address}}</td>
-              <td>{{$stage->discipline_name}}</td>
+              <td>{{$underStage->idUnderstage}}</td>
+              <td><img src="{{asset('storage').'/'.$underStage->photo_understg}}" alt="" width="100"></td>
+              <td>{{$underStage->name_understg}}</td>
+              <td>{{$underStage->name}}</td>
+              <td>{{$underStage->address_understg}}</td>
+              <td>{{$underStage->discipline_name}}</td>
               <td>
-                <a type="button" class="btn btn-default" href="{{ url('/escenario/'.$stage->id.'/edit') }}"><i class="fas fa-edit"></i></a>
-                <a type="button" class="btn btn-info" href="{{ url('/escenario/'.$stage->id) }}"><i class="fas fa-eye"></i></a>
-                <form action="{{ url('/escenario/'.$stage->id) }} "method="post" style="display: inline-block">
+                <a type="button" class="btn btn-default" href="{{ url('/understage/'.$underStage->idUnderstage.'/edit') }}"><i class="fas fa-edit"></i></a>
+                <a type="button" class="btn btn-info" href="{{ url('/understage/'.$underStage->idUnderstage) }}"><i class="fas fa-eye"></i></a>
+                <form action="{{ url('/understage/'.$underStage->idUnderstage) }} "method="post" style="display: inline-block">
                   @csrf
                   {{method_field('DELETE')}}
                   <button type="submit" class="btn btn-danger" onclick="return confirm('¿Quieres eliminar el escenario?')"><i class="fas fa-trash"></i></button>
@@ -54,7 +56,6 @@
         </table>
       </div>
     @include('layouts.footers.auth')
-</div>
 @endsection
 
 @push('js')

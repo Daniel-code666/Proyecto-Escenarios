@@ -30,7 +30,8 @@ class StageController extends Controller
     public function listStages()
     {
         //$stages['stages'] = Stage::paginate(10);
-        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->paginate(10);
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+        ->paginate(10);
 
         return view('pages.stages.listStages', $stages);
     }
@@ -77,15 +78,14 @@ class StageController extends Controller
      */
     public function show($id/*Stage $stage*/)
     {
-        $stage = Stage::find($id);
+        //$stage = Stage::find($id);
 
-        // $stage = Stage::join('disciplines', 'disciplines.id', '=', 'stages.discipline')
-        //         ->where('id', $stageDef->id)
-        //         ->get();
-        // $stage = DB::table('stages as s')->join('disciplines as d', 'd.id', '=', 's.discipline')
-        //          ->where('s.id', $stageDef->id)
-        //          ->get();
-        
+        $stageDef = Stage::find($id);
+
+        $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+                ->where('id', $stageDef->id)
+                ->first();
+
         return view('pages.stages.guestStagesView', compact('stage'));
     }
 

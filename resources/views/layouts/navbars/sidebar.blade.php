@@ -83,9 +83,10 @@
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                        <i class="ni ni-settings" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">{{ __('Zona del administrador') }}</span>
                     </a>
 
@@ -106,10 +107,29 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/escenario') }}">
+                    <a class="nav-link active" href="#navbar-examples-2" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-2">
                         <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
                     </a>
+                    <div class="collapse show" id="navbar-examples-2">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a  class="nav-link" href="{{ url('/escenario') }}">
+                                    <i class="ni ni-building"></i> {{ __('Principales') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/understage') }}">
+                                    <i class="ni ni-building text-orange"></i>{{ __('Sub escenarios') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {{-- <a class="nav-link" href="{{ url('/escenario') }}">
+                        <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
+                    </a> --}}
+
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/discipline') }}">
                         <i class="ni ni-user-run text-blue"></i> {{ __('Disciplinas') }}

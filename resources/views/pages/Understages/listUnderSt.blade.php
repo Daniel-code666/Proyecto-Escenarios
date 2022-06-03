@@ -6,7 +6,7 @@
             <div class="header-body text-center mt-7 mb-7">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-md-6">
-                        <h1 class="text-violet">{{ __('Ver escenarios administrador por el IDRD') }}</h1>
+                        <h1 class="text-violet">{{ __('Ver sub escenarios administrador por el IDRD') }}</h1>
                     </div>
                 </div>
             </div>
@@ -21,21 +21,23 @@
                           <th scope="col" class="sort" data-sort="name">Id</th>
                           <th scope="col" class="sort" data-sort="status">Foto</th>
                           <th scope="col" class="sort" data-sort="budget">Nombre</th>
+                          <th scope="col" class="sort" data-sort="budget">Escenario principal</th>
                           <th scope="col" class="sort" data-sort="completion">Dirección</th>
                           <th scope="col" class="sort" data-sort="completion">Disciplina</th>
                           <th scope="col" class="sort" data-sort="completion">Acciones</th>
                         </tr>
                       </thead>
                       <tbody class="list">
-                        @foreach ($stages as $stage)
+                        @foreach ($underStages as $underStage)
                         <tr>
-                          <td>{{$stage->id}}</td>
-                          <td><img src="{{asset('storage').'/'.$stage->photo}}" alt="" width="100"></td>
-                          <td>{{$stage->name}}</td>
-                          <td>{{$stage->address}}</td>
-                          <td>{{$stage->discipline_name}}</td>
+                          <td>{{$underStage->idUnderstage}}</td>
+                          <td><img src="{{asset('storage').'/'.$underStage->photo_understg}}" alt="" width="100"></td>
+                          <td>{{$underStage->name_understg}}</td>
+                          <td>{{$underStage->name}}</td>
+                          <td>{{$underStage->address_understg}}</td>
+                          <td>{{$underStage->discipline_name}}</td>
                           <td>
-                            <a type="button" class="btn btn-info" href="{{ route('show', ['id'=>$stage->id]) }}">Ver</a>
+                            <a type="button" class="btn btn-info" href="{{ route('showUnderSt', ['idUnderstage'=>$underStage->idUnderstage]) }}">Ver</a>
                           </td>
                         </tr>
                         @endforeach
@@ -45,15 +47,6 @@
             </div>
         </div>
 
-        <div class="container">
-          <div class="text-center fw-bold mt-7 mb-7">
-              <div class="row justify-content-center">
-                  <div class="col-lg-5 col-md-6">
-                      <a href="{{route('listUnderSt')}}" type="button" class="btn btn-primary" style="color:aliceblue;">Ver sub escenarios</a>
-                  </div>
-              </div>
-          </div>
-      </div>
         {{-- <div class="separator separator-bottom separator-skew zindex-100">
             <svg x="0" y="0" viewBox="0 0 0 0" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
