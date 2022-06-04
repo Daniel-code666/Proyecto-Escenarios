@@ -43,11 +43,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware(['auth', 'idrole']);
 Route::get('map', function () {return view('pages.maps');})->name('map')->middleware(['auth', 'idrole']);
 
-/* Route::get('escenarios', [App\Http\Controllers\StageController::class, 'index'])->name('stage')->middleware(['auth', 'idrole']);
-Route::get('escenarios/add', [App\Http\Controllers\StageController::class, 'create'])->name('stage.add')->middleware(['auth', 'idrole']);
-Route::post('escenario', [App\Http\Controllers\StageController::class, 'store'])->name('stage.store')->middleware(['auth', 'idrole']);
-Route::delete('escenario/delete/{id}', [App\Http\Controllers\StageController::class, 'destroy'])->name('stage.destroy')->middleware(['auth', 'idrole']); */
-
 Route::resource('escenario', App\Http\Controllers\StageController::class)->middleware(['auth', 'idrole']);
 
 Route::resource('discipline', App\Http\Controllers\DisciplinesController::class)->middleware(['auth', 'idrole']);
@@ -56,6 +51,7 @@ Route::resource('understage', App\Http\Controllers\UnderstageController::class)-
 
 Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
 Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');
+Route::get('viewStageInfo/{id}', 'App\Http\Controllers\StageController@viewStageInfo')->name('viewStageInfo');
 
 Route::get('listUnderSt', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stage;
 use App\Models\Disciplines;
+use App\Models\Understage;
 use DateTime;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -139,5 +140,35 @@ class StageController extends Controller
         Storage::delete('public/'.$stage->photo);
         Stage::destroy($id);   
         return redirect('/escenario')->with('mensaje','Escenario eliminado con éxito.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Stage  $stage
+     * @return \Illuminate\Http\Response
+     */
+    public function viewStageInfo($id/*Stage $stage*/)
+    {
+        //$stage = Stage::find($id);
+
+        $stageDef = Stage::find($id);
+
+        $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+                ->where('id', $stageDef->id)
+                ->first();
+
+        $understages = Stage::join('understages', 'understages.idStage', '=', 'stages.id')
+                ->where('id', $stageDef->id)
+                ->join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
+                ->get();
+
+        // $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+        //         ->join('understages', 'understages.idStage', '=', 'stages.id')
+        //         ->join('disciplines as d', 'd.disciplineId', '=', 'understages.discipline_understg')
+        //         ->where('id', $stageDef->id)
+        //         ->get();
+
+        return view('pages.stages.stageAdminView', compact('stage', 'understages'));
     }
 }
