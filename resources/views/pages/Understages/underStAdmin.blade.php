@@ -42,6 +42,7 @@
               <td>{{$underStage->address_understg}}</td>
               <td>{{$underStage->discipline_name}}</td>
               <td>
+                <a type="button" style="background:#542c86" class="btn btn-default" href="{{ route('genunderstpdf', ['idUnderstage'=>$underStage->idUnderstage]) }}"><i class="fas fa-file-export"></i></a>
                 <a type="button" class="btn btn-default" href="{{ url('/understage/'.$underStage->idUnderstage.'/edit') }}"><i class="fas fa-edit"></i></a>
                 <a type="button" class="btn btn-info" href="{{ url('/understage/'.$underStage->idUnderstage) }}"><i class="fas fa-eye"></i></a>
                 <form action="{{ url('/understage/'.$underStage->idUnderstage) }} "method="post" style="display: inline-block">

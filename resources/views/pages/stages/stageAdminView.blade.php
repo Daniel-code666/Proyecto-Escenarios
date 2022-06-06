@@ -21,7 +21,7 @@
                         </div>
 
                         <img class="img-center" src="{{isset($stage->photo)?asset('storage').'/'.$stage->photo:''}}" 
-                        alt="Estadio Nemecio Camacho El Campín" width="550">
+                        alt="{{$stage->name}}" width="550">
                     </div>
                 </div>
 
@@ -75,39 +75,45 @@
                     <h3>{{$stage->descripcion}}</h3>
                 </div>
 
-                <div class="row offset-0">
-                    <h4>Sub escenarios asociados</h4>
-                </div>
-                <div class="card-body px-lg-3 py-lg-3">
-                    <div class="table-responsive m-2">
-                        <table class="table align-items-center table-flush">
-                          <thead class="thead-light">
-                            <tr>
-                              <th scope="col" class="sort" data-sort="name">Id</th>
-                              <th scope="col" class="sort" data-sort="status">Foto</th>
-                              <th scope="col" class="sort" data-sort="budget">Nombre</th>
-                              <th scope="col" class="sort" data-sort="completion">Dirección</th>
-                              <th scope="col" class="sort" data-sort="completion">Disciplina</th>
-                              <th scope="col" class="sort" data-sort="completion">Acciones</th>
-                            </tr>
-                          </thead>
-                          <tbody class="list">
-                            @foreach ($understages as $understage)
-                            <tr>
-                              <td>{{$understage->idUnderstage}}</td>
-                              <td><img src="{{asset('storage').'/'.$understage->photo_understg}}" alt="" width="100"></td>
-                              <td>{{$understage->name_understg}}</td>
-                              <td>{{$understage->address_understg}}</td>
-                              <td>{{$understage->discipline_name}}</td>
-                              <td>
-                                <a type="button" class="btn btn-info" href="{{ route('showUnderSt', ['idUnderstage'=>$understage->idUnderstage]) }}">Ver</a>
-                              </td>
-                            </tr>
-                            @endforeach
-                          </tbody>
-                        </table>
+                @if($understages->isEmpty())
+                    <div class="row offset-0">
+                        <h4><strong>Este escenario no tiene sub escenarios asociados</strong></h4>
                     </div>
-                </div>
+                @else
+                    <div class="row offset-0">
+                        <h4>Sub escenarios asociados</h4>
+                    </div>
+                    <div class="card-body px-lg-3 py-lg-3">
+                        <div class="table-responsive m-2">
+                            <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                <th scope="col" class="sort" data-sort="name">Id</th>
+                                <th scope="col" class="sort" data-sort="status">Foto</th>
+                                <th scope="col" class="sort" data-sort="budget">Nombre</th>
+                                <th scope="col" class="sort" data-sort="completion">Dirección</th>
+                                <th scope="col" class="sort" data-sort="completion">Disciplina</th>
+                                <th scope="col" class="sort" data-sort="completion">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @foreach ($understages as $understage)
+                                <tr>
+                                <td>{{$understage->idUnderstage}}</td>
+                                <td><img src="{{asset('storage').'/'.$understage->photo_understg}}" alt="" width="100"></td>
+                                <td>{{$understage->name_understg}}</td>
+                                <td>{{$understage->address_understg}}</td>
+                                <td>{{$understage->discipline_name}}</td>
+                                <td>
+                                    <a type="button" class="btn btn-info" href="{{ route('showUnderSt', ['idUnderstage'=>$understage->idUnderstage]) }}">Ver</a>
+                                </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
 
                 <div class="row offset-0">
                     <h4>Ubicación en el mapa</h4>

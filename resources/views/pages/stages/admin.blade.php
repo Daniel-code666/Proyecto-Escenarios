@@ -40,6 +40,7 @@
               <td>{{$stage->address}}</td>
               <td>{{$stage->discipline_name}}</td>
               <td>
+                <a type="button" style="background:#542c86" class="btn btn-default" href="{{ route('genpdf', ['id'=>$stage->id]) }}"><i class="fas fa-file-export"></i></a>
                 <a type="button" class="btn btn-default" href="{{ url('/escenario/'.$stage->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                 <a type="button" class="btn btn-info" href="{{ route('viewStageInfo', ['id'=>$stage->id]) }}"><i class="fas fa-eye"></i></a>
                 <form action="{{ url('/escenario/'.$stage->id) }} "method="post" style="display: inline-block">

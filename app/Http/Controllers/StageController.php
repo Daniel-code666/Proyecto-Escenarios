@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use SebastianBergmann\Environment\Console;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class StageController extends Controller
 {
@@ -170,5 +171,37 @@ class StageController extends Controller
         //         ->get();
 
         return view('pages.stages.stageAdminView', compact('stage', 'understages'));
+    }
+
+    /**
+     * Generar reporte general
+     */
+    public function pdfStageGeneral($id){
+        $stageDef = Stage::find($id);
+
+        $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+                ->where('id', $stageDef->id)
+                ->first();
+
+        $understages = Stage::join('understages', 'understages.idStage', '=', 'stages.id')
+                ->where('id', $stageDef->id)
+                ->join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
+                ->get();
+
+        $pdf = app('dompdf.wrapper');
+        $contxt = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE,
+            ]
+        ]);
+
+        $pdf = PDF::setOptions(['isHTML5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $pdf->getDomPDF()->setHttpContext($contxt);
+
+        $pdf->loadView('pages.reports.ReporteGenStage', compact('stage', 'understages'))->setOptions(['defaultFont' => 'sans-serif']);
+        
+        return $pdf->download($stage->name.'.pdf');
     }
 }

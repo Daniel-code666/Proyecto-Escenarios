@@ -44,10 +44,12 @@ Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['sh
 Route::get('map', function () {return view('pages.maps');})->name('map')->middleware(['auth', 'idrole']);
 
 Route::resource('escenario', App\Http\Controllers\StageController::class)->middleware(['auth', 'idrole']);
+Route::get('genpdf/{id}', 'App\Http\Controllers\StageController@pdfStageGeneral')->name('genpdf')->middleware(['auth', 'idrole']);
 
 Route::resource('discipline', App\Http\Controllers\DisciplinesController::class)->middleware(['auth', 'idrole']);
 
 Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
+Route::get('genunderstpdf{idUnderstage}', 'App\Http\Controllers\UnderstageController@pdfUnderstageGeneral')->name('genunderstpdf')->middleware(['auth', 'idrole']);
 
 Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
 Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');

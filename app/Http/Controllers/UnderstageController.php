@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Disciplines;
 use App\Models\Stage;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class UnderstageController extends Controller
 {
@@ -138,5 +139,34 @@ class UnderstageController extends Controller
         ->paginate(10);
 
         return view('pages.Understages.listUnderSt', $underStages);
+    }
+
+    /**
+     * Generar reporte general
+     */
+    public function pdfUnderstageGeneral($idUnderstage){
+        $underStageDef = Understage::find($idUnderstage);
+
+        $stage = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
+                ->where('idUnderstage', $underStageDef->idUnderstage)
+                ->join('stages', 'stages.id', '=', 'understages.idStage')
+                ->where('idUnderstage', $underStageDef->idUnderstage)
+                ->first();
+
+        $pdf = app('dompdf.wrapper');
+        $contxt = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE,
+            ]
+        ]);
+
+        $pdf = PDF::setOptions(['isHTML5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $pdf->getDomPDF()->setHttpContext($contxt);
+
+        $pdf->loadView('pages.reports.ReporteUnderStGen', compact('stage'))->setOptions(['defaultFont' => 'sans-serif']);
+        
+        return $pdf->download($stage->name.'.pdf');
     }
 }
