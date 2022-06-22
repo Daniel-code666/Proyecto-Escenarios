@@ -8,10 +8,21 @@
 
     <div class="col-md-3">
         <label class="form-control-label">Disciplina</label>
-        <select class="form-control" name="discipline" value="{{isset($stage->discipline)?$stage->discipline:''}}">
-            @foreach ($disciplines as $discipline)
-                <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
-            @endforeach
+        <select class="form-control" name="discipline">
+            @if (isset($stage->discipline))
+                @foreach ($disciplines as $discipline)
+                    @if ($discipline->disciplineId == $stage->discipline)
+                        <option value="{{$discipline->disciplineId}}" selected>{{$discipline->discipline_name}}</option>
+                    @else
+                    <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($disciplines as $discipline)
+                 <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>   
+                @endforeach    
+            @endif
+            
         </select>
     </div>
 
@@ -47,11 +58,21 @@
 
     <div class="col-md-3">
         <label class="form-control-label">Estado</label>
-        <select required class="form-control" name="id_category" value="{{isset($stage->id_category)?$stage->id_category:''}}">
-            <option value="">Seleccionar</option>
-            <option value="1">Malo</option>
-            <option value="2">Regular</option>
-            <option value="3">Bueno</option>
+        <select required class="form-control" name="id_category" >
+           @if (isset($stage->id_category))
+             @foreach ($states as $state)
+                @if ($state->id == $stage->id_category)
+                    <option value="{{$state->id}}" selected>{{$state->name}}</option>
+                @else
+                    <option value="{{$state->id}}">{{$state->name}}</option>
+                @endif
+             @endforeach
+           @else
+             @foreach ($states as $state)
+               <option value="{{$state->id}}">{{$state->name}}</option>
+             @endforeach
+           @endif
+            
         </select>
     </div>
 

@@ -14,7 +14,7 @@
                     <hr>
                   <ul>
                       <li><a href="{{url('/discipline')}}" class="">Disciplinas</a></li>
-                      <li><a href="{{url('/escenario')}}" class="">Estado de los escenarios</a></li>
+                      <li><a href="{{url('/states')}}" class="">Estado de los escenarios</a></li>
                       <li><a href="#" class="">Estado de los inventarios</a></li>
                   </ul> 
                 </div>

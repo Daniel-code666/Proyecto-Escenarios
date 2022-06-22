@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\MiscListStatesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,3 +66,7 @@ Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrad
 Route::get('icons', function () {return view('pages.icons');})->name('icons')->middleware(['auth', 'idrole']); 
 Route::get('table-list', function () {return view('pages.tables');})->name('table')->middleware(['auth', 'idrole']);
 Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password'])->middleware(['auth', 'idrole']);
+
+
+//MiscListStates
+Route::resource('states', App\Http\Controllers\MiscListStatesController::class)->middleware(['auth', 'idrole']);

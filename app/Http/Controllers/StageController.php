@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stage;
 use App\Models\Disciplines;
+use App\Models\MiscListStates;
 use App\Models\Understage;
 use DateTime;
 use Illuminate\Http\Request;
@@ -46,7 +47,8 @@ class StageController extends Controller
     public function create()
     {
         $disciplines = Disciplines::all();
-        return view('pages.stages.add', compact('disciplines'));
+        $states = MiscListStates::all();
+        return view('pages.stages.add', compact('disciplines', 'states'));
     }
 
     /**
@@ -83,12 +85,12 @@ class StageController extends Controller
         //$stage = Stage::find($id);
 
         $stageDef = Stage::find($id);
-
+        $states = MiscListStates::all();
         $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
                 ->where('id', $stageDef->id)
                 ->first();
 
-        return view('pages.stages.guestStagesView', compact('stage'));
+        return view('pages.stages.guestStagesView', compact('stage', 'states'));
     }
 
     /**
@@ -101,7 +103,8 @@ class StageController extends Controller
     {
         $disciplines = Disciplines::all();
         $stage = Stage::findOrFail($id);
-        return view('pages.stages.edit', compact('stage'), compact('disciplines'));
+        $states = MiscListStates::all();
+        return view('pages.stages.edit', compact('stage', 'states'), compact('disciplines'));
     }
 
     /**
