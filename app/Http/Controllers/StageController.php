@@ -47,7 +47,7 @@ class StageController extends Controller
     public function create()
     {
         $disciplines = Disciplines::all();
-        $states = MiscListStates::all();
+        $states = MiscListStates::where("tableParent","=",'stages')->get();
         return view('pages.stages.add', compact('disciplines', 'states'));
     }
 
@@ -85,7 +85,7 @@ class StageController extends Controller
         //$stage = Stage::find($id);
 
         $stageDef = Stage::find($id);
-        $states = MiscListStates::all();
+        $states = MiscListStates::where("tableParent","=",'stages')->get();
         $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
                 ->where('id', $stageDef->id)
                 ->first();
@@ -103,7 +103,7 @@ class StageController extends Controller
     {
         $disciplines = Disciplines::all();
         $stage = Stage::findOrFail($id);
-        $states = MiscListStates::all();
+        $states = MiscListStates::where("tableParent","=",'stages')->get();
         return view('pages.stages.edit', compact('stage', 'states'), compact('disciplines'));
     }
 
