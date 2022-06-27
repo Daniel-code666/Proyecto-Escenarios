@@ -15,8 +15,7 @@ class MiscListStatesController extends Controller
      */
     public function index()
     {
-        $misclist['misclist'] = MiscListStates::where("tableParent","=",'stages')->paginate(10);
-    
+        $misclist['misclist'] = MiscListStates::where("tableParent","=",'stages')->paginate(10);  
         return view('pages.misclist.admin', $misclist);
     }
 

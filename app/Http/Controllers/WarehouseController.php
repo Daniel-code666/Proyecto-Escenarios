@@ -25,7 +25,8 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        $warehouse = warehouse::all();
+        return view('pages.inventary.warehouse.add', compact('warehouse'));
     }
 
     /**
@@ -36,7 +37,13 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->except('_token');
+        $dataToSend = new warehouse();
+        $dataToSend = $data;
+
+        warehouse::insert($dataToSend);
+
+        return redirect('/almacen')->with('mensaje','Almacén creada con éxito.');
     }
 
     /**
@@ -45,9 +52,10 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function show(warehouse $warehouse)
+    public function show($id)
     {
-        //
+        $warehouse = warehouse::find($id);
+        return view('pages.inventary.warehouse.show', compact('warehouse'));
     }
 
     /**
@@ -56,9 +64,10 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function edit(warehouse $warehouse)
+    public function edit($id)
     {
-        //
+        $warehouse = warehouse::find($id);
+        return view('pages.inventary.warehouse.edit', compact('warehouse'));
     }
 
     /**
@@ -68,9 +77,14 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, warehouse $warehouse)
+    public function update(Request $request, $id)
     {
-        //
+        $datos = request()->except('_token','_method');
+
+        $datosToSend = new warehouse();
+        $datosToSend = $datos;  
+        warehouse::where('id','=',$id)->update($datosToSend);
+        return redirect('/almacen')->with('mensaje','Almacén editado con éxito.');
     }
 
     /**
@@ -79,8 +93,9 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(warehouse $warehouse)
+    public function destroy($id)
     {
-        //
+        warehouse::destroy($id);   
+        return redirect('/almacen')->with('mensaje','Almacén eliminado con éxito.');
     }
 }
