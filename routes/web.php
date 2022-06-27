@@ -31,42 +31,53 @@ Auth::routes();
 
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// main page
 Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
 
 // Route::get('/verify', [App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verify');
 
 //Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
+// user login
 Route::post('/Login', 'App\Http\Controllers\Auth\LoginController@Login')->name('Login');
 
+// update & edit user info
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 });
 
+// register users
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware(['auth', 'idrole']);
+
+// maps
 Route::get('map', function () {return view('pages.Maps.stagesLocations');})->name('map')->middleware(['auth', 'idrole']);
 
-Route::resource('escenario', App\Http\Controllers\StageController::class)->middleware(['auth', 'idrole']);
+// generate PDF for stages
 Route::get('genpdf/{id}', 'App\Http\Controllers\StageController@pdfStageGeneral')->name('genpdf')->middleware(['auth', 'idrole']);
 
+// disciplines
 Route::resource('discipline', App\Http\Controllers\DisciplinesController::class)->middleware(['auth', 'idrole']);
 
-Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
+// generate PDF for understages
 Route::get('genunderstpdf{idUnderstage}', 'App\Http\Controllers\UnderstageController@pdfUnderstageGeneral')->name('genunderstpdf')->middleware(['auth', 'idrole']);
 
+// stages
+Route::resource('escenario', App\Http\Controllers\StageController::class)->middleware(['auth', 'idrole']);
 Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
 Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');
 Route::get('viewStageInfo/{id}', 'App\Http\Controllers\StageController@viewStageInfo')->name('viewStageInfo');
 
+// understages
+Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
 Route::get('listUnderSt', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');
 
+// user profile
 Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade')->middleware(['auth', 'idrole']); 
 Route::get('icons', function () {return view('pages.icons');})->name('icons')->middleware(['auth', 'idrole']); 
 Route::get('table-list', function () {return view('pages.tables');})->name('table')->middleware(['auth', 'idrole']);
 Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password'])->middleware(['auth', 'idrole']);
-
 
 //MiscListStates
 Route::resource('states', App\Http\Controllers\MiscListStatesController::class)->middleware(['auth', 'idrole']);

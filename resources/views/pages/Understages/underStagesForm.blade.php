@@ -10,7 +10,7 @@
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline_understg" value="{{isset($underStage->discipline_understg)?$underStage->discipline_understg:''}}">
             @foreach ($disciplines as $discipline)
-                <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
+            <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
             @endforeach
         </select>
     </div>
@@ -19,7 +19,7 @@
         <label class="form-control-label">Escenario principal</label>
         <select class="form-control" name="idStage" value="{{isset($underStage->idStage)?$underStage->idStage:''}}">
             @foreach ($stages as $stage)
-                <option value="{{$stage->id}}">{{$stage->name}}</option>
+            <option value="{{$stage->id}}">{{$stage->name}}</option>
             @endforeach
         </select>
     </div>
@@ -44,7 +44,7 @@
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del escenario</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="description_understg">{{isset($underStage->description_understg)?$underStage->description_understg:''}}</textarea>
-          </div>
+        </div>
     </div>
 </div>
 
@@ -66,7 +66,7 @@
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del estado</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="message_state_understg">{{isset($underStage->message_state_understg)?$underStage->message_state_understg:''}}</textarea>
-          </div>
+        </div>
     </div>
 
 </div>
@@ -93,7 +93,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Direccion</label>
-            <input class="form-control" type="text" name="address_understg" value="{{isset($underStage->address_understg)?$underStage->address_understg:''}}"  id="address">
+            <input class="form-control" type="text" name="address_understg" value="{{isset($underStage->address_understg)?$underStage->address_understg:''}}" id="address">
         </div>
     </div>
 
@@ -107,17 +107,17 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Longitud</label>
-            <input class="form-control" type="text" name="longitude_understg" value="{{isset($underStage->longitude_understg)?$underStage->longitude_understg:''}}"id="lng" readonly="true">
+            <input class="form-control" type="text" name="longitude_understg" value="{{isset($underStage->longitude_understg)?$underStage->longitude_understg:''}}" id="lng" readonly="true">
         </div>
     </div>
-   
+
 </div>
 
 <!--Quinta fila-->
 <div class="row">
     <div class="col">
         <div class="card border-0">
-          <div id="map-default" class="map-canvas" style="height: 500px;"></div>
+            <div id="map-default" class="map-canvas" style="height: 500px;"></div>
         </div>
     </div>
 </div>

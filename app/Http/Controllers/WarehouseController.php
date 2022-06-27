@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\warehouse;
 use Illuminate\Http\Request;
+use App\Models\Stage;
 
 class WarehouseController extends Controller
 {
@@ -14,7 +15,10 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        $warehouses['warehouses'] = warehouse::paginate(5);
+        // $warehouses['warehouses'] = warehouse::paginate(5);
+        $warehouses['warehouses'] = warehouse::join('stages', 
+        'stages.id', '=', 'warehouses.warehouseLocation')->paginate(10);
+
         return view('pages.inventary.warehouse.admin', $warehouses);
     }
 
@@ -25,8 +29,8 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        $warehouse = warehouse::all();
-        return view('pages.inventary.warehouse.add', compact('warehouse'));
+        $stages = Stage::all();
+        return view('pages.inventary.warehouse.add', compact('stages'));
     }
 
     /**
@@ -43,7 +47,7 @@ class WarehouseController extends Controller
 
         warehouse::insert($dataToSend);
 
-        return redirect('/almacen')->with('mensaje','Almacén creada con éxito.');
+        return redirect('/almacen')->with('mensaje','Almacén creado con éxito.');
     }
 
     /**
@@ -52,9 +56,9 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($warehouseId)
     {
-        $warehouse = warehouse::find($id);
+        $warehouse = warehouse::find($warehouseId);
         return view('pages.inventary.warehouse.show', compact('warehouse'));
     }
 
@@ -64,10 +68,11 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($warehouseId)
     {
-        $warehouse = warehouse::find($id);
-        return view('pages.inventary.warehouse.edit', compact('warehouse'));
+        $warehouse = warehouse::find($warehouseId);
+        $stages = Stage::all();
+        return view('pages.inventary.warehouse.edit', compact('warehouse', 'stages'));
     }
 
     /**
@@ -77,13 +82,13 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $warehouseId)
     {
         $datos = request()->except('_token','_method');
 
         $datosToSend = new warehouse();
         $datosToSend = $datos;  
-        warehouse::where('id','=',$id)->update($datosToSend);
+        warehouse::where('warehouseId','=', $warehouseId)->update($datosToSend);
         return redirect('/almacen')->with('mensaje','Almacén editado con éxito.');
     }
 
@@ -93,9 +98,9 @@ class WarehouseController extends Controller
      * @param  \App\Models\warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($warehouseId)
     {
-        warehouse::destroy($id);   
+        warehouse::destroy($warehouseId);   
         return redirect('/almacen')->with('mensaje','Almacén eliminado con éxito.');
     }
 }
