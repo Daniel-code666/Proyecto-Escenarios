@@ -124,22 +124,36 @@
                             </li>
                         </ul>
                     </div>
-                    {{-- <a class="nav-link" href="{{ url('/escenario') }}">
-                        <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
-                    </a> --}}
-
                 </li>
 
+                <!--Inventarios -->
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-examples-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-3">
+                        <i class="ni ni-app text-blue"></i> {{ __('Inventarios') }}
+                    </a>
+                    <div class="collapse show" id="navbar-examples-3">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a  class="nav-link" href="{{ url('/item') }}">
+                                    <i class="ni ni-archive-2 text-blue"></i> {{ __('Items') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/almacen') }}">
+                                    <i class="ni ni-shop text-blue"></i>{{ __('Almacenes') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+{{-- 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/discipline') }}">
                         <i class="ni ni-user-run text-blue"></i> {{ __('Disciplinas') }}
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('inventary') }}">
-                        <i class="ni ni-app text-blue"></i> {{ __('Inventario') }}
-                    </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('icons') }}">

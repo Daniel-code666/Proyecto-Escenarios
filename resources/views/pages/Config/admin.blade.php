@@ -8,17 +8,17 @@
     <hr>
     <div class="row m-2">
         <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 100%;">
                 <div class="card-body">
                   <h5 class="card-title text-center" style="font-size: 20px">Parametrizaciones</h5>
                     <hr>
-                  <ul>
-                      <li><a href="{{url('/discipline')}}" class="">Disciplinas</a></li>
-                      <li><a href="{{url('/states')}}" class="">Estado de los escenarios</a></li>
-                      <li><a href="#" class="">Estado de los inventarios</a></li>
+                  <ul style="list-style: none">
+                      <li><a href="{{url('/discipline')}}" class=""><i class="ni ni-user-run text-purple"></i> Disciplinas</a></li>
+                      <li><a href="{{url('/states')}}" class=""><i class="ni ni-bullet-list-67 text-purple"></i> Estado de los escenarios</a></li>
+                      <li><a href="#" class=""><i class="ni ni-bullet-list-67 text-purple"></i> Estado de los inventarios</a></li>
                   </ul> 
                 </div>
-              </div>
+             </div>
         </div>
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">

@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\MiscListStatesController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\WarehouseController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,9 +62,6 @@ Route::get('viewStageInfo/{id}', 'App\Http\Controllers\StageController@viewStage
 Route::get('listUnderSt', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');
 
-Route::resource('config', App\Http\Controllers\ConfigurationController::class)->middleware(['auth', 'idrole']);
-
-Route::get('inventarios', function () {return view('pages.inventary');})->name('inventary')->middleware(['auth', 'idrole']);
 Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade')->middleware(['auth', 'idrole']); 
 Route::get('icons', function () {return view('pages.icons');})->name('icons')->middleware(['auth', 'idrole']); 
 Route::get('table-list', function () {return view('pages.tables');})->name('table')->middleware(['auth', 'idrole']);
@@ -70,3 +70,10 @@ Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\
 
 //MiscListStates
 Route::resource('states', App\Http\Controllers\MiscListStatesController::class)->middleware(['auth', 'idrole']);
+
+//Config
+Route::resource('config', App\Http\Controllers\ConfigurationController::class)->middleware(['auth', 'idrole']);
+
+//Inventary
+Route::resource('item', App\Http\Controllers\ItemController::class)->middleware(['auth', 'idrole']);
+Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);
