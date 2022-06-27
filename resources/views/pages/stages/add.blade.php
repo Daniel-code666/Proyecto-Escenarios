@@ -9,11 +9,9 @@
             <div class="card-body">
               <h2 class="card-title">Crear escenario</h2>
               <hr>
-             
               <form  action="{{ url('/escenario') }} "method="post" enctype="multipart/form-data">
                 @csrf
-                @include('pages.stages.form')          
-               
+                @include('pages.stages.form')
               </form>
             </div>
         </div>

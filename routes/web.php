@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware(['auth', 'idrole']);
-Route::get('map', function () {return view('pages.maps');})->name('map')->middleware(['auth', 'idrole']);
+Route::get('map', function () {return view('pages.Maps.stagesLocations');})->name('map')->middleware(['auth', 'idrole']);
 
 Route::resource('escenario', App\Http\Controllers\StageController::class)->middleware(['auth', 'idrole']);
 Route::get('genpdf/{id}', 'App\Http\Controllers\StageController@pdfStageGeneral')->name('genpdf')->middleware(['auth', 'idrole']);

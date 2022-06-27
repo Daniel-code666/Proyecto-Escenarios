@@ -141,11 +141,6 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-single-copy-04 text-default"></i> {{ __('Reportes') }}
-                    </a>
-                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('map') }}">
                         <i class="ni ni-pin-3 text-orange"></i> {{ __('Mapa de escenarios') }}
@@ -158,8 +153,8 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('table') }}">
-                      <i class="ni ni-bullet-list-67 text-default"></i>
-                      <span class="nav-link-text">Tables</span>
+                        <i class="ni ni-bullet-list-67 text-default"></i>
+                        <span class="nav-link-text">Tables</span>
                     </a>
                 </li>
                 {{-- <li class="nav-item">
