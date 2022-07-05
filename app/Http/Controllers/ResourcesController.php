@@ -56,8 +56,8 @@ class ResourcesController extends Controller
             $datosToSend = new Resources();
             $datosToSend = (array) $tempObj;  
 
-            if($request->hasFile('photo')){
-                $datosToSend['photo']=$request->file('photo')->store('uploads','public');
+            if($request->hasFile('resourcePhoto')){
+                $datosToSend['resourcePhoto']=$request->file('resourcePhoto')->store('uploads','public');
             }
             Resources::insert($datosToSend);
             return redirect('/item')->with('mensaje','Recurso creado con éxito.');
@@ -68,8 +68,8 @@ class ResourcesController extends Controller
 
         // $datosToSend->created_at = Resources::now()->toTimeString();
         // $datosToSend->updated_at = Resources::now()->toTimeString();
-        if($request->hasFile('photo')){
-            $datosToSend['photo']=$request->file('photo')->store('uploads','public');
+        if($request->hasFile('resourcePhoto')){
+            $datosToSend['resourcePhoto']=$request->file('resourcePhoto')->store('uploads','public');
         }
         Resources::insert($datosToSend);
         //return response()->json($datosToSend);
