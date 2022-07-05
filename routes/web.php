@@ -86,5 +86,5 @@ Route::resource('states', App\Http\Controllers\MiscListStatesController::class)-
 Route::resource('config', App\Http\Controllers\ConfigurationController::class)->middleware(['auth', 'idrole']);
 
 //Inventary
-Route::resource('item', App\Http\Controllers\ItemController::class)->middleware(['auth', 'idrole']);
+Route::resource('item', App\Http\Controllers\ResourcesController::class)->middleware(['auth', 'idrole']);
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);

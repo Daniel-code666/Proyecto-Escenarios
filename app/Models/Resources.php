@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Resources extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'idResource';
 }
