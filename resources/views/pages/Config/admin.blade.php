@@ -15,7 +15,7 @@
                   <ul style="list-style: none">
                       <li><a href="{{url('/discipline')}}" class=""><i class="ni ni-user-run text-purple"></i> Disciplinas</a></li>
                       <li><a href="{{url('/states')}}" class=""><i class="ni ni-bullet-list-67 text-purple"></i> Estado de los escenarios</a></li>
-                      <li><a href="#" class=""><i class="ni ni-bullet-list-67 text-purple"></i> Estado de los inventarios</a></li>
+                      <li><a href="{{url('/inventarystates')}}" class=""><i class="ni ni-bullet-list-67 text-purple"></i> Estado de los inventarios</a></li>
                   </ul> 
                 </div>
              </div>
@@ -28,7 +28,7 @@
                   <ul>
                       <li><a href="{{url('/discipline')}}" class="">Disciplinas</a></li>
                       <li><a href="{{url('/escenario')}}" class="">Estado de los escenarios</a></li>
-                      <li><a href="#" class="">Estado de los inventarios</a></li>
+                      <li><a href="{{url('/inventarystates')}}" class="">Estado de los inventarios</a></li>
                   </ul> 
                 </div>
               </div>

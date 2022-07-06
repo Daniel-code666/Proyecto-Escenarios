@@ -9,6 +9,7 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\MiscListStatesController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\MiscListStatesInventaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +82,7 @@ Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\
 
 //MiscListStates
 Route::resource('states', App\Http\Controllers\MiscListStatesController::class)->middleware(['auth', 'idrole']);
+Route::resource('inventarystates', App\Http\Controllers\MiscListStatesInventaryController::class)->middleware(['auth', 'idrole']);
 
 //Config
 Route::resource('config', App\Http\Controllers\ConfigurationController::class)->middleware(['auth', 'idrole']);
