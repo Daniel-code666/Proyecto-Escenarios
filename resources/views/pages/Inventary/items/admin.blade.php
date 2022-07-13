@@ -52,7 +52,7 @@
                     <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
                         @csrf
                         {{method_field('DELETE')}}
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Quieres eliminar el almacén?')"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Quieres eliminar ese recurso?')"><i class="fas fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
