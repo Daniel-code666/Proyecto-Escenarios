@@ -75,6 +75,68 @@
                     <h3>{{$stage->descripcion}}</h3>
                 </div>
 
+                <div class="row offset-0">
+                    <h4>Almacenes asociados</h4>
+                </div>
+                <div class="card-body px-lg-3 py-lg-3">
+                    <div class="table-responsive m-2">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort">Id</th>
+                                    <th scope="col" class="sort">Nombre</th>
+                                    <th scope="col" class="sort">Escenario</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @foreach($arrStages as $arrstg)
+                                    <!-- @for($i = 0; $i < count($arrstg); $i++)
+                                        <td>{{$arrstg[$i]->warehouseId}}</td>
+                                        <td>{{$arrstg[$i]->warehouseName}}</td>
+                                        <td>{{$arrstg[$i]->name}}</td>
+                                        <td>{{$arrstg[$i]->resourceName}}</td>
+                                    @endfor -->
+                                    @foreach($arrstg as $arrSt)
+                                        <tr>
+                                            <td>{{ $arrSt->warehouseId }}</td>
+                                            <td>{{ $arrSt->warehouseName }}</td>
+                                            <td>{{ $arrSt->name }} </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row offset-0">
+                    <h4>Inventarios</h4>
+                </div>
+                <div class="card-body px-lg-3 py-lg-3">
+                    <div class="table-responsive m-2">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort">Id</th>
+                                    <th scope="col" class="sort">Nombre</th>
+                                    <th scope="col" class="sort">Almacén</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @foreach($arrStages as $arrstg)
+                                    @foreach($arrstg as $arrSt)
+                                        <tr>
+                                            <td>{{ $arrSt->idResource }}</td>
+                                            <td>{{ $arrSt->resourceName }}</td>
+                                            <td>{{ $arrSt->warehouseName }} </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 @if($understages->isEmpty())
                     <div class="row offset-0">
                         <h4><strong>Este escenario no tiene sub escenarios asociados</strong></h4>
@@ -88,26 +150,26 @@
                             <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                <th scope="col" class="sort" data-sort="name">Id</th>
-                                <th scope="col" class="sort" data-sort="status">Foto</th>
-                                <th scope="col" class="sort" data-sort="budget">Nombre</th>
-                                <th scope="col" class="sort" data-sort="completion">Dirección</th>
-                                <th scope="col" class="sort" data-sort="completion">Disciplina</th>
-                                <th scope="col" class="sort" data-sort="completion">Acciones</th>
+                                    <th scope="col" class="sort" data-sort="name">Id</th>
+                                    <th scope="col" class="sort" data-sort="status">Foto</th>
+                                    <th scope="col" class="sort" data-sort="budget">Nombre</th>
+                                    <th scope="col" class="sort" data-sort="completion">Dirección</th>
+                                    <th scope="col" class="sort" data-sort="completion">Disciplina</th>
+                                    <th scope="col" class="sort" data-sort="completion">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
                                 @foreach ($understages as $understage)
-                                <tr>
-                                <td>{{$understage->idUnderstage}}</td>
-                                <td><img src="{{asset('storage').'/'.$understage->photo_understg}}" alt="" width="100"></td>
-                                <td>{{$understage->name_understg}}</td>
-                                <td>{{$understage->address_understg}}</td>
-                                <td>{{$understage->discipline_name}}</td>
-                                <td>
-                                    <a type="button" class="btn btn-info" href="{{ route('showUnderSt', ['idUnderstage'=>$understage->idUnderstage]) }}">Ver</a>
-                                </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{$understage->idUnderstage}}</td>
+                                        <td><img src="{{asset('storage').'/'.$understage->photo_understg}}" alt="" width="100"></td>
+                                        <td>{{$understage->name_understg}}</td>
+                                        <td>{{$understage->address_understg}}</td>
+                                        <td>{{$understage->discipline_name}}</td>
+                                        <td>
+                                            <a type="button" class="btn btn-info" href="{{ route('showUnderSt', ['idUnderstage'=>$understage->idUnderstage]) }}">Ver</a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                             </table>
