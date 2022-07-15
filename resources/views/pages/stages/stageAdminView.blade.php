@@ -99,7 +99,7 @@
                         </li>
                     </ul>
 
-                    <div class="tab-content" style="padding-left: 210px">
+                    <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="warehouse-section">
                             @if($stageWarehouse->isEmpty())
                             <div class="row offset-0">
@@ -117,6 +117,7 @@
                                                 <th scope="col" class="sort">Id</th>
                                                 <th scope="col" class="sort">Nombre</th>
                                                 <th scope="col" class="sort">Descripción</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody class="list">
@@ -125,6 +126,21 @@
                                                 <td>{{ $stWarehouse->warehouseId }}</td>
                                                 <td>{{ $stWarehouse->warehouseName }}</td>
                                                 <td>{{ $stWarehouse->warehouseDescription }}</td>
+                                                <td class="text-right">
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                            <a class="dropdown-item" href="{{ url('/almacen/'.$stWarehouse->warehouseId.'/edit') }}">Editar</a>
+                                                            <form action="{{ url('/almacen/'.$stWarehouse->warehouseId) }} " method="post" style="display: inline-block">
+                                                                @csrf
+                                                                {{method_field('DELETE')}}
+                                                                <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el almacén?')">Eliminar</a>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -158,6 +174,7 @@
                                                 <th scope="col" class="sort">Nombre</th>
                                                 <th scope="col" class="sort">Cantidad</th>
                                                 <th scope="col" class="sort">Almacén</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody class="list">
@@ -168,6 +185,21 @@
                                                 <td>{{ $arrSt->resourceName }}</td>
                                                 <td>{{ $arrSt->amount }}</td>
                                                 <td>{{ $arrSt->warehouseName }} </td>
+                                                <td class="text-right">
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                            <a class="dropdown-item" href="{{ url('/item/'.$arrSt->idResource.'/edit') }}">Editar</a>
+                                                            <form action="{{ url('/item/'.$arrSt->idResource) }} " method="post" style="display: inline-block">
+                                                                @csrf
+                                                                {{method_field('DELETE')}}
+                                                                <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</a>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             @endforeach
                                             @endforeach
