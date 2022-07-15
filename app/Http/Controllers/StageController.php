@@ -174,8 +174,6 @@ class StageController extends Controller
 
         foreach($stageWarehouse as $sw)
         {
-            $sw->warehouseId;
-
             $stageComplete = Stage::join('warehouses', 'warehouses.warehouseLocation', '=', 'stages.id')
                         ->join('resources', 'resources.resources_warehouseId', '=', 'warehouses.warehouseId')
                         ->where('id', $stageDef->id)->where('warehouseId', $sw->warehouseId)->get();
