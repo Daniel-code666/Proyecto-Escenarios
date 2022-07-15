@@ -90,12 +90,6 @@
                             </thead>
                             <tbody class="list">
                                 @foreach($arrStages as $arrstg)
-                                    <!-- @for($i = 0; $i < count($arrstg); $i++)
-                                        <td>{{$arrstg[$i]->warehouseId}}</td>
-                                        <td>{{$arrstg[$i]->warehouseName}}</td>
-                                        <td>{{$arrstg[$i]->name}}</td>
-                                        <td>{{$arrstg[$i]->resourceName}}</td>
-                                    @endfor -->
                                     @foreach($arrstg as $arrSt)
                                         <tr>
                                             <td>{{ $arrSt->warehouseId }}</td>
