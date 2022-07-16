@@ -3,6 +3,8 @@
 @section('content')
 @include('layouts.headers.sharedmargin')
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 @if (Session::has('mensaje'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <span class="alert-text">{{Session::get('mensaje')}}

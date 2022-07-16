@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
@@ -10,19 +12,19 @@
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline">
             @if (isset($stage->discipline))
-                @foreach ($disciplines as $discipline)
-                    @if ($discipline->disciplineId == $stage->discipline)
-                        <option value="{{$discipline->disciplineId}}" selected>{{$discipline->discipline_name}}</option>
-                    @else
-                    <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
-                    @endif
-                @endforeach
+            @foreach ($disciplines as $discipline)
+            @if ($discipline->disciplineId == $stage->discipline)
+            <option value="{{$discipline->disciplineId}}" selected>{{$discipline->discipline_name}}</option>
             @else
-                @foreach ($disciplines as $discipline)
-                    <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>   
-                @endforeach    
+            <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
             @endif
-            
+            @endforeach
+            @else
+            @foreach ($disciplines as $discipline)
+            <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
+            @endforeach
+            @endif
+
         </select>
     </div>
 
@@ -58,19 +60,19 @@
 
     <div class="col-md-3">
         <label class="form-control-label">Estado</label>
-        <select required class="form-control" name="id_category" >
+        <select required class="form-control" name="id_category">
             @if (isset($stage->id_category))
-                @foreach ($states as $state)
-                    @if ($state->id == $stage->id_category)
-                        <option value="{{$state->id}}" selected>{{$state->name}}</option>
-                    @else
-                        <option value="{{$state->id}}">{{$state->name}}</option>
-                    @endif
-                @endforeach
+            @foreach ($states as $state)
+            @if ($state->id == $stage->id_category)
+            <option value="{{$state->id}}" selected>{{$state->name}}</option>
             @else
-                @foreach ($states as $state)
-                <option value="{{$state->id}}">{{$state->name}}</option>
-                @endforeach
+            <option value="{{$state->id}}">{{$state->name}}</option>
+            @endif
+            @endforeach
+            @else
+            @foreach ($states as $state)
+            <option value="{{$state->id}}">{{$state->name}}</option>
+            @endforeach
             @endif
         </select>
     </div>
@@ -107,7 +109,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Direccion</label>
-            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}"  id="address">
+            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}" id="address">
         </div>
     </div>
 
@@ -121,7 +123,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Longitud</label>
-            <input class="form-control" type="text" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:''}}"id="lng" readonly="true">
+            <input class="form-control" type="text" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:''}}" id="lng" readonly="true">
         </div>
     </div>
 </div>
