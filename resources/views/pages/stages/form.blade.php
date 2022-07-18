@@ -88,7 +88,6 @@
 
 <!-- Cuarta fila -->
 
-
 <div class="col">
     <label for="example-text-input" class="form-control-label">Seleccionar Imagen</label>
     <br>
@@ -102,7 +101,7 @@
 <h2 class="card-title">Añadir ubicación del escenario</h2>
 <hr>
 
-<!-- Segunda fila -->
+<!-- Quinta fila -->
 
 <div class="row">
 
@@ -128,7 +127,7 @@
     </div>
 </div>
 
-<!--Quinta fila-->
+<!--Sexta fila-->
 <div class="row">
     <div class="col">
         <div class="card border-0">

@@ -96,7 +96,7 @@ class ResourcesController extends Controller
      */
     public function edit($idResource)
     {
-        $warehouses = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')->paginate(1000);
+        $warehouses = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')->get();
         $states = MiscListStates::where("tableParent","=",'inventary')->get();
         $resource = Resources::FindOrFail($idResource);
         return view('pages.Inventary.items.edit', compact('warehouses', 'states', 'resource'));
