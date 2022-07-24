@@ -33,15 +33,15 @@
                     </div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
-                        <span>{{ __('My profile') }}</span>
+                        <span>{{ __('Ver perfil') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+{{--                     <a href="#" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Settings') }}</span>
                     </a>
                     <a href="#" class="dropdown-item">
                         <i class="ni ni-calendar-grid-58"></i>
-                        <span>{{ __('Activity') }}</span>
+                        <span>{{ __('Activity') }}</span> --}}
                     </a>
                     <a href="#" class="dropdown-item">
                         <i class="ni ni-support-16"></i>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -26,12 +28,18 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
-        if (auth()->user()->id == 1) {
-            return back()->withErrors(['not_allow_profile' => __('You are not allowed to change data for a default user.')]);
+
+        $datos = request()->except('_token','_method');
+
+        $datosToSend = new User();
+        $datosToSend = $datos;  
+
+        if($request->hasFile('photo')){
+            $user = User::findOrFail(auth()->user()->id);
+            Storage::delete('public/'.$user->photo);
+            $datosToSend['photo']=$request->file('photo')->store('uploads','public');
         }
-
-        auth()->user()->update($request->all());
-
+        User::where('id','=',auth()->user()->id)->update($datosToSend);
         return back()->withStatus(__('Datos actualizados correctamente'));
     }
 
@@ -43,9 +51,9 @@ class ProfileController extends Controller
      */
     public function password(PasswordRequest $request)
     {
-        if (auth()->user()->id == 1) {
+/*         if (auth()->user()->id == 1) {
             return back()->withErrors(['not_allow_password' => __('You are not allowed to change the password for a default user.')]);
-        }
+        } */
 
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 

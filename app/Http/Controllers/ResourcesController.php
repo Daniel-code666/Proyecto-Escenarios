@@ -34,7 +34,7 @@ class ResourcesController extends Controller
     public function create()
     {
         $warehouses = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')->paginate(1000);
-        $states = MiscListStates::where("tableParent","=",'stages')->get();
+        $states = MiscListStates::where("tableParent","=",'inventary')->get();
         return view('pages.Inventary.items.add', compact('warehouses', 'states'));
     }
 

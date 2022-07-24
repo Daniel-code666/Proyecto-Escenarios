@@ -24,16 +24,16 @@
                     </div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
-                        <span>{{ __('My profile') }}</span>
+                        <span>{{ __('Mi Perfil') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+{{--                     <a href="#" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Settings') }}</span>
                     </a>
                     <a href="#" class="dropdown-item">
                         <i class="ni ni-calendar-grid-58"></i>
                         <span>{{ __('Activity') }}</span>
-                    </a>
+                    </a> --}}
                     <a href="#" class="dropdown-item">
                         <i class="ni ni-support-16"></i>
                         <span>{{ __('Support') }}</span>
@@ -78,33 +78,37 @@
             </form>
             <!-- Navigation -->
             <ul class="navbar-nav">
-                <li class="nav-item">
+{{--                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Home') }}
                     </a>
-                </li>
+                </li> --}}
                 
+                @auth()
+                @if(auth()->user()->role_idrole == 1)
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="ni ni-settings" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Zona del administrador') }}</span>
+                        <i class="ni ni-settings" style="color: purple;"></i>
+                        <span class="nav-link-text" style="color: purple;">{{ __('Administrador') }}</span>
                     </a>
 
                     <div class="collapse show" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+{{--                             <li class="nav-item">
                                 <a  class="nav-link" href="{{ route('profile.edit') }}">
-                                    <i class="ni ni-circle-08 text-pink"></i> {{ __('Perfil de usuario') }}
+                                    <i class="ni ni-circle-08 text-purple"></i> {{ __('Perfil de usuario') }}
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.index') }}">
-                                    <i class="ni ni-badge"></i>{{ __('Administrar usuarios') }}
+                                    <i class="ni ni-badge text-purple"></i>{{ __('Administrar usuarios') }}
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+                @endif
+                @endauth
 
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples-2" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-2">
@@ -114,12 +118,12 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a  class="nav-link" href="{{ url('/escenario') }}">
-                                    <i class="ni ni-building"></i> {{ __('Principales') }}
+                                    <i class="ni ni-building text-blue"></i> {{ __('Principales') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/understage') }}">
-                                    <i class="ni ni-building text-orange"></i>{{ __('Sub escenarios') }}
+                                    <i class="ni ni-building text-blue"></i>{{ __('Sub escenarios') }}
                                 </a>
                             </li>
                         </ul>
@@ -148,6 +152,33 @@
                     </div>
                 </li>
 
+                <!--Reportes -->
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-examples-4" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-4">
+                        <i class="ni ni-chart-bar-32 text-blue"></i> {{ __('Reportes') }}
+                    </a>
+                    <div class="collapse show" id="navbar-examples-4">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a  class="nav-link" href="{{ url('/item') }}">
+                                    <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/almacen') }}">
+                                    <i class="ni ni-app text-blue"></i>{{ __('Inventarios') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/almacen') }}">
+                                    <i class="ni ni-single-copy-04 text-blue"></i>{{ __('Otros') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
 {{-- 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/discipline') }}">
@@ -157,20 +188,20 @@
 
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Mapa de escenarios') }}
+                        <i class="ni ni-map-big text-blue"></i> {{ __('Mapa de escenarios') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/config') }}">
-                        <i class="ni ni-settings-gear-65"></i> {{ __('Configuraciones') }}
+                        <i class="ni ni-settings-gear-65 text-blue"></i> {{ __('Configuraciones') }}
                     </a>
                 </li>
-                <li class="nav-item">
+{{--                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('table') }}">
                         <i class="ni ni-bullet-list-67 text-default"></i>
                         <span class="nav-link-text">Tables</span>
                     </a>
-                </li>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
@@ -183,7 +214,7 @@
             <h6 class="navbar-heading text-muted">Soporte</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
-                <li class="nav-item">
+{{--                 <li class="nav-item">
                     <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/getting-started/overview.html">
                         <i class="ni ni-spaceship"></i> Manual del sitio
                     </a>
@@ -192,10 +223,10 @@
                     <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/foundation/colors.html">
                         <i class="ni ni-palette"></i> Documentación
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Contacto
+                </li> --}}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ route('map') }}">
+                        <i class="ni ni-support-16 text-blue"></i> {{ __('Soporte') }}
                     </a>
                 </li>
             </ul>

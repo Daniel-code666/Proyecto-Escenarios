@@ -228,9 +228,9 @@ var Navbar = (function() {
 
 	// Methods
 
-	function accordion($this) {
+ 	function accordion($this) {
 		$this.closest($nav).find($collapse).not($this).collapse('hide');
-	}
+	} 
 
     function closeDropdown($this) {
         var $dropdownMenu = $this.find('.dropdown-menu');

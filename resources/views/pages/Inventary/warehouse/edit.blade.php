@@ -10,7 +10,7 @@
               <h2 class="card-title">Editar Almacén</h2>
               <hr>
              
-              <form  action="{{ url('/almacen/'.$warehouse->id) }} "method="post" enctype="multipart/form-data">
+              <form  action="{{ url('/almacen/'.$warehouse->warehouseId) }} "method="post" enctype="multipart/form-data">
                 @csrf
                 {{method_field('PUT')}}
                 @include('pages.inventary.warehouse.form')          
