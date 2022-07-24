@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Stage;
 use App\Models\warehouse;
 use App\Models\MiscListStates;
+use Illuminate\Support\Facades\Storage;
 
 class ResourcesController extends Controller
 {
@@ -33,7 +34,7 @@ class ResourcesController extends Controller
      */
     public function create()
     {
-        $warehouses = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')->paginate(1000);
+        $warehouses = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')->get();
         $states = MiscListStates::where("tableParent","=",'inventary')->get();
         return view('pages.Inventary.items.add', compact('warehouses', 'states'));
     }
@@ -95,9 +96,10 @@ class ResourcesController extends Controller
      */
     public function edit($idResource)
     {
-        $stages = Stage::all();
+        $warehouses = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')->get();
+        $states = MiscListStates::where("tableParent","=",'inventary')->get();
         $resource = Resources::FindOrFail($idResource);
-        return view('pages.Inventary.items.add', compact('stages', 'resource'));
+        return view('pages.Inventary.items.edit', compact('warehouses', 'states', 'resource'));
     }
 
     /**
@@ -107,9 +109,22 @@ class ResourcesController extends Controller
      * @param  \App\Models\Resources  $resources
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Resources $resources)
+    public function update(Request $request, $idResource)
     {
-        //
+        $data = request()->except('_token','_method');
+
+        $dataToSend = new Resources();
+        $dataToSend = $data;  
+
+        if($request->hasFile('resourcePhoto')){
+            $resource = Resources::findOrFail($idResource);
+            Storage::delete('public/'.$resource->resourcePhoto);
+            $dataToSend['resourcePhoto']=$request->file('resourcePhoto')->store('uploads','public');
+        }
+
+        Resources::where('idResource', '=', $idResource)->update($dataToSend);
+
+        return redirect('/item')->with('mensaje','Recurso actualizado con éxito.');
     }
 
     /**
@@ -118,8 +133,9 @@ class ResourcesController extends Controller
      * @param  \App\Models\Resources  $resources
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Resources $resources)
+    public function destroy($idResource)
     {
-        //
+        Resources::destroy($idResource);
+        return redirect('/item')->with('mensaje','Recurso eliminado con éxito.');
     }
 }

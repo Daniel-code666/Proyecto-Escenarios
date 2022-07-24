@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
@@ -79,7 +81,7 @@
             <label for="example-text-input" class="form-control-label">Imagen de referencia</label>
             <img src="{{isset($resource->resourcePhoto)?asset('storage').'/'.$resource->resourcePhoto:''}}" alt="" width="100">
             <div>
-                <input type="file" name="resourcePhoto" id="photo" value="{{isset($resource->resourcePhoto)?$resource->resourcePhoto:''}}">
+                <input type="file" name="resourcePhoto" id="resourcePhoto" value="{{isset($resource->resourcePhoto)?$resource->resourcePhoto:''}}">
             </div>
         </div>
     </div>

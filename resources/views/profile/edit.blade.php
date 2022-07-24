@@ -7,6 +7,8 @@
         'description' => __('Esta es su página de perfil. Desde aquí puede ver y modificar su información registrada en la aplicación de Escenarios del IDRD'),
         'class' => 'col-lg-12'
     ])   
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <div class="container-fluid mt--7">
         <div class="row">

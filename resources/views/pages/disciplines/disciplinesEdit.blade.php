@@ -9,12 +9,10 @@
             <div class="card-body">
               <h2 class="card-title">Editar disciplina</h2>
               <hr>
-             
               <form  action="{{ url('/discipline/'.$discipline->disciplineId) }} "method="post">
                 @csrf
                 {{method_field('PUT')}}
-                @include('pages.disciplines.disciplineForm')          
-               
+                @include('pages.disciplines.disciplineForm')
               </form>
             </div>
         </div>

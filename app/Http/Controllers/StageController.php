@@ -6,6 +6,7 @@ use App\Models\Stage;
 use App\Models\Disciplines;
 use App\Models\MiscListStates;
 use App\Models\Understage;
+use App\Models\warehouse;
 use DateTime;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -156,6 +157,8 @@ class StageController extends Controller
     {
         //$stage = Stage::find($id);
 
+        $arrStages = array();
+
         $stageDef = Stage::find($id);
 
         $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
@@ -167,13 +170,18 @@ class StageController extends Controller
                 ->join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
                 ->get();
 
-        // $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
-        //         ->join('understages', 'understages.idStage', '=', 'stages.id')
-        //         ->join('disciplines as d', 'd.disciplineId', '=', 'understages.discipline_understg')
-        //         ->where('id', $stageDef->id)
-        //         ->get();
+        $stageWarehouse = warehouse::where('warehouseLocation', $stageDef->id)->get();
 
-        return view('pages.stages.stageAdminView', compact('stage', 'understages'));
+        foreach($stageWarehouse as $sw)
+        {
+            $stageComplete = Stage::join('warehouses', 'warehouses.warehouseLocation', '=', 'stages.id')
+                        ->join('resources', 'resources.resources_warehouseId', '=', 'warehouses.warehouseId')
+                        ->where('id', $stageDef->id)->where('warehouseId', $sw->warehouseId)->get();
+
+            array_push($arrStages, $stageComplete);
+        }
+
+        return view('pages.stages.stageAdminView', compact('stage', 'understages', 'stageWarehouse','arrStages'));
     }
 
     /**

@@ -8,10 +8,21 @@
 
     <div class="col-md-3">
         <label class="form-control-label">Escenario donde se ubica</label>
-        <select class="form-control" name="warehouseLocation" value="{{isset($warehouse->wharehouseLocation)?$warehouse->warehouseLocation:''}}">
-            @foreach ($stages as $stage)
-            <option value="{{$stage->id}}">{{$stage->name}}</option>
-            @endforeach
+
+        <select required class="form-control" name="warehouseLocation" >
+            @if (isset($warehouse->warehouseLocation)?$warehouse->warehouseLocation:'')
+                @foreach ($stages as $stage)
+                    @if ($warehouse->warehouseLocation == $stage->id)
+                        <option value="{{$stage->id}}" selected>{{$stage->name}}</option>
+                    @else
+                        <option value="{{$stage->id}}">{{$stage->name}}</option>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($stages as $stage)
+                <option value="{{$stage->id}}">{{$stage->name}}</option>
+                @endforeach
+            @endif
         </select>
     </div>
 </div>
