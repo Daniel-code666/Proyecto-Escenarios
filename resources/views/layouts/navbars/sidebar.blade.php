@@ -88,19 +88,14 @@
                 @if(auth()->user()->role_idrole == 1)
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="ni ni-settings" style="color: purple;"></i>
-                        <span class="nav-link-text" style="color: purple;">{{ __('Administrador') }}</span>
+                        <i class="ni ni-settings text-purple"></i>
+                        <span class="nav-link-text">{{ __('Administrador') }}</span>
                     </a>
 
                     <div class="collapse show" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
-{{--                             <li class="nav-item">
-                                <a  class="nav-link" href="{{ route('profile.edit') }}">
-                                    <i class="ni ni-circle-08 text-purple"></i> {{ __('Perfil de usuario') }}
-                                </a>
-                            </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
+                                <a class="nav-link" href="">
                                     <i class="ni ni-badge text-purple"></i>{{ __('Administrar usuarios') }}
                                 </a>
                             </li>
@@ -112,18 +107,18 @@
 
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples-2" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-2">
-                        <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
+                        <i class="ni ni-building text-purple"></i> {{ __('Escenarios') }}
                     </a>
                     <div class="collapse show" id="navbar-examples-2">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a  class="nav-link" href="{{ url('/escenario') }}">
-                                    <i class="ni ni-building text-blue"></i> {{ __('Principales') }}
+                                    <i class="ni ni-building text-purple"></i> {{ __('Principales') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/understage') }}">
-                                    <i class="ni ni-building text-blue"></i>{{ __('Sub escenarios') }}
+                                    <i class="ni ni-building text-purple"></i>{{ __('Sub escenarios') }}
                                 </a>
                             </li>
                         </ul>
@@ -134,18 +129,18 @@
 
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-3">
-                        <i class="ni ni-app text-blue"></i> {{ __('Inventarios') }}
+                        <i class="ni ni-app text-purple"></i> {{ __('Inventarios') }}
                     </a>
                     <div class="collapse show" id="navbar-examples-3">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a  class="nav-link" href="{{ url('/item') }}">
-                                    <i class="ni ni-archive-2 text-blue"></i> {{ __('Items') }}
+                                    <i class="ni ni-archive-2 text-purple"></i> {{ __('Items') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/almacen') }}">
-                                    <i class="ni ni-shop text-blue"></i>{{ __('Almacenes') }}
+                                    <i class="ni ni-shop text-purple"></i>{{ __('Almacenes') }}
                                 </a>
                             </li>
                         </ul>
@@ -156,23 +151,23 @@
 
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples-4" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-4">
-                        <i class="ni ni-chart-bar-32 text-blue"></i> {{ __('Reportes') }}
+                        <i class="ni ni-chart-bar-32 text-purple"></i> {{ __('Reportes') }}
                     </a>
                     <div class="collapse show" id="navbar-examples-4">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a  class="nav-link" href="{{ url('/item') }}">
-                                    <i class="ni ni-building text-blue"></i> {{ __('Escenarios') }}
+                                    <i class="ni ni-building text-purple"></i> {{ __('Escenarios') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/almacen') }}">
-                                    <i class="ni ni-app text-blue"></i>{{ __('Inventarios') }}
+                                    <i class="ni ni-app text-purple"></i>{{ __('Inventarios') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/almacen') }}">
-                                    <i class="ni ni-single-copy-04 text-blue"></i>{{ __('Otros') }}
+                                    <i class="ni ni-single-copy-04 text-purple"></i>{{ __('Otros') }}
                                 </a>
                             </li>
                         </ul>
@@ -182,20 +177,44 @@
 {{-- 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/discipline') }}">
-                        <i class="ni ni-user-run text-blue"></i> {{ __('Disciplinas') }}
+                        <i class="ni ni-user-run text-purple"></i> {{ __('Disciplinas') }}
                     </a>
                 </li> --}}
 
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-map-big text-blue"></i> {{ __('Mapa de escenarios') }}
+                        <i class="ni ni-map-big text-purple"></i> {{ __('Mapa de escenarios') }}
                     </a>
                 </li>
+
+
+                <!--Configuraciones -->
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/config') }}">
-                        <i class="ni ni-settings-gear-65 text-blue"></i> {{ __('Configuraciones') }}
+                    <a class="nav-link active" href="#navbar-examples-4" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-4">
+                        <i class="ni ni-settings-gear-65 text-purple"></i> {{ __('Configuraciones') }}
                     </a>
+                    <div class="collapse show" id="navbar-examples-4">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a  class="nav-link" href="{{ url('/discipline') }}">
+                                    <i class="ni ni-user-run text-purple"></i> {{ __('Disciplinas') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/states') }}">
+                                    <i class="ni ni-bullet-list-67 text-purple"></i>{{ __('Estado Escenarios') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/inventarystates') }}">
+                                    <i class="ni ni-bullet-list-67 text-purple"></i>{{ __('Estado Inventarios') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+
 {{--                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('table') }}">
                         <i class="ni ni-bullet-list-67 text-default"></i>
@@ -226,7 +245,7 @@
                 </li> --}}
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-support-16 text-blue"></i> {{ __('Soporte') }}
+                        <i class="ni ni-support-16 text-purple"></i> {{ __('Soporte') }}
                     </a>
                 </li>
             </ul>
