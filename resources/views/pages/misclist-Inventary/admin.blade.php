@@ -32,48 +32,51 @@
   </div>
 </div>
 <hr>
-@if($misclist->isEmpty())
-<div style="text-align: center;">
-  <h4><strong>No hay estados de inventario para mostrar</strong></h4>
-</div>
-@else
-<div class="table-responsive m-2">
-  <table id="states_table" class="table align-items-center table-flush">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col" class="sort" data-sort="id">Id</th>
-        <th scope="col" class="sort" data-sort="name">Nombre</th>
-        <th scope="col" class="sort" data-sort="description">Descripción</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody class="list">
-      @foreach ($misclist as $item)
-      <tr>
-        <td>{{$item->id}}</td>
-        <td>{{$item->name}}</td>
-        <td>{{$item->description}}</td>
-        <td class="text-center">
-          <div class="dropdown">
-            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-ellipsis-v"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-              <a class="dropdown-item" href="{{ url('/inventarystates/'.$item->id.'/edit') }}">Editar</a>
-              {{--<a type="button" class="btn btn-info" href="{{ url('/states/'.$item->id) }}"><i class="fas fa-eye"></i></a>--}}
-              <form action="{{ url('/inventarystates/'.$item->id) }} " method="post" style="display: inline-block">
-                @csrf
-                {{method_field('DELETE')}}
-                <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el estado?')">Eliminar</a>
-              </form>
+<div class="container">
+  @if($misclist->isEmpty())
+  <div style="text-align: center;">
+    <h4><strong>No hay estados de inventario para mostrar</strong></h4>
+  </div>
+  @else
+  <div class="table-responsive m-2">
+    <table id="states_table" class="table align-items-center table-flush">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" class="sort" data-sort="id">Id</th>
+          <th scope="col" class="sort" data-sort="name">Nombre</th>
+          <th scope="col" class="sort" data-sort="description">Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        @foreach ($misclist as $item)
+        <tr>
+          <td>{{$item->id}}</td>
+          <td>{{$item->name}}</td>
+          <td>{{$item->description}}</td>
+          <td class="text-center">
+            <div class="dropdown">
+              <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                <a class="dropdown-item" href="{{ url('/inventarystates/'.$item->id.'/edit') }}">Editar</a>
+                {{--<a type="button" class="btn btn-info" href="{{ url('/states/'.$item->id) }}"><i class="fas fa-eye"></i></a>--}}
+                <form action="{{ url('/inventarystates/'.$item->id) }} " method="post" style="display: inline-block">
+                  @csrf
+                  {{method_field('DELETE')}}
+                  <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el estado?')">Eliminar</a>
+                </form>
+              </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
+
 
 <script>
   $(document).ready(function() {

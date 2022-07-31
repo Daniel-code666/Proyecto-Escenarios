@@ -32,7 +32,8 @@
   </div>
 </div>
 <hr>
-@if($misclist->isEmpty())
+<div class="container">
+  @if($misclist->isEmpty())
 <div style="text-align: center;">
   <h4><strong>No hay estados de escenarios para mostrar</strong></h4>
 </div>
@@ -74,6 +75,8 @@
     </tbody>
   </table>
 </div>
+</div>
+
 
 <script>
   $(document).ready(function() {

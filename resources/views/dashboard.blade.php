@@ -26,6 +26,14 @@
         <br>
         <div class="row">
             <div class="col-sm-7">
+                @if (Session::has('mensaje'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <span class="alert-text">{{Session::get('mensaje')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
               <div class="card">
                 <div class="card-body">
                     <div class="fondo">
@@ -33,7 +41,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="card-text">Antes de manipular el sistema es necesario definir algunas parametrizaciones, para ello dirígete al menu lateral izquierdo en la sección de configuraciones.</p>
+                            <p class="card-text">Antes de manipular el sistema es necesario definir algunas parametrizaciones, para ello dirigirse al menu lateral izquierdo en la sección de configuraciones.</p>
                         </div>
                     </div>
                         <hr>
@@ -43,7 +51,7 @@
                                 <p>En caso de no tener parametrizaciones específicas pondrás optar por dejar las parametrizaciones por defecto.</p>
                             </div>
                             <div class="col-3">
-                                <a href="{{url("/escenario")}}" class="btn btn-primary">Click aquí</a>
+                                <a href="{{route('save_misclist')}}" class="btn btn-primary">Click aquí</a>
                             </div>
                         </div>
                     
@@ -85,3 +93,4 @@
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
 @endpush
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

@@ -31,6 +31,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/parametrizaciones', [App\Http\Controllers\HomeController::class, 'save_misclist'])->name('save_misclist');
 
 // main page
 Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');

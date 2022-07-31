@@ -34,49 +34,53 @@
 </div>
 <hr>
 
-@if($disciplines->isEmpty())
-<div style="text-align: center;">
-  <h4><strong>No hay disciplinas para mostrar</strong></h4>
-</div>
-@else
-<div class="table-responsive m-2">
-  <table id="discipline_table" class="table align-items-center">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col" class="sort" data-sort="name">Id</th>
-        <th scope="col" class="sort" data-sort="budget">Nombre de la disciplina</th>
-        <th scope="col" class="sort" data-sort="budget">Descripción de la disciplina</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody class="list">
-      @foreach ($disciplines as $discipline)
-      <tr>
-        <td>{{$discipline->disciplineId}}</td>
-        <td>{{$discipline->discipline_name}}</td>
-        <td class="scroll">
-          {{$discipline->discipline_description}}
-        </td>
-        <td class="text-center">
-          <div class="dropdown">
-            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-ellipsis-v"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-              <a class="dropdown-item" href="{{ url('/discipline/'.$discipline->disciplineId.'/edit') }}">Editar</a>
-              <form action="{{ url('/discipline/'.$discipline->disciplineId) }} " method="post" style="display: inline-block">
-                @csrf
-                {{method_field('DELETE')}}
-                <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar la disciplina?')">Eliminar</a>
-              </form>
+<div class="container">
+  @if($disciplines->isEmpty())
+  <div style="text-align: center;">
+    <h4><strong>No hay disciplinas para mostrar</strong></h4>
+  </div>
+  @else
+  <div class="table-responsive m-2">
+    <table id="discipline_table" class="table align-items-center">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" class="sort" data-sort="name">Id</th>
+          <th scope="col" class="sort" data-sort="budget">Nombre de la disciplina</th>
+          <th scope="col" class="sort" data-sort="budget">Descripción de la disciplina</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        @foreach ($disciplines as $discipline)
+        <tr>
+          <td>{{$discipline->disciplineId}}</td>
+          <td>{{$discipline->discipline_name}}</td>
+          <td class="scroll">
+            {{$discipline->discipline_description}}
+          </td>
+          <td class="text-center">
+            <div class="dropdown">
+              <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                <a class="dropdown-item" href="{{ url('/discipline/'.$discipline->disciplineId.'/edit') }}">Editar</a>
+                <form action="{{ url('/discipline/'.$discipline->disciplineId) }} " method="post" style="display: inline-block">
+                  @csrf
+                  {{method_field('DELETE')}}
+                  <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar la disciplina?')">Eliminar</a>
+                </form>
+              </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
+
+
 
 <script>
   $(document).ready(function() {

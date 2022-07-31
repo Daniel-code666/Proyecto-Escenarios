@@ -84,7 +84,7 @@ class DisciplinesController extends Controller
         $dataToSend = new Disciplines();
         $dataToSend = $data;
 
-        Disciplines::where('id', '=', $disciplineId)->update($dataToSend);
+        Disciplines::where('disciplineId', '=', $disciplineId)->update($dataToSend);
         
         return redirect('/discipline')->with('mensaje','Disciplina editada con éxito.');
     }

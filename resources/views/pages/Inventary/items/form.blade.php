@@ -81,7 +81,7 @@
             <label for="example-text-input" class="form-control-label">Imagen de referencia</label>
             <img src="{{isset($resource->resourcePhoto)?asset('storage').'/'.$resource->resourcePhoto:''}}" alt="" width="100">
             <div>
-                <input type="file" name="resourcePhoto" id="resourcePhoto" value="{{isset($resource->resourcePhoto)?$resource->resourcePhoto:''}}">
+                <input type="file" name="resourcePhoto"  value="{{isset($resource->resourcePhoto)?$resource->resourcePhoto:''}}">
             </div>
         </div>
     </div>

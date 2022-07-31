@@ -191,10 +191,10 @@
                 <!--Configuraciones -->
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples-4" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-4">
+                    <a class="nav-link active" href="#navbar-examples-5" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-5">
                         <i class="ni ni-settings-gear-65 text-purple"></i> {{ __('Configuraciones') }}
                     </a>
-                    <div class="collapse show" id="navbar-examples-4">
+                    <div class="collapse show" id="navbar-examples-5">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a  class="nav-link" href="{{ url('/discipline') }}">
