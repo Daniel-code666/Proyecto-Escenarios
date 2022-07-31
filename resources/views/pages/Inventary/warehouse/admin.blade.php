@@ -34,48 +34,50 @@
 </div>
 <hr>
 
-@if($warehouses->isEmpty())
-<div style="text-align: center;">
-  <h4><strong>No hay almacenenes para mostrar</strong></h4>
-</div>
-@else
-<div class="table-responsive m-2">
-  <table id="warehouse_table" class="table align-items-center table-flush">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col" class="sort" data-sort="warehouseId">Id</th>
-        <th scope="col" class="sort" data-sort="warehouseName">Nombre</th>
-        <th scope="col" class="sort" data-sort="warehouseDescription">Descripción</th>
-        <th scope="col" class="sort" data-sort="warehouseLocation">Escenario donde se ubica</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody class="list">
-      @foreach ($warehouses as $warehouse)
-      <tr>
-        <td>{{$warehouse->warehouseId}}</td>
-        <td>{{$warehouse->warehouseName}}</td>
-        <td>{{$warehouse->warehouseDescription}}</td>
-        <td>{{$warehouse->name}}</td>
-        <td class="text-center">
-          <div class="dropdown">
-            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-ellipsis-v"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-              <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
-              <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
-                @csrf
-                {{method_field('DELETE')}}
-                <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</a>
-              </form>
+<div class="container">
+  @if($warehouses->isEmpty())
+  <div style="text-align: center;">
+    <h4><strong>No hay almacenenes para mostrar</strong></h4>
+  </div>
+  @else
+  <div class="table-responsive m-2">
+    <table id="warehouse_table" class="table align-items-center table-flush">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" class="sort" data-sort="warehouseId">Id</th>
+          <th scope="col" class="sort" data-sort="warehouseName">Nombre</th>
+          <th scope="col" class="sort" data-sort="warehouseDescription">Descripción</th>
+          <th scope="col" class="sort" data-sort="warehouseLocation">Escenario donde se ubica</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        @foreach ($warehouses as $warehouse)
+        <tr>
+          <td>{{$warehouse->warehouseId}}</td>
+          <td>{{$warehouse->warehouseName}}</td>
+          <td>{{$warehouse->warehouseDescription}}</td>
+          <td>{{$warehouse->name}}</td>
+          <td class="text-center">
+            <div class="dropdown">
+              <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
+                <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
+                  @csrf
+                  {{method_field('DELETE')}}
+                  <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</a>
+                </form>
+              </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>

@@ -33,52 +33,54 @@
 </div>
 <hr>
 
-@if($resources->isEmpty())
-<div style="text-align: center;">
-    <h4><strong>No hay recursos para mostrar</strong></h4>
-</div>
-@else
-<div class="table-responsive m-2">
-    <table id="inventory_table" class="table align-items-center table-flush">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col" class="sort">Id</th>
-                <th scope="col" class="sort">Imagen</th>
-                <th scope="col" class="sort">Nombre</th>
-                <th scope="col" class="sort">Cantidad</th>
-                <th scope="col" class="sort">Almacén</th>
-                <th scope="col" class="sort">Escenario</th>
-                <th scope="col" class="sort">Acciones</th>
-            </tr>
-        </thead>
-        <tbody class="list">
-            @foreach ($resources as $resource)
-            <tr>
-                <td>{{$resource->idResource}}</td>
-                <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td>
-                <td>{{$resource->resourceName}}</td>
-                <td>{{$resource->amount}}</td>
-                <td>{{$resource->warehouseName}}</td>
-                <td>{{$resource->name}}</td>
-                <td class="text-center">
-                    <div class="dropdown">
-                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                            <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
-                            <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
-                                @csrf
-                                {{method_field('DELETE')}}
-                                <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</a>
-                            </form>
+<div class="container">
+    @if($resources->isEmpty())
+    <div style="text-align: center;">
+        <h4><strong>No hay recursos para mostrar</strong></h4>
+    </div>
+    @else
+    <div class="table-responsive m-2">
+        <table id="inventory_table" class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="sort">Id</th>
+                    <th scope="col" class="sort">Imagen</th>
+                    <th scope="col" class="sort">Nombre</th>
+                    <th scope="col" class="sort">Cantidad</th>
+                    <th scope="col" class="sort">Almacén</th>
+                    <th scope="col" class="sort">Escenario</th>
+                    <th scope="col" class="sort">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                @foreach ($resources as $resource)
+                <tr>
+                    <td>{{$resource->idResource}}</td>
+                    <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td>
+                    <td>{{$resource->resourceName}}</td>
+                    <td>{{$resource->amount}}</td>
+                    <td>{{$resource->warehouseName}}</td>
+                    <td>{{$resource->name}}</td>
+                    <td class="text-center">
+                        <div class="dropdown">
+                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
+                                <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</a>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
