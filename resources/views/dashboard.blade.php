@@ -5,9 +5,9 @@
     @include('layouts.headers.sharedmargin')
     <div class="container m-2">
         <br>
-        <div class="fondo" >
-            <div class="card fondo">
-                <div class="card-body">
+        <div class="fondo carousel" data-ride="carousel">
+            <div class="card fondo carousel-inner">
+                <div class="card-body carousel-item active">
                     <h5 class="text-center card-title h2" style="color: antiquewhite">Escenarios</h5>
                     <div class="row">
                         <div class="col-7">
@@ -17,11 +17,20 @@
                             <a href="#"><img src="{{ asset('argon') }}/img/theme/estadio.jpg" style="max-height: 200px" class="rounded-circle" ></a>
                         </div>
                     </div>
-                    
                 </div>
+                <div class="card-body carousel-item">
+                    <h5 class="text-center card-title h2" style="color: antiquewhite">Escenarios</h5>
+                    <div class="row">
+                        <div class="col-7">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ut vitae, necessitatibus quos corporis totam, ipsam optio voluptatum impedit, quod expedita quaerat incidunt error. Modi deserunt pariatur debitis voluptas assumenda?</p>
+                        </div>
+                        <div class="col-5 mt--6">
+                            <a href="#"><img src="{{ asset('argon') }}/img/theme/profile-cover.jpg" style="max-height: 200px" class="rounded-circle" ></a>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
-
 
         <br>
         <div class="row">
