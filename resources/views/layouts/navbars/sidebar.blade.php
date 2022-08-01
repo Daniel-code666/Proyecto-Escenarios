@@ -14,7 +14,7 @@
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
+                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
                         </span>
                     </div>
                 </a>
@@ -26,7 +26,7 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('Mi Perfil') }}</span>
                     </a>
-{{--                     <a href="#" class="dropdown-item">
+                    {{-- <a href="#" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Settings') }}</span>
                     </a>
@@ -78,12 +78,12 @@
             </form>
             <!-- Navigation -->
             <ul class="navbar-nav">
-{{--                 <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Home') }}
-                    </a>
+                <i class="ni ni-tv-2 text-primary"></i> {{ __('Home') }}
+                </a>
                 </li> --}}
-                
+
                 @auth()
                 @if(auth()->user()->role_idrole == 1)
                 <li class="nav-item">
@@ -112,7 +112,7 @@
                     <div class="collapse show" id="navbar-examples-2">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a  class="nav-link" href="{{ url('/escenario') }}">
+                                <a class="nav-link" href="{{ url('/escenario') }}">
                                     <i class="ni ni-building text-purple"></i> {{ __('Principales') }}
                                 </a>
                             </li>
@@ -134,7 +134,7 @@
                     <div class="collapse show" id="navbar-examples-3">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a  class="nav-link" href="{{ url('/item') }}">
+                                <a class="nav-link" href="{{ url('/item') }}">
                                     <i class="ni ni-archive-2 text-purple"></i> {{ __('Items') }}
                                 </a>
                             </li>
@@ -156,7 +156,7 @@
                     <div class="collapse show" id="navbar-examples-4">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a  class="nav-link" href="{{ url('/item') }}">
+                                <a class="nav-link" href="{{ url('/item') }}">
                                     <i class="ni ni-building text-purple"></i> {{ __('Escenarios') }}
                                 </a>
                             </li>
@@ -174,11 +174,11 @@
                     </div>
                 </li>
 
-{{-- 
+                {{--
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/discipline') }}">
-                        <i class="ni ni-user-run text-purple"></i> {{ __('Disciplinas') }}
-                    </a>
+                <i class="ni ni-user-run text-purple"></i> {{ __('Disciplinas') }}
+                </a>
                 </li> --}}
 
                 <li class="nav-item ">
@@ -197,7 +197,7 @@
                     <div class="collapse show" id="navbar-examples-5">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a  class="nav-link" href="{{ url('/discipline') }}">
+                                <a class="nav-link" href="{{ url('/discipline') }}">
                                     <i class="ni ni-user-run text-purple"></i> {{ __('Disciplinas') }}
                                 </a>
                             </li>
@@ -215,16 +215,16 @@
                     </div>
                 </li>
 
-{{--                 <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('table') }}">
-                        <i class="ni ni-bullet-list-67 text-default"></i>
-                        <span class="nav-link-text">Tables</span>
-                    </a>
+                <i class="ni ni-bullet-list-67 text-default"></i>
+                <span class="nav-link-text">Tables</span>
+                </a>
                 </li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
-                    </a>
+                </a>
                 </li> --}}
             </ul>
             <!-- Divider -->
@@ -233,7 +233,7 @@
             <h6 class="navbar-heading text-muted">Soporte</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
-{{--                 <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/getting-started/overview.html">
                         <i class="ni ni-spaceship"></i> Manual del sitio
                     </a>

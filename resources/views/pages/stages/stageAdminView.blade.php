@@ -92,7 +92,7 @@
             <div class="row offset-0">
                 <div role="tabpanel">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
+                        <li role="presentation" class="active li-border">
                             <a href="#warehouse-section" aria-controls="" data-toggle="tab" role="tab">
                                 <h3 style="padding-right: 10px"><strong>Almacenes</strong></h3>
                             </a>
@@ -192,7 +192,7 @@
                                 <h4>Inventarios</h4>
                             </div>
                             <div class="card-body px-lg-9 py-lg-1">
-                                <div class="table-responsive m-2">
+                                <div class="table-responsive-lg m-2">
                                     <table id="inventory_table" class="table align-items-center table-flush">
                                         <thead class="thead-light">
                                             <tr>

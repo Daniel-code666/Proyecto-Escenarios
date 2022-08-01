@@ -80,8 +80,6 @@
   </div>
 </div>
 
-
-
 <script>
   $(document).ready(function() {
     $('#discipline_table').DataTable({
