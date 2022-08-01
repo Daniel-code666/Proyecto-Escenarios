@@ -51,18 +51,18 @@
       <tbody class="list">
         @foreach ($misclist as $item)
         <tr>
-          <td>{{$item->id}}</td>
-          <td>{{$item->name}}</td>
-          <td>{{$item->description}}</td>
+          <td>{{$item->statesId}}</td>
+          <td>{{$item->statesName}}</td>
+          <td>{{$item->statesDescription}}</td>
           <td class="text-center">
             <div class="dropdown">
               <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-ellipsis-v"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                <a class="dropdown-item" href="{{ url('/inventarystates/'.$item->id.'/edit') }}">Editar</a>
-                {{--<a type="button" class="btn btn-info" href="{{ url('/states/'.$item->id) }}"><i class="fas fa-eye"></i></a>--}}
-                <form action="{{ url('/inventarystates/'.$item->id) }} " method="post" style="display: inline-block">
+                <a class="dropdown-item" href="{{ url('/inventarystates/'.$item->statesId.'/edit') }}">Editar</a>
+                {{--<a type="button" class="btn btn-info" href="{{ url('/states/'.$item->statesId) }}"><i class="fas fa-eye"></i></a>--}}
+                <form action="{{ url('/inventarystates/'.$item->statesId) }} " method="post" style="display: inline-block">
                   @csrf
                   {{method_field('DELETE')}}
                   <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el estado?')">Eliminar</a>

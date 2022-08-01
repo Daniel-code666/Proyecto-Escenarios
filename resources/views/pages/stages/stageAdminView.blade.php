@@ -191,13 +191,15 @@
                             <div class="row offset-0">
                                 <h4>Inventarios</h4>
                             </div>
-                            <div class="card-body px-lg-9 py-lg-1">
+                            <div class="card-body py-lg-1">
                                 <div class="table-responsive-lg m-2">
                                     <table id="inventory_table" class="table align-items-center table-flush">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col" class="sort">Id</th>
                                                 <th scope="col" class="sort">Nombre</th>
+                                                <th>Código</th>
+                                                <th>Estado</th>
                                                 <th scope="col" class="sort">Cantidad</th>
                                                 <th scope="col" class="sort">Almacén</th>
                                                 <th>Acciones</th>
@@ -209,6 +211,8 @@
                                             <tr>
                                                 <td>{{ $arrSt->idResource }}</td>
                                                 <td>{{ $arrSt->resourceName }}</td>
+                                                <td>{{ $arrSt->resourceCode }} </td>
+                                                <td>{{ $arrSt->statesName }}</td>
                                                 <td>{{ $arrSt->amount }}</td>
                                                 <td>{{ $arrSt->warehouseName }} </td>
                                                 <td class="text-right">

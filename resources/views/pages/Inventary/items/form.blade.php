@@ -56,14 +56,14 @@
             @if (isset($resource->id_category))
                 @foreach ($states as $state)
                     @if ($state->id == $resource->id_category)
-                        <option value="{{$state->id}}" selected>{{$state->name}}</option>
+                        <option value="{{$state->statesId}}" selected>{{$state->statesName}}</option>
                     @else
-                        <option value="{{$state->id}}">{{$state->name}}</option>
+                        <option value="{{$state->statesId}}">{{$state->statesName}}</option>
                     @endif
                 @endforeach
             @else
                 @foreach ($states as $state)
-                <option value="{{$state->id}}">{{$state->name}}</option>
+                <option value="{{$state->statesId}}">{{$state->statesName}}</option>
                 @endforeach
             @endif
         </select>
