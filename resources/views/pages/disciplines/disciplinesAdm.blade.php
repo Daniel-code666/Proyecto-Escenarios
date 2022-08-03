@@ -78,33 +78,31 @@
       </tbody>
     </table>
   </div>
-</div>
-
-<script>
-  $(document).ready(function() {
-    $('#discipline_table').DataTable({
-      dom: 'Bfrtip',
-      buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
-      language: {
-        lengthMenu: 'Mostrando _MENU_ registros por página',
-        zeroRecords: 'No hay registros para mostrar',
-        info: 'Mostrando página _PAGE_ de _PAGES_',
-        infoEmpty: 'No hay registros disponibles',
-        infoFiltered: '(filtrando de _MAX_ registros disponibles)',
-        sSearch: 'Buscar',
-        'paginate': {
-          'previous': '<i class="fas fa-light fa-arrow-left"></i>',
-          'next': '<i class="fas fa-light fa-arrow-right"></i>'
+  <script>
+    $(document).ready(function() {
+      $('#discipline_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+        language: {
+          lengthMenu: 'Mostrando _MENU_ registros por página',
+          zeroRecords: 'No hay registros para mostrar',
+          info: 'Mostrando página _PAGE_ de _PAGES_',
+          infoEmpty: 'No hay registros disponibles',
+          infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+          sSearch: 'Buscar',
+          'paginate': {
+            'previous': '<i class="fas fa-light fa-arrow-left"></i>',
+            'next': '<i class="fas fa-light fa-arrow-right"></i>'
+          },
+          buttons: {
+            pageLength: 'Mostrando %d filas'
+          },
         },
-        buttons: {
-          pageLength: 'Mostrando %d filas'
-        },
-      },
+      });
     });
-  });
-</script>
-
-@endif
+  </script>
+  @endif
+</div>
 
 @include('layouts.footers.auth')
 @endsection

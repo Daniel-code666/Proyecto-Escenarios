@@ -55,35 +55,31 @@
 
 
 <!-- Tercer fila -->
-
 <div class="row">
-
     <div class="col-md-3">
         <label class="form-control-label">Estado</label>
         <select required class="form-control" name="id_category">
             @if (isset($stage->id_category))
             @foreach ($states as $state)
-            @if ($state->id == $stage->id_category)
-            <option value="{{$state->id}}" selected>{{$state->name}}</option>
+            @if ($state->statesId == $stage->id_category)
+            <option value="{{$state->statesId}}" selected>{{$state->statesName}}</option>
             @else
-            <option value="{{$state->id}}">{{$state->name}}</option>
+            <option value="{{$state->statesId}}">{{$state->statesName}}</option>
             @endif
             @endforeach
             @else
             @foreach ($states as $state)
-            <option value="{{$state->id}}">{{$state->name}}</option>
+            <option value="{{$state->statesId}}">{{$state->statesName}}</option>
             @endforeach
             @endif
         </select>
     </div>
-
     <div class="col-md-9">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del estado</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="message_state">{{isset($stage->message_state)?$stage->message_state:''}}</textarea>
         </div>
     </div>
-
 </div>
 
 <!-- Cuarta fila -->

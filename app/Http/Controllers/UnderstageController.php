@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Disciplines;
 use App\Models\Stage;
 use Illuminate\Support\Facades\Storage;
+use App\Models\MiscListStates;
 use PDF;
 
 class UnderstageController extends Controller
@@ -23,7 +24,9 @@ class UnderstageController extends Controller
         ->join('stages', 'stages.id', '=', 'understages.idStage')
         ->paginate(10);
 
-        return view('pages.Understages.underStAdmin', $underStages);
+        $stages['stages'] = Stage::get();
+
+        return view('pages.Understages.underStAdmin', $underStages, $stages);
     }
 
     /**
@@ -35,7 +38,8 @@ class UnderstageController extends Controller
     {
         $disciplines = Disciplines::all();
         $stages = Stage::all();
-        return view('pages.Understages.underStCreate', compact('disciplines'), compact('stages'));
+        $states = MiscListStates::where("tableParent", "=", 'stages')->get();
+        return view('pages.Understages.underStCreate', compact('disciplines', 'stages', 'states'));
     }
 
     /**
@@ -90,7 +94,8 @@ class UnderstageController extends Controller
         $disciplines = Disciplines::all();
         $stages = Stage::all();
         $underStage = Understage::findOrFail($idUnderstage);
-        return view('pages.Understages.underStEdit', compact('underStage', 'disciplines', 'stages'));
+        $states = MiscListStates::where("tableParent", "=", 'stages')->get();
+        return view('pages.Understages.underStEdit', compact('underStage', 'disciplines', 'stages', 'states'));
     }
 
     /**

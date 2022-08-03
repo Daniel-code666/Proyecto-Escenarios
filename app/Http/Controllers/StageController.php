@@ -25,11 +25,11 @@ class StageController extends Controller
      */
     public function index()
     {
-        // $stages['stages'] = Stage::paginate(5);
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
+        $disciplines['disciplines'] = Disciplines::get();
+        $misclist['misclist'] = MiscListStates::where("tableParent", "=", 'stages')->get();
 
-        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->paginate(10);
-
-        return view('pages.stages.admin', $stages);
+        return view('pages.stages.admin', $stages)->with('disciplines', $disciplines)->with('misclist', $misclist);
     }
 
     public function listStages()

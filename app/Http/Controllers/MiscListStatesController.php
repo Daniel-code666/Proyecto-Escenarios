@@ -54,9 +54,9 @@ class MiscListStatesController extends Controller
      * @param  \App\Models\MiscListStates  $miscListStates
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($statesId)
     {
-        $stateescenary = MiscListStates::find($id);
+        $stateescenary = MiscListStates::find($statesId);
         return view('pages.misclist.show', compact('stateescenary'));
     }
 
@@ -66,9 +66,9 @@ class MiscListStatesController extends Controller
      * @param  \App\Models\MiscListStates  $miscListStates
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($statesId)
     {
-        $stateescenary = MiscListStates::find($id);
+        $stateescenary = MiscListStates::find($statesId);
         return view('pages.misclist.edit', compact('stateescenary'));
     }
 
@@ -79,7 +79,7 @@ class MiscListStatesController extends Controller
      * @param  \App\Models\MiscListStates  $miscListStates
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $statesId)
     {
         $datos = request()->except('_token','_method');
 
@@ -87,7 +87,7 @@ class MiscListStatesController extends Controller
         $datosToSend = $datos;  
 /*         $datosToSend['created_at'] = Carbon::now()->toTimeString();
         $datosToSend['updated_at'] = Carbon::now()->toTimeString(); */
-        MiscListStates::where('id','=',$id)->update($datosToSend);
+        MiscListStates::where('statesId','=',$statesId)->update($datosToSend);
         return redirect('/states')->with('mensaje','Estado editado con éxito.');
     }
 
@@ -97,10 +97,10 @@ class MiscListStatesController extends Controller
      * @param  \App\Models\MiscListStates  $miscListStates
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($statesId)
     {
-        $stage = MiscListStates::findOrFail($id);
-        MiscListStates::destroy($id);   
+        $state = MiscListStates::findOrFail($statesId);
+        MiscListStates::destroy($statesId);   
         return redirect('/states')->with('mensaje','Estado eliminado con éxito.');
     }
 }

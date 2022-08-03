@@ -34,75 +34,72 @@
 <hr>
 <div class="container">
   @if($misclist->isEmpty())
-<div style="text-align: center;">
-  <h4><strong>No hay estados de escenarios para mostrar</strong></h4>
-</div>
-@else
-<div class="table-responsive m-2">
-  <table id="states_table" class="table align-items-center table-flush">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col" class="sort" data-sort="id">Id</th>
-        <th scope="col" class="sort" data-sort="name">Nombre</th>
-        <th scope="col" class="sort" data-sort="description">Descripción</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody class="list">
-      @foreach ($misclist as $item)
-      <tr>
-        <td>{{$item->id}}</td>
-        <td>{{$item->name}}</td>
-        <td>{{$item->description}}</td>
-        <td class="text-center">
-          <div class="dropdown">
-            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-ellipsis-v"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-              <a class="dropdown-item" href="{{ url('/states/'.$item->id.'/edit') }}">Editar</a>
-              {{--<a type="button" class="btn btn-info" href="{{ url('/states/'.$item->id) }}"><i class="fas fa-eye"></i></a>--}}
-              <form action="{{ url('/states/'.$item->id) }} " method="post" style="display: inline-block">
-                @csrf
-                {{method_field('DELETE')}}
-                <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el estado?')">Eliminar</a>
-              </form>
+  <div style="text-align: center;">
+    <h4><strong>No hay estados de escenarios para mostrar</strong></h4>
+  </div>
+  @else
+  <div class="table-responsive m-2">
+    <table id="states_table" class="table align-items-center table-flush">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" class="sort" data-sort="id">Id</th>
+          <th scope="col" class="sort" data-sort="name">Nombre</th>
+          <th scope="col" class="sort" data-sort="description">Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        @foreach ($misclist as $item)
+        <tr>
+          <td>{{$item->statesId}}</td>
+          <td>{{$item->statesName}}</td>
+          <td>{{$item->statesDescription}}</td>
+          <td class="text-center">
+            <div class="dropdown">
+              <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                <a class="dropdown-item" href="{{ url('/states/'.$item->statesId.'/edit') }}">Editar</a>
+                {{--<a type="button" class="btn btn-info" href="{{ url('/states/'.$item->statesId) }}"><i class="fas fa-eye"></i></a>--}}
+                <form action="{{ url('/states/'.$item->statesId) }} " method="post" style="display: inline-block">
+                  @csrf
+                  {{method_field('DELETE')}}
+                  <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el estado?')">Eliminar</a>
+                </form>
+              </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
-</div>
-</div>
-
-
-<script>
-  $(document).ready(function() {
-    $('#states_table').DataTable({
-      dom: 'Bfrtip',
-      buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
-      language: {
-        lengthMenu: 'Mostrando _MENU_ registros por página',
-        zeroRecords: 'No hay registros para mostrar',
-        info: 'Mostrando página _PAGE_ de _PAGES_',
-        infoEmpty: 'No hay registros disponibles',
-        infoFiltered: '(filtrando de _MAX_ registros disponibles)',
-        sSearch: 'Buscar',
-        'paginate': {
-          'previous': '<i class="fas fa-light fa-arrow-left"></i>',
-          'next': '<i class="fas fa-light fa-arrow-right"></i>'
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $('#states_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+        language: {
+          lengthMenu: 'Mostrando _MENU_ registros por página',
+          zeroRecords: 'No hay registros para mostrar',
+          info: 'Mostrando página _PAGE_ de _PAGES_',
+          infoEmpty: 'No hay registros disponibles',
+          infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+          sSearch: 'Buscar',
+          'paginate': {
+            'previous': '<i class="fas fa-light fa-arrow-left"></i>',
+            'next': '<i class="fas fa-light fa-arrow-right"></i>'
+          },
+          buttons: {
+            pageLength: 'Mostrando %d filas'
+          },
         },
-        buttons: {
-          pageLength: 'Mostrando %d filas'
-        },
-      },
+      });
     });
-  });
-</script>
-
-@endif
+  </script>
+  @endif
+</div>
 
 @include('layouts.footers.auth')
 </div>
