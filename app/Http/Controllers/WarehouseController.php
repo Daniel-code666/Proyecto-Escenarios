@@ -19,7 +19,9 @@ class WarehouseController extends Controller
         $warehouses['warehouses'] = warehouse::join('stages', 
         'stages.id', '=', 'warehouses.warehouseLocation')->paginate(10);
 
-        return view('pages.inventary.warehouse.admin', $warehouses);
+        $stages['stages'] = Stage::get();
+
+        return view('pages.inventary.warehouse.admin', $warehouses, $stages);
     }
 
     /**

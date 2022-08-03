@@ -27,84 +27,197 @@
 @endif
 
 <h2 class="text-center fw-bold mt-2">Almacenes</h2>
-<div class="row">
-  <div class="col-md-4 ml-2">
-    <a type="button" class="btn btn-primary" href="{{ url('/almacen/create') }}">Crear Almacén</a>
+
+<div class="warpper">
+  <input class="radio" id="one" name="group" type="radio" checked>
+  <input class="radio" id="two" name="group" type="radio">
+  <div class="tabs">
+    <label class="tab" id="one-tab" for="one">Almacenes</label>
+    <label class="tab" id="two-tab" for="two">Escenarios principales</label>
+  </div>
+  <div class="panels">
+    <!-- panel de almacenes -->
+    <div class="panel" id="one-panel">
+      <div class="row">
+        <div class="col-md-8">
+          <p>
+            Los almacenes están para poder localizar los inventarios dentro de los escenarios, por lo tanto
+            para crear un almacén es necesario tener al menos un escenario principal con todas las configuraciones
+            pertinentes. Desde de aquí puede crear, actualizar, ver o eliminar un almacén.
+          </p>
+          <a type="button" class="btn btn-primary" href="{{ url('/almacen/create') }}">Crear almacén</a>
+        </div>
+        <div class="col-sm-4">
+          <img class="img-center" src="{{ asset('argon') }}/img/brand/warehouse.png" width="180" alt="...">
+        </div>
+      </div>
+      <hr>
+      @if($warehouses->isEmpty())
+      <div style="text-align: center;">
+        <h4><strong>No hay almacenenes para mostrar</strong></h4>
+      </div>
+      @else
+      <div class="table-responsive m-2">
+        <table id="warehouse_table" class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" class="sort" data-sort="warehouseId">Id</th>
+              <th scope="col" class="sort" data-sort="warehouseName">Nombre</th>
+              <th scope="col" class="sort" data-sort="warehouseDescription">Descripción</th>
+              <th scope="col" class="sort" data-sort="warehouseLocation">Escenario donde se ubica</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="list">
+            @foreach ($warehouses as $warehouse)
+            <tr>
+              <td>{{$warehouse->warehouseId}}</td>
+              <td>{{$warehouse->warehouseName}}</td>
+              <td>{{$warehouse->warehouseDescription}}</td>
+              <td>{{$warehouse->name}}</td>
+              <td class="text-center">
+                <div class="dropdown">
+                  <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
+                    <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
+                      @csrf
+                      {{method_field('DELETE')}}
+                      <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el almacén?')">Eliminar</a>
+                    </form>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      <script>
+        $(document).ready(function() {
+          $('#warehouse_table').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+            language: {
+              lengthMenu: 'Mostrando _MENU_ registros por página',
+              zeroRecords: 'No hay registros para mostrar',
+              info: 'Mostrando página _PAGE_ de _PAGES_',
+              infoEmpty: 'No hay registros disponibles',
+              infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+              sSearch: 'Buscar',
+              'paginate': {
+                'previous': '<i class="fas fa-light fa-arrow-left"></i>',
+                'next': '<i class="fas fa-light fa-arrow-right"></i>'
+              },
+              buttons: {
+                pageLength: 'Mostrando %d filas'
+              },
+            },
+          });
+        });
+      </script>
+      @endif
+    </div>
+    <!-- panel de escenarios principales-->
+    <div class="panel" id="two-panel">
+      <div class="row">
+        <div class="col-md-8">
+          <p>
+            Aquí puede ver los escenarios principales que ya han sido establecidos, si aun no hay ningún escenario
+            puede ir establecerlos. Tenga en cuenta que editar o eliminar un escenario principal desde aquí
+            lo redigirá hacía la página de "Principales".
+          </p>
+          <div>
+            <a type="button" class="btn btn-primary" href="{{ url('/escenario') }}">Ir a escenarios principales</a>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
+        </div>
+      </div>
+      <hr>
+      <div class="table-responsive m-2">
+        @if($stages->isEmpty())
+        <div style="text-align: center;">
+          <h4><strong>No hay escenarios para mostrar</strong></h4>
+        </div>
+        @else
+        <table id="escenarios_table" class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" class="sort" data-sort="name">Id</th>
+              <th scope="col" class="sort" data-sort="status">Foto</th>
+              <th scope="col" class="sort" data-sort="budget">Nombre</th>
+              <th scope="col" class="sort" data-sort="completion">Dirección</th>
+              <th scope="col" class="sort" data-sort="completion">Disciplina</th>
+              <th>Capacidad</th>
+              <th>Superficie</th>
+              <th scope="col" class="sort" data-sort="completion">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="list">
+            @foreach ($stages as $stage)
+            <tr>
+              <td>{{$stage->id}}</td>
+              <td><img src="{{asset('storage').'/'.$stage->photo}}" alt="" width="100"></td>
+              <td>{{$stage->name}}</td>
+              <td>{{$stage->address}}</td>
+              <td>{{$stage->discipline_name}}</td>
+              <td>{{$stage->capacity}}</td>
+              <td>{{$stage->area}}m<sup>2</sup></td>
+              <td class="text-right">
+                <div class="dropdown">
+                  <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="{{ route('genpdf', ['id'=>$stage->id]) }}">PDF</a>
+                    <a class="dropdown-item" href="{{ route('viewStageInfo', ['id'=>$stage->id]) }}">Ver</a>
+                    <a class="dropdown-item" href="{{ url('/escenario/'.$stage->id.'/edit') }}">Editar</a>
+                    <form action="{{ url('/escenario/'.$stage->id) }} " method="post" style="display: inline-block">
+                      @csrf
+                      {{method_field('DELETE')}}
+                      <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el escenario?')">Eliminar</a>
+                    </form>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        <!-- script de la tabla de escenarios -->
+        <script>
+          $(document).ready(function() {
+            $('#escenarios_table').DataTable({
+              dom: 'Bfrtip',
+              buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+              language: {
+                lengthMenu: 'Mostrando _MENU_ registros por página',
+                zeroRecords: 'No hay registros para mostrar',
+                info: 'Mostrando página _PAGE_ de _PAGES_',
+                infoEmpty: 'No hay registros disponibles',
+                infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                sSearch: 'Buscar',
+                'paginate': {
+                  'previous': '<i class="fas fa-light fa-arrow-left"></i>',
+                  'next': '<i class="fas fa-light fa-arrow-right"></i>'
+                },
+                buttons: {
+                  pageLength: 'Mostrando %d filas'
+                },
+              },
+            });
+          });
+        </script>
+        @endif
+      </div>
+    </div>
   </div>
 </div>
 <hr>
-
-<div class="container">
-  @if($warehouses->isEmpty())
-  <div style="text-align: center;">
-    <h4><strong>No hay almacenenes para mostrar</strong></h4>
-  </div>
-  @else
-  <div class="table-responsive m-2">
-    <table id="warehouse_table" class="table align-items-center table-flush">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col" class="sort" data-sort="warehouseId">Id</th>
-          <th scope="col" class="sort" data-sort="warehouseName">Nombre</th>
-          <th scope="col" class="sort" data-sort="warehouseDescription">Descripción</th>
-          <th scope="col" class="sort" data-sort="warehouseLocation">Escenario donde se ubica</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="list">
-        @foreach ($warehouses as $warehouse)
-        <tr>
-          <td>{{$warehouse->warehouseId}}</td>
-          <td>{{$warehouse->warehouseName}}</td>
-          <td>{{$warehouse->warehouseDescription}}</td>
-          <td>{{$warehouse->name}}</td>
-          <td class="text-center">
-            <div class="dropdown">
-              <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
-                <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
-                  @csrf
-                  {{method_field('DELETE')}}
-                  <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</a>
-                </form>
-              </div>
-            </div>
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<script>
-  $(document).ready(function() {
-    $('#warehouse_table').DataTable({
-      dom: 'Bfrtip',
-      buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
-      language: {
-        lengthMenu: 'Mostrando _MENU_ registros por página',
-        zeroRecords: 'No hay registros para mostrar',
-        info: 'Mostrando página _PAGE_ de _PAGES_',
-        infoEmpty: 'No hay registros disponibles',
-        infoFiltered: '(filtrando de _MAX_ registros disponibles)',
-        sSearch: 'Buscar',
-        'paginate': {
-          'previous': '<i class="fas fa-light fa-arrow-left"></i>',
-          'next': '<i class="fas fa-light fa-arrow-right"></i>'
-        },
-        buttons: {
-          pageLength: 'Mostrando %d filas'
-        },
-      },
-    });
-  });
-</script>
-@endif
-
 @include('layouts.footers.auth')
 </div>
 @endsection

@@ -24,7 +24,9 @@ class ResourcesController extends Controller
         ->join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
         ->paginate(10);
 
-        return view('pages.Inventary.items.admin', $resources);
+        $warehouses['warehouses'] = warehouse::get();
+
+        return view('pages.Inventary.items.admin', $resources, $warehouses);
     }
 
     /**

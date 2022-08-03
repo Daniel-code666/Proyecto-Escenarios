@@ -40,9 +40,10 @@
       <div class="row">
         <div class="col-md-8">
           <p>
-            Para crear un sub escenario es necesario tener al menos un escenario principal con las configuraciones
-            pertinentes. Puede realizar las operaciones de creación, actualización, vista y eliminación de
-            los sub escenarios desde aquí.
+            Los sub escenarios son lugares que están dentro de los escenarios principales, pero que tengan
+            condiciones diferentes a las del lugar principal. Para crear un sub escenario es necesario 
+            tener al menos un escenario principal con las configuraciones pertinentes. Puede realizar las 
+            operaciones de creación, actualización, vista y eliminación de los sub escenarios desde aquí.
           </p>
           <a type="button" class="btn btn-primary" href="{{ url('/understage/create') }}">Crear sub escenario</a>
         </div>
@@ -50,6 +51,8 @@
           <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
         </div>
       </div>
+
+      <hr>
 
       @if($underStages->isEmpty())
       <div class="row offset-0">

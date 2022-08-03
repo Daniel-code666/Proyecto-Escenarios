@@ -4,7 +4,6 @@
             <label for="example-text-input" class="form-control-label">Nombre de la disciplina</label>
             <input class="form-control" type="text" name="discipline_name" value="{{isset($discipline->discipline_name)?$discipline->discipline_name:''}}" required="Este es un campo obligatorio.">
         </div>
-        
     </div>
 </div>
 
@@ -13,7 +12,7 @@
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción de la disciplina</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="discipline_description">{{isset($discipline->discipline_description)?$discipline->discipline_description:''}}</textarea>
-          </div>
+        </div>
     </div>
 </div>
 
