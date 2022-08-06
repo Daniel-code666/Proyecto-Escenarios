@@ -1,10 +1,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <div class="row">
+
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre</label>
-            <input class="form-control" type="text" name="name" value="{{isset($stage->name)?$stage->name:''}}" required="Este es un campo obligatorio.">
+            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{isset($stage->name)?$stage->name:old('name')}}">
+            @error('name') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+
         </div>
     </div>
 
@@ -31,13 +38,23 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Capacidad</label>
-            <input class="form-control" type="number" name="capacity" value="{{isset($stage->capacity)?$stage->capacity:''}}">
+            <input class="form-control @error('capacity') is-invalid @enderror" type="number" name="capacity" value="{{isset($stage->capacity)?$stage->capacity:old('capacity')}}">
+            @error('capacity') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Área m<sup>2</sup></label>
-            <input class="form-control" type="number" name="area" value="{{isset($stage->area)?$stage->area:''}}">
+            <input class="form-control @error('area') is-invalid @enderror" type="number" name="area" value="{{isset($stage->area)?$stage->area:old('area')}}">
+            @error('area') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
@@ -47,7 +64,12 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del escenario</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="descripcion">{{isset($stage->descripcion)?$stage->descripcion:''}}</textarea>
+            <textarea class="form-control @error('descripcion') is-invalid @enderror" id="exampleFormControlTextarea1" rows="2" name="descripcion">{{isset($stage->descripcion)?$stage->descripcion:old('descripcion')}}</textarea>
+            @error('descripcion') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>
@@ -77,7 +99,12 @@
     <div class="col-md-9">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del estado</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="message_state">{{isset($stage->message_state)?$stage->message_state:''}}</textarea>
+            <textarea class="form-control @error('message_state') is-invalid @enderror" id="exampleFormControlTextarea1" rows="1" name="message_state">{{isset($stage->message_state)?$stage->message_state:old('message_state')}}</textarea>
+            @error('message_state') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>
@@ -104,21 +131,36 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Direccion</label>
-            <input class="form-control" type="text" name="address" value="{{isset($stage->address)?$stage->address:''}}" id="address">
+            <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" value="{{isset($stage->address)?$stage->address:old('address')}}" id="address">
+            @error('address') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Latitud</label>
-            <input class="form-control" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:''}}" id="lat" readonly="true">
+            <input class="form-control @error('latitude') is-invalid @enderror" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:old('latitude')}}" id="lat" readonly="true">
+            @error('latitude') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Longitud</label>
-            <input class="form-control" type="text" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:''}}" id="lng" readonly="true">
+            <input class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:old('longitude')}}" id="lng" readonly="true">
+            @error('longitude') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>

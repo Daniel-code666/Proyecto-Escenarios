@@ -4,7 +4,12 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre de sub escenario</label>
-            <input class="form-control" type="text" name="name_understg" value="{{isset($underStage->name_understg)?$underStage->name_understg:''}}" required="Este es un campo obligatorio.">
+            <input  class="form-control @error('name_understg') is-invalid @enderror" type="text" name="name_understg" value="{{isset($underStage->name_understg)?$underStage->name_understg:old('name_understg')}}">
+            @error('name_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
@@ -29,13 +34,23 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Capacidad</label>
-            <input class="form-control" type="number" name="capacity_understg" value="{{isset($underStage->capacity_understg)?$underStage->capacity_understg:''}}">
+            <input class="form-control @error('capacity_understg') is-invalid @enderror" type="number" name="capacity_understg" value="{{isset($underStage->capacity_understg)?$underStage->capacity_understg:old('capacity_understg')}}">
+            @error('capacity_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Área m<sup>2</sup></label>
-            <input class="form-control" type="number" name="area_understg" value="{{isset($underStage->area_understg)?$underStage->area_understg:''}}">
+            <input class="form-control @error('area_understg') is-invalid @enderror" type="number" name="area_understg" value="{{isset($underStage->area_understg)?$underStage->area_understg:old('area_understg')}}">
+            @error('area_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
@@ -44,8 +59,13 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Descripción del escenario</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="description_understg">{{isset($underStage->description_understg)?$underStage->description_understg:''}}</textarea>
+            <label for="exampleFormControlTextarea1">Descripción del sub escenario</label>
+            <textarea class="form-control @error('description_understg') is-invalid @enderror" id="exampleFormControlTextarea1" rows="2" name="description_understg">{{isset($underStage->description_understg)?$underStage->description_understg:old('description_understg')}}</textarea>
+            @error('description_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>
@@ -73,7 +93,12 @@
     <div class="col-md-9">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del estado</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="message_state_understg">{{isset($underStage->message_state_understg)?$underStage->message_state_understg:''}}</textarea>
+            <textarea class="form-control @error('message_state_understg') is-invalid @enderror" id="exampleFormControlTextarea1" rows="1" name="message_state_understg">{{isset($underStage->message_state_understg)?$underStage->message_state_understg:old('message_state_understg')}}</textarea>
+            @error('message_state_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>
@@ -120,21 +145,36 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Direccion</label>
-            <input class="form-control" type="text" name="address_understg" value="{{isset($underStage->address_understg)?$underStage->address_understg:''}}" id="address">
+            <input class="form-control @error('address_understg') is-invalid @enderror" type="text" name="address_understg" value="{{isset($underStage->address_understg)?$underStage->address_understg:old('address_understg')}}" id="address">
+            @error('address_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Latitud</label>
-            <input class="form-control" type="text" name="latitude_understg" value="{{isset($underStage->latitude_understg)?$underStage->latitude_understg:''}}" id="lat" readonly="true">
+            <input class="form-control @error('latitude_understg') is-invalid @enderror" type="text" name="latitude_understg" value="{{isset($underStage->latitude_understg)?$underStage->latitude_understg:old('latitude_understg')}}" id="lat" readonly="true">
+            @error('latitude_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Longitud</label>
-            <input class="form-control" type="text" name="longitude_understg" value="{{isset($underStage->longitude_understg)?$underStage->longitude_understg:''}}" id="lng" readonly="true">
+            <input class="form-control @error('longitude_understg') is-invalid @enderror" type="text" name="longitude_understg" value="{{isset($underStage->longitude_understg)?$underStage->longitude_understg:old('longitude_understg')}}" id="lng" readonly="true">
+            @error('longitude_understg') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 

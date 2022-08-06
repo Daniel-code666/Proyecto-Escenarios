@@ -50,6 +50,33 @@ class UnderstageController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'message_state_understg'=>'required | max:500',
+            'capacity_understg'=>'required | numeric',
+            'name_understg'=>'required | max:100',
+            'area_understg'=>'required | numeric',
+            'address_understg'=>'required ',
+            'latitude_understg'=>'required',
+            'longitude_understg'=>'required',
+            'descripcion_understg'=>'required | max:500',
+        ],
+        [
+            'message_state_understg.required' => 'Este campo es requerido',
+            'capacity_understg.required' => 'Este campo es requerido',
+            'name_understg.required' => 'Este campo es requerido',
+            'area_understg.required' => 'Este campo es requerido',
+            'address_understg.required' => 'Este campo es requerido',
+            'latitude_understg.required' => 'Este campo es requerido',
+            'longitude_understg.required' => 'Este campo es requerido',
+            'descripcion_understg.required' => 'Este campo es requerido',       
+            'message_state_understg.max' => 'El máximo de caracteres es 500',
+            'name_understg.max' => 'El máximo de caracteres es 100',
+            'capacity_understg.numeric' => 'Debe ser un campo numérico',
+            'area_understg.numeric' => 'Debe ser un campo numérico',
+            'descripcion_understg.max' => 'El máximo de caracteres es 500',
+        ]
+        );
+
         $datos = request()->except('_token');
 
         $datosToSend = new Understage();
@@ -107,6 +134,32 @@ class UnderstageController extends Controller
      */
     public function update(Request $request, $idUnderstage)
     {
+        $request->validate([
+            'message_state_understg'=>'required | max:500',
+            'capacity_understg'=>'required | numeric',
+            'name_understg'=>'required | max:100',
+            'area_understg'=>'required | numeric',
+            'address_understg'=>'required ',
+            'latitude_understg'=>'required',
+            'longitude_understg'=>'required',
+            'description_understg'=>'required'
+        ],
+        [
+            'message_state_understg.required' => 'Este campo es requerido',
+            'capacity_understg.required' => 'Este campo es requerido',
+            'name_understg.required' => 'Este campo es requerido',
+            'area_understg.required' => 'Este campo es requerido',
+            'address_understg.required' => 'Este campo es requerido',
+            'latitude_understg.required' => 'Este campo es requerido',
+            'longitude_understg.required' => 'Este campo es requerido',
+            'description_understg.required' => 'Este campo es requerido',       
+            'message_state_understg.max' => 'El máximo de caracteres es 500',
+            'name_understg.max' => 'El máximo de caracteres es 100',
+            'capacity_understg.numeric' => 'Debe ser un campo numérico',
+            'area_understg.numeric' => 'Debe ser un campo numérico'
+        ]
+        );
+
         $data = request()->except('_token','_method');
 
         $dataToSend = new Understage();

@@ -61,6 +61,39 @@ class StageController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'id_category'=>'required',
+            'message_state'=>'required | max:500',
+            'discipline'=>'required',
+            'name'=>'required | unique:Stages | max : 100',
+            'area'=>'required | numeric',
+            'address'=>'required',
+            'capacity'=>'required | numeric',
+            'descripcion'=>'required | max:500',
+            'latitude' => 'required',
+            'longitude' => 'required'
+        ],
+        [
+            'id_category.required' => 'Este campo es requerido',
+            'message_state.required' => 'Este campo es requerido',
+            'discipline.required' => 'Este campo es requerido',
+            'name.required' => 'Este campo es requerido',
+            'area.required' => 'Este campo es requerido',
+            'address.required' => 'Este campo es requerido',
+            'capacity.required' => 'Este campo es requerido',
+            'descripcion.required' => 'Este campo es requerido',
+            'latitude.required' => 'Este campo es requerido',
+            'longitude.required' => 'Este campo es requerido',
+            'message_state.max' => 'El máximo de caracteres es 500',
+            'descripcion.max' => 'El máximo de caracteres es 500',
+            'area.numeric' => 'Debe ser un campo numérico',
+            'capacity.numeric' => 'Debe ser un campo numérico',
+            'name.unique' => 'Nombre ya registrado',
+            'name.max' => 'El máximo de caracteres es 100',
+        ]
+        );
+
         //$datos = request()->all();
         $datos = request()->except('_token');
 
@@ -118,6 +151,37 @@ class StageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'id_category'=>'required',
+            'message_state'=>'required | max:500',
+            'discipline'=>'required',
+            'name'=>'required | max:100',
+            'area'=>'required | numeric',
+            'address'=>'required',
+            'capacity'=>'required | numeric',
+            'descripcion'=>'required | max:500',
+            'latitude' => 'required',
+            'longitude' => 'required'
+        ],
+        [
+            'id_category.required' => 'Este campo es requerido',
+            'message_state.required' => 'Este campo es requerido',
+            'discipline.required' => 'Este campo es requerido',
+            'name.required' => 'Este campo es requerido',
+            'area.required' => 'Este campo es requerido',
+            'address.required' => 'Este campo es requerido',
+            'capacity.required' => 'Este campo es requerido',
+            'descripcion.required' => 'Este campo es requerido',
+            'latitude.required' => 'Este campo es requerido',
+            'longitude.required' => 'Este campo es requerido',
+            'message_state.max' => 'El máximo de caracteres es 500',
+            'descripcion.max' => 'El máximo de caracteres es 500',
+            'area.numeric' => 'Debe ser un campo numérico',
+            'capacity.numeric' => 'Debe ser un campo numérico',
+            'name.max' => 'El máximo de caracteres es 100'
+        ]
+        );
+
         $datos = request()->except('_token', '_method');
 
         $datosToSend = new Stage();
