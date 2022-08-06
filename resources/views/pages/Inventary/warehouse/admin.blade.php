@@ -179,7 +179,7 @@
                     <form action="{{ url('/escenario/'.$stage->id) }} " method="post" style="display: inline-block">
                       @csrf
                       {{method_field('DELETE')}}
-                      <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el escenario?')">Eliminar</a>
+                      <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar el escenario?')">Eliminar</button>
                     </form>
                   </div>
                 </div>

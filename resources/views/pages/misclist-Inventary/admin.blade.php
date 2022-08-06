@@ -75,7 +75,7 @@
                   <form action="{{ url('/inventarystates/'.$item->statesId) }} " method="post" style="display: inline-block">
                     @csrf
                     {{method_field('DELETE')}}
-                    <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el estado?')">Eliminar</a>
+                    <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar el estado?')">Eliminar</button>
                   </form>
                 </div>
               </div>

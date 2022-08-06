@@ -76,7 +76,7 @@
                   <form action="{{ url('/discipline/'.$discipline->disciplineId) }} " method="post" style="display: inline-block">
                     @csrf
                     {{method_field('DELETE')}}
-                    <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar la disciplina?')">Eliminar</a>
+                    <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar la disciplina?')">Eliminar</button>
                   </form>
                 </div>
               </div>
