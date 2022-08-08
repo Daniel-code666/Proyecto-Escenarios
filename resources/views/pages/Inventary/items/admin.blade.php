@@ -30,19 +30,21 @@
 <div class="warpper">
     <input class="radio" id="one" name="group" type="radio" checked>
     <input class="radio" id="two" name="group" type="radio">
+    <input class="radio" id="three" name="group" type="radio">
     <div class="tabs">
-        <label class="tab" id="one-tab" for="one">Recursos</label>
-        <label class="tab" id="two-tab" for="two">Almacenes</label>
+        <label class="tab" id="one-tab" for="one">Recursos en escenarios principales</label>
+        <label class="tab" id="two-tab" for="two">Recursos en sub escenarios</label>
+        <label class="tab" id="three-tab" for="three">Almacenes</label>
     </div>
     <div class="panels">
-        <!-- panel de recursos -->
+        <!-- panel de recursos en escenario principales -->
         <div class="panel" id="one-panel">
             <div class="row">
                 <div class="col-md-8">
                     <p>
                         Los recursos son los objetos físicos con los que cuenta cada escenario para la práctica
-                        de las disciplinas o actividades llevadas a cabo en cada lugar. Para crear un recurso es 
-                        necesario tener al menos un almacén establecido. Desde aquí puede realizar las operaciones 
+                        de las disciplinas o actividades llevadas a cabo en cada lugar. Para crear un recurso es
+                        necesario tener al menos un almacén establecido. Desde aquí puede realizar las operaciones
                         de creación, actualización, vista y eliminación de los recursos.
                     </p>
                     <a type="button" class="btn btn-primary" href="{{ url('/item/create') }}">Crear recurso de inventario</a>
@@ -52,7 +54,7 @@
                 </div>
             </div>
             <hr>
-            @if($resources->isEmpty())
+            @if(count($resources) == 0)
             <div style="text-align: center;">
                 <h4><strong>No hay recursos para mostrar</strong></h4>
             </div>
@@ -71,7 +73,8 @@
                         </tr>
                     </thead>
                     <tbody class="list">
-                        @foreach ($resources as $resource)
+                        @foreach ($resources as $rs)
+                        @foreach ($rs as $resource)
                         <tr>
                             <td>{{$resource->idResource}}</td>
                             <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td>
@@ -95,6 +98,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
                         @endforeach
                     </tbody>
                 </table>
@@ -124,8 +128,99 @@
             </script>
             @endif
         </div>
-        <!-- panel de almacenes -->
+        <!-- panel de recursos en sub escenarios -->
         <div class="panel" id="two-panel">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        Los recursos son los objetos físicos con los que cuenta cada escenario para la práctica
+                        de las disciplinas o actividades llevadas a cabo en cada lugar. Para crear un recurso es
+                        necesario tener al menos un almacén establecido. Desde aquí puede realizar las operaciones
+                        de creación, actualización, vista y eliminación de los recursos.
+                    </p>
+                    <a type="button" class="btn btn-primary" href="{{ url('/item/create') }}">Crear recurso de inventario</a>
+                </div>
+                <div class="col-sm-4">
+                    <img class="img-center" src="{{ asset('argon') }}/img/brand/inventarios.png" width="180" alt="...">
+                </div>
+            </div>
+            <hr>
+            @if(count($resourcesSub) == 0)
+            <div style="text-align: center;">
+                <h4><strong>No hay recursos para mostrar</strong></h4>
+            </div>
+            @else
+            <div class="table-responsive m-2">
+                <table id="inventory_table_sub " class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort">Id</th>
+                            <th scope="col" class="sort">Imagen</th>
+                            <th scope="col" class="sort">Nombre</th>
+                            <th scope="col" class="sort">Cantidad</th>
+                            <th scope="col" class="sort">Almacén</th>
+                            <th scope="col" class="sort">Escenario</th>
+                            <th scope="col" class="sort">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach ($resourcesSub as $rs)
+                        @foreach ($rs as $resource)
+                        <tr>
+                            <td>{{$resource->idResource}}</td>
+                            <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td>
+                            <td>{{$resource->resourceName}}</td>
+                            <td>{{$resource->amount}}</td>
+                            <td>{{$resource->warehouseName}}</td>
+                            <td>{{$resource->name_understg}}</td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
+                                        <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
+                                            @csrf
+                                            {{method_field('DELETE')}}
+                                            <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#inventory_table_sub').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                        language: {
+                            lengthMenu: 'Mostrando _MENU_ registros por página',
+                            zeroRecords: 'No hay registros para mostrar',
+                            info: 'Mostrando página _PAGE_ de _PAGES_',
+                            infoEmpty: 'No hay registros disponibles',
+                            infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                            sSearch: 'Buscar',
+                            'paginate': {
+                                'previous': '<i class="fas fa-light fa-arrow-left"></i>',
+                                'next': '<i class="fas fa-light fa-arrow-right"></i>'
+                            },
+                            buttons: {
+                                pageLength: 'Mostrando %d filas'
+                            },
+                        },
+                    });
+                });
+            </script>
+            @endif
+        </div>
+        <!-- panel de almacenes -->
+        <div class="panel" id="three-panel">
             <div class="row">
                 <div class="col-md-8">
                     <p>
@@ -139,7 +234,7 @@
                 </div>
             </div>
             <hr>
-            @if($warehouses->isEmpty())
+            @if(count($warehouses) == 0)
             <div style="text-align: center;">
                 <h4><strong>No hay almacenenes para mostrar</strong></h4>
             </div>
@@ -156,7 +251,8 @@
                         </tr>
                     </thead>
                     <tbody class="list">
-                        @foreach ($warehouses as $warehouse)
+                        @foreach ($warehouses as $wh)
+                        @foreach ($wh as $warehouse)
                         <tr>
                             <td>{{$warehouse->warehouseId}}</td>
                             <td>{{$warehouse->warehouseName}}</td>
@@ -172,12 +268,13 @@
                                         <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
                                             @csrf
                                             {{method_field('DELETE')}}
-                                            <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el almacén?')">Eliminar</a>
+                                            <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar el almacén?')">Eliminar</button>
                                         </form>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
                         @endforeach
                     </tbody>
                 </table>

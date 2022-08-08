@@ -8,6 +8,7 @@ use App\Models\Disciplines;
 use App\Models\Stage;
 use Illuminate\Support\Facades\Storage;
 use App\Models\MiscListStates;
+use App\Models\warehouse;
 use PDF;
 
 class UnderstageController extends Controller
@@ -19,12 +20,16 @@ class UnderstageController extends Controller
      */
     public function index()
     {
-        $underStages['underStages'] = Understage::join('disciplines', 
-        'disciplines.disciplineId', '=', 'understages.discipline_understg')
-        ->join('stages', 'stages.id', '=', 'understages.idStage')
-        ->paginate(10);
+        $underStages['underStages'] = Understage::join(
+            'disciplines',
+            'disciplines.disciplineId',
+            '=',
+            'understages.discipline_understg'
+        )
+            ->join('stages', 'stages.id', '=', 'understages.idStage')
+            ->paginate(10);
 
-        $stages['stages'] = Stage::get();
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
 
         return view('pages.Understages.underStAdmin', $underStages, $stages);
     }
@@ -50,45 +55,46 @@ class UnderstageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'message_state_understg'=>'required | max:500',
-            'capacity_understg'=>'required | numeric',
-            'name_understg'=>'required | max:100',
-            'area_understg'=>'required | numeric',
-            'address_understg'=>'required ',
-            'latitude_understg'=>'required',
-            'longitude_understg'=>'required',
-            'descripcion_understg'=>'required | max:500',
-        ],
-        [
-            'message_state_understg.required' => 'Este campo es requerido',
-            'capacity_understg.required' => 'Este campo es requerido',
-            'name_understg.required' => 'Este campo es requerido',
-            'area_understg.required' => 'Este campo es requerido',
-            'address_understg.required' => 'Este campo es requerido',
-            'latitude_understg.required' => 'Este campo es requerido',
-            'longitude_understg.required' => 'Este campo es requerido',
-            'descripcion_understg.required' => 'Este campo es requerido',       
-            'message_state_understg.max' => 'El máximo de caracteres es 500',
-            'name_understg.max' => 'El máximo de caracteres es 100',
-            'capacity_understg.numeric' => 'Debe ser un campo numérico',
-            'area_understg.numeric' => 'Debe ser un campo numérico',
-            'descripcion_understg.max' => 'El máximo de caracteres es 500',
-        ]
+        $request->validate(
+            [
+                'message_state_understg' => 'required | max:500',
+                'capacity_understg' => 'required | numeric',
+                'name_understg' => 'required | max:100',
+                'area_understg' => 'required | numeric',
+                'address_understg' => 'required ',
+                'latitude_understg' => 'required',
+                'longitude_understg' => 'required',
+                'descripcion_understg' => 'required | max:500',
+            ],
+            [
+                'message_state_understg.required' => 'Este campo es requerido',
+                'capacity_understg.required' => 'Este campo es requerido',
+                'name_understg.required' => 'Este campo es requerido',
+                'area_understg.required' => 'Este campo es requerido',
+                'address_understg.required' => 'Este campo es requerido',
+                'latitude_understg.required' => 'Este campo es requerido',
+                'longitude_understg.required' => 'Este campo es requerido',
+                'descripcion_understg.required' => 'Este campo es requerido',
+                'message_state_understg.max' => 'El máximo de caracteres es 500',
+                'name_understg.max' => 'El máximo de caracteres es 100',
+                'capacity_understg.numeric' => 'Debe ser un campo numérico',
+                'area_understg.numeric' => 'Debe ser un campo numérico',
+                'descripcion_understg.max' => 'El máximo de caracteres es 500',
+            ]
         );
 
         $datos = request()->except('_token');
 
         $datosToSend = new Understage();
-        $datosToSend = $datos;  
+        $datosToSend = $datos;
         // $datosToSend->created_at = Carbon::now()->toTimeString();
         // $datosToSend->updated_at = Carbon::now()->toTimeString();
-        if($request->hasFile('photo_understg')){
-            $datosToSend['photo_understg']=$request->file('photo_understg')->store('uploads','public');
+        if ($request->hasFile('photo_understg')) {
+            $datosToSend['photo_understg'] = $request->file('photo_understg')->store('uploads', 'public');
         }
         Understage::insert($datosToSend);
         //return response()->json($datosToSend);
-        return redirect('/understage')->with('mensaje','Sub escenario creado con éxito.');
+        return redirect('/understage')->with('mensaje', 'Sub escenario creado con éxito.');
     }
 
     /**
@@ -99,15 +105,32 @@ class UnderstageController extends Controller
      */
     public function show($idUnderstage)
     {
+        $arrStages = array();
+
         $underStageDef = Understage::find($idUnderstage);
 
         $stage = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
-                ->where('idUnderstage', $underStageDef->idUnderstage)
-                ->join('stages', 'stages.id', '=', 'understages.idStage')
-                ->where('idUnderstage', $underStageDef->idUnderstage)
-                ->first();
+            ->where('idUnderstage', $underStageDef->idUnderstage)
+            ->join('stages', 'stages.id', '=', 'understages.idStage')
+            ->where('idUnderstage', $underStageDef->idUnderstage)
+            ->first();
 
-        return view('pages.Understages.underStView', compact('stage'));
+        $stageMain = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+            ->where('id', $stage->idStage)
+            ->first();
+
+        $stageWarehouse = warehouse::where('warehouseLocation', $underStageDef->idUnderstage)
+            ->where('locationCheck', 0)->get();
+
+            foreach ($stageWarehouse as $sw) {
+                $stageComplete = Understage::join('warehouses', 'warehouses.warehouseLocation', '=', 'understages.idUnderstage')
+                    ->join('resources', 'resources.resources_warehouseId', '=', 'warehouses.warehouseId')
+                    ->where('idUnderstage', $underStageDef->idUnderstage)->where('warehouseId', $sw->warehouseId)
+                    ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')->get();
+                array_push($arrStages, $stageComplete);
+            }
+
+        return view('pages.Understages.underStView', compact('stage', 'stageMain', 'stageWarehouse', 'arrStages'));
     }
 
     /**
@@ -134,47 +157,48 @@ class UnderstageController extends Controller
      */
     public function update(Request $request, $idUnderstage)
     {
-        $request->validate([
-            'message_state_understg'=>'required | max:500',
-            'capacity_understg'=>'required | numeric',
-            'name_understg'=>'required | max:100',
-            'area_understg'=>'required | numeric',
-            'address_understg'=>'required ',
-            'latitude_understg'=>'required',
-            'longitude_understg'=>'required',
-            'description_understg'=>'required | max:500'
-        ],
-        [
-            'message_state_understg.required' => 'Este campo es requerido',
-            'capacity_understg.required' => 'Este campo es requerido',
-            'name_understg.required' => 'Este campo es requerido',
-            'area_understg.required' => 'Este campo es requerido',
-            'address_understg.required' => 'Este campo es requerido',
-            'latitude_understg.required' => 'Este campo es requerido',
-            'longitude_understg.required' => 'Este campo es requerido',
-            'description_understg.required' => 'Este campo es requerido',       
-            'message_state_understg.max' => 'El máximo de caracteres es 500',
-            'name_understg.max' => 'El máximo de caracteres es 100',
-            'capacity_understg.numeric' => 'Debe ser un campo numérico',
-            'area_understg.numeric' => 'Debe ser un campo numérico',
-            'description_understg.max' => 'El máximo de caracteres es 500'
-        ]
+        $request->validate(
+            [
+                'message_state_understg' => 'required | max:500',
+                'capacity_understg' => 'required | numeric',
+                'name_understg' => 'required | max:100',
+                'area_understg' => 'required | numeric',
+                'address_understg' => 'required ',
+                'latitude_understg' => 'required',
+                'longitude_understg' => 'required',
+                'description_understg' => 'required | max:500'
+            ],
+            [
+                'message_state_understg.required' => 'Este campo es requerido',
+                'capacity_understg.required' => 'Este campo es requerido',
+                'name_understg.required' => 'Este campo es requerido',
+                'area_understg.required' => 'Este campo es requerido',
+                'address_understg.required' => 'Este campo es requerido',
+                'latitude_understg.required' => 'Este campo es requerido',
+                'longitude_understg.required' => 'Este campo es requerido',
+                'description_understg.required' => 'Este campo es requerido',
+                'message_state_understg.max' => 'El máximo de caracteres es 500',
+                'name_understg.max' => 'El máximo de caracteres es 100',
+                'capacity_understg.numeric' => 'Debe ser un campo numérico',
+                'area_understg.numeric' => 'Debe ser un campo numérico',
+                'description_understg.max' => 'El máximo de caracteres es 500'
+            ]
         );
 
-        $data = request()->except('_token','_method');
+        $data = request()->except('_token', '_method');
 
         $dataToSend = new Understage();
-        $dataToSend = $data;  
+        $dataToSend = $data;
         //$datosToSend->created_at = Carbon::now()->toTimeString();
         //$datosToSend->updated_at = Carbon::now()->toTimeString();
-        if($request->hasFile('photo_understg')){
+        if ($request->hasFile('photo_understg')) {
             $underStage = Understage::findOrFail($idUnderstage);
-            Storage::delete('public/'.$underStage->photo_understg);
-            $dataToSend['photo_understg']=$request->file('photo_understg')->store('uploads','public');
+            Storage::delete('public/' . $underStage->photo_understg);
+            $dataToSend['photo_understg'] = $request->file('photo_understg')->store('uploads', 'public');
         }
-        Understage::where('idUnderstage','=',$idUnderstage)->update($dataToSend);
+        Understage::where('idUnderstage', '=', $idUnderstage)->update($dataToSend);
         //return response()->json($datosToSend);
-        return redirect('/understage')->with('mensaje','Escenario editado con éxito.');
+        return redirect('/understage')->with('mensaje', 'Escenario editado con éxito.');
     }
 
     /**
@@ -186,16 +210,21 @@ class UnderstageController extends Controller
     public function destroy($idUnderstage)
     {
         $underStage = Understage::findOrFail($idUnderstage);
-        Storage::delete('public/'.$underStage->photo_understg);
-        Understage::destroy($idUnderstage);   
-        return redirect('/understage')->with('mensaje','Escenario eliminado con éxito.');
+        Storage::delete('public/' . $underStage->photo_understg);
+        Understage::destroy($idUnderstage);
+        return redirect('/understage')->with('mensaje', 'Escenario eliminado con éxito.');
     }
 
-    public function listUnderSt(){
-        $underStages['underStages'] = Understage::join('disciplines', 
-        'disciplines.disciplineId', '=', 'understages.discipline_understg')
-        ->join('stages', 'stages.id', '=', 'understages.idStage')
-        ->paginate(10);
+    public function listUnderSt()
+    {
+        $underStages['underStages'] = Understage::join(
+            'disciplines',
+            'disciplines.disciplineId',
+            '=',
+            'understages.discipline_understg'
+        )
+            ->join('stages', 'stages.id', '=', 'understages.idStage')
+            ->paginate(10);
 
         return view('pages.Understages.listUnderSt', $underStages);
     }
@@ -203,14 +232,15 @@ class UnderstageController extends Controller
     /**
      * Generar reporte general
      */
-    public function pdfUnderstageGeneral($idUnderstage){
+    public function pdfUnderstageGeneral($idUnderstage)
+    {
         $underStageDef = Understage::find($idUnderstage);
 
         $stage = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
-                ->where('idUnderstage', $underStageDef->idUnderstage)
-                ->join('stages', 'stages.id', '=', 'understages.idStage')
-                ->where('idUnderstage', $underStageDef->idUnderstage)
-                ->first();
+            ->where('idUnderstage', $underStageDef->idUnderstage)
+            ->join('stages', 'stages.id', '=', 'understages.idStage')
+            ->where('idUnderstage', $underStageDef->idUnderstage)
+            ->first();
 
         $pdf = app('dompdf.wrapper');
         $contxt = stream_context_create([
@@ -225,7 +255,7 @@ class UnderstageController extends Controller
         $pdf->getDomPDF()->setHttpContext($contxt);
 
         $pdf->loadView('pages.reports.ReporteUnderStGen', compact('stage'))->setOptions(['defaultFont' => 'sans-serif']);
-        
-        return $pdf->download($stage->name.'.pdf');
+
+        return $pdf->download($stage->name . '.pdf');
     }
 }
