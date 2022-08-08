@@ -2,7 +2,12 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre de la disciplina</label>
-            <input class="form-control" type="text" name="discipline_name" value="{{isset($discipline->discipline_name)?$discipline->discipline_name:''}}" required="Este es un campo obligatorio.">
+            <input class="form-control @error('discipline_name') is-invalid @enderror" type="text" name="discipline_name" value="{{isset($discipline->discipline_name)?$discipline->discipline_name:old('discipline_name')}}">
+            @error('discipline_name') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>
@@ -11,7 +16,12 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción de la disciplina</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="discipline_description">{{isset($discipline->discipline_description)?$discipline->discipline_description:''}}</textarea>
+            <textarea class="form-control @error('discipline_description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="2" name="discipline_description">{{isset($discipline->discipline_description)?$discipline->discipline_description:old('discipline_description')}}</textarea>
+            @error('discipline_description') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>

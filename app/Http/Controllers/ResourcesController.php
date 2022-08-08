@@ -49,6 +49,28 @@ class ResourcesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'resourceName'=>'required | max:100',
+            'resourceMsgState'=>'required | max:500',
+            'resourceDescription'=>'required | max:500',
+            'resourceCode'=>'required | max:50 | unique:resources',
+            'amount'=>'required | numeric'
+        ],
+        [
+            'resourceName.required' => 'Este campo es requerido',
+            'resourceMsgState.required' => 'Este campo es requerido',
+            'resourceDescription.required' => 'Este campo es requerido',
+            'resourceCode.required' => 'Este campo es requerido',
+            'amount.required' => 'Este campo es requerido',           
+            'resourceName.max' => 'El máximo de caracteres es 100',
+            'resourceMsgState.max' => 'El máximo de caracteres es 500',
+            'resourceMsgState.max' => 'El máximo de caracteres es 500',
+            'resourceCode.max' => 'El máximo de caracteres es 50',
+            'amount.numeric' => 'Debe ser un campo numérico',
+            'resourceCode.unique' => 'Código ya utillizado',
+        ]
+        );
+
         $datos = request()->except('_token');
 
         $tempObj = (object) $datos;
@@ -113,6 +135,27 @@ class ResourcesController extends Controller
      */
     public function update(Request $request, $idResource)
     {
+        $request->validate([
+            'resourceName'=>'required | max:100',
+            'resourceMsgState'=>'required | max:500',
+            'resourceDescription'=>'required | max:500',
+            'resourceCode'=>'required | max:50',
+            'amount'=>'required | numeric'
+        ],
+        [
+            'resourceName.required' => 'Este campo es requerido',
+            'resourceMsgState.required' => 'Este campo es requerido',
+            'resourceDescription.required' => 'Este campo es requerido',
+            'resourceCode.required' => 'Este campo es requerido',
+            'amount.required' => 'Este campo es requerido',           
+            'resourceName.max' => 'El máximo de caracteres es 100',
+            'resourceMsgState.max' => 'El máximo de caracteres es 500',
+            'resourceMsgState.max' => 'El máximo de caracteres es 500',
+            'resourceCode.max' => 'El máximo de caracteres es 50',
+            'amount.numeric' => 'Debe ser un campo numérico'
+        ]
+        );
+
         $data = request()->except('_token','_method');
 
         $dataToSend = new Resources();

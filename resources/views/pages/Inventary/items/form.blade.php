@@ -4,21 +4,36 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre</label>
-            <input class="form-control" type="text" name="resourceName" value="{{isset($resource->resourceName)?$resource->resourceName:''}}" required="Este es un campo obligatorio.">
+            <input class="form-control @error('resourceName') is-invalid @enderror" type="text" name="resourceName" value="{{isset($resource->resourceName)?$resource->resourceName:old('resourceName')}}">
+            @error('resourceName') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Código</label>
-            <input class="form-control" type="text" name="resourceCode" value="{{isset($resource->resourceCode)?$resource->resourceCode:''}}">
+            <input class="form-control @error('resourceCode') is-invalid @enderror" type="text" name="resourceCode" value="{{isset($resource->resourceCode)?$resource->resourceCode:old('resourceCode')}}">
+            @error('resourceCode') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Cantidad</label>
-            <input class="form-control" type="text" name="amount" value="{{isset($resource->amount)?$resource->amount:''}}" required="Este es un campo obligatorio.">
+            <input class="form-control @error('amount') is-invalid @enderror" type="text" name="amount" value="{{isset($resource->amount)?$resource->amount:old('amount')}}">
+            @error('amount') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
     </div>
 </div>
@@ -26,7 +41,12 @@
 <div class="row">
     <div class="col-md-12">
         <label class="form-control-label">Descripción del objeto</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="resourceDescription">{{isset($resource->resourceDescription)?$resource->resourceDescription:''}}</textarea>
+        <textarea class="form-control @error('resourceDescription') is-invalid @enderror" id="exampleFormControlTextarea1" rows="1" name="resourceDescription">{{isset($resource->resourceDescription)?$resource->resourceDescription:old('resourceDescription')}}</textarea>
+        @error('resourceDescription') 
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
 </div>
 
@@ -71,7 +91,12 @@
 
     <div class="col-md-4">
         <label class="form-control-label">Descripción del estado</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="resourceMsgState">{{isset($resource->resourceMsgState)?$resource->resourceMsgState:''}}</textarea>
+        <textarea class="form-control @error('resourceMsgState') is-invalid @enderror" id="exampleFormControlTextarea1" rows="1" name="resourceMsgState">{{isset($resource->resourceMsgState)?$resource->resourceMsgState:old('resourceMsgState')}}</textarea>
+        @error('resourceMsgState') 
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
 </div>
 

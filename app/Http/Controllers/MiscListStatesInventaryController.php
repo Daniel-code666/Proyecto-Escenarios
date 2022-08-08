@@ -38,6 +38,18 @@ class MiscListStatesInventaryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'statesName'=>'required | max:100',
+            'statesDescription'=>'required | max:500'
+        ],
+        [
+            'statesName.required' => 'Este campo es requerido',
+            'statesDescription.required' => 'Este campo es requerido',     
+            'statesName.max' => 'El máximo de caracteres es 100',
+            'statesDescription.max' => 'El máximo de caracteres es 500'
+        ]
+        );
+
         $data = request()->except('_token');
         $dataToSend = new MiscListStates();
         $dataToSend = $data;
@@ -81,6 +93,17 @@ class MiscListStatesInventaryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'statesName'=>'required | max:100',
+            'statesDescription'=>'required | max:500'
+        ],
+        [
+            'statesName.required' => 'Este campo es requerido',
+            'statesDescription.required' => 'Este campo es requerido',     
+            'statesName.max' => 'El máximo de caracteres es 100',
+            'statesDescription.max' => 'El máximo de caracteres es 500'
+        ]
+        );
         $datos = request()->except('_token','_method');
 
         $datosToSend = new MiscListStates();

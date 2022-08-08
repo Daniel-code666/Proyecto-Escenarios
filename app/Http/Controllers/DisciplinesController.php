@@ -36,6 +36,19 @@ class DisciplinesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'discipline_name'=>'required | max:100 | unique:Disciplines',
+            'discipline_description'=>'required | max:500'
+        ],
+        [
+            'discipline_name.required' => 'Este campo es requerido',
+            'discipline_description.required' => 'Este campo es requerido',     
+            'discipline_name.max' => 'El máximo de caracteres es 100',
+            'discipline_description.max' => 'El máximo de caracteres es 500',
+            'discipline_name.unique' => 'Nombre ya utilizado'
+        ]
+        );
+
         $data = request()->except('_token');
 
         $dataToSend = new Disciplines();
@@ -79,6 +92,18 @@ class DisciplinesController extends Controller
      */
     public function update(Request $request, $disciplineId)
     {
+        $request->validate([
+            'discipline_name'=>'required | max:100',
+            'discipline_description'=>'required | max:500'
+        ],
+        [
+            'discipline_name.required' => 'Este campo es requerido',
+            'discipline_description.required' => 'Este campo es requerido',     
+            'discipline_name.max' => 'El máximo de caracteres es 100',
+            'discipline_description.max' => 'El máximo de caracteres es 500'
+        ]
+        );
+
         $data = request()->except('_token', '_method');
 
         $dataToSend = new Disciplines();
