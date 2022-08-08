@@ -59,7 +59,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Crear un nuevo ususario y le asigna el rol por defecto 3 (usuario registrado)
      *
      * @param  array  $data
      * @return \App\Models\User
@@ -73,9 +73,9 @@ class RegisterController extends Controller
             if($createdUser)
             {
                 $email = $data['email'];
-                $id = DB::select('call get_user_id(?)', array($email));
-                $userId = current((array) $id[0]);
-                DB::statement('call set_role(?,?)', array($email, $userId));    
+                $user = User::where("email", "=", $email)->first();
+                $userId = (int) $user->id;
+                User::where("email", $email)->where("id", $userId)->update(["role_idrole" => 3]);   
             }
             
             return $createdUser;
