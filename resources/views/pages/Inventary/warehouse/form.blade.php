@@ -2,7 +2,12 @@
     <div class="col-md-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre del almacén</label>
-            <input class="form-control" type="text" name="warehouseName" value="{{isset($warehouse->warehouseName)?$warehouse->warehouseName:''}}" required="Este es un campo obligatorio.">
+            <input class="form-control @error('warehouseName') is-invalid @enderror" type="text" name="warehouseName" value="{{isset($warehouse->warehouseName)?$warehouse->warehouseName:old('warehouseName')}}">
+            @error('warehouseName') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>      
     </div>
 
@@ -31,7 +36,12 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Descripción del almacén</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="warehouseDescription" required="Este es un campo obligatorio.">{{isset($warehouse->warehouseDescription)?$warehouse->warehouseDescription:''}}</textarea>
+            <textarea class="form-control @error('warehouseDescription') is-invalid @enderror" id="exampleFormControlTextarea1" rows="2" name="warehouseDescription">{{isset($warehouse->warehouseDescription)?$warehouse->warehouseDescription:old('warehouseDescription')}}</textarea>
+            @error('warehouseDescription') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>      
     </div>
 </div>

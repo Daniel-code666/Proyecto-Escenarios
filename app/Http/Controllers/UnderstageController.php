@@ -142,7 +142,7 @@ class UnderstageController extends Controller
             'address_understg'=>'required ',
             'latitude_understg'=>'required',
             'longitude_understg'=>'required',
-            'description_understg'=>'required'
+            'description_understg'=>'required | max:500'
         ],
         [
             'message_state_understg.required' => 'Este campo es requerido',
@@ -156,7 +156,8 @@ class UnderstageController extends Controller
             'message_state_understg.max' => 'El máximo de caracteres es 500',
             'name_understg.max' => 'El máximo de caracteres es 100',
             'capacity_understg.numeric' => 'Debe ser un campo numérico',
-            'area_understg.numeric' => 'Debe ser un campo numérico'
+            'area_understg.numeric' => 'Debe ser un campo numérico',
+            'description_understg.max' => 'El máximo de caracteres es 500'
         ]
         );
 

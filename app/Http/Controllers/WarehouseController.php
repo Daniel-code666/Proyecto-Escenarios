@@ -43,6 +43,19 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'warehouseName'=>'required | max:100 |unique:warehouses',
+            'warehouseDescription'=>'required | max:500'
+        ],
+        [
+            'warehouseName.required' => 'Este campo es requerido',
+            'warehouseDescription.required' => 'Este campo es requerido',     
+            'warehouseName.max' => 'El máximo de caracteres es 100',
+            'warehouseDescription.max' => 'El máximo de caracteres es 500',
+            'warehouseName.unique' => 'Nombre ya utilizado'
+        ]
+        );
+
         $data = request()->except('_token');
         $dataToSend = new warehouse();
         $dataToSend = $data;
@@ -86,6 +99,18 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, $warehouseId)
     {
+        $request->validate([
+            'warehouseName'=>'required | max:100',
+            'warehouseDescription'=>'required | max:500'
+        ],
+        [
+            'warehouseName.required' => 'Este campo es requerido',
+            'warehouseDescription.required' => 'Este campo es requerido',     
+            'warehouseName.max' => 'El máximo de caracteres es 100',
+            'warehouseDescription.max' => 'El máximo de caracteres es 500'
+        ]
+        );
+
         $datos = request()->except('_token','_method');
 
         $datosToSend = new warehouse();
