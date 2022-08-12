@@ -64,9 +64,10 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col" class="sort">Id</th>
-                            <th scope="col" class="sort">Imagen</th>
+                            <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
-                            <th scope="col" class="sort">Cantidad</th>
+                            <th scope="col" class="sort">Cantidad en Almacén</th>
+                            <th>Cantidad en uso</th>
                             <th scope="col" class="sort">Almacén</th>
                             <th scope="col" class="sort">Escenario</th>
                             <th scope="col" class="sort">Acciones</th>
@@ -77,9 +78,10 @@
                         @foreach ($rs as $resource)
                         <tr>
                             <td>{{$resource->idResource}}</td>
-                            <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td>
+                            <!-- <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td> -->
                             <td>{{$resource->resourceName}}</td>
                             <td>{{$resource->amount}}</td>
+                            <td>{{$resource->amountInUse}}</td>
                             <td>{{$resource->warehouseName}}</td>
                             <td>{{$resource->name}}</td>
                             <td class="text-center">
@@ -89,6 +91,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
+                                        <a class="dropdown-item" href="{{ url('/assign/'.$resource->idResource.'/set') }}">Asignar</a>
                                         <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
                                             @csrf
                                             {{method_field('DELETE')}}
@@ -151,13 +154,14 @@
             </div>
             @else
             <div class="table-responsive m-2">
-                <table id="inventory_table_sub " class="table align-items-center table-flush">
+                <table id="inventory_table_sub" class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col" class="sort">Id</th>
-                            <th scope="col" class="sort">Imagen</th>
+                            <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
-                            <th scope="col" class="sort">Cantidad</th>
+                            <th scope="col" class="sort">Cantidad en almacén</th>
+                            <th>Cantidad en uso</th>
                             <th scope="col" class="sort">Almacén</th>
                             <th scope="col" class="sort">Escenario</th>
                             <th scope="col" class="sort">Acciones</th>
@@ -168,9 +172,10 @@
                         @foreach ($rs as $resource)
                         <tr>
                             <td>{{$resource->idResource}}</td>
-                            <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td>
+                            <!-- <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td> -->
                             <td>{{$resource->resourceName}}</td>
                             <td>{{$resource->amount}}</td>
+                            <td>{{$resource->amountInUse}}</td>
                             <td>{{$resource->warehouseName}}</td>
                             <td>{{$resource->name_understg}}</td>
                             <td class="text-center">
@@ -180,6 +185,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
+                                        <a class="dropdown-item" href="{{ url('/assign/'.$resource->idResource.'/set') }}">Asignar</a>
                                         <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
                                             @csrf
                                             {{method_field('DELETE')}}
@@ -251,13 +257,18 @@
                         </tr>
                     </thead>
                     <tbody class="list">
-                        @foreach ($warehouses as $wh)
-                        @foreach ($wh as $warehouse)
+                        @foreach ($warehousesArr as $wh)
+                        @foreach ($wh as $w)
+                        @foreach ($w as $warehouse)
                         <tr>
                             <td>{{$warehouse->warehouseId}}</td>
                             <td>{{$warehouse->warehouseName}}</td>
                             <td>{{$warehouse->warehouseDescription}}</td>
-                            <td>{{$warehouse->name}}</td>
+                            @if($warehouse->locationCheck == 0)
+                                <td>{{$warehouse->name_understg}}</td>
+                            @else
+                                <td>{{$warehouse->name}}</td>
+                            @endif
                             <td class="text-center">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -274,6 +285,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
                         @endforeach
                         @endforeach
                     </tbody>

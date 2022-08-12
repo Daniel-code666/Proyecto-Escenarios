@@ -19,7 +19,9 @@ class ResourcesController extends Controller
      */
     public function index()
     {
-        //
+        $warehousesArr = array();
+
+
         $resources['resources'] = Resources::join(
             'warehouses',
             'warehouses.warehouseId',
@@ -40,9 +42,18 @@ class ResourcesController extends Controller
             ->where('locationCheck', 0)
             ->get();
 
-        $warehouses['warehouses'] = warehouse::get();
+        $warehouses['warehouses'] = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
+            ->where('locationCheck', 1)
+            ->get();
 
-        return view('pages.Inventary.items.admin', compact('resources', 'resourcesSub', 'warehouses'));
+        $warehousesSub['warehousesSub'] = warehouse::join('understages', 'understages.idUnderstage', '=', 'warehouses.warehouseLocation')
+            ->where('locationCheck', 0)
+            ->get();
+
+        array_push($warehousesArr, $warehouses);
+        array_push($warehousesArr, $warehousesSub);
+
+        return view('pages.Inventary.items.admin', compact('resources', 'resourcesSub', 'warehouses', 'warehousesArr'));
     }
 
     /**
@@ -76,7 +87,7 @@ class ResourcesController extends Controller
                 'resourceMsgState' => 'required | max:500',
                 'resourceDescription' => 'required | max:500',
                 'resourceCode' => 'required | max:50 | unique:resources',
-                'amount' => 'required | numeric'
+                'amount' => 'required | numeric',
             ],
             [
                 'resourceName.required' => 'Este campo es requerido',
@@ -99,19 +110,14 @@ class ResourcesController extends Controller
 
         if ($tempObj->resourceCode == null) {
             $tempObj->resourceCode = $tempObj->resourceName . $tempObj->resources_warehouseId;
+        }
 
-            $datosToSend = new Resources();
-            $datosToSend = (array) $tempObj;
-
-            if ($request->hasFile('resourcePhoto')) {
-                $datosToSend['resourcePhoto'] = $request->file('resourcePhoto')->store('uploads', 'public');
-            }
-            Resources::insert($datosToSend);
-            return redirect('/item')->with('mensaje', 'Recurso creado con éxito.');
+        if ($tempObj->amountInUse == null) {
+            $tempObj->amountInUse = 0;
         }
 
         $datosToSend = new Resources();
-        $datosToSend = $datos;
+        $datosToSend = (array) $tempObj;
 
         // $datosToSend->created_at = Resources::now()->toTimeString();
         // $datosToSend->updated_at = Resources::now()->toTimeString();
@@ -186,8 +192,18 @@ class ResourcesController extends Controller
 
         $data = request()->except('_token', '_method');
 
+        $tempObj = (object) $data;
+
+        if ($tempObj->resourceCode == null) {
+            $tempObj->resourceCode = $tempObj->resourceName . $tempObj->resources_warehouseId;
+        }
+
+        if ($tempObj->amountInUse == null) {
+            $tempObj->amountInUse = 0;
+        }
+
         $dataToSend = new Resources();
-        $dataToSend = $data;
+        $dataToSend = (array) $tempObj;
 
         if ($request->hasFile('resourcePhoto')) {
             $resource = Resources::findOrFail($idResource);
@@ -210,5 +226,45 @@ class ResourcesController extends Controller
     {
         Resources::destroy($idResource);
         return redirect('/item')->with('mensaje', 'Recurso eliminado con éxito.');
+    }
+
+    public function bringResourceInfo($idResource){
+        $resource = Resources::FindOrFail($idResource);
+        return view('pages.Inventary.items.assign', compact('resource'));
+    }
+
+
+    /**
+     * Asigna la cantidad en uso de un elemento en el inventario
+     */
+
+    public function setInUseItem(Request $request, $idResource){
+
+        $request->validate(
+            [
+                'amountInUse' => 'required | numeric'
+            ],
+            [
+                'amountInUse.required' => 'Este campo es requerido'
+            ]
+        );
+
+        $resource = Resources::find($idResource);
+
+        $data = request()->except('_token', '_method');
+
+        foreach($data as $d){
+            $amountInUse = (int) $d;
+        }
+
+        if($amountInUse > $resource->amount){
+            return redirect('/item')->with('mensaje', 'La cantidad asignada excede la cantidad en el almacén');
+        }
+
+        $newAmount = $resource->amount - $amountInUse;
+
+        Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $amountInUse]);
+
+        return redirect('/item')->with('mensaje', 'Se ha asignado la cantidad correctamente');
     }
 }

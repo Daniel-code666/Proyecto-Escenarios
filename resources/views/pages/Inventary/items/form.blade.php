@@ -27,9 +27,21 @@
 
     <div class="col-md-3">
         <div class="form-group">
-            <label for="example-text-input" class="form-control-label">Cantidad</label>
+            <label for="example-text-input" class="form-control-label">Cantidad en almacén</label>
             <input class="form-control @error('amount') is-invalid @enderror" type="text" name="amount" value="{{isset($resource->amount)?$resource->amount:old('amount')}}">
             @error('amount')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="example-text-input" class="form-control-label">Cantidad en uso</label>
+            <input class="form-control @error('amountInUse') is-invalid @enderror" type="text" name="amountInUse" value="{{isset($resource->amountInUse)?$resource->amountInUse:old('amountInUse')}}">
+            @error('amountInUse')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -104,7 +116,7 @@
 </div>
 
 <div class="row">
-<div class="col-md-3">
+    <div class="col-md-3">
         <label class="form-control-label">Estado</label>
         <select required class="form-control" name="id_category">
             @if (isset($resource->id_category))
