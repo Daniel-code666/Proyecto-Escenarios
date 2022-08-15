@@ -247,7 +247,6 @@ class StageController extends Controller
         //$stage = Stage::find($id);
 
         $arrStages = array();
-        $arrResourceInfo = array();
 
         $stageDef = Stage::find($id);
 
@@ -267,11 +266,10 @@ class StageController extends Controller
                 ->join('resources', 'resources.resources_warehouseId', '=', 'warehouses.warehouseId')
                 ->where('id', $stageDef->id)->where('warehouseId', $sw->warehouseId)
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')->get();
-
             array_push($arrStages, $stageComplete);
         }
 
-        return view('pages.stages.stageAdminView', compact('stage', 'understages', 'stageWarehouse', 'arrStages', 'arrResourceInfo'));
+        return view('pages.stages.stageAdminView', compact('stage', 'understages', 'stageWarehouse', 'arrStages'));
     }
 
     /**

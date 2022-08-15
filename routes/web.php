@@ -91,4 +91,6 @@ Route::resource('config', App\Http\Controllers\ConfigurationController::class)->
 
 //Inventary
 Route::resource('item', App\Http\Controllers\ResourcesController::class)->middleware(['auth', 'idrole']);
+Route::get('/assign/{idResource}/set', 'App\Http\Controllers\ResourcesController@bringResourceInfo')->middleware(['auth', 'idrole'])->name('assign');
+Route::put('/set/{idResource}', 'App\Http\Controllers\ResourcesController@setInUseItem')->middleware(['auth', 'idrole'])->name('/set/');
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);

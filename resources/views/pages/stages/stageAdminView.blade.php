@@ -122,7 +122,7 @@
                                                     <form action="{{ url('/almacen/'.$stWarehouse->warehouseId) }} " method="post" style="display: inline-block">
                                                         @csrf
                                                         {{method_field('DELETE')}}
-                                                        <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el almacén?')">Eliminar</a>
+                                                        <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar el almacén?')">Eliminar</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -201,7 +201,7 @@
                                                         <form action="{{ url('/item/'.$arrSt->idResource) }} " method="post" style="display: inline-block">
                                                             @csrf
                                                             {{method_field('DELETE')}}
-                                                            <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</a>
+                                                            <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar el recurso?')">Eliminar</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -279,7 +279,7 @@
                                                         <form action="{{ url('/understage/'.$understage->idUnderstage) }} " method="post" style="display: inline-block">
                                                             @csrf
                                                             {{method_field('DELETE')}}
-                                                            <a type="submit" class="dropdown-item" onclick="return confirm('¿Quieres eliminar el sub escenario?')">Eliminar</a>
+                                                            <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Quieres eliminar el sub escenario?')">Eliminar</button>
                                                         </form>
                                                     </div>
                                                 </div>

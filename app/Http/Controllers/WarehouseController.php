@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\warehouse;
 use Illuminate\Http\Request;
 use App\Models\Stage;
+use App\Models\Understage;
 
 class WarehouseController extends Controller
 {
@@ -16,12 +17,21 @@ class WarehouseController extends Controller
     public function index()
     {
         // $warehouses['warehouses'] = warehouse::paginate(5);
-        $warehouses['warehouses'] = warehouse::join('stages', 
-        'stages.id', '=', 'warehouses.warehouseLocation')->paginate(10);
+        $warehouses['warehouses'] = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
+            ->where('locationCheck', 1)
+            ->get();
 
-        $stages['stages'] = Stage::get();
+        $warehousesSub['warehousesSub'] = warehouse::join('understages', 'understages.idUnderstage', '=', 'warehouses.warehouseLocation')
+            ->where('locationCheck', 0)
+            ->get();
 
-        return view('pages.inventary.warehouse.admin', $warehouses, $stages);
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
+
+        $underStages['underStages'] = Understage::join('disciplines', 
+        'disciplines.disciplineId', '=', 'understages.discipline_understg')
+        ->join('stages', 'stages.id', '=', 'understages.idStage')->get();
+
+        return view('pages.inventary.warehouse.admin', compact('warehouses', 'stages', 'warehousesSub', 'underStages'));
     }
 
     /**
@@ -32,7 +42,8 @@ class WarehouseController extends Controller
     public function create()
     {
         $stages = Stage::all();
-        return view('pages.inventary.warehouse.add', compact('stages'));
+        $underStages = Understage::all();
+        return view('pages.inventary.warehouse.add', compact('stages', 'underStages'));
     }
 
     /**
@@ -43,17 +54,18 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'warehouseName'=>'required | max:100 |unique:warehouses',
-            'warehouseDescription'=>'required | max:500'
-        ],
-        [
-            'warehouseName.required' => 'Este campo es requerido',
-            'warehouseDescription.required' => 'Este campo es requerido',     
-            'warehouseName.max' => 'El máximo de caracteres es 100',
-            'warehouseDescription.max' => 'El máximo de caracteres es 500',
-            'warehouseName.unique' => 'Nombre ya utilizado'
-        ]
+        $request->validate(
+            [
+                'warehouseName' => 'required | max:100 |unique:warehouses',
+                'warehouseDescription' => 'required | max:500'
+            ],
+            [
+                'warehouseName.required' => 'Este campo es requerido',
+                'warehouseDescription.required' => 'Este campo es requerido',
+                'warehouseName.max' => 'El máximo de caracteres es 100',
+                'warehouseDescription.max' => 'El máximo de caracteres es 500',
+                'warehouseName.unique' => 'Nombre ya utilizado'
+            ]
         );
 
         $data = request()->except('_token');
@@ -62,7 +74,7 @@ class WarehouseController extends Controller
 
         warehouse::insert($dataToSend);
 
-        return redirect('/almacen')->with('mensaje','Almacén creado con éxito.');
+        return redirect('/almacen')->with('mensaje', 'Almacén creado con éxito.');
     }
 
     /**
@@ -87,7 +99,8 @@ class WarehouseController extends Controller
     {
         $warehouse = warehouse::find($warehouseId);
         $stages = Stage::all();
-        return view('pages.inventary.warehouse.edit', compact('warehouse', 'stages'));
+        $underStages = Understage::all();
+        return view('pages.inventary.warehouse.edit', compact('warehouse', 'stages', 'underStages'));
     }
 
     /**
@@ -99,24 +112,25 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, $warehouseId)
     {
-        $request->validate([
-            'warehouseName'=>'required | max:100',
-            'warehouseDescription'=>'required | max:500'
-        ],
-        [
-            'warehouseName.required' => 'Este campo es requerido',
-            'warehouseDescription.required' => 'Este campo es requerido',     
-            'warehouseName.max' => 'El máximo de caracteres es 100',
-            'warehouseDescription.max' => 'El máximo de caracteres es 500'
-        ]
+        $request->validate(
+            [
+                'warehouseName' => 'required | max:100',
+                'warehouseDescription' => 'required | max:500'
+            ],
+            [
+                'warehouseName.required' => 'Este campo es requerido',
+                'warehouseDescription.required' => 'Este campo es requerido',
+                'warehouseName.max' => 'El máximo de caracteres es 100',
+                'warehouseDescription.max' => 'El máximo de caracteres es 500'
+            ]
         );
 
-        $datos = request()->except('_token','_method');
+        $datos = request()->except('_token', '_method');
 
         $datosToSend = new warehouse();
-        $datosToSend = $datos;  
-        warehouse::where('warehouseId','=', $warehouseId)->update($datosToSend);
-        return redirect('/almacen')->with('mensaje','Almacén editado con éxito.');
+        $datosToSend = $datos;
+        warehouse::where('warehouseId', '=', $warehouseId)->update($datosToSend);
+        return redirect('/almacen')->with('mensaje', 'Almacén editado con éxito.');
     }
 
     /**
@@ -127,7 +141,7 @@ class WarehouseController extends Controller
      */
     public function destroy($warehouseId)
     {
-        warehouse::destroy($warehouseId);   
-        return redirect('/almacen')->with('mensaje','Almacén eliminado con éxito.');
+        warehouse::destroy($warehouseId);
+        return redirect('/almacen')->with('mensaje', 'Almacén eliminado con éxito.');
     }
 }
