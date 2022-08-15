@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Stage;
 use App\Models\Disciplines;
 use App\Models\MiscListStates;
+use App\Models\Locality;
+use App\Models\Neighborhood;
 use App\Models\Resources;
 use App\Models\Understage;
 use App\Models\warehouse;
@@ -28,7 +30,6 @@ class StageController extends Controller
         $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
         $disciplines['disciplines'] = Disciplines::get();
         $misclist['misclist'] = MiscListStates::where("tableParent", "=", 'stages')->get();
-
         return view('pages.stages.admin', $stages)->with('disciplines', $disciplines)->with('misclist', $misclist);
     }
 
@@ -50,7 +51,9 @@ class StageController extends Controller
     {
         $disciplines = Disciplines::all();
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        return view('pages.stages.add', compact('disciplines', 'states'));
+        $localities = Locality::select("*")->orderBy('name','ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('name','ASC')->get();
+        return view('pages.stages.add', compact('disciplines', 'states','localities', 'neighbordhoods'));
     }
 
     /**
@@ -72,7 +75,11 @@ class StageController extends Controller
             'capacity'=>'required | numeric',
             'descripcion'=>'required | max:500',
             'latitude' => 'required',
-            'longitude' => 'required'
+            'longitude' => 'required',
+            'underStagesQty' => 'required',
+            'stegeCode' => 'required',
+            'localityid' => 'required',
+            'neighborhoodsid' => 'required'
         ],
         [
             'id_category.required' => 'Este campo es requerido',
@@ -85,6 +92,10 @@ class StageController extends Controller
             'descripcion.required' => 'Este campo es requerido',
             'latitude.required' => 'Este campo es requerido',
             'longitude.required' => 'Este campo es requerido',
+            'underStagesQty.required' => 'Este campo es requerido',
+            'stegeCode.required' => 'Este campo es requerido',
+            'localityid.required' => 'Este campo es requerido',
+            'neighborhoodsid.required' => 'Este campo es requerido',
             'message_state.max' => 'El máximo de caracteres es 500',
             'descripcion.max' => 'El máximo de caracteres es 500',
             'area.numeric' => 'Debe ser un campo numérico',
@@ -124,8 +135,11 @@ class StageController extends Controller
         $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
             ->where('id', $stageDef->id)
             ->first();
+        $disciplines = Disciplines::all();
+        $localities = Locality::select("*")->orderBy('name','ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('name','ASC')->get();
 
-        return view('pages.stages.guestStagesView', compact('stage', 'states'));
+        return view('pages.stages.guestStagesView', compact('stage', 'states','disciplines','localities', 'neighbordhoods'));
     }
 
     /**
@@ -139,7 +153,9 @@ class StageController extends Controller
         $disciplines = Disciplines::all();
         $stage = Stage::findOrFail($id);
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        return view('pages.stages.edit', compact('stage', 'states'), compact('disciplines'));
+        $localities = Locality::select("*")->orderBy('name','ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('name','ASC')->get();
+        return view('pages.stages.edit', compact('stage','disciplines', 'states','localities', 'neighbordhoods'));
     }
 
     /**
@@ -161,7 +177,11 @@ class StageController extends Controller
             'capacity'=>'required | numeric',
             'descripcion'=>'required | max:500',
             'latitude' => 'required',
-            'longitude' => 'required'
+            'longitude' => 'required',
+            'underStagesQty' => 'required',
+            'stegeCode' => 'required',
+            'localityid' => 'required',
+            'neighborhoodsid' => 'required'
         ],
         [
             'id_category.required' => 'Este campo es requerido',
@@ -174,6 +194,10 @@ class StageController extends Controller
             'descripcion.required' => 'Este campo es requerido',
             'latitude.required' => 'Este campo es requerido',
             'longitude.required' => 'Este campo es requerido',
+            'underStagesQty.required' => 'Este campo es requerido',
+            'stegeCode.required' => 'Este campo es requerido',
+            'localityid.required' => 'Este campo es requerido',
+            'neighborhoodsid.required' => 'Este campo es requerido',
             'message_state.max' => 'El máximo de caracteres es 500',
             'descripcion.max' => 'El máximo de caracteres es 500',
             'area.numeric' => 'Debe ser un campo numérico',

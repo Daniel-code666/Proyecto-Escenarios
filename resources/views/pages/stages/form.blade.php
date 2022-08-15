@@ -2,7 +2,7 @@
 
 <div class="row">
 
-    <div class="col-md-3">
+    <div class="col-sm-3">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre</label>
             <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{isset($stage->name)?$stage->name:old('name')}}">
@@ -15,7 +15,19 @@
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="example-number-input" class="form-control-label">Código</label>
+            <input class="form-control @error('stegeCode') is-invalid @enderror" type="text" name="stegeCode" value="{{isset($stage->stegeCode)?$stage->stegeCode:old('stegeCode')}}">
+            @error('stegeCode') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-sm-3">
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline">
             @if (isset($stage->discipline))
@@ -35,10 +47,26 @@
         </select>
     </div>
 
-    <div class="col-md-3">
+
+
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="example-number-input" class="form-control-label">N° Sub escenarios</label>
+            <input class="form-control @error('underStagesQty') is-invalid @enderror" type="number" name="underStagesQty" value="{{isset($stage->underStagesQty)?$stage->underStagesQty:old('underStagesQty')}}" placeholder="0">
+            @error('underStagesQty') 
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-sm-3">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Capacidad</label>
-            <input class="form-control @error('capacity') is-invalid @enderror" type="number" name="capacity" value="{{isset($stage->capacity)?$stage->capacity:old('capacity')}}">
+            <input class="form-control @error('capacity') is-invalid @enderror" type="number" name="capacity" value="{{isset($stage->capacity)?$stage->capacity:old('capacity')}}" placeholder="0">
             @error('capacity') 
             <div class="invalid-feedback">
                 {{$message}}
@@ -46,10 +74,10 @@
             @enderror
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-sm-3">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Área m<sup>2</sup></label>
-            <input class="form-control @error('area') is-invalid @enderror" type="number" name="area" value="{{isset($stage->area)?$stage->area:old('area')}}">
+            <input class="form-control @error('area') is-invalid @enderror" type="number" name="area" value="{{isset($stage->area)?$stage->area:old('area')}}" placeholder="0">
             @error('area') 
             <div class="invalid-feedback">
                 {{$message}}
@@ -57,7 +85,6 @@
             @enderror
         </div>
     </div>
-
 </div>
 
 <div class="row">
@@ -74,7 +101,7 @@
     </div>
 </div>
 
-
+<hr>
 
 <!-- Tercer fila -->
 <div class="row">
@@ -139,6 +166,51 @@
             @enderror
         </div>
     </div>
+    
+    <div class="col-sm-3">
+        <label class="form-control-label">Localidad</label>
+        <select class="form-control" name="localityid">
+            @if (isset($stage->localityid))
+                @foreach ($localities as $locality)
+                    @if ($locality->id == $stage->localityid)
+                    <option value="{{$locality->id}}" selected>{{$locality->name}}</option>
+                    @else
+                    <option value="{{$locality->id}}">{{$locality->name}}</option>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($localities as $locality)
+                 <option value="{{$locality->id}}">{{$locality->name}}</option>
+                @endforeach
+            @endif
+
+        </select>
+    </div>
+
+
+    <div class="col-sm-3">
+        <label class="form-control-label">Barrio</label>
+        <select class="form-control" name="neighborhoodsid">
+            @if (isset($stage->neighborhoodsid))
+                @foreach ($neighbordhoods as $neighbordhood)
+                    @if ($neighbordhood->id == $stage->neighborhoodsid)
+                    <option value="{{$neighbordhood->id}}" selected>{{$neighbordhood->name}}</option>
+                    @else
+                    <option value="{{$neighbordhood->id}}">{{$neighbordhood->name}}</option>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($neighbordhoods as $neighbordhood)
+                 <option value="{{$neighbordhood->id}}">{{$neighbordhood->name}}</option>
+                @endforeach
+            @endif
+
+        </select>
+    </div>
+
+</div>
+
+<div class="row">
 
     <div class="col-md-3">
         <div class="form-group">
@@ -177,3 +249,4 @@
 <div class="row justify-content-md-center" style="margin-top: 10px">
     <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
 </div>
+
