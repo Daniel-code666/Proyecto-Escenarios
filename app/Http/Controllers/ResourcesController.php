@@ -21,7 +21,6 @@ class ResourcesController extends Controller
     {
         $warehousesArr = array();
 
-
         $resources['resources'] = Resources::join(
             'warehouses',
             'warehouses.warehouseId',

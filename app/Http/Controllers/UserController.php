@@ -18,4 +18,9 @@ class UserController extends Controller
     {
         return view('users.index');
     }
+
+    public function listUsers(){
+        $users = User::get()->where('role_idrole', 3);
+        return view('users.listUsers', compact('users'));
+    }
 }

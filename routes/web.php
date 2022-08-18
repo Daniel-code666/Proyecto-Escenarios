@@ -43,8 +43,10 @@ Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
 // user login
 Route::post('/Login', 'App\Http\Controllers\Auth\LoginController@Login')->name('Login');
 
-// update & edit user info
+// list users
+Route::get('/users', 'App\Http\Controllers\UserController@listUsers')->name('users')->middleware(['auth', 'idrole']);
 
+// update & edit user info
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
