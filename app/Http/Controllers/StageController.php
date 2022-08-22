@@ -17,6 +17,7 @@ use SebastianBergmann\Environment\Console;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use App\Reports\MyReport;
 
 class StageController extends Controller
 {
@@ -303,5 +304,12 @@ class StageController extends Controller
         $pdf->loadView('pages.reports.ReporteGenStage', compact('stage', 'understages'))->setOptions(['defaultFont' => 'sans-serif']);
 
         return $pdf->download($stage->name . '.pdf');
+    }
+
+    public function inventoryQuantityReport($id){
+        $stage = Stage::find($id);
+        $report = new MyReport(array("id"=>$id));
+        $report->run();
+        return view("reports.report", ["report"=>$report, "stage"=>$stage]);
     }
 }

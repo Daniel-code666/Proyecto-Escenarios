@@ -91,6 +91,7 @@
                     <a class="dropdown-item" href="{{ route('genpdf', ['id'=>$stage->id]) }}">PDF</a>
                     <a class="dropdown-item" href="{{ route('viewStageInfo', ['id'=>$stage->id]) }}">Ver</a>
                     <a class="dropdown-item" href="{{ url('/escenario/'.$stage->id.'/edit') }}">Editar</a>
+                    <a class="dropdown-item" target="_blank" href="{{ route('quantity', ['id'=>$stage->id]) }}">Reporte Inventario</a>
                     <form action="{{ url('/escenario/'.$stage->id) }} " method="post" style="display: inline-block">
                       @csrf
                       {{method_field('DELETE')}}

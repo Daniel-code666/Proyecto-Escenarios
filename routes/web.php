@@ -72,6 +72,8 @@ Route::resource('escenario', App\Http\Controllers\StageController::class)->middl
 Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
 Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');
 Route::get('viewStageInfo/{id}', 'App\Http\Controllers\StageController@viewStageInfo')->name('viewStageInfo')->middleware(['auth', 'idrole']);
+Route::get('quantity/{id}', 'App\Http\Controllers\StageController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
+
 
 // understages
 Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
