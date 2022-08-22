@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app',[$menu = Session::get('menu') , $submenu = Session::get('submenu')])
 
 @section('content')
 @include('layouts.headers.sharedmargin')

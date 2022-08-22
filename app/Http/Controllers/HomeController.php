@@ -5,6 +5,9 @@ use App\Models\Disciplines;
 use App\Models\cmd_disciplines;
 use App\Models\MiscListStates;
 use App\Models\cmd_mislist_states;
+use App\Models\Menu;
+use App\Models\SubMenu;
+use App\Models\userSecuriryForm;
 class HomeController extends Controller
 {
     /**
@@ -24,7 +27,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $userId = session()->get('id');
+
+        $menu['menu'] = Menu::join("user_securiry_forms","user_securiry_forms.menuid", "=", "Menus.menuid")
+        ->select("Menus.name","Menus.menuid","Menus.logo","user_securiry_forms.show", "user_securiry_forms.can")
+        ->where("user_securiry_forms.userid", "=", $userId)
+        ->groupBy('Menus.menuid')
+        ->get(); 
+
+
+        $submenu['submenu'] = SubMenu::join("user_securiry_forms","user_securiry_forms.submenuid", "=", "submenus.submenuid")
+        ->select("submenus.name","user_securiry_forms.menuid","submenus.logo","submenus.route","user_securiry_forms.show", "user_securiry_forms.can")
+        ->where("user_securiry_forms.userid", "=", $userId)
+        ->distinct('submenus.name')
+        ->get();
+
+        session(['menu'=> $menu['menu']]);
+
+        session(['submenu'=> $submenu['submenu']]);
+
+        return view('dashboard', $menu, $submenu);
     }
 
     public function save_misclist()

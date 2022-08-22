@@ -10,6 +10,8 @@ use App\Http\Controllers\MiscListStatesController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\MiscListStatesInventaryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,7 @@ Route::post('/Login', 'App\Http\Controllers\Auth\LoginController@Login')->name('
 
 // list users
 Route::get('/users', 'App\Http\Controllers\UserController@listUsers')->name('users')->middleware(['auth', 'idrole']);
+Route::put('/users/updaterol', 'App\Http\Controllers\UserController@updateRol')->name('updateRol')->middleware(['auth', 'idrole']);
 
 // update & edit user info
 Route::group(['middleware' => 'auth'], function () {

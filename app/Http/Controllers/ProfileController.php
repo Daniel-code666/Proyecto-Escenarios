@@ -42,7 +42,6 @@ class ProfileController extends Controller
         User::where('id','=',auth()->user()->id)->update($datosToSend);
         return back()->withStatus(__('Datos actualizados correctamente'));
     }
-
     /**
      * Change the password
      *

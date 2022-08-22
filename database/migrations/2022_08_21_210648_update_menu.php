@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('menus', function (Blueprint $table) {
+            $table->string('logo',50);
+        });
+
+        Schema::table('submenus', function (Blueprint $table) {
+            $table->string('logo',50);
+            $table->string('route',50);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('menus', function (Blueprint $table) {
+            $table->string('logo',50);
+        });
+
+        Schema::table('submenus', function (Blueprint $table) {
+            $table->string('logo',50);
+            $table->string('route',50);
+        });
+    }
+};

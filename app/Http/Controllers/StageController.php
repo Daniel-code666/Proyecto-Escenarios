@@ -70,7 +70,7 @@ class StageController extends Controller
             'id_category'=>'required',
             'message_state'=>'required | max:500',
             'discipline'=>'required',
-            'name'=>'required | unique:Stages | max : 100',
+            'name'=>'required | unique:Stages| max : 100',
             'area'=>'required | numeric',
             'address'=>'required',
             'capacity'=>'required | numeric',
