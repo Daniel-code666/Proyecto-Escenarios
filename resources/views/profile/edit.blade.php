@@ -1,5 +1,5 @@
 
-@extends('layouts.app', ['title' => __('User Profile')])
+@extends('layouts.app', ['title' => __('User Profile'), $menu = Session::get('menu') , $submenu = Session::get('submenu')])
 
 @section('content')
     @include('users.partials.header', [

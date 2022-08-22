@@ -26,14 +26,6 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('Mi Perfil') }}</span>
                     </a>
-                    {{-- <a href="#" class="dropdown-item">
-                        <i class="ni ni-settings-gear-65"></i>
-                        <span>{{ __('Settings') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-calendar-grid-58"></i>
-                        <span>{{ __('Activity') }}</span>
-                    </a> --}}
                     <a href="#" class="dropdown-item">
                         <i class="ni ni-support-16"></i>
                         <span>{{ __('Support') }}</span>
@@ -78,154 +70,34 @@
             </form>
             <!-- Navigation -->
             <ul class="navbar-nav">
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                <i class="ni ni-tv-2 text-primary"></i> {{ __('Home') }}
-                </a>
-                </li> --}}
 
-                @auth()
-                @if(auth()->user()->role_idrole == 1)
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="ni ni-settings text-purple"></i>
-                        <span class="nav-link-text">{{ __('Administrador') }}</span>
-                    </a>
+                @if ($menu != null && $submenu !=null)
+                    @foreach ($menu as $item)
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#navbar-examples-{{$item->menuid}}" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-{{$item->menuid}}">
+                                <i class="{{$item->logo}} text-purple"></i>
+                                <span class="nav-link-text">{{$item->name}}</span>
+                            </a>
 
-                    <div class="collapse show" id="navbar-examples">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/users') }}">
-                                    <i class="ni ni-badge text-purple"></i>{{ __('Administrar usuarios') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                            <div class="collapse show" id="navbar-examples-{{$item->menuid}}">
+                                @foreach ($submenu as $item2)
+                                    @if ($item2->menuid ==  $item->menuid)
+                                        @if ($item2->can == "1")
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ url($item2->route) }}">
+                                                    <i class="{{$item2->logo}} text-purple"></i>{{$item2->name}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        @endif
+                                    @endif
+                                @endforeach 
+                            </div>
+                        </li>
+                    @endforeach
                 @endif
-                @endauth
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples-2" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-2">
-                        <i class="ni ni-building text-purple"></i> {{ __('Escenarios') }}
-                    </a>
-                    <div class="collapse show" id="navbar-examples-2">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/escenario') }}">
-                                    <i class="ni ni-building text-purple"></i> {{ __('Principales') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/understage') }}">
-                                    <i class="ni ni-building text-purple"></i>{{ __('Sub escenarios') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <!--Inventarios -->
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-3">
-                        <i class="ni ni-app text-purple"></i> {{ __('Inventarios') }}
-                    </a>
-                    <div class="collapse show" id="navbar-examples-3">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/item') }}">
-                                    <i class="ni ni-archive-2 text-purple"></i> {{ __('Items') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/almacen') }}">
-                                    <i class="ni ni-shop text-purple"></i>{{ __('Almacenes') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <!--Reportes -->
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples-4" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-4">
-                        <i class="ni ni-chart-bar-32 text-purple"></i> {{ __('Reportes') }}
-                    </a>
-                    <div class="collapse show" id="navbar-examples-4">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/item') }}">
-                                    <i class="ni ni-building text-purple"></i> {{ __('Escenarios') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/almacen') }}">
-                                    <i class="ni ni-app text-purple"></i>{{ __('Inventarios') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/almacen') }}">
-                                    <i class="ni ni-single-copy-04 text-purple"></i>{{ __('Otros') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                {{--
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/discipline') }}">
-                <i class="ni ni-user-run text-purple"></i> {{ __('Disciplinas') }}
-                </a>
-                </li> --}}
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-map-big text-purple"></i> {{ __('Mapa de escenarios') }}
-                    </a>
-                </li>
-
-
-                <!--Configuraciones -->
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples-5" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-5">
-                        <i class="ni ni-settings-gear-65 text-purple"></i> {{ __('Configuraciones') }}
-                    </a>
-                    <div class="collapse show" id="navbar-examples-5">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/discipline') }}">
-                                    <i class="ni ni-user-run text-purple"></i> {{ __('Disciplinas') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/states') }}">
-                                    <i class="ni ni-bullet-list-67 text-purple"></i>{{ __('Estado Escenarios') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/inventarystates') }}">
-                                    <i class="ni ni-bullet-list-67 text-purple"></i>{{ __('Estado Inventarios') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('table') }}">
-                <i class="ni ni-bullet-list-67 text-default"></i>
-                <span class="nav-link-text">Tables</span>
-                </a>
-                </li> --}}
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
-                </a>
-                </li> --}}
             </ul>
             <!-- Divider -->
             <hr class="my-3">

@@ -58,6 +58,10 @@ class LoginController extends Controller
 
                 session(['rol'=> $role]);
 
+                $id = DB::table('users')->where('email', $credentials['email'])->select('id')->first();
+                $idConvert = current((array) $id);
+                session(['id'=> $idConvert]);
+
                 if($role == 3)
                 {
                     return redirect()->route('main');
