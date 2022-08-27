@@ -9,6 +9,7 @@ use App\Models\warehouse;
 use App\Models\MiscListStates;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use App\Reports\MyReport;
 
 class ResourcesController extends Controller
 {
