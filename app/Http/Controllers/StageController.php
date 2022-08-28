@@ -307,9 +307,8 @@ class StageController extends Controller
     }
 
     public function inventoryQuantityReport($id){
-        $stage = Stage::find($id);
         $report = new MyReport(array("id"=>$id));
         $report->run();
-        return view("reports.report", ["report"=>$report, "stage"=>$stage]);
+        return view("reports.report", ["report"=>$report]);
     }
 }
