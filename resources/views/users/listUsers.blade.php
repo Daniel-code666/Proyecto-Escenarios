@@ -83,13 +83,13 @@
                                 <i class="fas fa-ellipsis-v"></i>
                               </a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                <a type="button" class="btn btn-primary dropdown-item"  href="">Ver</a>
-                                <button type="button" class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#updateUserRol">
-                                    Actualizar Rol
+                                <a type="button" class="btn btn-primary dropdown-item"  href="{{ url('/user/'.$user->id)}}">Ver</a>
+                                <button type="button" class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#updateUserRol" data-target-id="{{$user->id}}">
+                                    <span>Actualizar Rol</span>    
                                 </button>
                               </div>
                             </div>
-                          </td>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -122,6 +122,17 @@
     </div>
 </div>
 
+<!-- Id del usuario de la tabla -->
+<script>
+    $(document).ready(function () {
+        $("#updateUserRol").on("show.bs.modal", function (e) {
+            var id = $(e.relatedTarget).data('target-id');
+            $('#pass_id').val(id);
+        });
+    });
+
+</script>
+
 <!-- Modal -->
 <div class="modal fade" id="updateUserRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -137,6 +148,10 @@
                 @csrf
                 {{method_field('PUT')}}
                 <div class="form-group">
+
+                    <input class="form-control" name="userId" type="text"
+                    id="pass_id" hidden>
+
                     <label for="">Seleccione nuevo rol: </label>
                     <select class="form-control" id="exampleFormControlSelect1" name="role_idrole">
                         <option value="0" selected>-- Seleccione --</option>  
