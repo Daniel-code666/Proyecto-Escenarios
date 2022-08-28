@@ -30,7 +30,31 @@
                         @csrf
                         {{method_field('PUT')}}
 
-                        @for ($i = 1; $i <=5; $i++)
+                        @foreach ($menu as $itemMenu)
+                            <div class="card m-2" style="width: 30%; border-width: 2px; display: inline-block; margin: 0px">
+                                <div class="card-body">
+                                    <h3 class="card-title" style="font-size: 20px; ">{{$itemMenu->name}}</h3>
+                                    <hr style="margin: 10px;">
+                                    @foreach ($submenu as $itemSubMenu)
+                                        @if($itemSubMenu->menuId == $itemMenu->menuId)
+                                            @if($itemSubMenu->can)
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="{{$itemSubMenu->name}}" checked>
+                                                    <label class="form-check-label" for="flexCheckChecked">{{$itemSubMenu->name}}</label>
+                                                </div>
+                                            @else
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" name="{{$itemSubMenu->name}}" id="flexCheckChecked">
+                                                    <label class="form-check-label" for="flexCheckChecked">{{$itemSubMenu->name}}</label>
+                                                </div>
+                                            @endif                           
+                                        @endif   
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+
+{{--                         @for ($i = 1; $i <=5; $i++)
                             <div class="card m-2" style="width: 30%; border-width: 2px; display: inline-block; margin: 0px">
                                 <div class="card-body">
                                     <h3 class="card-title" style="font-size: 20px; ">Escenarios</h3>
@@ -44,7 +68,7 @@
                                 </div>
                             </div>
                         @endfor
-
+ --}}
                         
 
             

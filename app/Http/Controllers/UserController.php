@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\UserSecuriryForm;
 use App\Models\userSecurityCMD;
 use Carbon\Carbon;
+use App\Models\Menu;
+use App\Models\SubMenu;
 class UserController extends Controller
 
 {
@@ -30,7 +32,19 @@ class UserController extends Controller
 
     public function ShowUser($id){
         $user = User::get()->where('role_idrole', $id);
-        return view('users.showUser', compact('user'));
+
+        $menu = Menu::join("user_securiry_forms","user_securiry_forms.menuid", "=", "Menus.menuid")
+        ->select("Menus.name","Menus.menuid","Menus.logo","user_securiry_forms.show", "user_securiry_forms.can")
+        ->where("user_securiry_forms.userid", "=", $id)
+        ->groupBy('Menus.menuid')
+        ->get(); 
+
+        $submenu = SubMenu::join("user_securiry_forms","user_securiry_forms.submenuid", "=", "submenus.submenuid")
+        ->select("submenus.name","user_securiry_forms.menuid","submenus.logo","submenus.route","user_securiry_forms.show", "user_securiry_forms.can")
+        ->where("user_securiry_forms.userid", "=", $id)
+        ->groupBy('submenus.name')
+        ->get();
+        return view('users.showUser', compact('user','menu','submenu'));
     }
 
     public function updateRol(Request $request)
