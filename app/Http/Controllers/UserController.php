@@ -31,7 +31,7 @@ class UserController extends Controller
     }
 
     public function ShowUser($id){
-        $user = User::get()->where('role_idrole', $id);
+        $user = User::find($id);
 
         $menu = Menu::join("user_securiry_forms","user_securiry_forms.menuid", "=", "Menus.menuid")
         ->select("Menus.name","Menus.menuid","Menus.logo","user_securiry_forms.show", "user_securiry_forms.can")
@@ -40,11 +40,34 @@ class UserController extends Controller
         ->get(); 
 
         $submenu = SubMenu::join("user_securiry_forms","user_securiry_forms.submenuid", "=", "submenus.submenuid")
-        ->select("submenus.name","user_securiry_forms.menuid","submenus.logo","submenus.route","user_securiry_forms.show", "user_securiry_forms.can")
+        ->select("submenus.name","user_securiry_forms.menuid","user_securiry_forms.submenuid","submenus.logo","submenus.route","user_securiry_forms.show", "user_securiry_forms.can")
         ->where("user_securiry_forms.userid", "=", $id)
-        ->groupBy('submenus.name')
+        ->distinct('submenus.name')
         ->get();
+
         return view('users.showUser', compact('user','menu','submenu'));
+    }
+
+    public function UpdateUserForm(Request $request, $userId){
+        $checkboxes = request()->except('_token','_method');
+        for ($i = 1; $i <= 12; $i++) {
+            $found = false;
+            foreach($checkboxes['forms'] as $check){
+               if($check == (string)$i){
+                $found = true;
+               } 
+            }
+
+            if($found){
+                UserSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can'=> true]);
+            }else{
+                UserSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can'=> false]);
+            }
+
+        }
+
+        return redirect('/user/'.$userId)->with('mensaje', 'Permisos de usuario actualizados con éxito');
+
     }
 
     public function updateRol(Request $request)

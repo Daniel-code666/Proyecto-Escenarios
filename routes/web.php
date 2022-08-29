@@ -49,7 +49,7 @@ Route::post('/Login', 'App\Http\Controllers\Auth\LoginController@Login')->name('
 Route::get('/users', 'App\Http\Controllers\UserController@listUsers')->name('users')->middleware(['auth', 'idrole']);
 Route::put('/users/updaterol', 'App\Http\Controllers\UserController@updateRol')->name('updateRol')->middleware(['auth', 'idrole']);
 Route::get('/user/{id}', 'App\Http\Controllers\UserController@ShowUser')->middleware(['auth', 'idrole']);
-Route::put('/user/{id}/edit', 'App\Http\Controllers\UserController@editUser')->middleware(['auth', 'idrole']);
+Route::put('/user/{id}/edit', 'App\Http\Controllers\UserController@UpdateUserForm')->middleware(['auth', 'idrole']);
 
 // update & edit user info
 Route::group(['middleware' => 'auth'], function () {
