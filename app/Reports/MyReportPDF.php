@@ -4,7 +4,7 @@ namespace App\Reports;
 use App\Models\Stage;
 use App\Models\Resources;
 
-class MyReport extends \koolreport\KoolReport
+class MyReportPDF extends \koolreport\KoolReport
 {
     use \koolreport\laravel\Friendship;
 

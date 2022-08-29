@@ -20,13 +20,13 @@
         <input class="radio" id="one" name="group" type="radio" checked>
         <input class="radio" id="two" name="group" type="radio">
         <div class="tabs">
-          <label class="tab" id="one-tab" for="one">Usuario</label>
-          <label class="tab" id="two-tab" for="two">Permisos</label>
+            <label class="tab" id="one-tab" for="one">Usuario</label>
+            <label class="tab" id="two-tab" for="two">Permisos</label>
         </div>
         <div class="panels">
             <!-- panel de Usuarios -->
             <div class="panel" id="one-panel">
-              @include('users.dataUser')
+                @include('users.dataUser')
             </div>
 
             <!-- panel de permisos -->
@@ -39,6 +39,7 @@
                         @csrf
                         {{method_field('PUT')}}
                         @foreach ($menu as $itemMenu)
+
                             <div class="card m-2" style="width: 30%; border-width: 2px; display: inline-block; margin: 0px">
                                 <div class="card-body">
                                     <h3 class="card-title" style="font-size: 20px;">{{$itemMenu->name}}</h3>
@@ -67,11 +68,33 @@
                         </div>
             
                     </form>
+=======
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="{{$itemSubMenu->name}}" checked>
+                                                <label class="form-check-label" for="flexCheckChecked">{{$itemSubMenu->name}}</label>
+                                            </div>
+                                            @else
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" name="{{$itemSubMenu->name}}" id="flexCheckChecked">
+                                                <label class="form-check-label" for="flexCheckChecked">{{$itemSubMenu->name}}</label>
+                                            </div>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endforeach
+
+                            <div class="row justify-content-md-center" style="margin-top: 10px">
+                                <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
+                            </div>
+                        </form>
+>>>>>>> 9666e0a3b856e95dd124decd1a6bdaafa12d50e7
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 

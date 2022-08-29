@@ -196,144 +196,139 @@ use \koolreport\widgets\google\PieChart;
         <input style="display:none" id="two" name="group" type="radio">
         <div class="tabs">
             <label class="tab" id="one-tab" for="one">Recursos en el almacén</label>
-            <label class="tab" id="two-tab" for="two">Recursos en uso</label>
         </div>
         <div class="panels">
-            <div class="panel" id="one-panel">
-                <div style="display: flex;
+            <div style="display: flex;
                         margin-right: auto;
                         margin-left: auto;
                         flex-wrap: wrap;">
-                    <div class="col-5 center">
-                        <?php
-                        if ($this->dataStore("resources")->count() == 0) {
-                            echo ("<h3>No hay datos para mostrar</h3>");
-                        } else {
-                            PieChart::create(array(
-                                "dataSource" => $this->dataStore("resources")
-                            ));
-                        }
-                        ?>
-                    </div>
-                    <div class="col-7">
-                        <div class="table-responsive">
-                            <table class="table align-items-center" id="itemAmountTable">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre del objeto</th>
-                                        <th>Cantidad en el almacén</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="list">
-                                    <?php
-                                    foreach ($this->dataStore("resources") as $dataR) {
-                                        echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
-                            <td>" . (string) $dataR['Cantidad en almacén'] . "</td></tr>");
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div style="display: flex;
-                        margin-right: auto;
-                        margin-left: auto;
-                        flex-wrap: wrap;">
+                <div class="col-5 center">
                     <?php
-                        $data_query = $this->dataStore("stageDef");
-                        foreach ($data_query as $data) {
-                            echo ("<a type='button' class='btn btn-primary' href='". route('testpdf',['id'=>$data['id']]) ."'>PDF</a>");
-                        }
+                    if ($this->dataStore("resources")->count() == 0) {
+                        echo ("<h3>No hay datos para mostrar</h3>");
+                    } else {
+                        PieChart::create(array(
+                            "dataSource" => $this->dataStore("resources")
+                        ));
+                    }
                     ?>
-                </div> -->
-            </div>
-            <div class="panel" id="two-panel">
-                <div style="display: flex;
-                        margin-right: auto;
-                        margin-left: auto;
-                        flex-wrap: wrap;">
-                    <div class="col-5 center">
-                        <?php
-                        if ($this->dataStore("resourcesInUse")->count() == 0) {
-                            echo ("<h3>No hay objetos en uso</h3>");
-                        } else {
-                            PieChart::create(array(
-                                "dataSource" => $this->dataStore("resourcesInUse")
-                            ));
-                        }
-                        ?>
-                    </div>
-                    <div class="col-7">
-                        <div class="table-responsive">
-                            <table class="table align-items-center" id="itemInUseAmountTable">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre del objeto</th>
-                                        <th>Cantidad en uso</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="list">
-                                    <?php
-                                    foreach ($this->dataStore("resourcesInUse") as $dataR) {
-                                        echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
-                            <td>" . (string) $dataR['Cantidad en uso'] . "</td></tr>");
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                </div>
+                <div class="col-7">
+                    <div class="table-responsive">
+                        <table class="table align-items-center" id="itemAmountTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del objeto</th>
+                                    <th>Cantidad en el almacén</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                <?php
+                                foreach ($this->dataStore("resources") as $dataR) {
+                                    echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
+                            <td>" . (string) $dataR['Cantidad en almacén'] . "</td></tr>");
+                                }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <br>
+    <div class="warpper">
+        <input style="display:none" id="one" name="group" type="radio" checked>
+        <input style="display:none" id="two" name="group" type="radio">
+        <div class="tabs">
+            <label class="tab" id="one-tab" for="one">Recursos en el almacén</label>
+        </div>
+        <div class="panels">
+            <div style="display: flex;
+                        margin-right: auto;
+                        margin-left: auto;
+                        flex-wrap: wrap;">
+                <div class="col-5 center">
+                    <?php
+                    if ($this->dataStore("resourcesInUse")->count() == 0) {
+                        echo ("<h3>No hay objetos en uso</h3>");
+                    } else {
+                        PieChart::create(array(
+                            "dataSource" => $this->dataStore("resourcesInUse")
+                        ));
+                    }
+                    ?>
+                </div>
+                <div class="col-7">
+                    <div class="table-responsive">
+                        <table class="table align-items-center" id="itemInUseAmountTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del objeto</th>
+                                    <th>Cantidad en uso</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                <?php
+                                foreach ($this->dataStore("resourcesInUse") as $dataR) {
+                                    echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
+                            <td>" . (string) $dataR['Cantidad en uso'] . "</td></tr>");
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <script>
-            $(document).ready(function() {
-                $('#itemAmountTable').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
-                    language: {
-                        lengthMenu: 'Mostrando _MENU_ registros por página',
-                        zeroRecords: 'No hay registros para mostrar',
-                        info: 'Mostrando página _PAGE_ de _PAGES_',
-                        infoEmpty: 'No hay registros disponibles',
-                        infoFiltered: '(filtrando de _MAX_ registros disponibles)',
-                        sSearch: 'Buscar',
-                        'paginate': {
-                            'previous': '<<',
-                            'next': '>>'
-                        },
-                        buttons: {
-                            pageLength: 'Mostrando %d filas'
-                        },
+    <br>
+
+    <script>
+        $(document).ready(function() {
+            $('#itemAmountTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                language: {
+                    lengthMenu: 'Mostrando _MENU_ registros por página',
+                    zeroRecords: 'No hay registros para mostrar',
+                    info: 'Mostrando página _PAGE_ de _PAGES_',
+                    infoEmpty: 'No hay registros disponibles',
+                    infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                    sSearch: 'Buscar',
+                    'paginate': {
+                        'previous': '<<',
+                        'next': '>>'
                     },
-                });
-
-                $('#itemInUseAmountTable').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
-                    language: {
-                        lengthMenu: 'Mostrando _MENU_ registros por página',
-                        zeroRecords: 'No hay registros para mostrar',
-                        info: 'Mostrando página _PAGE_ de _PAGES_',
-                        infoEmpty: 'No hay registros disponibles',
-                        infoFiltered: '(filtrando de _MAX_ registros disponibles)',
-                        sSearch: 'Buscar',
-                        'paginate': {
-                            'previous': '<<',
-                            'next': '>>'
-                        },
-                        buttons: {
-                            pageLength: 'Mostrando %d filas'
-                        },
+                    buttons: {
+                        pageLength: 'Mostrando %d filas'
                     },
-                });
+                },
             });
-        </script>
-        <br>
+
+            $('#itemInUseAmountTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                language: {
+                    lengthMenu: 'Mostrando _MENU_ registros por página',
+                    zeroRecords: 'No hay registros para mostrar',
+                    info: 'Mostrando página _PAGE_ de _PAGES_',
+                    infoEmpty: 'No hay registros disponibles',
+                    infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                    sSearch: 'Buscar',
+                    'paginate': {
+                        'previous': '<<',
+                        'next': '>>'
+                    },
+                    buttons: {
+                        pageLength: 'Mostrando %d filas'
+                    },
+                },
+            });
+        });
+    </script>
+    <br>
 </body>
 
 </html>

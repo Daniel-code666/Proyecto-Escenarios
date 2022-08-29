@@ -305,10 +305,4 @@ class StageController extends Controller
 
         return $pdf->download($stage->name . '.pdf');
     }
-
-    public function inventoryQuantityReport($id){
-        $report = new MyReport(array("id"=>$id));
-        $report->run();
-        return view("reports.report", ["report"=>$report]);
-    }
 }

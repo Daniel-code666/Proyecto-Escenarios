@@ -10,6 +10,8 @@ use App\Models\MiscListStates;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use App\Reports\MyReport;
+use App\Reports\MyReportPDF;
+use PDF;
 
 class ResourcesController extends Controller
 {
@@ -266,5 +268,37 @@ class ResourcesController extends Controller
         Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $amountInUse]);
 
         return redirect('/item')->with('mensaje', 'Se ha asignado la cantidad correctamente');
+    }
+
+    // public function testPDF($id){
+    //     $this->reportPDF($id);
+
+    //     $pdf = app('dompdf.wrapper');
+    //     $contxt = stream_context_create([
+    //         'ssl' => [
+    //             'verify_peer' => FALSE,
+    //             'verify_peer_name' => FALSE,
+    //             'allow_self_signed' => TRUE,
+    //         ]
+    //     ]);
+
+    //     $pdf = PDF::setOptions(['isHTML5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+    //     $pdf->getDomPDF()->setHttpContext($contxt);
+
+    //     $pdf->loadView('reports.reportPDF')->setOptions(['defaultFont' => 'sans-serif']);
+
+    //     return $pdf->download('inventarios.pdf');
+    // }
+
+    public function inventoryQuantityReport($id){
+        $report = new MyReport(array("id"=>$id));
+        $report->run();
+        return view("reports.report", ["report"=>$report]);
+    }
+
+    public function reportPDF($id){
+        $report = new MyReportPDF(array("id"=>$id));
+        $report->run();
+        return view("reports.reportPDF", ["report"=>$report]);
     }
 }
