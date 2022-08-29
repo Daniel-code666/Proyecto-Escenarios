@@ -35,7 +35,7 @@
                     <div class="card-body">
                     <h2 class="card-title">Formularios</h2>
                     <hr>
-                    <form action="{{ url('/user/'.$user->id.'/edit',$user->id)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('/user/'.$user->id.'/edit'),$user->id}}" method="post">
                         @csrf
                         {{method_field('PUT')}}
                         @foreach ($menu as $itemMenu)
@@ -68,29 +68,7 @@
                         </div>
             
                     </form>
-=======
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="{{$itemSubMenu->name}}" checked>
-                                                <label class="form-check-label" for="flexCheckChecked">{{$itemSubMenu->name}}</label>
-                                            </div>
-                                            @else
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" name="{{$itemSubMenu->name}}" id="flexCheckChecked">
-                                                <label class="form-check-label" for="flexCheckChecked">{{$itemSubMenu->name}}</label>
-                                            </div>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endforeach
-
-                            <div class="row justify-content-md-center" style="margin-top: 10px">
-                                <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
-                            </div>
-                        </form>
->>>>>>> 9666e0a3b856e95dd124decd1a6bdaafa12d50e7
-                    </div>
+                    
                 </div>
             </div>
         </div>

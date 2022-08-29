@@ -82,7 +82,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a type="button" class="btn btn-primary dropdown-item" href="{{ url('/user/'.$user->id)}}">Ver</a>
+                                    <a type="button" class="btn btn-primary dropdown-item" href="{{ url('/user/'.$user->id)}}">Actualizar permisos</a>
                                     <button type="button" class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#updateUserRol" data-target-id="{{$user->id}}">
                                         <span>Actualizar Rol</span>
                                     </button>
