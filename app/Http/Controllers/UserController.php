@@ -42,7 +42,7 @@ class UserController extends Controller
         $submenu = SubMenu::join("user_securiry_forms","user_securiry_forms.submenuid", "=", "submenus.submenuid")
         ->select("submenus.name","user_securiry_forms.menuid","submenus.logo","submenus.route","user_securiry_forms.show", "user_securiry_forms.can")
         ->where("user_securiry_forms.userid", "=", $id)
-        ->groupBy('submenus.name')
+        ->distinct('submenus.name')
         ->get();
         return view('users.showUser', compact('user','menu','submenu'));
     }

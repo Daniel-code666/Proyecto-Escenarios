@@ -77,7 +77,6 @@ Route::resource('escenario', App\Http\Controllers\StageController::class)->middl
 Route::get('listStages', 'App\Http\Controllers\StageController@listStages')->name('listStages');
 Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show');
 Route::get('viewStageInfo/{id}', 'App\Http\Controllers\StageController@viewStageInfo')->name('viewStageInfo')->middleware(['auth', 'idrole']);
-Route::get('quantity/{id}', 'App\Http\Controllers\StageController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
 
 
 // understages
@@ -103,3 +102,5 @@ Route::resource('item', App\Http\Controllers\ResourcesController::class)->middle
 Route::get('/assign/{idResource}/set', 'App\Http\Controllers\ResourcesController@bringResourceInfo')->middleware(['auth', 'idrole'])->name('assign');
 Route::put('/set/{idResource}', 'App\Http\Controllers\ResourcesController@setInUseItem')->middleware(['auth', 'idrole'])->name('/set/');
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);
+Route::get('quantity/{id}', 'App\Http\Controllers\ResourcesController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
+Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->name('testpdf')->middleware(['auth', 'idrole']);
