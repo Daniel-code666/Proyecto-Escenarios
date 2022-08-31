@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use App\Reports\MyReport;
 use App\Reports\MyReportPDF;
+use App\Reports\ResourcesCard;
 use PDF;
 
 class ResourcesController extends Controller
@@ -55,7 +56,10 @@ class ResourcesController extends Controller
         array_push($warehousesArr, $warehouses);
         array_push($warehousesArr, $warehousesSub);
 
-        return view('pages.Inventary.items.admin', compact('resources', 'resourcesSub', 'warehouses', 'warehousesArr'));
+        $report = new ResourcesCard;
+        $report->run();
+
+        return view('pages.Inventary.items.admin', compact('resources', 'resourcesSub', 'warehouses', 'warehousesArr', 'report'));
     }
 
     /**

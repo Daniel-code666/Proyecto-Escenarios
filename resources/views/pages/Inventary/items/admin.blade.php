@@ -266,9 +266,9 @@
                             <td>{{$warehouse->warehouseName}}</td>
                             <td>{{$warehouse->warehouseDescription}}</td>
                             @if($warehouse->locationCheck == 0)
-                                <td>{{$warehouse->name_understg}}</td>
+                            <td>{{$warehouse->name_understg}}</td>
                             @else
-                                <td>{{$warehouse->name}}</td>
+                            <td>{{$warehouse->name}}</td>
                             @endif
                             <td class="text-center">
                                 <div class="dropdown">
@@ -320,6 +320,14 @@
     </div>
     <hr>
 </div>
+
+<!-- <div class="warpper">
+    <div class="panels">
+        <?php
+        //$report->render();
+        ?>
+    </div>
+</div> -->
 @include('layouts.footers.auth')
 @endsection
 

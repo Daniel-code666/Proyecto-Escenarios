@@ -14,8 +14,10 @@
 </head>
 <?php
 
+use koolreport\widgets\google\BarChart;
 use \koolreport\widgets\koolphp\Table;
 use \koolreport\widgets\google\PieChart;
+use \koolreport\widgets\google\ColumnChart;
 ?>
 <html>
 <style>
@@ -209,8 +211,16 @@ use \koolreport\widgets\google\PieChart;
                         if ($this->dataStore("resources")->count() == 0) {
                             echo ("<h3>No hay datos para mostrar</h3>");
                         } else {
+                            $tempArray = array();
+                            $tempObj = $this->dataStore("resources");
+                            foreach ($tempObj as $obj) {
+                                array_pop($obj);
+                                array_pop($obj);
+                                array_push($tempArray, $obj);
+                            }
+
                             PieChart::create(array(
-                                "dataSource" => $this->dataStore("resources")
+                                "dataSource" => $tempArray
                             ));
                         }
                         ?>
@@ -222,13 +232,17 @@ use \koolreport\widgets\google\PieChart;
                                     <tr>
                                         <th>Nombre del objeto</th>
                                         <th>Cantidad en el almacén</th>
+                                        <th>Estado</th>
+                                        <th>Almacén</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
                                     <?php
                                     foreach ($this->dataStore("resources") as $dataR) {
                                         echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
-                            <td>" . (string) $dataR['Cantidad en almacén'] . "</td></tr>");
+                            <td>" . (string) $dataR['Cantidad en almacén'] . "</td>
+                            <td>" . (string) $dataR['Estado'] . "</td>
+                            <td>" . (string) $dataR['Almacén'] . "</td</tr>");
                                     }
                                     ?>
                                 </tbody>
@@ -241,10 +255,10 @@ use \koolreport\widgets\google\PieChart;
                         margin-left: auto;
                         flex-wrap: wrap;">
                     <?php
-                        $data_query = $this->dataStore("stageDef");
-                        foreach ($data_query as $data) {
-                            echo ("<a type='button' class='btn btn-primary' href='". route('testpdf',['id'=>$data['id']]) ."'>PDF</a>");
-                        }
+                    $data_query = $this->dataStore("stageDef");
+                    foreach ($data_query as $data) {
+                        echo ("<a type='button' class='btn btn-primary' href='" . route('testpdf', ['id' => $data['id']]) . "'>PDF</a>");
+                    }
                     ?>
                 </div> -->
             </div>
@@ -258,8 +272,16 @@ use \koolreport\widgets\google\PieChart;
                         if ($this->dataStore("resourcesInUse")->count() == 0) {
                             echo ("<h3>No hay objetos en uso</h3>");
                         } else {
+                            $tempArray = array();
+                            $tempObj = $this->dataStore("resourcesInUse");
+                            foreach ($tempObj as $obj) {
+                                array_pop($obj);
+                                array_pop($obj);
+                                array_push($tempArray, $obj);
+                            }
+
                             PieChart::create(array(
-                                "dataSource" => $this->dataStore("resourcesInUse")
+                                "dataSource" => $tempArray
                             ));
                         }
                         ?>
@@ -271,13 +293,17 @@ use \koolreport\widgets\google\PieChart;
                                     <tr>
                                         <th>Nombre del objeto</th>
                                         <th>Cantidad en uso</th>
+                                        <th>Estado</th>
+                                        <th>Almacén</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
                                     <?php
                                     foreach ($this->dataStore("resourcesInUse") as $dataR) {
                                         echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
-                            <td>" . (string) $dataR['Cantidad en uso'] . "</td></tr>");
+                            <td>" . (string) $dataR['Cantidad en uso'] . "</td>
+                            <td>" . (string) $dataR['Estado'] . "</td>
+                            <td>" . (string) $dataR['Almacén'] . "</td></tr>");
                                     }
                                     ?>
                                 </tbody>
@@ -287,9 +313,6 @@ use \koolreport\widgets\google\PieChart;
                 </div>
             </div>
         </div>
-
-        <br>
-
         <script>
             $(document).ready(function() {
                 $('#itemAmountTable').DataTable({
@@ -311,7 +334,6 @@ use \koolreport\widgets\google\PieChart;
                         },
                     },
                 });
-
                 $('#itemInUseAmountTable').DataTable({
                     dom: 'Bfrtip',
                     buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
@@ -334,6 +356,144 @@ use \koolreport\widgets\google\PieChart;
             });
         </script>
         <br>
+    </div>
+    <div class="warpper">
+        <div class="panels">
+            <div style="display: flex;
+                        margin-right: auto;
+                        margin-left: auto;
+                        flex-wrap: wrap;">
+                <div class="col-11">
+                    <h3>Estado de los recursos</h3>
+                    <div class="center">
+                        <?php
+                        BarChart::create(array(
+                            "dataStore" => $this->dataStore('resourcesStates'),
+                            "columns" => array(
+                                "statesName" => array(
+                                    "label" => "Estado"
+                                ),
+                                "idResource" => array(
+                                    "type" => "number",
+                                    "label" => "Cantidad de recursos"
+                                )
+                            ),
+                            "options" => array(
+                                "title" => "Estado de los recursos"
+                            )
+                        ));
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="warpper">
+        <div class="panels">
+            <div style="display: flex;
+                        margin-right: auto;
+                        margin-left: auto;
+                        flex-wrap: wrap;">
+                <h3>Recursos por almacén</h3>
+            </div>
+            <div style="display: flex;
+                        margin-right: auto;
+                        margin-left: auto;
+                        flex-wrap: wrap;">
+                <br>
+                <div class="col-6">
+                    <?php
+                    $tempArray = array();
+                    $tempObj = $this->dataStore("resourceWarehouse");
+                    foreach ($tempObj as $obj) {
+                        array_pop($obj);
+                        array_push($tempArray, $obj);
+                    }
+                    ColumnChart::create(array(
+                        "title" => "Recursos por almacén",
+                        "dataStore" => $tempArray,
+                        "columns" => array(
+                            "warehouseName" => array(
+                                "label" => "Almacén"
+                            ),
+                            "amount" => array(
+                                "type" => "number",
+                                "label" => "Cantidad de recursos"
+                            )
+                        )
+                    ));
+                    ?>
+                </div>
+                <div class="col-6">
+                    <div class="table-responsive">
+                        <table class="table align-items-center" id="resourceWarehouseTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del objeto</th>
+                                    <th>Cantidad</th>
+                                    <th>Almacén</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                <?php
+                                foreach ($this->dataStore("rWTable") as $dataR) {
+                                    echo ("<tr><td>" . (string) $dataR['resourceName'] . "</td>
+                            <td>" . (string) $dataR['amount'] . "</td>
+                            <td>" . (string) $dataR['warehouseName'] . "</td></tr>");
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $('#resourceWarehouseTable').DataTable({
+                                dom: 'Bfrtip',
+                                buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                                language: {
+                                    lengthMenu: 'Mostrando _MENU_ registros por página',
+                                    zeroRecords: 'No hay registros para mostrar',
+                                    info: 'Mostrando página _PAGE_ de _PAGES_',
+                                    infoEmpty: 'No hay registros disponibles',
+                                    infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                                    sSearch: 'Buscar',
+                                    'paginate': {
+                                        'previous': '<<',
+                                        'next': '>>'
+                                    },
+                                    buttons: {
+                                        pageLength: 'Mostrando %d filas'
+                                    },
+                                },
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <footer>
+        <div class="align-items-center justify-content-xl-between" style="display: flex;
+                        margin-right: auto;
+                        margin-left: auto;
+                        flex-wrap: wrap;">
+            <div class="col-6">
+                <div style="padding-left: 5%">
+                    &copy; <?php echo (date("Y")); ?> <a href="https://www.idrd.gov.co" class="font-weight-bold ml-1" target="_blank">IDRD</a> &amp;
+                    <a href="https://www.ucundinamarca.edu.co" class="font-weight-bold ml-1" target="_blank">Universidad de Cundinamarca</a>
+                </div>
+            </div>
+            <div class="col-6">
+                <ul class="nav nav-footer" style="padding-left: 79%">
+                    <li class="nav-item">
+                        <a href="https://www.idrd.gov.co" class="nav-link" target="_blank">Sobre nosotros</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
