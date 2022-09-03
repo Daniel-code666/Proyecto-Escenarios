@@ -104,3 +104,7 @@ Route::put('/set/{idResource}', 'App\Http\Controllers\ResourcesController@setInU
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);
 Route::get('quantity/{id}', 'App\Http\Controllers\ResourcesController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
 Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->name('testpdf')->middleware(['auth', 'idrole']);
+
+//reports
+Route::get('stagereport', 'App\Http\Controllers\StageReportController@index')->middleware(['auth', 'idrole']);
+Route::get('viewreport/{id}', 'App\Http\Controllers\StageReportController@viewReport')->name('viewreport')->middleware(['auth', 'idrole']);
