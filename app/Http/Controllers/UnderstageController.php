@@ -55,36 +55,35 @@ class UnderstageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'message_state_understg' => 'required | max:500',
-                'capacity_understg' => 'required | numeric',
-                'name_understg' => 'required | max:100',
-                'area_understg' => 'required | numeric',
-                'address_understg' => 'required ',
-                'latitude_understg' => 'required',
-                'longitude_understg' => 'required',
-                'descripcion_understg' => 'required | max:500',
-            ],
-            [
-                'message_state_understg.required' => 'Este campo es requerido',
-                'capacity_understg.required' => 'Este campo es requerido',
-                'name_understg.required' => 'Este campo es requerido',
-                'area_understg.required' => 'Este campo es requerido',
-                'address_understg.required' => 'Este campo es requerido',
-                'latitude_understg.required' => 'Este campo es requerido',
-                'longitude_understg.required' => 'Este campo es requerido',
-                'descripcion_understg.required' => 'Este campo es requerido',
-                'message_state_understg.max' => 'El máximo de caracteres es 500',
-                'name_understg.max' => 'El máximo de caracteres es 100',
-                'capacity_understg.numeric' => 'Debe ser un campo numérico',
-                'area_understg.numeric' => 'Debe ser un campo numérico',
-                'descripcion_understg.max' => 'El máximo de caracteres es 500',
-            ]
-        );
+        // $request->validate(
+        //     [
+        //         'message_state_understg' => 'required | max:500',
+        //         'capacity_understg' => 'required | numeric',
+        //         'name_understg' => 'required | max:100',
+        //         'area_understg' => 'required | numeric',
+        //         'address_understg' => 'required ',
+        //         'latitude_understg' => 'required',
+        //         'longitude_understg' => 'required',
+        //         'descripcion_understg' => 'required | max:500',
+        //     ],
+        //     [
+        //         'message_state_understg.required' => 'Este campo es requerido',
+        //         'capacity_understg.required' => 'Este campo es requerido',
+        //         'name_understg.required' => 'Este campo es requerido',
+        //         'area_understg.required' => 'Este campo es requerido',
+        //         'address_understg.required' => 'Este campo es requerido',
+        //         'latitude_understg.required' => 'Este campo es requerido',
+        //         'longitude_understg.required' => 'Este campo es requerido',
+        //         'descripcion_understg.required' => 'Este campo es requerido',
+        //         'message_state_understg.max' => 'El máximo de caracteres es 500',
+        //         'name_understg.max' => 'El máximo de caracteres es 100',
+        //         'capacity_understg.numeric' => 'Debe ser un campo numérico',
+        //         'area_understg.numeric' => 'Debe ser un campo numérico',
+        //         'descripcion_understg.max' => 'El máximo de caracteres es 500',
+        //     ]
+        // );
 
         $datos = request()->except('_token');
-
         $datosToSend = new Understage();
         $datosToSend = $datos;
         // $datosToSend->created_at = Carbon::now()->toTimeString();
@@ -92,7 +91,12 @@ class UnderstageController extends Controller
         if ($request->hasFile('photo_understg')) {
             $datosToSend['photo_understg'] = $request->file('photo_understg')->store('uploads', 'public');
         }
+
+        $stage = Stage::where('id', $datos['idStage'])->first();
+        $newUnderStgQty = $stage->underStagesQty + 1; 
+
         Understage::insert($datosToSend);
+        Stage::where('id', '=', $datos['idStage'])->update(['underStagesQty' => $newUnderStgQty]);
         //return response()->json($datosToSend);
         return redirect('/understage')->with('mensaje', 'Sub escenario creado con éxito.');
     }
