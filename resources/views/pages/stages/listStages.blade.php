@@ -1,17 +1,20 @@
 @extends('layouts.app', ['class' => 'bg-default', $menu = Session::get('menu') , $submenu = Session::get('submenu')])
 
 @section('content')
-<div class="header bg-gradient-primary py-7 py-lg-8">
+
+<div class="header bg-gradient-primary p-8">
     <div class="container">
-        <div class="header-body text-center mt-7 mb-7">
+        <div class="header-body text-center mb--6 mt-1">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6">
-                    <h1 class="text-violet">{{ __('Ver escenarios administrador por el IDRD') }}</h1>
+                    <h1 class="text-violet">{{ __('Escenarios administrador por el IDRD') }}</h1>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+<div class="container">
     <div class="card bg-secondary shadow">
         <div class="card-body px-lg-3 py-lg-3">
             <div class="table-responsive m-2">
@@ -35,7 +38,7 @@
                             <td>{{$stage->address}}</td>
                             <td>{{$stage->discipline_name}}</td>
                             <td>
-                                <a type="button" class="btn btn-info" href="{{ route('show', ['id'=>$stage->id]) }}">Ver</a>
+                                <a type="button" class="btn btn-info" href="{{ route('show', ['id'=>$stage->id]) }}">Detalle</a>
                             </td>
                         </tr>
                         @endforeach
@@ -43,24 +46,7 @@
                 </table>
             </div>
         </div>
-    </div>
-
-    <div class="container">
-        <div class="text-center fw-bold mt-7 mb-7">
-            <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-6">
-                    <a href="{{route('listUnderSt')}}" type="button" class="btn btn-primary" style="color:aliceblue;">Ver sub escenarios</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- <div class="separator separator-bottom separator-skew zindex-100">
-            <svg x="0" y="0" viewBox="0 0 0 0" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-            </svg>
-        </div> --}}
+    </div> 
 </div>
-
-{{-- <div class="container mt--10 pb-5"></div> --}}
 
 @endsection

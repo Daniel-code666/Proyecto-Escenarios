@@ -39,7 +39,7 @@
                         @csrf
                         {{method_field('PUT')}}
                         @foreach ($menu as $itemMenu)
-
+                        
                             <div class="card m-2" style="width: 30%; border-width: 2px; display: inline-block; margin: 0px">
                                 <div class="card-body">
                                     <h3 class="card-title" style="font-size: 20px;">{{$itemMenu->name}}</h3>
