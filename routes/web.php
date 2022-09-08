@@ -108,3 +108,4 @@ Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->
 //reports
 Route::get('stagereport', 'App\Http\Controllers\StageReportController@index')->middleware(['auth', 'idrole']);
 Route::get('viewreport/{id}', 'App\Http\Controllers\StageReportController@viewReport')->name('viewreport')->middleware(['auth', 'idrole']);
+Route::get('testreport', 'App\Http\Controllers\StageReportController@testReport')->name('testreport')->middleware(['auth', 'idrole']);

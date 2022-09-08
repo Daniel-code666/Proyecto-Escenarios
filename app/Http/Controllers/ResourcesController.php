@@ -155,8 +155,8 @@ class ResourcesController extends Controller
     public function edit($idResource)
     {
         $warehouses = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
-        ->where('locationCheck', 1)
-        ->get();
+            ->where('locationCheck', 1)
+            ->get();
         $warehousesSub = warehouse::join('understages', 'understages.idUnderstage', '=', 'warehouses.warehouseLocation')
             ->where('locationCheck', 0)
             ->get();
@@ -234,7 +234,8 @@ class ResourcesController extends Controller
         return redirect('/item')->with('mensaje', 'Recurso eliminado con éxito.');
     }
 
-    public function bringResourceInfo($idResource){
+    public function bringResourceInfo($idResource)
+    {
         $resource = Resources::FindOrFail($idResource);
         return view('pages.Inventary.items.assign', compact('resource'));
     }
@@ -244,7 +245,8 @@ class ResourcesController extends Controller
      * Asigna la cantidad en uso de un elemento en el inventario
      */
 
-    public function setInUseItem(Request $request, $idResource){
+    public function setInUseItem(Request $request, $idResource)
+    {
 
         $request->validate(
             [
@@ -259,12 +261,20 @@ class ResourcesController extends Controller
 
         $data = request()->except('_token', '_method');
 
-        foreach($data as $d){
+        foreach ($data as $d) {
             $amountInUse = (int) $d;
         }
 
-        if($amountInUse > $resource->amount){
+        if ($amountInUse > $resource->amount) {
             return redirect('/item')->with('mensaje', 'La cantidad asignada excede la cantidad en el almacén');
+        }
+
+        if ($amountInUse == 0) {
+            $newAmount = $resource->amount + $amountInUse;
+
+            Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $amountInUse]);
+
+            return redirect('/item')->with('mensaje', 'Se ha asignado la cantidad correctamente');
         }
 
         $newAmount = $resource->amount - $amountInUse;
@@ -294,15 +304,17 @@ class ResourcesController extends Controller
     //     return $pdf->download('inventarios.pdf');
     // }
 
-    public function inventoryQuantityReport($id){
-        $report = new MyReport(array("id"=>$id));
+    public function inventoryQuantityReport($id)
+    {
+        $report = new MyReport(array("id" => $id));
         $report->run();
-        return view("reports.report", ["report"=>$report]);
+        return view("reports.report", ["report" => $report]);
     }
 
-    public function reportPDF($id){
-        $report = new MyReportPDF(array("id"=>$id));
+    public function reportPDF($id)
+    {
+        $report = new MyReportPDF(array("id" => $id));
         $report->run();
-        return view("reports.reportPDF", ["report"=>$report]);
+        return view("reports.reportPDF", ["report" => $report]);
     }
 }

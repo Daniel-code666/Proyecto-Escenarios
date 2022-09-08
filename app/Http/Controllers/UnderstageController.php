@@ -214,8 +214,12 @@ class UnderstageController extends Controller
     public function destroy($idUnderstage)
     {
         $underStage = Understage::findOrFail($idUnderstage);
+        $stage = Stage::where('id', $underStage->idStage)->first();
+        $newUnderStgQty = $stage->underStagesQty - 1;
+        Stage::where('id', $stage->id)->update(['underStagesQty' => $newUnderStgQty]);
         Storage::delete('public/' . $underStage->photo_understg);
         Understage::destroy($idUnderstage);
+
         return redirect('/understage')->with('mensaje', 'Escenario eliminado con éxito.');
     }
 

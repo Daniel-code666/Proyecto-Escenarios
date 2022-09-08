@@ -7,6 +7,7 @@ use App\Models\MiscListStates;
 use Illuminate\Http\Request;
 use App\Models\Stage;
 use App\Reports\StageReport;
+use App\Reports\TestReport;
 
 class StageReportController extends Controller
 {
@@ -23,5 +24,12 @@ class StageReportController extends Controller
         $report = new StageReport(array("id"=>$id));
         $report->run();
         return view('reports.reportViews.viewStageReport', compact('report'));
+    }
+
+    public function testReport()
+    {
+        $report = new TestReport();
+        $report->run();
+        return view('reports.reportViews.testReport', compact('report'));
     }
 }
