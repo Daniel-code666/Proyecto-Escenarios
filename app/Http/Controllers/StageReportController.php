@@ -6,6 +6,7 @@ use App\Models\Disciplines;
 use App\Models\MiscListStates;
 use Illuminate\Http\Request;
 use App\Models\Stage;
+use App\Models\Understage;
 use App\Reports\StageReport;
 use App\Reports\TestReport;
 
@@ -21,7 +22,9 @@ class StageReportController extends Controller
 
     public function viewReport($id)
     {
-        $report = new StageReport(array("id"=>$id));
+        $subStagesArr = Understage::select('idUnderstage')
+            ->where('idStage', $id)->get();
+        $report = new StageReport(array("id"=>$id, "subStages"=>$subStagesArr));
         $report->run();
         return view('reports.reportViews.viewStageReport', compact('report'));
     }
