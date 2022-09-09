@@ -346,7 +346,7 @@ use \koolreport\widgets\koolphp\Card;
                 </script>
             </div>
             <div class="row_fixed">
-                <div class="col-11">
+                <div class="col-12">
                     <h3>Cantidad de recursos por estado en el escenario principal</h3>
                     <div class="center">
                         <?php
@@ -527,6 +527,7 @@ use \koolreport\widgets\koolphp\Card;
                 $subResourcesByStates = array();
                 $total = 0;
                 $totalWh = 0;
+                $subTempArray = array();
 
                 foreach ($this->dataStore("subStage") as $sub) {
                     foreach ($this->dataStore("subResources") as $temp) {
@@ -537,13 +538,14 @@ use \koolreport\widgets\koolphp\Card;
                         }
                     }
 
-                    foreach ($this->dataStore("subResourcesStates") as $subResSt){
-                        foreach ($this->dataStore("subResourcesStates2") as $subResSt2){
-                            if ($subResSt['warehouseName'] == $sub['warehouseName'] and 
-                                $subResSt2['warehouseName'] == $sub['warehouseName'] and 
+                    foreach ($this->dataStore("subResourcesStates") as $subResSt) {
+                        foreach ($this->dataStore("subResourcesStates2") as $subResSt2) {
+                            if (
+                                $subResSt['warehouseName'] == $sub['warehouseName'] and
+                                $subResSt2['warehouseName'] == $sub['warehouseName'] and
                                 $subResSt['warehouseName'] == $subResSt2['warehouseName'] and
-                                $subResSt['statesName'] == $subResSt2['statesName'])
-                            {
+                                $subResSt['statesName'] == $subResSt2['statesName']
+                            ) {
                                 $tempArr1 = $subResSt;
                                 $tempArr2 = $subResSt2;
                                 array_pop($tempArr1);
@@ -551,6 +553,13 @@ use \koolreport\widgets\koolphp\Card;
                                 $sResByState = array("statesName" => $tempArr1['statesName'], "amount" => $tempArr1['amount'], "amounInUse" => $tempArr2['amountInUse']);
                                 array_push($subResourcesByStates, $sResByState);
                             }
+                        }
+                    }
+
+                    foreach ($this->dataStore("subResourceWarehouse") as $obj) {
+                        if ($obj['warehouseName'] == $sub['warehouseName']){
+                            array_pop($obj);
+                            array_push($subTempArray, $obj);
                         }
                     }
 
@@ -584,7 +593,7 @@ use \koolreport\widgets\koolphp\Card;
                     ));
 
                     BarChart::create(array(
-                        "title" => "Cantidad de recursos por estado en sub escenario",
+                        "title" => "Cantidad de recursos por estado en el sub escenario " . (string) $sub['name_understg'],
                         "dataSource" => $subResourcesByStates,
                         "columns" => array(
                             "statesName" => array(
@@ -601,16 +610,31 @@ use \koolreport\widgets\koolphp\Card;
                         )
                     ));
 
+                    ColumnChart::create(array(
+                        "title" => "Recursos por almacén",
+                        "dataStore" => $subTempArray,
+                        "columns" => array(
+                            "warehouseName" => array(
+                                "label" => "Almacén"
+                            ),
+                            "amount" => array(
+                                "type" => "number",
+                                "label" => "Cantidad de recursos"
+                            )
+                        )
+                    ));
+
                     $secTempArr = [];
                     $warehouses = [];
                     $subResourcesByStates = [];
+                    $subTempArray = [];
                     $total = 0;
                     $totalWh = 0;
                 }
             }
             ?>
             <div class="row_fixed">
-                <h3>Información <b>total</b> de los inventarios en los sub escenarios</h3>
+                <h3>Información <b>total</b> de los inventarios en los <b>sub escenarios</b></h3>
             </div>
             <div class="row_fixed">
                 <div class="col-4 card_center">
@@ -719,7 +743,39 @@ use \koolreport\widgets\koolphp\Card;
                     });
                 </script>
             </div>
+            <div class="row_fixed">
+                <h3>Cantidad de recursos <b>totales</b> por <b>estado</b> en los <b>sub escenarios</b></h3>
+            </div>
+            <?php
+                $subResourcesByStTot = array();
 
+                foreach ($this->dataStore('subResourceStatesTot') as $info1) {
+                    foreach ($this->dataStore('subResourceInUseStatesTot') as $info2) {
+                        if ($info1['statesName'] == $info2['statesName']) {
+                            $rByStates = array("statesName" => $info1['statesName'], "amount" => $info1['amount'], "amounInUse" => $info2['amountInUse']);
+                            array_push($subResourcesByStTot, $rByStates);
+                        }
+                    }
+                }
+
+                BarChart::create(array(
+                    "title" => "Cantidad de recursos por estado",
+                    "dataSource" => $subResourcesByStTot,
+                    "columns" => array(
+                        "statesName" => array(
+                            "label" => "Estado"
+                        ),
+                        "amount" => array(
+                            "label" => "Cantidad en almacén",
+                            "type" => "number"
+                        ),
+                        "amounInUse" => array(
+                            "label" => "Cantidad en uso",
+                            "type" => "number"
+                        )
+                    )
+                ));
+                ?>
             <br>
 
             <?php
@@ -776,6 +832,9 @@ use \koolreport\widgets\koolphp\Card;
                 }
             }
             ?>
+            <div class="row_fixed">
+                <h3>Recursos en <b>uso</b> totales en los <b>sub escenarios</b></h3>
+            </div>
             <div class="row_fixed">
                 <div class="col-4 card_center">
                     <div class="card" style="width: 18rem;">

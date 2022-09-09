@@ -199,5 +199,47 @@ class StageReport extends \koolreport\KoolReport
                 ->where('understages.idStage', '=', $this->params["id"])
                 ->where('misc_list_states.tableParent', '=', 'stages')
         )->pipe($this->dataStore("subStageSimple"));
+
+        // query info total de recursos por estado en sub escenarios
+        $this->src("mysql2")->query(
+            "select statesName, amount from idrdsystem.resources
+            join idrdsystem.misc_list_states
+            on idrdsystem.misc_list_states.statesId = idrdsystem.resources.id_category
+            join idrdsystem.warehouses
+            on idrdsystem.warehouses.warehouseId = idrdsystem.resources.resources_warehouseId
+            where idrdsystem.misc_list_states.tableParent = 'inventary' 
+            and idrdsystem.warehouses.locationCheck = 0"
+        )->pipe(new Group(array(
+            "by" => "statesName",
+            "sum" => "amount"
+        )))->pipe($this->dataStore("subResourceStatesTot"));
+
+        $this->src("mysql2")->query(
+            "select statesName, amountInUse from idrdsystem.resources
+            join idrdsystem.misc_list_states
+            on idrdsystem.misc_list_states.statesId = idrdsystem.resources.id_category
+            join idrdsystem.warehouses
+            on idrdsystem.warehouses.warehouseId = idrdsystem.resources.resources_warehouseId
+            where idrdsystem.misc_list_states.tableParent = 'inventary' 
+            and idrdsystem.warehouses.locationCheck = 0"
+        )->pipe(new Group(array(
+            "by" => "statesName",
+            "sum" => "amountInUse"
+        )))->pipe($this->dataStore("subResourceInUseStatesTot"));
+
+        // query cantidad de recursos por almacén
+        foreach ($subStages as $subStage){
+            $this->src("mysql2")->query(
+                "select warehouseName, amount, warehouseId from idrdsystem.resources
+                join idrdsystem.warehouses
+                on idrdsystem.warehouses.warehouseId = idrdsystem.resources.resources_warehouseId
+                where idrdsystem.warehouses.warehouseLocation =". $subStage['idUnderstage'] ." and idrdsystem.warehouses.locationCheck = 0"
+            )->params(array(
+                ":id" => $this->params["id"]
+            ))->pipe(new Group(array(
+                "sum" => "amount",
+                "by" => "warehouseId"
+            )))->pipe($this->dataStore("subResourceWarehouse"));
+        }
     }
 }
