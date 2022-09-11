@@ -523,43 +523,25 @@ use \koolreport\widgets\koolphp\Card;
                 echo ("<h3>No hay datos para mostrar</h3>");
             } else {
                 $warehouses = array();
+                $warehousesResInUse = array();
                 $secTempArr = array();
+                $terTempArr = array();
                 $subResourcesByStates = array();
                 $total = 0;
+                $totalInUse = 0;
                 $totalWh = 0;
+                $totalWhInUse = 0;
                 $subTempArray = array();
 
                 foreach ($this->dataStore("subStage") as $sub) {
+
+                    // sección de recursos en almacén por sub escenario
+
                     foreach ($this->dataStore("subResources") as $temp) {
                         if ($sub['warehouseName'] == $temp['Almacén']) {
                             array_push($secTempArr, $temp);
                             array_push($warehouses, $temp['Almacén']);
                             $total += (int) $temp['Cantidad en almacén'];
-                        }
-                    }
-
-                    foreach ($this->dataStore("subResourcesStates") as $subResSt) {
-                        foreach ($this->dataStore("subResourcesStates2") as $subResSt2) {
-                            if (
-                                $subResSt['warehouseName'] == $sub['warehouseName'] and
-                                $subResSt2['warehouseName'] == $sub['warehouseName'] and
-                                $subResSt['warehouseName'] == $subResSt2['warehouseName'] and
-                                $subResSt['statesName'] == $subResSt2['statesName']
-                            ) {
-                                $tempArr1 = $subResSt;
-                                $tempArr2 = $subResSt2;
-                                array_pop($tempArr1);
-                                array_pop($tempArr2);
-                                $sResByState = array("statesName" => $tempArr1['statesName'], "amount" => $tempArr1['amount'], "amounInUse" => $tempArr2['amountInUse']);
-                                array_push($subResourcesByStates, $sResByState);
-                            }
-                        }
-                    }
-
-                    foreach ($this->dataStore("subResourceWarehouse") as $obj) {
-                        if ($obj['warehouseName'] == $sub['warehouseName']){
-                            array_pop($obj);
-                            array_push($subTempArray, $obj);
                         }
                     }
 
@@ -592,6 +574,65 @@ use \koolreport\widgets\koolphp\Card;
                         )
                     ));
 
+                    // sección de recursos en uso de cada sub escenario
+
+                    foreach ($this->dataStore("subResourcesInUse") as $temp) {
+                        if ($sub['warehouseName'] == $temp['Almacén']) {
+                            array_push($terTempArr, $temp);
+                            array_push($warehousesResInUse, $temp['Almacén']);
+                            $totalInUse += (int) $temp['Cantidad en uso'];
+                        }
+                    }
+
+                    $whInUse = array_unique($warehousesResInUse);
+                    foreach ($whInUse as $w) {
+                        $totalWhInUse += 1;
+                    }
+
+                    echo ("<div class='row_fixed'><h3>Recursos en <b>uso</b> del sub escenario
+                        <b>" . (string) $sub['name_understg'] . "</b></h3></div>");
+
+                    echo ("<div class='row_fixed'><div class='col-4 card_center'><div class='card' 
+                        style='width: 18rem;'><div class='card-body'><h5 class='card-title'>
+                        Recursos totales en <b>uso</b> del sub escenario <b>" . (string) $sub['name_understg'] .
+                        "</b></h5><h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>
+                        " . $total . "</h1></p></div></div></div><div class='col-4'></div><div class='col-4 card_center'>" .
+                        "<div class='card' style='width: 18rem;'><div class='card-body'><h5 class='card-title'>" .
+                        "Almacenes totales en el sub escenario <b>" . (string) $sub['name_understg'] . "</b></h5>" .
+                        "<h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>" . $totalWh .
+                        "</h1><p></div></div></div></div>");
+
+                        PieChart::create(array(
+                            "dataSource" => $terTempArr
+                        ));
+    
+                        Table::create(array(
+                            "dataStore" => $terTempArr,
+                            "cssClass" => array(
+                                "table" => "table table-striped table-bordered"
+                            )
+                        ));
+
+                    // sección de cantidad de recursos por estado
+
+                    foreach ($this->dataStore("subResourcesStates") as $subResSt) {
+                        foreach ($this->dataStore("subResourcesStates2") as $subResSt2) {
+                            if (
+                                $subResSt['warehouseName'] == $sub['warehouseName'] and
+                                $subResSt2['warehouseName'] == $sub['warehouseName'] and
+                                $subResSt['warehouseName'] == $subResSt2['warehouseName'] and
+                                $subResSt['statesName'] == $subResSt2['statesName']
+                            ) {
+                                $tempArr1 = $subResSt;
+                                $tempArr2 = $subResSt2;
+                                array_pop($tempArr1);
+                                array_pop($tempArr2);
+                                $sResByState = array("statesName" => $tempArr1['statesName'], "amount" => $tempArr1['amount'], "amounInUse" => $tempArr2['amountInUse']);
+                                array_push($subResourcesByStates, $sResByState);
+                            }
+                        }
+                    }
+
                     BarChart::create(array(
                         "title" => "Cantidad de recursos por estado en el sub escenario " . (string) $sub['name_understg'],
                         "dataSource" => $subResourcesByStates,
@@ -610,6 +651,15 @@ use \koolreport\widgets\koolphp\Card;
                         )
                     ));
 
+                    // sección de cantidad de recursos por almacén en cada sub escenario
+
+                    foreach ($this->dataStore("subResourceWarehouse") as $obj) {
+                        if ($obj['warehouseName'] == $sub['warehouseName']){
+                            array_pop($obj);
+                            array_push($subTempArray, $obj);
+                        }
+                    }
+
                     ColumnChart::create(array(
                         "title" => "Recursos por almacén",
                         "dataStore" => $subTempArray,
@@ -624,211 +674,17 @@ use \koolreport\widgets\koolphp\Card;
                         )
                     ));
 
+                    // reinicialización de variables para que siga con el siguiente sub escenario
                     $secTempArr = [];
                     $warehouses = [];
+                    $warehousesResInUse = [];
                     $subResourcesByStates = [];
                     $subTempArray = [];
+                    $terTempArr = [];
                     $total = 0;
                     $totalWh = 0;
-                }
-            }
-            ?>
-            <div class="row_fixed">
-                <h3>Información <b>total</b> de los inventarios en los <b>sub escenarios</b></h3>
-            </div>
-            <div class="row_fixed">
-                <div class="col-4 card_center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Recursos totales</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Cantidad</h6>
-                            <p class="card-text">
-                            <h1 class="center">
-                                <?php
-                                $total = 0;
-                                foreach ($this->dataStore("subResources") as $obj) {
-                                    $total += (int) $obj['Cantidad en almacén'];
-                                }
-                                echo ($total);
-                                ?>
-                            </h1>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4"></div>
-                <div class="col-4 card_center">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Almacenes totales</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Cantidad</h6>
-                            <p class="card-text">
-                            <h1 class="center">
-                                <?php
-                                $total = 0;
-                                $warehouses = array();
-                                foreach ($this->dataStore("subResources") as $obj) {
-                                    array_push($warehouses, $obj['Almacén']);
-                                }
-                                $wh = array_unique($warehouses);
-                                foreach ($wh as $w) {
-                                    $total += 1;
-                                }
-                                echo ($total);
-                                ?>
-                            </h1>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row_fixed">
-                <div class="col-12">
-                    <?php
-                    PieChart::create(array(
-                        "dataSource" => $this->dataStore("subResources")
-                    ));
-                    ?>
-                </div>
-            </div>
-            <div class="row_fixed">
-                <div class="table-responsive">
-                    <table class="table align-items-center" id="subStageResources">
-                        <thead>
-                            <tr>
-                                <th>Nombre del objeto</th>
-                                <th>Cantidad en almacén</th>
-                                <th>Estado</th>
-                                <th>Almacén</th>
-                                <th>Sub escenario</th>
-                            </tr>
-                        </thead>
-                        <tbody class="list">
-                            <?php
-                            foreach ($this->dataStore("subResources") as $dataR) {
-                                echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
-                            <td>" . (string) $dataR['Cantidad en almacén'] . "</td>
-                            <td>" . (string) $dataR['Estado'] . "</td>
-                            <td>" . (string) $dataR['Almacén'] . "</td>
-                            <td>" . (string) $dataR['Sub escenario'] . "</td></tr>");
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <script>
-                    $(document).ready(function() {
-                        $('#subStageResources').DataTable({
-                            dom: 'Bfrtip',
-                            buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
-                            language: {
-                                lengthMenu: 'Mostrando _MENU_ registros por página',
-                                zeroRecords: 'No hay registros para mostrar',
-                                info: 'Mostrando página _PAGE_ de _PAGES_',
-                                infoEmpty: 'No hay registros disponibles',
-                                infoFiltered: '(filtrando de _MAX_ registros disponibles)',
-                                sSearch: 'Buscar',
-                                'paginate': {
-                                    'previous': '<<',
-                                    'next': '>>'
-                                },
-                                buttons: {
-                                    pageLength: 'Mostrando %d filas'
-                                },
-                            },
-                            order: [
-                                [4, 'desc']
-                            ]
-                        });
-                    });
-                </script>
-            </div>
-            <div class="row_fixed">
-                <h3>Cantidad de recursos <b>totales</b> por <b>estado</b> en los <b>sub escenarios</b></h3>
-            </div>
-            <?php
-                $subResourcesByStTot = array();
-
-                foreach ($this->dataStore('subResourceStatesTot') as $info1) {
-                    foreach ($this->dataStore('subResourceInUseStatesTot') as $info2) {
-                        if ($info1['statesName'] == $info2['statesName']) {
-                            $rByStates = array("statesName" => $info1['statesName'], "amount" => $info1['amount'], "amounInUse" => $info2['amountInUse']);
-                            array_push($subResourcesByStTot, $rByStates);
-                        }
-                    }
-                }
-
-                BarChart::create(array(
-                    "title" => "Cantidad de recursos por estado",
-                    "dataSource" => $subResourcesByStTot,
-                    "columns" => array(
-                        "statesName" => array(
-                            "label" => "Estado"
-                        ),
-                        "amount" => array(
-                            "label" => "Cantidad en almacén",
-                            "type" => "number"
-                        ),
-                        "amounInUse" => array(
-                            "label" => "Cantidad en uso",
-                            "type" => "number"
-                        )
-                    )
-                ));
-                ?>
-            <br>
-
-            <?php
-            if ($this->dataStore("subResourcesInUse")->count() == 0) {
-                echo ("<h3>No hay datos para mostrar</h3>");
-            } else {
-                $warehouses = array();
-                $secTempArr = array();
-                $total = 0;
-                $totalWh = 0;
-
-                foreach ($this->dataStore("subStage") as $sub) {
-                    foreach ($this->dataStore("subResourcesInUse") as $temp) {
-                        if ($sub['warehouseName'] == $temp['Almacén']) {
-                            array_push($secTempArr, $temp);
-                            array_push($warehouses, $temp['Almacén']);
-                            $total += (int) $temp['Cantidad en uso'];
-                        }
-                    }
-
-                    $wh = array_unique($warehouses);
-                    foreach ($wh as $w) {
-                        $totalWh += 1;
-                    }
-
-                    echo ("<div class='row_fixed'><h3>Recursos en <b>uso</b> del sub escenario
-                        <b>" . (string) $sub['name_understg'] . "</b></h3></div>");
-
-                    echo ("<div class='row_fixed'><div class='col-4 card_center'><div class='card' 
-                        style='width: 18rem;'><div class='card-body'><h5 class='card-title'>
-                        Recursos totales en <b>uso</b> del sub escenario <b>" . (string) $sub['name_understg'] .
-                        "</b></h5><h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>
-                        " . $total . "</h1></p></div></div></div><div class='col-4'></div><div class='col-4 card_center'>" .
-                        "<div class='card' style='width: 18rem;'><div class='card-body'><h5 class='card-title'>" .
-                        "Almacenes totales en el sub escenario <b>" . (string) $sub['name_understg'] . "</b></h5>" .
-                        "<h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>" . $totalWh .
-                        "</h1><p></div></div></div></div>");
-
-                    PieChart::create(array(
-                        "dataSource" => $secTempArr
-                    ));
-
-                    Table::create(array(
-                        "dataStore" => $secTempArr,
-                        "cssClass" => array(
-                            "table" => "table table-striped table-bordered"
-                        )
-                    ));
-
-                    $secTempArr = [];
-                    $warehouses = [];
-                    $total = 0;
-                    $totalWh = 0;
+                    $totalWhInUse = 0;
+                    $totalInUse = 0;
                 }
             }
             ?>
@@ -945,15 +801,157 @@ use \koolreport\widgets\koolphp\Card;
                     });
                 </script>
             </div>
+            <div class="row_fixed">
+                <h3>Información <b>total</b> de los inventarios en los <b>sub escenarios</b></h3>
+            </div>
+            <div class="row_fixed">
+                <div class="col-4 card_center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Recursos totales</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Cantidad</h6>
+                            <p class="card-text">
+                            <h1 class="center">
+                                <?php
+                                $total = 0;
+                                foreach ($this->dataStore("subResources") as $obj) {
+                                    $total += (int) $obj['Cantidad en almacén'];
+                                }
+                                echo ($total);
+                                ?>
+                            </h1>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4 card_center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Almacenes totales</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Cantidad</h6>
+                            <p class="card-text">
+                            <h1 class="center">
+                                <?php
+                                $total = 0;
+                                $warehouses = array();
+                                foreach ($this->dataStore("subResources") as $obj) {
+                                    array_push($warehouses, $obj['Almacén']);
+                                }
+                                $wh = array_unique($warehouses);
+                                foreach ($wh as $w) {
+                                    $total += 1;
+                                }
+                                echo ($total);
+                                ?>
+                            </h1>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row_fixed">
+                <div class="col-12">
+                    <?php
+                    PieChart::create(array(
+                        "dataSource" => $this->dataStore("subResources")
+                    ));
+                    ?>
+                </div>
+            </div>
+            <div class="row_fixed">
+                <div class="table-responsive">
+                    <table class="table align-items-center" id="subStageResources">
+                        <thead>
+                            <tr>
+                                <th>Nombre del objeto</th>
+                                <th>Cantidad en almacén</th>
+                                <th>Estado</th>
+                                <th>Almacén</th>
+                                <th>Sub escenario</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            <?php
+                            foreach ($this->dataStore("subResources") as $dataR) {
+                                echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
+                            <td>" . (string) $dataR['Cantidad en almacén'] . "</td>
+                            <td>" . (string) $dataR['Estado'] . "</td>
+                            <td>" . (string) $dataR['Almacén'] . "</td>
+                            <td>" . (string) $dataR['Sub escenario'] . "</td></tr>");
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <script>
+                    $(document).ready(function() {
+                        $('#subStageResources').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                            language: {
+                                lengthMenu: 'Mostrando _MENU_ registros por página',
+                                zeroRecords: 'No hay registros para mostrar',
+                                info: 'Mostrando página _PAGE_ de _PAGES_',
+                                infoEmpty: 'No hay registros disponibles',
+                                infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                                sSearch: 'Buscar',
+                                'paginate': {
+                                    'previous': '<<',
+                                    'next': '>>'
+                                },
+                                buttons: {
+                                    pageLength: 'Mostrando %d filas'
+                                },
+                            },
+                            order: [
+                                [4, 'desc']
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+            
+            <div class="row_fixed">
+                <h3>Cantidad de recursos <b>totales</b> por <b>estado</b> en los <b>sub escenarios</b></h3>
+            </div>
+            <?php
+                $subResourcesByStTot = array();
+
+                foreach ($this->dataStore('subResourceStatesTot') as $info1) {
+                    foreach ($this->dataStore('subResourceInUseStatesTot') as $info2) {
+                        if ($info1['statesName'] == $info2['statesName']) {
+                            $rByStates = array("statesName" => $info1['statesName'], "amount" => $info1['amount'], "amounInUse" => $info2['amountInUse']);
+                            array_push($subResourcesByStTot, $rByStates);
+                        }
+                    }
+                }
+
+                BarChart::create(array(
+                    "title" => "Cantidad de recursos por estado",
+                    "dataSource" => $subResourcesByStTot,
+                    "columns" => array(
+                        "statesName" => array(
+                            "label" => "Estado"
+                        ),
+                        "amount" => array(
+                            "label" => "Cantidad en almacén",
+                            "type" => "number"
+                        ),
+                        "amounInUse" => array(
+                            "label" => "Cantidad en uso",
+                            "type" => "number"
+                        )
+                    )
+                ));
+                ?>
+            <br>
         </div>
     </div>
     <br>
     <br>
     <footer>
-        <div class="align-items-center justify-content-xl-between" style="display: flex;
-                        margin-right: auto;
-                        margin-left: auto;
-                        flex-wrap: wrap;">
+        <div class="align-items-center justify-content-xl-between row_fixed">
             <div class="col-6">
                 <div style="padding-left: 5%">
                     &copy; <?php echo (date("Y")); ?> <a href="https://www.idrd.gov.co" class="font-weight-bold ml-1" target="_blank">IDRD</a> &amp;

@@ -34,9 +34,6 @@
                 <p>
                     Desde aquí puede ver toda la información relacionada por cada escenario que haya creado.
                 </p>
-                <div>
-                    <a type="button" class="btn btn-primary" href="{{ url('/escenario/create') }}">Crear escenario</a>
-                </div>
             </div>
             <div class="col-sm-4">
                 <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
