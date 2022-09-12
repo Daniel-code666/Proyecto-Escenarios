@@ -9,6 +9,7 @@ use App\Models\Stage;
 use App\Models\Understage;
 use App\Reports\StageReport;
 use App\Reports\TestReport;
+use App\Reports\SubStageReport;
 
 class StageReportController extends Controller
 {
@@ -17,7 +18,8 @@ class StageReportController extends Controller
         $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
         $disciplines['disciplines'] = Disciplines::get();
         $misclist['misclist'] = MiscListStates::where("tableParent", "=", 'stages')->get();
-        return view('reports.stageReport', $stages)->with('disciplines', $disciplines)->with('misclist', $misclist);
+        $underStages['underStages'] = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')->get();
+        return view('reports.stageReport', $stages)->with('disciplines', $disciplines)->with('misclist', $misclist)->with('underStages', $underStages);
     }
 
     public function viewReport($id)
@@ -27,6 +29,14 @@ class StageReportController extends Controller
         $report = new StageReport(array("id"=>$id, "subStages"=>$subStagesArr));
         $report->run();
         return view('reports.reportViews.viewStageReport', compact('report'));
+    }
+
+    public function viewSubReport($idUnderstage)
+    {
+        $id = Understage::select('idStage')->where('idUnderstage', $idUnderstage)->first();
+        $report = new SubStageReport(array("idUnderstage"=>$idUnderstage, "id"=>$id->idStage));
+        $report->run();
+        return view('reports.reportViews.viewSubStageReport', compact('report'));
     }
 
     public function testReport()

@@ -25,70 +25,172 @@
 </div>
 @endif
 
-<h2 class="text-center fw-bold mt-2">Escenarios principales</h2>
+<h2 class="text-center fw-bold mt-2">Informe de escenarios</h2>
 
 <div class="warpper">
+    <input class="radio" id="one" name="group" type="radio" checked>
+    <input class="radio" id="two" name="group" type="radio">
+    <div class="tabs">
+        <label class="tab" id="one-tab" for="one">Escenarios principales</label>
+        <label class="tab" id="two-tab" for="two">Sub escenarios</label>
+    </div>
     <div class="panels">
-        <div class="row">
-            <div class="col-md-8">
-                <p>
-                    Desde aquí puede ver toda la información relacionada por cada escenario que haya creado.
-                </p>
+        <!-- Panel de escenarios principales -->
+        <div class="panel" id="one-panel">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        Desde aquí puede ver toda la información relacionada por cada escenario principal que haya creado.
+                        Si aun no tiene ningún escenario puede ir a la sección de escenarios principales para registrar
+                        un nuevo espacio deportivo.
+                    </p>
+                    <a type="button" class="btn btn-primary" href="{{ url('/escenario') }}">Ir a escenarios</a>
+                </div>
+                <div class="col-sm-4">
+                    <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
+                </div>
             </div>
-            <div class="col-sm-4">
-                <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
+            <hr>
+            <div class="table-responsive m-2">
+                @if($stages->isEmpty())
+                <div style="text-align: center;">
+                    <h4><strong>No hay escenarios para mostrar</strong></h4>
+                </div>
+                @else
+                <table id="escenarios_table" class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort" data-sort="name">Id</th>
+                            <th scope="col" class="sort" data-sort="status">Foto</th>
+                            <th scope="col" class="sort" data-sort="budget">Nombre</th>
+                            <th scope="col" class="sort" data-sort="completion">Dirección</th>
+                            <th scope="col" class="sort" data-sort="completion">Disciplina</th>
+                            <th>Capacidad</th>
+                            <th>Superficie</th>
+                            <th scope="col" class="sort" data-sort="completion">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach ($stages as $stage)
+                        <tr>
+                            <td>{{$stage->id}}</td>
+                            <td><img src="{{asset('storage').'/'.$stage->photo}}" alt="" width="100"></td>
+                            <td>{{$stage->name}}</td>
+                            <td>{{$stage->address}}</td>
+                            <td>{{$stage->discipline_name}}</td>
+                            <td>{{$stage->capacity}}</td>
+                            <td>{{$stage->area}}m<sup>2</sup></td>
+                            <td class="text-right">
+                                <div class="dropdown">
+                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" target="_blank" href="{{ route('viewreport', ['id'=>$stage->id]) }}">
+                                            Ver reporte
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <!-- script de la tabla de escenarios -->
+                <script>
+                    $(document).ready(function() {
+                        $('#escenarios_table').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                            language: {
+                                lengthMenu: 'Mostrando _MENU_ registros por página',
+                                zeroRecords: 'No hay registros para mostrar',
+                                info: 'Mostrando página _PAGE_ de _PAGES_',
+                                infoEmpty: 'No hay registros disponibles',
+                                infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                                sSearch: 'Buscar',
+                                'paginate': {
+                                    'previous': '<i class="fas fa-light fa-arrow-left"></i>',
+                                    'next': '<i class="fas fa-light fa-arrow-right"></i>'
+                                },
+                                buttons: {
+                                    pageLength: 'Mostrando %d filas'
+                                },
+                            },
+                        });
+                    });
+                </script>
+                @endif
             </div>
         </div>
-        <hr>
-        <div class="table-responsive m-2">
-            @if($stages->isEmpty())
-            <div style="text-align: center;">
-                <h4><strong>No hay escenarios para mostrar</strong></h4>
+        <!-- Panel sub escenarios -->
+        <div class="panel" id="two-panel">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        Desde aquí puede ver toda la información relacionada por cada sub escenario que haya creado.
+                        Si aun no tiene ningún sub escenario puede ir a la sección de sub escenarios para registrar
+                        un nuevo espacio deportivo.
+                    </p>
+                    <a type="button" class="btn btn-primary" href="{{ url('/understage') }}">Ir a sub escenarios</a>
+                </div>
+                <div class="col-sm-4">
+                    <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
+                </div>
+            </div>
+
+            <hr>
+
+            @if(count($underStages) == 0)
+            <div class="row offset-0">
+                <h4><strong>Este escenario no tiene sub escenarios asociados</strong></h4>
             </div>
             @else
-            <table id="escenarios_table" class="table align-items-center table-flush">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col" class="sort" data-sort="name">Id</th>
-                        <th scope="col" class="sort" data-sort="status">Foto</th>
-                        <th scope="col" class="sort" data-sort="budget">Nombre</th>
-                        <th scope="col" class="sort" data-sort="completion">Dirección</th>
-                        <th scope="col" class="sort" data-sort="completion">Disciplina</th>
-                        <th>Capacidad</th>
-                        <th>Superficie</th>
-                        <th scope="col" class="sort" data-sort="completion">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="list">
-                    @foreach ($stages as $stage)
-                    <tr>
-                        <td>{{$stage->id}}</td>
-                        <td><img src="{{asset('storage').'/'.$stage->photo}}" alt="" width="100"></td>
-                        <td>{{$stage->name}}</td>
-                        <td>{{$stage->address}}</td>
-                        <td>{{$stage->discipline_name}}</td>
-                        <td>{{$stage->capacity}}</td>
-                        <td>{{$stage->area}}m<sup>2</sup></td>
-                        <td class="text-right">
-                            <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a class="dropdown-item" target="_blank" href="{{ route('viewreport', ['id'=>$stage->id]) }}">
-                                        Ver reporte
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <!-- script de la tabla de escenarios -->
+            <div class="card-body px-lg-3 py-lg-1">
+                <div class="table-responsive m-2">
+                    <table id="stage_table" class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort" data-sort="name">Id</th>
+                                <th scope="col" class="sort" data-sort="status">Foto</th>
+                                <th scope="col" class="sort" data-sort="budget">Nombre</th>
+                                <th scope="col" class="sort" data-sort="completion">Dirección</th>
+                                <th scope="col" class="sort" data-sort="completion">Disciplina</th>
+                                <th scope="col" class="sort" data-sort="completion">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @foreach ($underStages as $underSt)
+                            @foreach ($underSt as $underStage)
+                            <tr>
+                                <td>{{$underStage->idUnderstage}}</td>
+                                <td><img src="{{asset('storage').'/'.$underStage->photo_understg}}" alt="" width="100"></td>
+                                <td>{{$underStage->name_understg}}</td>
+                                <td>{{$underStage->address_understg}}</td>
+                                <td>{{$underStage->discipline_name}}</td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" target="_blank" href="{{ route('viewsubreport', ['idUnderstage'=>$underStage->idUnderstage]) }}">
+                                                Ver reporte
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- script de la tabla de sub escenarios -->
             <script>
                 $(document).ready(function() {
-                    $('#escenarios_table').DataTable({
+                    $('#stage_table').DataTable({
                         dom: 'Bfrtip',
                         buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
                         language: {

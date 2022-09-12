@@ -11,7 +11,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <title>Escenario</title>
 </head>
 <?php
 
@@ -28,7 +27,8 @@ use \koolreport\widgets\koolphp\Card;
         <?php
         $data_query = $this->dataStore("stageDef");
         foreach ($data_query as $data) {
-            echo "<h1 style='text-align:center'>Informe del escenario " . (string) $data['name'] . "</h1>";
+            echo ("<title>". (string) $data['name'] . "</title>");
+            echo ("<h1 style='text-align:center'>Informe del escenario " . (string) $data['name'] . "</h1>");
         }
         ?>
     </div>
@@ -562,12 +562,10 @@ use \koolreport\widgets\koolphp\Card;
                         $totalWh += 1;
                     }
 
-                    echo ("<div class='row_fixed'><h3>Informe del estado del subescenario <b>". 
-                        (string) $sub['name_understg'] . "</b></h3</div>");
-                    echo ("<div class='row_fixed'><div class='col-6'>" .
-                        "<h4>Estado del sub escenario: <b>" . (string) $sub['statesName'] . "</b></h4></div>
-                        <div class='col-6'><h4>Descripción del estado <b>" . (string) $sub['message_state_understg'].
-                        "</b></h4></div></div>");
+                    echo ("<div class='row_fixed'><h3>Informe del estado del subescenario <b> ". (string) $sub['name_understg'] . "</b></h3></div>");
+                    echo ("<div class='row_fixed'><div class='col-6'> <h4>Estado del sub escenario: <b>" 
+                        . (string) $sub['statesName'] . "</b></h4></div><div class='col-6'><h4>Descripción del estado <b>" 
+                        . (string) $sub['message_state_understg']. "</b></h4></div></div>");
 
                     echo ("<div class='row_fixed'><h3>Recursos en el sub escenario
                         <b>" . (string) $sub['name_understg'] . "</b></h3></div>");
@@ -615,10 +613,10 @@ use \koolreport\widgets\koolphp\Card;
                         style='width: 18rem;'><div class='card-body'><h5 class='card-title'>
                         Recursos totales en <b>uso</b> del sub escenario <b>" . (string) $sub['name_understg'] .
                         "</b></h5><h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>
-                        " . $total . "</h1></p></div></div></div><div class='col-4'></div><div class='col-4 card_center'>" .
+                        " . $totalInUse . "</h1></p></div></div></div><div class='col-4'></div><div class='col-4 card_center'>" .
                         "<div class='card' style='width: 18rem;'><div class='card-body'><h5 class='card-title'>" .
                         "Almacenes totales en el sub escenario <b>" . (string) $sub['name_understg'] . "</b></h5>" .
-                        "<h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>" . $totalWh .
+                        "<h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>" . $totalWhInUse .
                         "</h1><p></div></div></div></div>");
 
                     PieChart::create(array(
