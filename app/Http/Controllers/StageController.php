@@ -52,9 +52,9 @@ class StageController extends Controller
     {
         $disciplines = Disciplines::all();
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        $localities = Locality::select("*")->orderBy('name','ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('name','ASC')->get();
-        return view('pages.stages.add', compact('disciplines', 'states','localities', 'neighbordhoods'));
+        $localities = Locality::select("*")->orderBy('name', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('name', 'ASC')->get();
+        return view('pages.stages.add', compact('disciplines', 'states', 'localities', 'neighbordhoods'));
     }
 
     /**
@@ -66,44 +66,45 @@ class StageController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'id_category'=>'required',
-            'message_state'=>'required | max:500',
-            'discipline'=>'required',
-            'name'=>'required | unique:Stages| max : 100',
-            'area'=>'required | numeric',
-            'address'=>'required',
-            'capacity'=>'required | numeric',
-            'descripcion'=>'required | max:500',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'underStagesQty' => 'required',
-            'stegeCode' => 'required',
-            'localityid' => 'required',
-            'neighborhoodsid' => 'required'
-        ],
-        [
-            'id_category.required' => 'Este campo es requerido',
-            'message_state.required' => 'Este campo es requerido',
-            'discipline.required' => 'Este campo es requerido',
-            'name.required' => 'Este campo es requerido',
-            'area.required' => 'Este campo es requerido',
-            'address.required' => 'Este campo es requerido',
-            'capacity.required' => 'Este campo es requerido',
-            'descripcion.required' => 'Este campo es requerido',
-            'latitude.required' => 'Este campo es requerido',
-            'longitude.required' => 'Este campo es requerido',
-            'underStagesQty.required' => 'Este campo es requerido',
-            'stegeCode.required' => 'Este campo es requerido',
-            'localityid.required' => 'Este campo es requerido',
-            'neighborhoodsid.required' => 'Este campo es requerido',
-            'message_state.max' => 'El máximo de caracteres es 500',
-            'descripcion.max' => 'El máximo de caracteres es 500',
-            'area.numeric' => 'Debe ser un campo numérico',
-            'capacity.numeric' => 'Debe ser un campo numérico',
-            'name.unique' => 'Nombre ya registrado',
-            'name.max' => 'El máximo de caracteres es 100',
-        ]
+        $request->validate(
+            [
+                'id_category' => 'required',
+                'message_state' => 'required | max:500',
+                'discipline' => 'required',
+                'name' => 'required | unique:Stages| max : 100',
+                'area' => 'required | numeric',
+                'address' => 'required',
+                'capacity' => 'required | numeric',
+                'descripcion' => 'required | max:500',
+                'latitude' => 'required',
+                'longitude' => 'required',
+                'underStagesQty' => 'required',
+                'stegeCode' => 'required',
+                'localityid' => 'required',
+                'neighborhoodsid' => 'required'
+            ],
+            [
+                'id_category.required' => 'Este campo es requerido',
+                'message_state.required' => 'Este campo es requerido',
+                'discipline.required' => 'Este campo es requerido',
+                'name.required' => 'Este campo es requerido',
+                'area.required' => 'Este campo es requerido',
+                'address.required' => 'Este campo es requerido',
+                'capacity.required' => 'Este campo es requerido',
+                'descripcion.required' => 'Este campo es requerido',
+                'latitude.required' => 'Este campo es requerido',
+                'longitude.required' => 'Este campo es requerido',
+                'underStagesQty.required' => 'Este campo es requerido',
+                'stegeCode.required' => 'Este campo es requerido',
+                'localityid.required' => 'Este campo es requerido',
+                'neighborhoodsid.required' => 'Este campo es requerido',
+                'message_state.max' => 'El máximo de caracteres es 500',
+                'descripcion.max' => 'El máximo de caracteres es 500',
+                'area.numeric' => 'Debe ser un campo numérico',
+                'capacity.numeric' => 'Debe ser un campo numérico',
+                'name.unique' => 'Nombre ya registrado',
+                'name.max' => 'El máximo de caracteres es 100',
+            ]
         );
 
         //$datos = request()->all();
@@ -137,10 +138,10 @@ class StageController extends Controller
             ->where('id', $stageDef->id)
             ->first();
         $disciplines = Disciplines::all();
-        $localities = Locality::select("*")->orderBy('name','ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('name','ASC')->get();
+        $localities = Locality::select("*")->orderBy('name', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('name', 'ASC')->get();
 
-        return view('pages.stages.guestStagesView', compact('stage', 'states','disciplines','localities', 'neighbordhoods'));
+        return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
     }
 
     /**
@@ -154,9 +155,9 @@ class StageController extends Controller
         $disciplines = Disciplines::all();
         $stage = Stage::findOrFail($id);
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        $localities = Locality::select("*")->orderBy('name','ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('name','ASC')->get();
-        return view('pages.stages.edit', compact('stage','disciplines', 'states','localities', 'neighbordhoods'));
+        $localities = Locality::select("*")->orderBy('name', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('name', 'ASC')->get();
+        return view('pages.stages.edit', compact('stage', 'disciplines', 'states', 'localities', 'neighbordhoods'));
     }
 
     /**
@@ -168,43 +169,44 @@ class StageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'id_category'=>'required',
-            'message_state'=>'required | max:500',
-            'discipline'=>'required',
-            'name'=>'required | max:100',
-            'area'=>'required | numeric',
-            'address'=>'required',
-            'capacity'=>'required | numeric',
-            'descripcion'=>'required | max:500',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'underStagesQty' => 'required',
-            'stegeCode' => 'required',
-            'localityid' => 'required',
-            'neighborhoodsid' => 'required'
-        ],
-        [
-            'id_category.required' => 'Este campo es requerido',
-            'message_state.required' => 'Este campo es requerido',
-            'discipline.required' => 'Este campo es requerido',
-            'name.required' => 'Este campo es requerido',
-            'area.required' => 'Este campo es requerido',
-            'address.required' => 'Este campo es requerido',
-            'capacity.required' => 'Este campo es requerido',
-            'descripcion.required' => 'Este campo es requerido',
-            'latitude.required' => 'Este campo es requerido',
-            'longitude.required' => 'Este campo es requerido',
-            'underStagesQty.required' => 'Este campo es requerido',
-            'stegeCode.required' => 'Este campo es requerido',
-            'localityid.required' => 'Este campo es requerido',
-            'neighborhoodsid.required' => 'Este campo es requerido',
-            'message_state.max' => 'El máximo de caracteres es 500',
-            'descripcion.max' => 'El máximo de caracteres es 500',
-            'area.numeric' => 'Debe ser un campo numérico',
-            'capacity.numeric' => 'Debe ser un campo numérico',
-            'name.max' => 'El máximo de caracteres es 100'
-        ]
+        $request->validate(
+            [
+                'id_category' => 'required',
+                'message_state' => 'required | max:500',
+                'discipline' => 'required',
+                'name' => 'required | max:100',
+                'area' => 'required | numeric',
+                'address' => 'required',
+                'capacity' => 'required | numeric',
+                'descripcion' => 'required | max:500',
+                'latitude' => 'required',
+                'longitude' => 'required',
+                'underStagesQty' => 'required',
+                'stegeCode' => 'required',
+                'localityid' => 'required',
+                'neighborhoodsid' => 'required'
+            ],
+            [
+                'id_category.required' => 'Este campo es requerido',
+                'message_state.required' => 'Este campo es requerido',
+                'discipline.required' => 'Este campo es requerido',
+                'name.required' => 'Este campo es requerido',
+                'area.required' => 'Este campo es requerido',
+                'address.required' => 'Este campo es requerido',
+                'capacity.required' => 'Este campo es requerido',
+                'descripcion.required' => 'Este campo es requerido',
+                'latitude.required' => 'Este campo es requerido',
+                'longitude.required' => 'Este campo es requerido',
+                'underStagesQty.required' => 'Este campo es requerido',
+                'stegeCode.required' => 'Este campo es requerido',
+                'localityid.required' => 'Este campo es requerido',
+                'neighborhoodsid.required' => 'Este campo es requerido',
+                'message_state.max' => 'El máximo de caracteres es 500',
+                'descripcion.max' => 'El máximo de caracteres es 500',
+                'area.numeric' => 'Debe ser un campo numérico',
+                'capacity.numeric' => 'Debe ser un campo numérico',
+                'name.max' => 'El máximo de caracteres es 100'
+            ]
         );
 
         $datos = request()->except('_token', '_method');
@@ -249,24 +251,29 @@ class StageController extends Controller
 
         $arrStages = array();
 
-        $stageDef = Stage::find($id);
-
         $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
-            ->where('id', $stageDef->id)
+            ->join('misc_list_states', 'misc_list_states.statesId', '=', 'stages.id_category')
+            ->join('localities', 'localities.localityId', '=', 'stages.localityid')
+            ->join('neighborhoods', 'neighborhoods.hoodId', '=', 'stages.neighborhoodid')
+            ->where('id', $id)
+            ->where('misc_list_states.tableParent', '=', 'stages')
             ->first();
 
         $understages = Stage::join('understages', 'understages.idStage', '=', 'stages.id')
-            ->where('id', $stageDef->id)
+            ->where('id', $id)
             ->join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
             ->get();
 
-        $stageWarehouse = warehouse::where('warehouseLocation', $stageDef->id)->get();
+        $stageWarehouse = warehouse::where('warehouseLocation', $id)
+            ->where('warehouses.locationCheck', 1)->get();
 
         foreach ($stageWarehouse as $sw) {
             $stageComplete = Stage::join('warehouses', 'warehouses.warehouseLocation', '=', 'stages.id')
                 ->join('resources', 'resources.resources_warehouseId', '=', 'warehouses.warehouseId')
-                ->where('id', $stageDef->id)->where('warehouseId', $sw->warehouseId)
-                ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')->get();
+                ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
+                ->where('id', $id)->where('warehouseId', $sw->warehouseId)
+                ->where('warehouses.locationCheck', 1)
+                ->get();
             array_push($arrStages, $stageComplete);
         }
 

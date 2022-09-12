@@ -114,9 +114,10 @@ class UnderstageController extends Controller
         $underStageDef = Understage::find($idUnderstage);
 
         $stage = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
-            ->where('idUnderstage', $underStageDef->idUnderstage)
             ->join('stages', 'stages.id', '=', 'understages.idStage')
+            ->join('misc_list_states','misc_list_states.statesId', '=', 'understages.id_category_understg')
             ->where('idUnderstage', $underStageDef->idUnderstage)
+            ->where('misc_list_states.tableParent', '=', 'stages')
             ->first();
 
         $stageMain = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
@@ -129,8 +130,10 @@ class UnderstageController extends Controller
             foreach ($stageWarehouse as $sw) {
                 $stageComplete = Understage::join('warehouses', 'warehouses.warehouseLocation', '=', 'understages.idUnderstage')
                     ->join('resources', 'resources.resources_warehouseId', '=', 'warehouses.warehouseId')
+                    ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                     ->where('idUnderstage', $underStageDef->idUnderstage)->where('warehouseId', $sw->warehouseId)
-                    ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')->get();
+                    ->where('warehouses.locationCheck', 0)
+                    ->get();
                 array_push($arrStages, $stageComplete);
             }
 
