@@ -99,6 +99,18 @@ use \koolreport\widgets\koolphp\Card;
                 </script>
             </div>
             <div class="row_fixed">
+                <h3>Informe de estado del escenario principal</h3>
+            </div>
+            <div class="row_fixed">
+                <?php
+                foreach ($this->dataStore("stageDef") as $stageInfo) {
+                    echo ("<div class='col-6'><h4>Estado del escenario: <b>" . (string) $stageInfo['statesName'] . 
+                    "</b></h4></div><div class='col-6'><br><h4>Descripción del estado: <b>" . 
+                    (string) $stageInfo['message_state'] . "</b></h4></div>");
+                }
+                ?>
+            </div>
+            <div class="row_fixed">
                 <h3>Recursos en los almacenes del escenario principal</h3>
             </div>
             <div class="row_fixed">
@@ -550,6 +562,13 @@ use \koolreport\widgets\koolphp\Card;
                         $totalWh += 1;
                     }
 
+                    echo ("<div class='row_fixed'><h3>Informe del estado del subescenario <b>". 
+                        (string) $sub['name_understg'] . "</b></h3</div>");
+                    echo ("<div class='row_fixed'><div class='col-6'>" .
+                        "<h4>Estado del sub escenario: <b>" . (string) $sub['statesName'] . "</b></h4></div>
+                        <div class='col-6'><h4>Descripción del estado <b>" . (string) $sub['message_state_understg'].
+                        "</b></h4></div></div>");
+
                     echo ("<div class='row_fixed'><h3>Recursos en el sub escenario
                         <b>" . (string) $sub['name_understg'] . "</b></h3></div>");
 
@@ -602,16 +621,16 @@ use \koolreport\widgets\koolphp\Card;
                         "<h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>" . $totalWh .
                         "</h1><p></div></div></div></div>");
 
-                        PieChart::create(array(
-                            "dataSource" => $terTempArr
-                        ));
-    
-                        Table::create(array(
-                            "dataStore" => $terTempArr,
-                            "cssClass" => array(
-                                "table" => "table table-striped table-bordered"
-                            )
-                        ));
+                    PieChart::create(array(
+                        "dataSource" => $terTempArr
+                    ));
+
+                    Table::create(array(
+                        "dataStore" => $terTempArr,
+                        "cssClass" => array(
+                            "table" => "table table-striped table-bordered"
+                        )
+                    ));
 
                     // sección de cantidad de recursos por estado
 
@@ -654,7 +673,7 @@ use \koolreport\widgets\koolphp\Card;
                     // sección de cantidad de recursos por almacén en cada sub escenario
 
                     foreach ($this->dataStore("subResourceWarehouse") as $obj) {
-                        if ($obj['warehouseName'] == $sub['warehouseName']){
+                        if ($obj['warehouseName'] == $sub['warehouseName']) {
                             array_pop($obj);
                             array_push($subTempArray, $obj);
                         }
@@ -911,40 +930,40 @@ use \koolreport\widgets\koolphp\Card;
                     });
                 </script>
             </div>
-            
+
             <div class="row_fixed">
                 <h3>Cantidad de recursos <b>totales</b> por <b>estado</b> en los <b>sub escenarios</b></h3>
             </div>
             <?php
-                $subResourcesByStTot = array();
+            $subResourcesByStTot = array();
 
-                foreach ($this->dataStore('subResourceStatesTot') as $info1) {
-                    foreach ($this->dataStore('subResourceInUseStatesTot') as $info2) {
-                        if ($info1['statesName'] == $info2['statesName']) {
-                            $rByStates = array("statesName" => $info1['statesName'], "amount" => $info1['amount'], "amounInUse" => $info2['amountInUse']);
-                            array_push($subResourcesByStTot, $rByStates);
-                        }
+            foreach ($this->dataStore('subResourceStatesTot') as $info1) {
+                foreach ($this->dataStore('subResourceInUseStatesTot') as $info2) {
+                    if ($info1['statesName'] == $info2['statesName']) {
+                        $rByStates = array("statesName" => $info1['statesName'], "amount" => $info1['amount'], "amounInUse" => $info2['amountInUse']);
+                        array_push($subResourcesByStTot, $rByStates);
                     }
                 }
+            }
 
-                BarChart::create(array(
-                    "title" => "Cantidad de recursos por estado",
-                    "dataSource" => $subResourcesByStTot,
-                    "columns" => array(
-                        "statesName" => array(
-                            "label" => "Estado"
-                        ),
-                        "amount" => array(
-                            "label" => "Cantidad en almacén",
-                            "type" => "number"
-                        ),
-                        "amounInUse" => array(
-                            "label" => "Cantidad en uso",
-                            "type" => "number"
-                        )
+            BarChart::create(array(
+                "title" => "Cantidad de recursos por estado",
+                "dataSource" => $subResourcesByStTot,
+                "columns" => array(
+                    "statesName" => array(
+                        "label" => "Estado"
+                    ),
+                    "amount" => array(
+                        "label" => "Cantidad en almacén",
+                        "type" => "number"
+                    ),
+                    "amounInUse" => array(
+                        "label" => "Cantidad en uso",
+                        "type" => "number"
                     )
-                ));
-                ?>
+                )
+            ));
+            ?>
             <br>
         </div>
     </div>
