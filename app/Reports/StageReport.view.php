@@ -588,6 +588,10 @@ use \koolreport\widgets\koolphp\Card;
                         "dataStore" => $secTempArr,
                         "cssClass" => array(
                             "table" => "table table-striped table-bordered"
+                        ),
+                        "paging" => array(
+                            "pageSize" => 10,
+                            "pageIndex" => 0
                         )
                     ));
 
@@ -627,6 +631,10 @@ use \koolreport\widgets\koolphp\Card;
                         "dataStore" => $terTempArr,
                         "cssClass" => array(
                             "table" => "table table-striped table-bordered"
+                        ),
+                        "paging" => array(
+                            "pageSize" => 10,
+                            "pageIndex" => 0
                         )
                     ));
 
