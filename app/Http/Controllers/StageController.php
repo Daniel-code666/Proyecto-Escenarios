@@ -28,7 +28,11 @@ class StageController extends Controller
      */
     public function index()
     {
-        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+        ->join('misc_list_states', 'misc_list_states.statesId', '=', 'stages.id_category')
+        ->join('localities', 'localities.localityid', '=', 'stages.localityid')
+        ->join('neighborhoods', 'neighborhoods.hoodId', '=', 'stages.neighborhoodid')
+        ->where('misc_list_states.tableParent', 'stages')->get();
         $disciplines['disciplines'] = Disciplines::get();
         $misclist['misclist'] = MiscListStates::where("tableParent", "=", 'stages')->get();
         return view('pages.stages.admin', $stages)->with('disciplines', $disciplines)->with('misclist', $misclist);

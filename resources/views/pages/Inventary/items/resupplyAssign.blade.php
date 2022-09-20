@@ -7,19 +7,12 @@
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
-            <h2 class="card-title">Asignar recurso en uso</h2>
+            <h2 class="card-title">Reabastecer recurso</h2>
             <hr>
-            <form action="{{ url('/set/'.$resource->idResource) }} " method="post">
+            <form action="{{ url('/setresupply/'.$resource->idResource) }} " method="post">
                 @csrf
                 {{method_field('PUT')}}
-                @include('pages.Inventary.items.formAssign')
-            </form>
-            <hr>
-            <h2 class="card-title">Devolver recurso al almacén</h2>
-            <form action="{{ url('/setback/'.$resource->idResource) }} " method="post">
-                @csrf
-                {{method_field('PUT')}}
-                @include('pages.Inventary.items.formSetToWh')
+                @include('pages.Inventary.items.resupplyForm')
             </form>
         </div>
     </div>

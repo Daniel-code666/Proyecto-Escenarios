@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Stage;
 use App\Models\warehouse;
 use App\Models\MiscListStates;
-use Illuminate\Support\Arr;
+use App\Models\Resupply_records;
 use Illuminate\Support\Facades\Storage;
 use App\Reports\MyReport;
 use App\Reports\MyReportPDF;
 use App\Reports\ResourcesCard;
 use PDF;
+use Carbon\Carbon;
 
 class ResourcesController extends Controller
 {
@@ -31,8 +32,10 @@ class ResourcesController extends Controller
             '=',
             'resources.resources_warehouseId'
         )
+            ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
             ->join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
-            ->where('locationCheck', 1)
+            ->where('warehouses.locationCheck', 1)
+            ->where('misc_list_states.tableParent', 'inventary')
             ->get();
 
         $resourcesSub['resourcesSub'] = Resources::join(
@@ -41,8 +44,10 @@ class ResourcesController extends Controller
             '=',
             'resources.resources_warehouseId'
         )
+            ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
             ->join('understages', 'understages.idUnderstage', '=', 'warehouses.warehouseLocation')
             ->where('locationCheck', 0)
+            ->where('misc_list_states.tableParent', 'inventary')
             ->get();
 
         $warehouses['warehouses'] = warehouse::join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
@@ -234,6 +239,9 @@ class ResourcesController extends Controller
         return redirect('/item')->with('mensaje', 'Recurso eliminado con éxito.');
     }
 
+    /**
+     * trae la información del objeto para establecer la cantidad en uso del inventario
+     */
     public function bringResourceInfo($idResource)
     {
         $resource = Resources::FindOrFail($idResource);
@@ -271,17 +279,101 @@ class ResourcesController extends Controller
 
         if ($amountInUse == 0) {
             $newAmount = $resource->amount + $amountInUse;
-
-            Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $amountInUse]);
+            $newAmountInUse = $resource->amountInUse + $amountInUse;
+            Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $newAmountInUse]);
 
             return redirect('/item')->with('mensaje', 'Se ha asignado la cantidad correctamente');
         }
 
         $newAmount = $resource->amount - $amountInUse;
-
-        Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $amountInUse]);
+        $newAmountInUse = $resource->amountInUse + $amountInUse;
+        Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $newAmountInUse]);
 
         return redirect('/item')->with('mensaje', 'Se ha asignado la cantidad correctamente');
+    }
+
+    /**
+     * Devuelve los recursos en USO al ALMACÉN
+     */
+    public function setBackWarehouse(Request $request, $idResource)
+    {
+        $resource = Resources::find($idResource);
+
+        $data = request()->except('_token', '_method');
+
+        foreach ($data as $d) {
+            $amountReturned = (int) $d;
+        }
+
+        if ($amountReturned > $resource->amountInUse) {
+            return redirect('/item')->with('mensaje', 'La cantidad devuelta excede a la cantidad en uso');
+        }
+
+        if ($amountReturned == 0) {
+            $newAmountInUse = $resource->amountInUse - $amountReturned;
+            $newAmount = $resource->amount + $amountReturned;
+            Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $newAmountInUse]);
+
+            return redirect('/item')->with('mensaje', 'Se ha asignado la cantidad correctamente');
+        }
+
+        $newAmount = $resource->amount + $amountReturned;
+        $newAmountInUse = $resource->amountInUse - $amountReturned;
+        Resources::where('idResource', $resource->idResource)->update(["amount" => $newAmount, "amountInUse" => $newAmountInUse]);
+
+        return redirect('/item')->with('mensaje', 'Se ha asignado la cantidad correctamente');
+    }
+
+    /**
+     * Trae la información del elemento para asignar la cantidad a reabastecer
+     */
+    public function bringResourceToResupply($idResource)
+    {
+        $resource = Resources::FindOrFail($idResource);
+        $resupply = Resupply_records::where('idResourceFk', $idResource)->latest('updated_at')->first();
+
+        // $cont = 0;
+
+        // if ($resupply->isEmpty()) {
+        //     Resupply_record::insert([
+        //         'idResourceFk' => $resource->idResource, 'resupplyAmount' => 0,
+        //         'created_at' => Carbon::now()
+        //     ]);
+        //     $resupply = Resupply_record::where('idResourceFk', $idResource);
+        //     return view('pages.Inventary.items.assign', compact('resource', 'resupply'));
+        // } else {
+        //     return view('pages.Inventary.items.assign', compact('resource', 'resupply'));
+        // }
+        return view('pages.Inventary.items.resupplyAssign', compact('resource', 'resupply'));
+    }
+
+    /**
+     * Asigna la cantidad de elementos reabastecida
+     */
+    public function setResupply(Request $request, $idResource)
+    {
+        $resource = Resources::find($idResource);
+
+        $data = request()->except('_token', '_method');
+
+        foreach ($data as $d) {
+            $resupplyAmount = (int) $d;
+        }
+
+        $newAmount = $resource->amount + $resupplyAmount;
+
+        // Resupply_record::where('idResourceFk', $resource->idResource)
+        //     ->update(["resupplyAmount" => $resupplyAmount, "created_at" => Carbon::now(), "updated_at" => Carbon::now()]);
+
+        Resupply_records::insert([
+            'idResourceFk' => $resource->idResource, 'resupplyAmount' => $resupplyAmount,
+            'created_at' => Carbon::now(), 'updated_at' => Carbon::now()
+        ]);
+
+        Resources::where('idResource', $resource->idResource)
+            ->update(["amount" => $newAmount, "updated_at" => Carbon::now()]);
+
+        return redirect('/item')->with('mensaje', 'El recurso ha sido reabastecido');
     }
 
     // public function testPDF($id){

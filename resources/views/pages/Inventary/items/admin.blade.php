@@ -66,8 +66,9 @@
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
-                            <th scope="col" class="sort">Cantidad en Almacén</th>
-                            <th>Cantidad en uso</th>
+                            <th scope="col" class="sort">Qty en Almacén</th>
+                            <th>Qty en uso</th>
+                            <th>Estado</th>
                             <th scope="col" class="sort">Almacén</th>
                             <th scope="col" class="sort">Escenario</th>
                             <th scope="col" class="sort">Acciones</th>
@@ -82,6 +83,7 @@
                             <td>{{$resource->resourceName}}</td>
                             <td>{{$resource->amount}}</td>
                             <td>{{$resource->amountInUse}}</td>
+                            <td>{{$resource->statesName}}</td>
                             <td>{{$resource->warehouseName}}</td>
                             <td>{{$resource->name}}</td>
                             <td class="text-center">
@@ -92,6 +94,7 @@
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
                                         <a class="dropdown-item" href="{{ url('/assign/'.$resource->idResource.'/set') }}">Asignar</a>
+                                        <a class="dropdown-item" href="{{ url('see/'.$resource->idResource)}}">Reabastecer</a>
                                         <a class="dropdown-item" target="_blank" href="{{ route('quantity', ['id'=>$resource->id]) }}">Reporte Inventario</a>
                                         <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
                                             @csrf
@@ -161,8 +164,9 @@
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
-                            <th scope="col" class="sort">Cantidad en almacén</th>
-                            <th>Cantidad en uso</th>
+                            <th scope="col" class="sort">Qty en almacén</th>
+                            <th>Qty en uso</th>
+                            <th>Estado</th>
                             <th scope="col" class="sort">Almacén</th>
                             <th scope="col" class="sort">Escenario</th>
                             <th scope="col" class="sort">Acciones</th>
@@ -177,6 +181,7 @@
                             <td>{{$resource->resourceName}}</td>
                             <td>{{$resource->amount}}</td>
                             <td>{{$resource->amountInUse}}</td>
+                            <td>{{$resource->statesName}}</td>
                             <td>{{$resource->warehouseName}}</td>
                             <td>{{$resource->name_understg}}</td>
                             <td class="text-center">

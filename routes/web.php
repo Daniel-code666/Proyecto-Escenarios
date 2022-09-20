@@ -100,7 +100,10 @@ Route::resource('config', App\Http\Controllers\ConfigurationController::class)->
 //Inventary
 Route::resource('item', App\Http\Controllers\ResourcesController::class)->middleware(['auth', 'idrole']);
 Route::get('/assign/{idResource}/set', 'App\Http\Controllers\ResourcesController@bringResourceInfo')->middleware(['auth', 'idrole'])->name('assign');
+Route::get('/see/{idResource}', 'App\Http\Controllers\ResourcesController@bringResourceToResupply')->middleware(['auth', 'idrole'])->name('see');
 Route::put('/set/{idResource}', 'App\Http\Controllers\ResourcesController@setInUseItem')->middleware(['auth', 'idrole'])->name('/set/');
+Route::put('/setresupply/{idResource}', 'App\Http\Controllers\ResourcesController@setResupply')->middleware(['auth', 'idrole'])->name('/setresupply');
+Route::put('/setback/{idResource}', 'App\Http\Controllers\ResourcesController@setBackWarehouse')->middleware(['auth', 'idrole'])->name('/setback');
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);
 Route::get('quantity/{id}', 'App\Http\Controllers\ResourcesController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
 Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->name('testpdf')->middleware(['auth', 'idrole']);

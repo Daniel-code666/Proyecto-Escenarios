@@ -1,10 +1,8 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Cantidad de elementos en el almacén</label>
-            <input disabled class="form-control @error('amount') is-invalid @enderror" type="number" name="amount" value="{{isset($resource->amount)?$resource->amount:old('amount')}}">
+            <input class="form-control @error('amount') is-invalid @enderror" type="number" name="amount" placeholder="{{isset($resource->amount)?$resource->amount:old('amount')}}">
             @error('amount')
             <div class="invalid-feedback">
                 {{$message}}
@@ -16,7 +14,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Cantidad de elementos en uso</label>
-            <input class="form-control @error('amount') is-invalid @enderror" type="number" name="amountInUse" placeholder="{{isset($resource->amountInUse)?$resource->amountInUse:old('amountInUse')}}">
+            <input disabled class="form-control @error('amount') is-invalid @enderror" type="number" name="amountInUse" placeholder="{{isset($resource->amountInUse)?$resource->amountInUse:old('amountInUse')}}">
             @error('amountInUse')
             <div class="invalid-feedback">
                 {{$message}}
