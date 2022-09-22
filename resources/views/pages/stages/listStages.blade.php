@@ -26,6 +26,7 @@
                             <th scope="col" class="sort" data-sort="budget">Nombre</th>
                             <th scope="col" class="sort" data-sort="completion">Dirección</th>
                             <th scope="col" class="sort" data-sort="completion">Disciplina</th>
+                            <th scope="col" class="sort" data-sort="completion">Calificación</th>
                             <th scope="col" class="sort" data-sort="completion">Acciones</th>
                         </tr>
                     </thead>
@@ -37,6 +38,7 @@
                             <td>{{$stage->name}}</td>
                             <td>{{$stage->address}}</td>
                             <td>{{$stage->discipline_name}}</td>
+                            <td>{{$stage->score}}</td>
                             <td>
                                 <a type="button" class="btn btn-info" href="{{ route('show', ['id'=>$stage->id]) }}">Detalle</a>
                             </td>

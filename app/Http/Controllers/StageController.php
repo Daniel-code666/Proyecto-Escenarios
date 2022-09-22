@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use App\Reports\MyReport;
+use Ramsey\Uuid\Type\Decimal;
 
 class StageController extends Controller
 {
@@ -116,6 +117,7 @@ class StageController extends Controller
         if ($request->hasFile('photo')) {
             $datosToSend['photo'] = $request->file('photo')->store('uploads', 'public');
         }
+        $datosToSend['score'] = 5;
         Stage::insert($datosToSend);
         //return response()->json($datosToSend);
         return redirect('/escenario')->with('mensaje', 'Escenario creado con éxito.');
@@ -137,8 +139,8 @@ class StageController extends Controller
             ->where('id', $stageDef->id)
             ->first();
         $disciplines = Disciplines::all();
-        $localities = Locality::select("*")->orderBy('name','ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('name','ASC')->get();
+        $localities = Locality::select("*")->orderBy('localityName','ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName','ASC')->get();
 
         return view('pages.stages.guestStagesView', compact('stage', 'states','disciplines','localities', 'neighbordhoods'));
     }
@@ -304,5 +306,19 @@ class StageController extends Controller
         $pdf->loadView('pages.reports.ReporteGenStage', compact('stage', 'understages'))->setOptions(['defaultFont' => 'sans-serif']);
 
         return $pdf->download($stage->name . '.pdf');
+    }
+
+    public function updateScore(Request $request, $id)
+    {    
+        $datos = request()->except('_token', '_method');
+        $curStage = Stage::find($id);
+        if($curStage->score == null)
+            $curStage->score = 5;
+        $score = $datos['score'];
+        $avrScore = (float)($curStage->score + $score) / 2;
+        Stage::where('id', $id)->update(['score'=> $avrScore]);
+        return redirect('/show/'.$id)
+        ->with('score', $score)
+        ->with('mensaje', 'Calificación enviada.');
     }
 }
