@@ -9,6 +9,7 @@ use App\Models\Stage;
 use App\Models\Understage;
 use App\Models\warehouse;
 use App\Reports\ResourcesReport;
+use App\Reports\ResupplyReport;
 
 class ResourcesReportController extends Controller
 {
@@ -36,5 +37,16 @@ class ResourcesReportController extends Controller
         $report = new ResourcesReport(array("id"=>$id, "warehousesArr"=>$warehousesArr));
         $report->run();
         return view('reports.reportViews.viewResourceReport', compact('report'));
+    }
+
+    public function viewResupplyReport($id)
+    {
+        $warehousesArr = warehouse::select('warehouseId')
+            ->where('warehouseLocation', $id)
+            ->where('locationCheck', 1)->get();
+
+        $report = new ResupplyReport(array("id"=>$id, "warehousesArr" => $warehousesArr));
+        $report->run();
+        return view('reports.reportViews.viewResupplyReport', compact('report'));
     }
 }

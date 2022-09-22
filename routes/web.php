@@ -115,3 +115,4 @@ Route::get('viewsubreport/{idUnderstage}', 'App\Http\Controllers\StageReportCont
 Route::get('resourcereport', 'App\Http\Controllers\ResourcesReportController@index')->middleware(['auth', 'idrole']);
 Route::get('viewresourcereport/{id}', 'App\Http\Controllers\ResourcesReportController@viewReport')->name('viewresourcereport')->middleware(['auth', 'idrole']);
 Route::get('testreport', 'App\Http\Controllers\StageReportController@testReport')->name('testreport')->middleware(['auth', 'idrole']);
+Route::get('viewresupplyreport/{id}', 'App\Http\Controllers\ResourcesReportController@viewResupplyReport')->name('viewresupplyreport')->middleware(['auth', 'idrole']);
