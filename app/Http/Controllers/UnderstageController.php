@@ -20,16 +20,15 @@ class UnderstageController extends Controller
      */
     public function index()
     {
-        $underStages['underStages'] = Understage::join(
-            'disciplines',
-            'disciplines.disciplineId',
-            '=',
-            'understages.discipline_understg'
-        )
-            ->join('stages', 'stages.id', '=', 'understages.idStage')
-            ->paginate(10);
+        $underStages['underStages'] = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
+        ->join('misc_list_states', 'misc_list_states.statesId', '=', 'understages.id_category_understg')
+        ->where('misc_list_states.tableParent', 'stages')->get();
 
-        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
+        $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+        ->join('misc_list_states', 'misc_list_states.statesId', '=', 'stages.id_category')
+        ->join('localities', 'localities.localityid', '=', 'stages.localityid')
+        ->join('neighborhoods', 'neighborhoods.hoodId', '=', 'stages.neighborhoodid')
+        ->where('misc_list_states.tableParent', 'stages')->get();
 
         return view('pages.Understages.underStAdmin', $underStages, $stages);
     }
@@ -114,9 +113,10 @@ class UnderstageController extends Controller
         $underStageDef = Understage::find($idUnderstage);
 
         $stage = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
-            ->where('idUnderstage', $underStageDef->idUnderstage)
             ->join('stages', 'stages.id', '=', 'understages.idStage')
+            ->join('misc_list_states','misc_list_states.statesId', '=', 'understages.id_category_understg')
             ->where('idUnderstage', $underStageDef->idUnderstage)
+            ->where('misc_list_states.tableParent', '=', 'stages')
             ->first();
 
         $stageMain = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
@@ -129,8 +129,10 @@ class UnderstageController extends Controller
             foreach ($stageWarehouse as $sw) {
                 $stageComplete = Understage::join('warehouses', 'warehouses.warehouseLocation', '=', 'understages.idUnderstage')
                     ->join('resources', 'resources.resources_warehouseId', '=', 'warehouses.warehouseId')
+                    ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                     ->where('idUnderstage', $underStageDef->idUnderstage)->where('warehouseId', $sw->warehouseId)
-                    ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')->get();
+                    ->where('warehouses.locationCheck', 0)
+                    ->get();
                 array_push($arrStages, $stageComplete);
             }
 

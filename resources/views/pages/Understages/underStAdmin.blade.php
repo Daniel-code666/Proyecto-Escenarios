@@ -69,6 +69,7 @@
                 <th scope="col" class="sort" data-sort="budget">Nombre</th>
                 <th scope="col" class="sort" data-sort="completion">Dirección</th>
                 <th scope="col" class="sort" data-sort="completion">Disciplina</th>
+                <th>Estado</th>
                 <th scope="col" class="sort" data-sort="completion">Acciones</th>
               </tr>
             </thead>
@@ -80,6 +81,7 @@
                 <td>{{$underStage->name_understg}}</td>
                 <td>{{$underStage->address_understg}}</td>
                 <td>{{$underStage->discipline_name}}</td>
+                <td>{{$underStage->statesName}}</td>
                 <td class="text-right">
                   <div class="dropdown">
                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -161,8 +163,8 @@
               <th scope="col" class="sort" data-sort="budget">Nombre</th>
               <th scope="col" class="sort" data-sort="completion">Dirección</th>
               <th scope="col" class="sort" data-sort="completion">Disciplina</th>
-              <th>Capacidad</th>
-              <th>Superficie</th>
+              <th>Estado</th>
+              <th>Localidad</th>
               <th scope="col" class="sort" data-sort="completion">Acciones</th>
             </tr>
           </thead>
@@ -174,8 +176,8 @@
               <td>{{$stage->name}}</td>
               <td>{{$stage->address}}</td>
               <td>{{$stage->discipline_name}}</td>
-              <td>{{$stage->capacity}}</td>
-              <td>{{$stage->area}}m<sup>2</sup></td>
+              <td>{{$stage->statesName}}</td>
+              <td>{{$stage->localityName}}</td>
               <td class="text-right">
                 <div class="dropdown">
                   <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

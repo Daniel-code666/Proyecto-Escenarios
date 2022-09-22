@@ -18,7 +18,7 @@
 <div class="header bg-gradient-primary py-6-fixed">
     <div class="card bg-secondary shadow">
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
+            <div class="col-lg-12">
                 <h1 class="text-violet">{{ __('Información del sub escenario') }}</h1>
             </div>
         </div>
@@ -80,6 +80,60 @@
                 </div>
             </div>
 
+            <div class="warpper">
+                <div class="panels">
+                    <div class="row_fixed">
+                        <div class="table-responsive">
+                            <table class="table align-items-center" id="subStageTable">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Dirección</th>
+                                        <th>Estado</th>
+                                        <th>Disciplina</th>
+                                        <th>Área</th>
+                                        <th>Capacidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                    <td>{{$stage->idUnderstage}}</td>
+                                    <td>{{$stage->name_understg}}</td>
+                                    <td>{{$stage->address_understg}}</td>
+                                    <td>{{$stage->statesName}}</td>
+                                    <td>{{$stage->discipline_name}}</td>
+                                    <td>{{$stage->area_understg}}</td>
+                                    <td>{{$stage->capacity_understg}}</td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <script>
+                            $(document).ready(function() {
+                                $('#subStageTable').DataTable({
+                                    dom: 'Bfrtip',
+                                    buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                                    language: {
+                                        lengthMenu: 'Mostrando _MENU_ registros por página',
+                                        zeroRecords: 'No hay registros para mostrar',
+                                        info: 'Mostrando página _PAGE_ de _PAGES_',
+                                        infoEmpty: 'No hay registros disponibles',
+                                        infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                                        sSearch: 'Buscar',
+                                        'paginate': {
+                                            'previous': '<<',
+                                            'next': '>>'
+                                        },
+                                        buttons: {
+                                            pageLength: 'Mostrando %d filas'
+                                        },
+                                    },
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <br>
             <div class="warpper">
                 <input class="radio" id="one" name="group" type="radio" checked>
                 <input class="radio" id="two" name="group" type="radio">

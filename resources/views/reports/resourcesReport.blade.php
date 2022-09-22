@@ -25,7 +25,7 @@
 </div>
 @endif
 
-<h2 class="text-center fw-bold mt-2">Informe de escenarios</h2>
+<h2 class="text-center fw-bold mt-2">Informe sobre los inventarios</h2>
 
 <div class="warpper">
     <input class="radio" id="one" name="group" type="radio" checked>
@@ -86,8 +86,11 @@
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" target="_blank" href="{{ route('viewreport', ['id'=>$stage->id]) }}">
-                                            Ver reporte
+                                        <a class="dropdown-item" target="_blank" href="{{ route('viewresourcereport', ['id'=>$stage->id]) }}">
+                                            Ver informe de inventarios
+                                        </a>
+                                        <a class="dropdown-item" target="_blank" href="{{ route('viewresupplyreport', ['id'=>$stage->id]) }}">
+                                            Ver informe de reabastecimientos
                                         </a>
                                     </div>
                                 </div>
@@ -176,8 +179,11 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" target="_blank" href="{{ route('viewsubreport', ['idUnderstage'=>$underStage->idUnderstage]) }}">
-                                                Ver reporte
+                                            <a class="dropdown-item" target="_blank" href="{{ route('subresourcereport', ['idUnderstage'=>$underStage->idUnderstage]) }}">
+                                                Ver informe de inventarios
+                                            </a>
+                                            <a class="dropdown-item" target="_blank" href="{{ route('subresupplyreport', ['idUnderstage'=>$underStage->idUnderstage]) }}">
+                                                Ver informe de reabastecimientos
                                             </a>
                                         </div>
                                     </div>

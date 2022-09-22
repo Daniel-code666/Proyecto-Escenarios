@@ -19,7 +19,7 @@
     <div class="card bg-secondary shadow">
         <br>
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
+            <div class="col-lg-12">
                 <h1 class="text-violet">{{ __('Información del escenario') }}</h1>
             </div>
         </div>
@@ -71,6 +71,64 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="warpper">
+                <div class="panels">
+                    <div class="table-responsive">
+                        <table class="table align-items-center" id="stageTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Dirección</th>
+                                    <th>Localidad</th>
+                                    <th>Barrio</th>
+                                    <th>Estado</th>
+                                    <th>Disciplina</th>
+                                    <th>Área</th>
+                                    <th>Capacidad</th>
+                                    <th># subescenarios</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                <td>{{$stage->id}}</td>
+                                <td>{{$stage->name}}</td>
+                                <td>{{$stage->address}}</td>
+                                <td>{{$stage->localityName}}</td>
+                                <td>{{$stage->hoodName}}</td>
+                                <td>{{$stage->statesName}}</td>
+                                <td>{{$stage->discipline_name}}</td>
+                                <td>{{$stage->area}}</td>
+                                <td>{{$stage->capacity}}</td>
+                                <td>{{$stage->underStagesQty}}</td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $('#stageTable').DataTable({
+                                dom: 'Bfrtip',
+                                buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                                language: {
+                                    lengthMenu: 'Mostrando _MENU_ registros por página',
+                                    zeroRecords: 'No hay registros para mostrar',
+                                    info: 'Mostrando página _PAGE_ de _PAGES_',
+                                    infoEmpty: 'No hay registros disponibles',
+                                    infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                                    sSearch: 'Buscar',
+                                    'paginate': {
+                                        'previous': '<<',
+                                        'next': '>>'
+                                    },
+                                    buttons: {
+                                        pageLength: 'Mostrando %d filas'
+                                    },
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 

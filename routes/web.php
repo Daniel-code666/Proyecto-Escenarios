@@ -100,7 +100,10 @@ Route::resource('config', App\Http\Controllers\ConfigurationController::class)->
 //Inventary
 Route::resource('item', App\Http\Controllers\ResourcesController::class)->middleware(['auth', 'idrole']);
 Route::get('/assign/{idResource}/set', 'App\Http\Controllers\ResourcesController@bringResourceInfo')->middleware(['auth', 'idrole'])->name('assign');
+Route::get('/see/{idResource}', 'App\Http\Controllers\ResourcesController@bringResourceToResupply')->middleware(['auth', 'idrole'])->name('see');
 Route::put('/set/{idResource}', 'App\Http\Controllers\ResourcesController@setInUseItem')->middleware(['auth', 'idrole'])->name('/set/');
+Route::put('/setresupply/{idResource}', 'App\Http\Controllers\ResourcesController@setResupply')->middleware(['auth', 'idrole'])->name('/setresupply');
+Route::put('/setback/{idResource}', 'App\Http\Controllers\ResourcesController@setBackWarehouse')->middleware(['auth', 'idrole'])->name('/setback');
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);
 Route::get('quantity/{id}', 'App\Http\Controllers\ResourcesController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
 Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->name('testpdf')->middleware(['auth', 'idrole']);
@@ -108,4 +111,10 @@ Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->
 //reports
 Route::get('stagereport', 'App\Http\Controllers\StageReportController@index')->middleware(['auth', 'idrole']);
 Route::get('viewreport/{id}', 'App\Http\Controllers\StageReportController@viewReport')->name('viewreport')->middleware(['auth', 'idrole']);
+Route::get('viewsubreport/{idUnderstage}', 'App\Http\Controllers\StageReportController@viewSubReport')->name('viewsubreport')->middleware(['auth', 'idrole']);
+Route::get('resourcereport', 'App\Http\Controllers\ResourcesReportController@index')->middleware(['auth', 'idrole']);
+Route::get('viewresourcereport/{id}', 'App\Http\Controllers\ResourcesReportController@viewReport')->name('viewresourcereport')->middleware(['auth', 'idrole']);
 Route::get('testreport', 'App\Http\Controllers\StageReportController@testReport')->name('testreport')->middleware(['auth', 'idrole']);
+Route::get('viewresupplyreport/{id}', 'App\Http\Controllers\ResourcesReportController@viewResupplyReport')->name('viewresupplyreport')->middleware(['auth', 'idrole']);
+Route::get('subresourcereport/{idUnderstage}', 'App\Http\Controllers\ResourcesReportController@viewSubStageReport')->name('subresourcereport')->middleware(['auth', 'idrole']);
+Route::get('subresupplyreport/{idUnderstage}', 'App\Http\Controllers\ResourcesReportController@viewSubResupplyReport')->name('subresupplyreport')->middleware(['auth', 'idrole']);
