@@ -52,6 +52,8 @@ use \koolreport\widgets\koolphp\Card;
                 $resourcesInUse = array();
                 $resourcesInUseTable = array();
                 $resourcesByStates = array();
+                $total = 0;
+                $totalInUse = 0;
 
                 foreach ($this->dataStore("warehouses") as $data1) {
                     // sección de recursos en almacén
@@ -69,11 +71,31 @@ use \koolreport\widgets\koolphp\Card;
                         }
                     }
 
+                    // suma la cantidad de cada recurso por almacén
+                    foreach ($this->dataStore("resourcesByWarehouse") as $temp) {
+                        if ($data1['warehouseName'] == $temp['warehouseName']) {
+                            $total += (int) $temp['amount'];
+                        }
+                    }
+
+                    // suma la cantidad de cada recurso en USO por almacén
+                    foreach ($this->dataStore("resourcesInUseByWarehouse") as $temp) {
+                        if ($data1['warehouseName'] == $temp['warehouseName']) {
+                            $totalInUse += (int) $temp['amountInUse'];
+                        }
+                    }
+
                     echo ("<h3>Recursos en el almacén <b>" . $data1['warehouseName'] . "</b></h3>");
 
                     if (count($resources) == 0) {
                         echo ("<h4 style='text-align:center'>No hay recursos en este almacén</h4>");
                     } else {
+                        echo ("<div class='row_fixed'><div class='col-4'></div><div class='col-4 card_center'><div class='card' 
+                        style='width: 18rem;'><div class='card-body'><h5 class='card-title'>
+                        Recursos totales del almacén <b>" . (string) $data1['warehouseName'] .
+                            "</b></h5><h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>
+                        " . $total . "</h1></p></div></div></div></div>");
+
                         PieChart::create(array(
                             "dataSource" => $resources
                         ));
@@ -106,59 +128,68 @@ use \koolreport\widgets\koolphp\Card;
 
                         echo ("<h3>Recursos en <b>uso</b> del almacén <b>" . $data1['warehouseName'] . "</b></h3>");
 
-                        PieChart::create(array(
-                            "dataSource" => $resourcesInUse
-                        ));
+                        if (count($resources) == 0) {
+                            echo ("<h4 style='text-align:center'>No hay recursos en USO de este almacén</h4>");
+                        } else {
+                            echo ("<div class='row_fixed'><div class='col-4'></div><div class='col-4 card_center'><div class='card' 
+                            style='width: 18rem;'><div class='card-body'><h5 class='card-title'>
+                            Recursos totales en <b>USO</b> del almacén <b>" . (string) $data1['warehouseName'] .
+                                    "</b></h5><h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>
+                            " . $totalInUse . "</h1></p></div></div></div></div>");
 
-                        Table::create(array(
-                            "dataStore" => $resourcesInUseTable,
-                            "cssClass" => array(
-                                "table" => "table table-striped table-bordered"
-                            ),
-                            "paging" => array(
-                                "pageSize" => 10,
-                                "pageIndex" => 0
-                            )
-                        ));
+                            PieChart::create(array(
+                                "dataSource" => $resourcesInUse
+                            ));
 
-                        // sección de cantidad de recursos por estado
-                        foreach ($this->dataStore('resourcesByState') as $resource1) {
-                            foreach ($this->dataStore('resourcesInUseByState') as $resource2) {
-                                if (
-                                    $resource1['warehouseName'] == $data1['warehouseName'] and
-                                    $resource2['warehouseName'] == $data1['warehouseName'] and
-                                    $resource1['warehouseName'] == $resource2['warehouseName'] and
-                                    $resource1['statesName'] == $resource2['statesName']
-                                ) {
-                                    $tempArr1 = $resource1;
-                                    $tempArr2 = $resource2;
-                                    array_pop($tempArr1);
-                                    array_pop($tempArr2);
-                                    $resByState = array("statesName" => $tempArr1['statesName'], "amount" => $tempArr1['amount'], "amounInUse" => $tempArr2['amountInUse']);
-                                    array_push($resourcesByStates, $resByState);
+                            Table::create(array(
+                                "dataStore" => $resourcesInUseTable,
+                                "cssClass" => array(
+                                    "table" => "table table-striped table-bordered"
+                                ),
+                                "paging" => array(
+                                    "pageSize" => 10,
+                                    "pageIndex" => 0
+                                )
+                            ));
+
+                            // sección de cantidad de recursos por estado
+                            foreach ($this->dataStore('resourcesByState') as $resource1) {
+                                foreach ($this->dataStore('resourcesInUseByState') as $resource2) {
+                                    if (
+                                        $resource1['warehouseName'] == $data1['warehouseName'] and
+                                        $resource2['warehouseName'] == $data1['warehouseName'] and
+                                        $resource1['warehouseName'] == $resource2['warehouseName'] and
+                                        $resource1['statesName'] == $resource2['statesName']
+                                    ) {
+                                        $tempArr1 = $resource1;
+                                        $tempArr2 = $resource2;
+                                        array_pop($tempArr1);
+                                        array_pop($tempArr2);
+                                        $resByState = array("statesName" => $tempArr1['statesName'], "amount" => $tempArr1['amount'], "amounInUse" => $tempArr2['amountInUse']);
+                                        array_push($resourcesByStates, $resByState);
+                                    }
                                 }
                             }
-                        }
 
-                        BarChart::create(array(
-                            "title" => "Cantidad de recursos por estado en el almacén " . (string) $data1['warehouseName'],
-                            "dataSource" => $resourcesByStates,
-                            "columns" => array(
-                                "statesName" => array(
-                                    "label" => "Estado"
-                                ),
-                                "amount" => array(
-                                    "label" => "Cantidad en almacén",
-                                    "type" => "number"
-                                ),
-                                "amounInUse" => array(
-                                    "label" => "Cantidad en uso",
-                                    "type" => "number"
+                            BarChart::create(array(
+                                "title" => "Cantidad de recursos por estado en el almacén " . (string) $data1['warehouseName'],
+                                "dataSource" => $resourcesByStates,
+                                "columns" => array(
+                                    "statesName" => array(
+                                        "label" => "Estado"
+                                    ),
+                                    "amount" => array(
+                                        "label" => "Cantidad en almacén",
+                                        "type" => "number"
+                                    ),
+                                    "amounInUse" => array(
+                                        "label" => "Cantidad en uso",
+                                        "type" => "number"
+                                    )
                                 )
-                            )
-                        ));
+                            ));
+                        }
                     }
-
 
                     // reinicio de arreglos para el siguiente ciclo
                     $resources = [];
@@ -166,6 +197,8 @@ use \koolreport\widgets\koolphp\Card;
                     $resourcesInUse = [];
                     $resourcesInUseTable = [];
                     $resourcesByStates = [];
+                    $total = 0;
+                    $totalInUse = 0;
                 }
             }
             ?>

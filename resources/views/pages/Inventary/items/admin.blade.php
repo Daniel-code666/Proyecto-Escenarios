@@ -95,7 +95,6 @@
                                         <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
                                         <a class="dropdown-item" href="{{ url('/assign/'.$resource->idResource.'/set') }}">Asignar</a>
                                         <a class="dropdown-item" href="{{ url('see/'.$resource->idResource)}}">Reabastecer</a>
-                                        <a class="dropdown-item" target="_blank" href="{{ route('quantity', ['id'=>$resource->id]) }}">Reporte Inventario</a>
                                         <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
                                             @csrf
                                             {{method_field('DELETE')}}
@@ -192,6 +191,7 @@
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ url('/item/'.$resource->idResource.'/edit') }}">Editar</a>
                                         <a class="dropdown-item" href="{{ url('/assign/'.$resource->idResource.'/set') }}">Asignar</a>
+                                        <a class="dropdown-item" href="{{ url('see/'.$resource->idResource)}}">Reabastecer</a>
                                         <form action="{{ url('/item/'.$resource->idResource) }} " method="post" style="display: inline-block">
                                             @csrf
                                             {{method_field('DELETE')}}

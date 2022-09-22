@@ -27,7 +27,7 @@ use \koolreport\widgets\koolphp\Card;
 <body>
     <div class="container">
         <?php
-        foreach ($this->dataStore("stageDef") as $data) {
+        foreach ($this->dataStore("subStageDef") as $data) {
             echo ("<title>" . (string) $data['name_understg'] . "</title>");
             echo ("<h1 style='text-align:center'>Informe sobre los reabastecimientos del escenario " . (string) $data['name_understg'] . "</h1>");
         }
@@ -39,8 +39,15 @@ use \koolreport\widgets\koolphp\Card;
     <div class="warpper">
         <div class="panels">
             <?php
-            if ($this->dataStore("warehouses") == null) {
-                echo("<h4>No hay almacenes para mostrar</h4>");
+            $cont = 0;
+            foreach ($this->dataStore("warehouses") as $checkArr) {
+                if ($checkArr != null) {
+                    $cont++;
+                }
+            }
+
+            if ($cont == 0) {
+                echo("<h4 style='text-align: center'>Este sub escenario no tiene almacenes</h4>");
             } else {
                 $resources = array();
                 foreach ($this->dataStore("warehouses") as $data1) {
@@ -80,7 +87,7 @@ use \koolreport\widgets\koolphp\Card;
     <div class="warpper">
         <div class="panels">
             <div class="row_fixed">
-                <h3>Historico de reabastecimientos global</h3>
+                <h3>Historico de reabastecimientos global en sub escenarios</h3>
             </div>
             <div class="row_fixed">
                 <div class="table-responsive">

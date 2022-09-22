@@ -11,6 +11,7 @@ use App\Models\warehouse;
 use App\Reports\ResourcesReport;
 use App\Reports\ResupplyReport;
 use App\Reports\SubStageResReport;
+use App\Reports\SubStageResupplyReport;
 
 class ResourcesReportController extends Controller
 {
@@ -25,6 +26,7 @@ class ResourcesReportController extends Controller
         $misclist['misclist'] = MiscListStates::where("tableParent", "=", 'stages')->get();
         $underStages['underStages'] = Understage::join('disciplines', 'disciplines.disciplineId', '=', 'understages.discipline_understg')
             ->join('misc_list_states', 'misc_list_states.statesId', '=', 'understages.id_category_understg')
+            ->join('stages', 'stages.id', '=', 'understages.idStage')
             ->where('misc_list_states.tableParent', 'stages')->get();
         return view('reports.resourcesReport', $stages)->with('disciplines', $disciplines)->with('misclist', $misclist)->with('underStages', $underStages);
     }
@@ -68,7 +70,7 @@ class ResourcesReportController extends Controller
             ->where('warehouseLocation', $idUnderstage)
             ->where('locationCheck', 0)->get();
 
-        $report = new ResupplyReport(array("id" => $idUnderstage, "warehousesArr" => $warehousesArr));
+        $report = new SubStageResupplyReport(array("idUnderstage" => $idUnderstage, "warehousesArr" => $warehousesArr));
         $report->run();
         return view('reports.reportViews.viewSubStageResupplyReport', compact('report'));
     }
