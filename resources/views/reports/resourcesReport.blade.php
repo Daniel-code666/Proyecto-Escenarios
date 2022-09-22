@@ -179,8 +179,11 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" target="_blank" href="{{ route('viewsubreport', ['idUnderstage'=>$underStage->idUnderstage]) }}">
-                                                Ver reporte
+                                            <a class="dropdown-item" target="_blank" href="{{ route('subresourcereport', ['idUnderstage'=>$underStage->idUnderstage]) }}">
+                                                Ver informe de inventarios
+                                            </a>
+                                            <a class="dropdown-item" target="_blank" href="{{ route('subresupplyreport', ['idUnderstage'=>$underStage->idUnderstage]) }}">
+                                                Ver informe de reabastecimientos
                                             </a>
                                         </div>
                                     </div>

@@ -36,7 +36,7 @@ class ResupplyReport extends \koolreport\KoolReport
     {
         // query info escenario principal
         $this->src("mysql")->query(
-            Stage::where('stages.id', $this->params["id"])->limit(1)
+            Understage::where('understages.idUnderstage', $this->params["idUnderstage"])->limit(1)
         )->pipe($this->dataStore("stageDef"));
 
         // query info sobre los reabastecimientos
@@ -44,8 +44,7 @@ class ResupplyReport extends \koolreport\KoolReport
             Resources::join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('resupply_records', 'resupply_records.idResourceFk', '=', 'resources.idResource')
-                ->join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
-                ->where('locationCheck', 1)
+                ->where('locationCheck', 0)
                 ->where('tableParent', 'inventary')
         )->pipe($this->dataStore("resupplyData"));
 
@@ -57,13 +56,14 @@ class ResupplyReport extends \koolreport\KoolReport
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('resupply_records', 'resupply_records.idResourceFk', '=', 'resources.idResource')
-                ->where('locationCheck', 1)
+                ->where('locationCheck', 0)
                 ->where('tableParent', 'inventary')
         )->pipe($this->dataStore("resupplyDataGraph"));
 
         // query almacenes del escenario
         $this->src("mysql")->query(
-            warehouse::where('warehouses.warehouseLocation', $this->params["id"])
+            warehouse::where('warehouses.warehouseLocation', $this->params["idUnderstage"])
+                ->where('locationCheck', 0)
         )->pipe($this->dataStore("warehouses"));
 
         // query info recursos
@@ -71,9 +71,9 @@ class ResupplyReport extends \koolreport\KoolReport
             Resources::select('resourceName', 'amount', 'statesName', 'warehouseName')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
-                ->where('warehouses.warehouseLocation', '=', $this->params["id"])
+                ->where('warehouses.warehouseLocation', '=', $this->params["idUnderstage"])
                 ->where('misc_list_states.tableParent', '=', 'inventary')
-                ->where('warehouses.locationCheck', '=', 1)
+                ->where('warehouses.locationCheck', '=', 0)
         )->pipe($this->dataStore("resourcesByWarehouse"));
     }
 }

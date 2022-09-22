@@ -39,31 +39,46 @@ use \koolreport\widgets\koolphp\Card;
     <div class="warpper">
         <div class="panels">
             <?php
-            $resources = array();
-            foreach ($this->dataStore("warehouses") as $data1) {
-                // sección de recursos en almacén
-                foreach ($this->dataStore("resupplyDataGraph") as $data2) {
-                    if ($data1['warehouseName'] == $data2['Alm']) {
-                        $data2['Ult. re-ingreso'] = substr((string) $data2['Ult. re-ingreso'],  0, -9);
-                        array_push($resources, $data2);
-                    }
+            $cont = 0;
+            foreach ($this->dataStore("warehouses") as $checkArr) {
+                if ($checkArr != null) {
+                    $cont++;
                 }
+            }
 
-                echo ("<h3>Recursos en el almacén <b>" . $data1['warehouseName'] . "</b></h3>");
+            if ($cont == 0) {
+                echo ("<h4 style='text-align: center'>Este escenario no tiene almacenes</h4>");
+            } else {
+                $resources = array();
+                foreach ($this->dataStore("warehouses") as $data1) {
+                    // sección de recursos en almacén
+                    foreach ($this->dataStore("resupplyDataGraph") as $data2) {
+                        if ($data1['warehouseName'] == $data2['Alm']) {
+                            $data2['Ult. re-ingreso'] = substr((string) $data2['Ult. re-ingreso'],  0, -9);
+                            array_push($resources, $data2);
+                        }
+                    }
 
-                Table::create(array(
-                    "dataStore" => $resources,
-                    "cssClass" => array(
-                        "table" => "table table-striped table-bordered"
-                    ),
-                    "paging" => array(
-                        "pageSize" => 5,
-                        "pageIndex" => 0
-                    )
-                ));
+                    echo ("<h3>Recursos en el almacén <b>" . $data1['warehouseName'] . "</b></h3>");
 
-                // reinicio de arreglos para el siguiente ciclo
-                $resources = [];
+                    if (count($resources) == 0) {
+                        echo ("<h4>No hay recursos reabastecidos en este almacén</h4>");
+                    } else {
+                        Table::create(array(
+                            "dataStore" => $resources,
+                            "cssClass" => array(
+                                "table" => "table table-striped table-bordered"
+                            ),
+                            "paging" => array(
+                                "pageSize" => 5,
+                                "pageIndex" => 0
+                            )
+                        ));
+                    }
+
+                    // reinicio de arreglos para el siguiente ciclo
+                    $resources = [];
+                }
             }
             ?>
         </div>
@@ -72,7 +87,7 @@ use \koolreport\widgets\koolphp\Card;
     <div class="warpper">
         <div class="panels">
             <div class="row_fixed">
-                <h3>Historico de reabastecimientos global</h3>
+                <h3>Historico de reabastecimientos global en escenarios principales</h3>
             </div>
             <div class="row_fixed">
                 <div class="table-responsive">
@@ -82,8 +97,8 @@ use \koolreport\widgets\koolphp\Card;
                                 <th>Id</th>
                                 <th>Nom. obj</th>
                                 <th>Cód</th>
+                                <th>Escenario</th>
                                 <th>Qty almacén</th>
-                                <th>Qty USO</th>
                                 <th>Almacén</th>
                                 <th>Estado</th>
                                 <th>Qty re-ingreso</th>
@@ -96,8 +111,8 @@ use \koolreport\widgets\koolphp\Card;
                                 echo ("<tr><td>" . (string) $rData['idResource'] . "</td>
                             <td>" . (string) $rData['resourceName'] . "</td>
                             <td>" . (string) $rData['resourceCode'] . "</td>
+                            <td>" . (string) $rData['name']. "</td>
                             <td>" . (string) $rData['amount'] . "</td>
-                            <td>" . (string) $rData['amountInUse'] . "</td>
                             <td>" . (string) $rData['warehouseName'] . "</td>
                             <td>" . (string) $rData['statesName'] . "</td>
                             <td>" . (string) $rData['resupplyAmount'] . "</td>

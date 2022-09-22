@@ -18,19 +18,18 @@ use koolreport\widgets\google\BarChart;
 use \koolreport\widgets\koolphp\Table;
 use \koolreport\widgets\google\PieChart;
 use \koolreport\widgets\google\ColumnChart;
+use koolreport\widgets\google\LineChart;
 use \koolreport\widgets\koolphp\Card;
-
-use function PHPUnit\Framework\isEmpty;
-
 ?>
+
 <html>
 
 <body>
     <div class="container">
         <?php
         foreach ($this->dataStore("stageDef") as $data) {
-            echo ("<title>" . (string) $data['name'] . "</title>");
-            echo ("<h1 style='text-align:center'>Informe del inventario del escenario " . (string) $data['name'] . "</h1>");
+            echo ("<title>" . (string) $data['name_understg'] . "</title>");
+            echo ("<h1 style='text-align:center'>Informe sobre los reabastecimientos del escenario " . (string) $data['name_understg'] . "</h1>");
         }
         ?>
     </div>
@@ -40,146 +39,113 @@ use function PHPUnit\Framework\isEmpty;
     <div class="warpper">
         <div class="panels">
             <?php
-            $cont = 0;
-            foreach ($this->dataStore("warehouses") as $checkArr){
-                if ($checkArr != null){
-                    $cont++;
-                }
-            }
-
-            if ($cont == 0) {
-                echo ("<h4 style='text-align: center'>Este escenario no tiene almacenes</h4>");
+            if ($this->dataStore("warehouses") == null) {
+                echo("<h4>No hay almacenes para mostrar</h4>");
             } else {
                 $resources = array();
-                $resourcesTable = array();
-                $resourcesInUse = array();
-                $resourcesInUseTable = array();
-                $resourcesByStates = array();
-
                 foreach ($this->dataStore("warehouses") as $data1) {
                     // sección de recursos en almacén
-                    // datos para el gráfico de torta
-                    foreach ($this->dataStore("resourcesByWarehouse") as $data2) {
-                        if ($data1['warehouseName'] == $data2['warehouseName']) {
+                    foreach ($this->dataStore("resupplyDataGraph") as $data2) {
+                        if ($data1['warehouseName'] == $data2['Alm']) {
+                            $data2['Ult. re-ingreso'] = substr((string) $data2['Ult. re-ingreso'],  0, -9);
                             array_push($resources, $data2);
-                        }
-                    }
-
-                    // datos para la tabla
-                    foreach ($this->dataStore("resourcesByWhTable") as $r) {
-                        if ($data1["warehouseName"] == $r['Almacén']) {
-                            array_push($resourcesTable, $r);
                         }
                     }
 
                     echo ("<h3>Recursos en el almacén <b>" . $data1['warehouseName'] . "</b></h3>");
 
                     if (count($resources) == 0) {
-                        echo ("<h4 style='text-align:center'>No hay recursos en este almacén</h4>");
+                        echo ("<h4>No hay recursos reabastecidos en este almacén</h4>");
                     } else {
-                        PieChart::create(array(
-                            "dataSource" => $resources
-                        ));
-
                         Table::create(array(
-                            "dataStore" => $resourcesTable,
+                            "dataStore" => $resources,
                             "cssClass" => array(
                                 "table" => "table table-striped table-bordered"
                             ),
                             "paging" => array(
-                                "pageSize" => 10,
+                                "pageSize" => 5,
                                 "pageIndex" => 0
-                            )
-                        ));
-                    }
-
-                    echo ("<h3>Recursos en <b>uso</b> del almacén <b>" . $data1['warehouseName'] . "</b></h3>");
-
-                    if (count($resources) == 0) {
-                        echo ("<h4>No hay recursos en USO de este almacén</h4>");
-                    } else {
-                        // sección de recursos EN USO del almacén
-                        // datos para el gráfico de torta de recursos EN USO
-                        foreach ($this->dataStore("resourcesInUseByWarehouse") as $dataInUse) {
-                            if ($data1['warehouseName'] == $dataInUse['warehouseName']) {
-                                array_push($resourcesInUse, $dataInUse);
-                            }
-                        }
-
-                        // datos para la tabla de recursos EN USO
-                        foreach ($this->dataStore("resourcesInUseByWhTable") as $rInUse) {
-                            if ($data1["warehouseName"] == $rInUse['Almacén']) {
-                                array_push($resourcesInUseTable, $rInUse);
-                            }
-                        }
-
-                        PieChart::create(array(
-                            "dataSource" => $resourcesInUse
-                        ));
-
-                        Table::create(array(
-                            "dataStore" => $resourcesInUseTable,
-                            "cssClass" => array(
-                                "table" => "table table-striped table-bordered"
-                            ),
-                            "paging" => array(
-                                "pageSize" => 10,
-                                "pageIndex" => 0
-                            )
-                        ));
-
-                        // sección de cantidad de recursos por estado
-                        foreach ($this->dataStore('resourcesByState') as $resource1) {
-                            foreach ($this->dataStore('resourcesInUseByState') as $resource2) {
-                                if (
-                                    $resource1['warehouseName'] == $data1['warehouseName'] and
-                                    $resource2['warehouseName'] == $data1['warehouseName'] and
-                                    $resource1['warehouseName'] == $resource2['warehouseName'] and
-                                    $resource1['statesName'] == $resource2['statesName']
-                                ) {
-                                    $tempArr1 = $resource1;
-                                    $tempArr2 = $resource2;
-                                    array_pop($tempArr1);
-                                    array_pop($tempArr2);
-                                    $resByState = array("statesName" => $tempArr1['statesName'], "amount" => $tempArr1['amount'], "amounInUse" => $tempArr2['amountInUse']);
-                                    array_push($resourcesByStates, $resByState);
-                                }
-                            }
-                        }
-
-                        BarChart::create(array(
-                            "title" => "Cantidad de recursos por estado en el almacén " . (string) $data1['warehouseName'],
-                            "dataSource" => $resourcesByStates,
-                            "columns" => array(
-                                "statesName" => array(
-                                    "label" => "Estado"
-                                ),
-                                "amount" => array(
-                                    "label" => "Cantidad en almacén",
-                                    "type" => "number"
-                                ),
-                                "amounInUse" => array(
-                                    "label" => "Cantidad en uso",
-                                    "type" => "number"
-                                )
                             )
                         ));
                     }
 
                     // reinicio de arreglos para el siguiente ciclo
                     $resources = [];
-                    $resourcesTable = [];
-                    $resourcesInUse = [];
-                    $resourcesInUseTable = [];
-                    $resourcesByStates = [];
                 }
             }
             ?>
         </div>
     </div>
-
     <br>
-
+    <div class="warpper">
+        <div class="panels">
+            <div class="row_fixed">
+                <h3>Historico de reabastecimientos global</h3>
+            </div>
+            <div class="row_fixed">
+                <div class="table-responsive">
+                    <table class="table align-items-center" id="resupplyTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nom. obj</th>
+                                <th>Cód</th>
+                                <th>Qty almacén</th>
+                                <th>Qty USO</th>
+                                <th>Almacén</th>
+                                <th>Estado</th>
+                                <th>Qty re-ingreso</th>
+                                <th>Último re-ingreso</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            <?php
+                            foreach ($this->dataStore("resupplyData") as $rData) {
+                                echo ("<tr><td>" . (string) $rData['idResource'] . "</td>
+                            <td>" . (string) $rData['resourceName'] . "</td>
+                            <td>" . (string) $rData['resourceCode'] . "</td>
+                            <td>" . (string) $rData['amount'] . "</td>
+                            <td>" . (string) $rData['amountInUse'] . "</td>
+                            <td>" . (string) $rData['warehouseName'] . "</td>
+                            <td>" . (string) $rData['statesName'] . "</td>
+                            <td>" . (string) $rData['resupplyAmount'] . "</td>
+                            <td>" . substr((string) $rData['updated_at'],  0, -17) . "</td></tr>");
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <script>
+                    $(document).ready(function() {
+                        $('#resupplyTable').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                            language: {
+                                lengthMenu: 'Mostrando _MENU_ registros por página',
+                                zeroRecords: 'No hay registros para mostrar',
+                                info: 'Mostrando página _PAGE_ de _PAGES_',
+                                infoEmpty: 'No hay registros disponibles',
+                                infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                                sSearch: 'Buscar',
+                                'paginate': {
+                                    'previous': '<<',
+                                    'next': '>>'
+                                },
+                                buttons: {
+                                    pageLength: 'Mostrando %d filas'
+                                },
+                            },
+                            order: [
+                                [2, 'asc']
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
     <footer>
         <div class="align-items-center justify-content-xl-between row_fixed">
             <div class="col-6">

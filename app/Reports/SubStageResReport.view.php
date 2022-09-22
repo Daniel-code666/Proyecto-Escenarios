@@ -19,18 +19,15 @@ use \koolreport\widgets\koolphp\Table;
 use \koolreport\widgets\google\PieChart;
 use \koolreport\widgets\google\ColumnChart;
 use \koolreport\widgets\koolphp\Card;
-
-use function PHPUnit\Framework\isEmpty;
-
 ?>
 <html>
 
 <body>
     <div class="container">
         <?php
-        foreach ($this->dataStore("stageDef") as $data) {
-            echo ("<title>" . (string) $data['name'] . "</title>");
-            echo ("<h1 style='text-align:center'>Informe del inventario del escenario " . (string) $data['name'] . "</h1>");
+        foreach ($this->dataStore("subStageDef") as $data) {
+            echo ("<title>" . (string) $data['name_understg'] . "</title>");
+            echo ("<h1 style='text-align:center'>Informe del inventario del escenario " . (string) $data['name_understg'] . "</h1>");
         }
         ?>
     </div>
@@ -41,14 +38,14 @@ use function PHPUnit\Framework\isEmpty;
         <div class="panels">
             <?php
             $cont = 0;
-            foreach ($this->dataStore("warehouses") as $checkArr){
-                if ($checkArr != null){
+            foreach ($this->dataStore("warehouses") as $checkArr) {
+                if ($checkArr != null) {
                     $cont++;
                 }
             }
 
             if ($cont == 0) {
-                echo ("<h4 style='text-align: center'>Este escenario no tiene almacenes</h4>");
+                echo ("<h4 style='text-align: center'>Este sub escenario no tiene almacenes</h4>");
             } else {
                 $resources = array();
                 $resourcesTable = array();
@@ -91,13 +88,7 @@ use function PHPUnit\Framework\isEmpty;
                                 "pageIndex" => 0
                             )
                         ));
-                    }
 
-                    echo ("<h3>Recursos en <b>uso</b> del almacén <b>" . $data1['warehouseName'] . "</b></h3>");
-
-                    if (count($resources) == 0) {
-                        echo ("<h4>No hay recursos en USO de este almacén</h4>");
-                    } else {
                         // sección de recursos EN USO del almacén
                         // datos para el gráfico de torta de recursos EN USO
                         foreach ($this->dataStore("resourcesInUseByWarehouse") as $dataInUse) {
@@ -112,6 +103,8 @@ use function PHPUnit\Framework\isEmpty;
                                 array_push($resourcesInUseTable, $rInUse);
                             }
                         }
+
+                        echo ("<h3>Recursos en <b>uso</b> del almacén <b>" . $data1['warehouseName'] . "</b></h3>");
 
                         PieChart::create(array(
                             "dataSource" => $resourcesInUse
@@ -165,6 +158,7 @@ use function PHPUnit\Framework\isEmpty;
                             )
                         ));
                     }
+
 
                     // reinicio de arreglos para el siguiente ciclo
                     $resources = [];

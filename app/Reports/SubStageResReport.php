@@ -9,7 +9,7 @@ use App\Models\warehouse;
 use koolreport\processes\AggregatedColumn;
 use \koolreport\processes\Group;
 
-class ResourcesReport extends \koolreport\KoolReport
+class SubStageResReport extends \koolreport\KoolReport
 {
     use \koolreport\laravel\Friendship;
 
@@ -34,14 +34,15 @@ class ResourcesReport extends \koolreport\KoolReport
 
     function setup()
     {
-        // query info escenario principal
+        // query info sub escenario
         $this->src("mysql")->query(
-            Stage::where('stages.id', $this->params["id"])->limit(1)
-        )->pipe($this->dataStore("stageDef"));
+            Understage::where('understages.idUnderstage', $this->params["idUnderstage"])->limit(0)
+        )->pipe($this->dataStore("subStageDef"));
 
         // query almacenes del escenario
         $this->src("mysql")->query(
-            warehouse::where('warehouses.warehouseLocation', $this->params["id"])
+            warehouse::where('warehouses.warehouseLocation', $this->params["idUnderstage"])
+                ->where('warehouses.locationCheck', 0)
         )->pipe($this->dataStore("warehouses"));
 
         // query info recursos
@@ -49,9 +50,9 @@ class ResourcesReport extends \koolreport\KoolReport
             Resources::select('resourceName', 'amount', 'statesName', 'warehouseName')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
-                ->where('warehouses.warehouseLocation', '=', $this->params["id"])
+                ->where('warehouses.warehouseLocation', '=', $this->params["idUnderstage"])
                 ->where('misc_list_states.tableParent', '=', 'inventary')
-                ->where('warehouses.locationCheck', '=', 1)
+                ->where('warehouses.locationCheck', '=', 0)
         )->pipe($this->dataStore("resourcesByWarehouse"));
 
         // query info recursos para la tabla
@@ -60,9 +61,9 @@ class ResourcesReport extends \koolreport\KoolReport
                 'amount as Cantidad', 'statesName as Estado', 'warehouseName as Almacén')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
-                ->where('warehouses.warehouseLocation', '=', $this->params["id"])
+                ->where('warehouses.warehouseLocation', '=', $this->params["idUnderstage"])
                 ->where('misc_list_states.tableParent', '=', 'inventary')
-                ->where('warehouses.locationCheck', '=', 1)
+                ->where('warehouses.locationCheck', '=', 0)
                 ->orderBy('statesName', 'ASC')
         )->pipe($this->dataStore("resourcesByWhTable"));
 
@@ -76,7 +77,7 @@ class ResourcesReport extends \koolreport\KoolReport
                 join idrdsystem.warehouses
                 on idrdsystem.warehouses.warehouseId = idrdsystem.resources.resources_warehouseId
                 where idrdsystem.misc_list_states.tableParent = 'inventary' and idrdsystem.warehouses.warehouseLocation = 
-                ". $this->params["id"] . " and idrdsystem.warehouses.locationCheck = 1 and
+                ". $this->params["idUnderstage"] . " and idrdsystem.warehouses.locationCheck = 0 and
                 idrdsystem.warehouses.warehouseId = ". $warehouse["warehouseId"] .";"
             )->pipe(new Group(array(
                 "by" => "statesName",
@@ -90,7 +91,7 @@ class ResourcesReport extends \koolreport\KoolReport
                 join idrdsystem.warehouses
                 on idrdsystem.warehouses.warehouseId = idrdsystem.resources.resources_warehouseId
                 where idrdsystem.misc_list_states.tableParent = 'inventary' and idrdsystem.warehouses.warehouseLocation = 
-                ". $this->params["id"] . " and idrdsystem.warehouses.locationCheck = 1 and
+                ". $this->params["idUnderstage"] . " and idrdsystem.warehouses.locationCheck = 0 and
                 idrdsystem.warehouses.warehouseId = ". $warehouse["warehouseId"] .";"
             )->pipe(new Group(array(
                 "by" => "statesName",
@@ -103,9 +104,9 @@ class ResourcesReport extends \koolreport\KoolReport
             Resources::select('resourceName', 'amountInUse', 'statesName', 'warehouseName')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
-                ->where('warehouses.warehouseLocation', '=', $this->params["id"])
+                ->where('warehouses.warehouseLocation', '=', $this->params["idUnderstage"])
                 ->where('misc_list_states.tableParent', '=', 'inventary')
-                ->where('warehouses.locationCheck', '=', 1)
+                ->where('warehouses.locationCheck', '=', 0)
         )->pipe($this->dataStore("resourcesInUseByWarehouse"));
 
         // query info recursos en USO para la tabla
@@ -114,9 +115,9 @@ class ResourcesReport extends \koolreport\KoolReport
                 'amountInUse as Cantidad', 'statesName as Estado', 'warehouseName as Almacén')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
-                ->where('warehouses.warehouseLocation', '=', $this->params["id"])
+                ->where('warehouses.warehouseLocation', '=', $this->params["idUnderstage"])
                 ->where('misc_list_states.tableParent', '=', 'inventary')
-                ->where('warehouses.locationCheck', '=', 1)
+                ->where('warehouses.locationCheck', '=', 0)
                 ->where('amountInUse', '>', 0)
                 ->orderBy('statesName', 'ASC')
         )->pipe($this->dataStore("resourcesInUseByWhTable"));
