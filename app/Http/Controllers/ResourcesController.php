@@ -371,7 +371,7 @@ class ResourcesController extends Controller
         ]);
 
         Resources::where('idResource', $resource->idResource)
-            ->update(["amount" => $newAmount, "updated_at" => Carbon::now()]);
+            ->update(["amount" => $newAmount, "updated_at_resources" => Carbon::now()]);
 
         return redirect('/item')->with('mensaje', 'El recurso ha sido reabastecido');
     }

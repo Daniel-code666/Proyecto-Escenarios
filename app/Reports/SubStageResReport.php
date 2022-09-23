@@ -36,7 +36,7 @@ class SubStageResReport extends \koolreport\KoolReport
     {
         // query info sub escenario
         $this->src("mysql")->query(
-            Understage::where('understages.idUnderstage', $this->params["idUnderstage"])->limit(0)
+            Understage::where('understages.idUnderstage', $this->params["idUnderstage"])->limit(1)
         )->pipe($this->dataStore("subStageDef"));
 
         // query almacenes del escenario

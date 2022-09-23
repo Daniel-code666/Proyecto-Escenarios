@@ -9,7 +9,7 @@ use App\Models\warehouse;
 use koolreport\processes\AggregatedColumn;
 use \koolreport\processes\Group;
 
-class ResupplyReport extends \koolreport\KoolReport
+class SubStageResupplyReport extends \koolreport\KoolReport
 {
     use \koolreport\laravel\Friendship;
 
@@ -36,8 +36,8 @@ class ResupplyReport extends \koolreport\KoolReport
     {
         // query info escenario principal
         $this->src("mysql")->query(
-            Understage::where('understages.idUnderstage', $this->params["idUnderstage"])->limit(1)
-        )->pipe($this->dataStore("stageDef"));
+            Understage::where('understages.idUnderstage', '=', $this->params["idUnderstage"])->limit(1)
+        )->pipe($this->dataStore("subStageDef"));
 
         // query info sobre los reabastecimientos
         $this->src("mysql")->query(

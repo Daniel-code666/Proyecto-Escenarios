@@ -41,8 +41,8 @@ use function PHPUnit\Framework\isEmpty;
         <div class="panels">
             <?php
             $cont = 0;
-            foreach ($this->dataStore("warehouses") as $checkArr){
-                if ($checkArr != null){
+            foreach ($this->dataStore("warehouses") as $checkArr) {
+                if ($checkArr != null) {
                     $cont++;
                 }
             }
@@ -55,6 +55,8 @@ use function PHPUnit\Framework\isEmpty;
                 $resourcesInUse = array();
                 $resourcesInUseTable = array();
                 $resourcesByStates = array();
+                $total = 0;
+                $totalInUse = 0;
 
                 foreach ($this->dataStore("warehouses") as $data1) {
                     // sección de recursos en almacén
@@ -72,11 +74,31 @@ use function PHPUnit\Framework\isEmpty;
                         }
                     }
 
+                    // suma la cantidad de cada recurso por almacén
+                    foreach ($this->dataStore("resourcesByWarehouse") as $temp) {
+                        if ($data1['warehouseName'] == $temp['warehouseName']) {
+                            $total += (int) $temp['amount'];
+                        }
+                    }
+
+                    // suma la cantidad de cada recurso en USO por almacén
+                    foreach ($this->dataStore("resourcesInUseByWarehouse") as $temp){
+                        if ($data1['warehouseName'] == $temp['warehouseName']) {
+                            $totalInUse += (int) $temp['amountInUse'];
+                        }
+                    }
+
                     echo ("<h3>Recursos en el almacén <b>" . $data1['warehouseName'] . "</b></h3>");
 
                     if (count($resources) == 0) {
                         echo ("<h4 style='text-align:center'>No hay recursos en este almacén</h4>");
                     } else {
+                        echo ("<div class='row_fixed'><div class='col-4'></div><div class='col-4 card_center'><div class='card' 
+                        style='width: 18rem;'><div class='card-body'><h5 class='card-title'>
+                        Recursos totales del almacén <b>" . (string) $data1['warehouseName'] .
+                            "</b></h5><h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>
+                        " . $total . "</h1></p></div></div></div></div>");
+
                         PieChart::create(array(
                             "dataSource" => $resources
                         ));
@@ -98,6 +120,12 @@ use function PHPUnit\Framework\isEmpty;
                     if (count($resources) == 0) {
                         echo ("<h4>No hay recursos en USO de este almacén</h4>");
                     } else {
+                        echo ("<div class='row_fixed'><div class='col-4'></div><div class='col-4 card_center'><div class='card' 
+                        style='width: 18rem;'><div class='card-body'><h5 class='card-title'>
+                        Recursos totales en <b>USO</b> del almacén <b>" . (string) $data1['warehouseName'] .
+                            "</b></h5><h6 class='card-subtitle mb-2 text-muted'>Cantidad</h6><p class='card-text'><h1>
+                        " . $totalInUse . "</h1></p></div></div></div></div>");
+
                         // sección de recursos EN USO del almacén
                         // datos para el gráfico de torta de recursos EN USO
                         foreach ($this->dataStore("resourcesInUseByWarehouse") as $dataInUse) {
@@ -172,6 +200,8 @@ use function PHPUnit\Framework\isEmpty;
                     $resourcesInUse = [];
                     $resourcesInUseTable = [];
                     $resourcesByStates = [];
+                    $total = 0;
+                    $totalInUse = 0;
                 }
             }
             ?>

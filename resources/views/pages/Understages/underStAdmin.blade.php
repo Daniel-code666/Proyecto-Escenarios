@@ -67,6 +67,7 @@
                 <th scope="col" class="sort" data-sort="name">Id</th>
                 <th scope="col" class="sort" data-sort="status">Foto</th>
                 <th scope="col" class="sort" data-sort="budget">Nombre</th>
+                <th>Esc. principal</th>
                 <th scope="col" class="sort" data-sort="completion">Dirección</th>
                 <th scope="col" class="sort" data-sort="completion">Disciplina</th>
                 <th>Estado</th>
@@ -79,6 +80,7 @@
                 <td>{{$underStage->idUnderstage}}</td>
                 <td><img src="{{asset('storage').'/'.$underStage->photo_understg}}" alt="" width="100"></td>
                 <td>{{$underStage->name_understg}}</td>
+                <td>{{$underStage->name}}</td>
                 <td>{{$underStage->address_understg}}</td>
                 <td>{{$underStage->discipline_name}}</td>
                 <td>{{$underStage->statesName}}</td>
@@ -164,6 +166,7 @@
               <th scope="col" class="sort" data-sort="completion">Dirección</th>
               <th scope="col" class="sort" data-sort="completion">Disciplina</th>
               <th>Estado</th>
+              <th># sub esc.</th>
               <th>Localidad</th>
               <th scope="col" class="sort" data-sort="completion">Acciones</th>
             </tr>
@@ -177,6 +180,7 @@
               <td>{{$stage->address}}</td>
               <td>{{$stage->discipline_name}}</td>
               <td>{{$stage->statesName}}</td>
+              <td>{{$stage->underStageQty}}</td>
               <td>{{$stage->localityName}}</td>
               <td class="text-right">
                 <div class="dropdown">

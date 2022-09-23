@@ -10,4 +10,5 @@ class Resources extends Model
     use HasFactory;
 
     protected $primaryKey = 'idResource';
+    public $timestamps = false;
 }

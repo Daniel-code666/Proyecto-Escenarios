@@ -40,14 +40,14 @@
             <div class="row">
                 <div class="col-md-8">
                     <p>
-                        Desde aquí puede ver toda la información relacionada por cada escenario principal que haya creado.
-                        Si aun no tiene ningún escenario puede ir a la sección de escenarios principales para registrar
-                        un nuevo espacio deportivo.
+                        Desde aquí puede ver toda la información sobre los inventarios de cada escenario principal 
+                        que haya creado. Si aun no tiene ningún escenario puede ir a la sección de escenarios 
+                        principales para registrar un nuevo espacio deportivo.
                     </p>
                     <a type="button" class="btn btn-primary" href="{{ url('/escenario') }}">Ir a escenarios</a>
                 </div>
                 <div class="col-sm-4">
-                    <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
+                    <img class="img-center" src="{{ asset('argon') }}/img/brand/elements.jpg" width="180" alt="...">
                 </div>
             </div>
             <hr>
@@ -66,6 +66,7 @@
                             <th scope="col" class="sort" data-sort="completion">Dirección</th>
                             <th scope="col" class="sort" data-sort="completion">Disciplina</th>
                             <th>Estado</th>
+                            <th># sub esc.</th>
                             <th>Localidad</th>
                             <th scope="col" class="sort" data-sort="completion">Acciones</th>
                         </tr>
@@ -79,6 +80,7 @@
                             <td>{{$stage->address}}</td>
                             <td>{{$stage->discipline_name}}</td>
                             <td>{{$stage->statesName}}</td>
+                            <td>{{$stage->underStagesQty}}</td>
                             <td>{{$stage->localityName}}</td>
                             <td class="text-right">
                                 <div class="dropdown">
@@ -131,14 +133,14 @@
             <div class="row">
                 <div class="col-md-8">
                     <p>
-                        Desde aquí puede ver toda la información relacionada por cada sub escenario que haya creado.
-                        Si aun no tiene ningún sub escenario puede ir a la sección de sub escenarios para registrar
-                        un nuevo espacio deportivo.
+                        Desde aquí puede ver toda la información sobre los inventarios de cada sub escenario 
+                        que haya creado. Si aun no tiene ningún sub escenario puede ir a la sección de sub 
+                        escenarios para registrar un nuevo espacio deportivo.
                     </p>
                     <a type="button" class="btn btn-primary" href="{{ url('/understage') }}">Ir a sub escenarios</a>
                 </div>
                 <div class="col-sm-4">
-                    <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
+                    <img class="img-center" src="{{ asset('argon') }}/img/brand/elements.jpg" width="180" alt="...">
                 </div>
             </div>
 
@@ -157,6 +159,7 @@
                                 <th scope="col" class="sort" data-sort="name">Id</th>
                                 <th scope="col" class="sort" data-sort="status">Foto</th>
                                 <th scope="col" class="sort" data-sort="budget">Nombre</th>
+                                <th>Esc. principal</th>
                                 <th scope="col" class="sort" data-sort="completion">Dirección</th>
                                 <th scope="col" class="sort" data-sort="completion">Disciplina</th>
                                 <th>Estado</th>
@@ -170,6 +173,7 @@
                                 <td>{{$underStage->idUnderstage}}</td>
                                 <td><img src="{{asset('storage').'/'.$underStage->photo_understg}}" alt="" width="100"></td>
                                 <td>{{$underStage->name_understg}}</td>
+                                <td>{{$underStage->name}}</td>
                                 <td>{{$underStage->address_understg}}</td>
                                 <td>{{$underStage->discipline_name}}</td>
                                 <td>{{$underStage->statesName}}</td>

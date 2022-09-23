@@ -548,7 +548,6 @@ use \koolreport\widgets\koolphp\Card;
                 foreach ($this->dataStore("subStage") as $sub) {
 
                     // sección de recursos en almacén por sub escenario
-
                     foreach ($this->dataStore("subResources") as $temp) {
                         if ($sub['warehouseName'] == $temp['Almacén']) {
                             array_push($secTempArr, $temp);
