@@ -159,8 +159,8 @@ class StageController extends Controller
         $disciplines = Disciplines::all();
         $stage = Stage::findOrFail($id);
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        $localities = Locality::select("*")->orderBy('name', 'ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('name', 'ASC')->get();
+        $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         return view('pages.stages.edit', compact('stage', 'disciplines', 'states', 'localities', 'neighbordhoods'));
     }
 
