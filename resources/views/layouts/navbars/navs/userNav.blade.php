@@ -56,6 +56,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ route('contactenos') }}">
+                        <i class="ni ni-send circle"></i>
+                        <span class="nav-link-inner--text">{{ __('contactenos') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
