@@ -57,8 +57,8 @@ class StageController extends Controller
     {
         $disciplines = Disciplines::all();
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        $localities = Locality::select("*")->orderBy('name', 'ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('name', 'ASC')->get();
+        $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         return view('pages.stages.add', compact('disciplines', 'states', 'localities', 'neighbordhoods'));
     }
 
@@ -86,7 +86,7 @@ class StageController extends Controller
                 'underStagesQty' => 'required',
                 'stegeCode' => 'required',
                 'localityid' => 'required',
-                'neighborhoodsid' => 'required'
+                'neighborhoodid' => 'required'
             ],
             [
                 'id_category.required' => 'Este campo es requerido',
@@ -102,7 +102,7 @@ class StageController extends Controller
                 'underStagesQty.required' => 'Este campo es requerido',
                 'stegeCode.required' => 'Este campo es requerido',
                 'localityid.required' => 'Este campo es requerido',
-                'neighborhoodsid.required' => 'Este campo es requerido',
+                'neighborhoodid.required' => 'Este campo es requerido',
                 'message_state.max' => 'El máximo de caracteres es 500',
                 'descripcion.max' => 'El máximo de caracteres es 500',
                 'area.numeric' => 'Debe ser un campo numérico',
@@ -112,13 +112,12 @@ class StageController extends Controller
             ]
         );
 
-        //$datos = request()->all();
         $datos = request()->except('_token');
 
         $datosToSend = new Stage();
+        $datosToSend->created_at = Carbon::now()->toTimeString();
+        $datosToSend->updated_at = Carbon::now()->toTimeString();
         $datosToSend = $datos;
-        //$datosToSend->created_at = Carbon::now()->toTimeString();
-        //$datosToSend->updated_at = Carbon::now()->toTimeString();
         if ($request->hasFile('photo')) {
             $datosToSend['photo'] = $request->file('photo')->store('uploads', 'public');
         }

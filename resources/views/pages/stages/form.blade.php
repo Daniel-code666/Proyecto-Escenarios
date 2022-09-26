@@ -6,7 +6,7 @@
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre</label>
             <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{isset($stage->name)?$stage->name:old('name')}}">
-            @error('name') 
+            @error('name')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -19,7 +19,7 @@
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Código</label>
             <input class="form-control @error('stegeCode') is-invalid @enderror" type="text" name="stegeCode" value="{{isset($stage->stegeCode)?$stage->stegeCode:old('stegeCode')}}">
-            @error('stegeCode') 
+            @error('stegeCode')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -56,7 +56,7 @@
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">N° Sub escenarios</label>
             <input class="form-control @error('underStagesQty') is-invalid @enderror" type="number" name="underStagesQty" value="{{isset($stage->underStagesQty)?$stage->underStagesQty:old('underStagesQty')}}" placeholder="0">
-            @error('underStagesQty') 
+            @error('underStagesQty')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -67,7 +67,7 @@
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Capacidad</label>
             <input class="form-control @error('capacity') is-invalid @enderror" type="number" name="capacity" value="{{isset($stage->capacity)?$stage->capacity:old('capacity')}}" placeholder="0">
-            @error('capacity') 
+            @error('capacity')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -78,7 +78,7 @@
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Área m<sup>2</sup></label>
             <input class="form-control @error('area') is-invalid @enderror" type="number" name="area" value="{{isset($stage->area)?$stage->area:old('area')}}" placeholder="0">
-            @error('area') 
+            @error('area')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -92,7 +92,7 @@
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del escenario</label>
             <textarea class="form-control @error('descripcion') is-invalid @enderror" id="exampleFormControlTextarea1" rows="2" name="descripcion">{{isset($stage->descripcion)?$stage->descripcion:old('descripcion')}}</textarea>
-            @error('descripcion') 
+            @error('descripcion')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -127,7 +127,7 @@
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Descripción del estado</label>
             <textarea class="form-control @error('message_state') is-invalid @enderror" id="exampleFormControlTextarea1" rows="1" name="message_state">{{isset($stage->message_state)?$stage->message_state:old('message_state')}}</textarea>
-            @error('message_state') 
+            @error('message_state')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -159,29 +159,29 @@
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Direccion</label>
             <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" value="{{isset($stage->address)?$stage->address:old('address')}}" id="address">
-            @error('address') 
+            @error('address')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
             @enderror
         </div>
     </div>
-    
+
     <div class="col-sm-3">
         <label class="form-control-label">Localidad</label>
         <select class="form-control" name="localityid">
             @if (isset($stage->localityid))
-                @foreach ($localities as $locality)
-                    @if ($locality->id == $stage->localityid)
-                    <option value="{{$locality->id}}" selected>{{$locality->name}}</option>
-                    @else
-                    <option value="{{$locality->id}}">{{$locality->name}}</option>
-                    @endif
-                @endforeach
+            @foreach ($localities as $locality)
+            @if ($locality->localityId == $stage->localityid)
+            <option value="{{$locality->localityId}}" selected>{{$locality->localityName}}</option>
             @else
-                @foreach ($localities as $locality)
-                 <option value="{{$locality->id}}">{{$locality->name}}</option>
-                @endforeach
+            <option value="{{$locality->localityId}}">{{$locality->localityName}}</option>
+            @endif
+            @endforeach
+            @else
+            @foreach ($localities as $locality)
+            <option value="{{$locality->localityId}}">{{$locality->localityName}}</option>
+            @endforeach
             @endif
 
         </select>
@@ -190,19 +190,19 @@
 
     <div class="col-sm-3">
         <label class="form-control-label">Barrio</label>
-        <select class="form-control" name="neighborhoodsid">
-            @if (isset($stage->neighborhoodsid))
-                @foreach ($neighbordhoods as $neighbordhood)
-                    @if ($neighbordhood->id == $stage->neighborhoodsid)
-                    <option value="{{$neighbordhood->id}}" selected>{{$neighbordhood->name}}</option>
-                    @else
-                    <option value="{{$neighbordhood->id}}">{{$neighbordhood->name}}</option>
-                    @endif
-                @endforeach
+        <select class="form-control" name="neighborhoodid">
+            @if (isset($stage->neighborhoodid))
+            @foreach ($neighbordhoods as $neighbordhood)
+            @if ($neighbordhood->hoodId == $stage->neighborhoodid)
+            <option value="{{$neighbordhood->hoodId}}" selected>{{$neighbordhood->hoodName}}</option>
             @else
-                @foreach ($neighbordhoods as $neighbordhood)
-                 <option value="{{$neighbordhood->id}}">{{$neighbordhood->name}}</option>
-                @endforeach
+            <option value="{{$neighbordhood->hoodId}}">{{$neighbordhood->hoodName}}</option>
+            @endif
+            @endforeach
+            @else
+            @foreach ($neighbordhoods as $neighbordhood)
+            <option value="{{$neighbordhood->hoodId}}">{{$neighbordhood->hoodName}}</option>
+            @endforeach
             @endif
 
         </select>
@@ -216,7 +216,7 @@
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Latitud</label>
             <input class="form-control @error('latitude') is-invalid @enderror" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:old('latitude')}}" id="lat" readonly="true">
-            @error('latitude') 
+            @error('latitude')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -228,7 +228,7 @@
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Longitud</label>
             <input class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:old('longitude')}}" id="lng" readonly="true">
-            @error('longitude') 
+            @error('longitude')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
@@ -249,4 +249,3 @@
 <div class="row justify-content-md-center" style="margin-top: 10px">
     <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
 </div>
-
