@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Understages_Del_Records extends Model
+class stage_updated_records extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_del_understg_rec';
+    protected $primaryKey = 'id_updt_stg_rec';
 }
