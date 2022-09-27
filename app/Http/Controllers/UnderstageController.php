@@ -9,6 +9,7 @@ use App\Models\Stage;
 use Illuminate\Support\Facades\Storage;
 use App\Models\MiscListStates;
 use App\Models\warehouse;
+use Carbon\Carbon;
 use PDF;
 
 class UnderstageController extends Controller
@@ -85,9 +86,10 @@ class UnderstageController extends Controller
 
         $datos = request()->except('_token');
         $datosToSend = new Understage();
+        $datosToSend->created_at = Carbon::now()->toTimeString();
+        $datosToSend->updated_at = Carbon::now()->toTimeString();
         $datosToSend = $datos;
-        // $datosToSend->created_at = Carbon::now()->toTimeString();
-        // $datosToSend->updated_at = Carbon::now()->toTimeString();
+
         if ($request->hasFile('photo_understg')) {
             $datosToSend['photo_understg'] = $request->file('photo_understg')->store('uploads', 'public');
         }

@@ -45,7 +45,7 @@
                         Desde aquí podrá ver toda la información que haya sido modificada o eliminada de las tablas
                         de escenarios y sub escenarios.
                     </p>
-                    <a blank type="button" class="btn btn-primary" href="{{ url('historicstages') }}">Ver informe</a>
+                    <a  type="button" class="btn btn-primary" href="{{ url('historicstages') }}">Ver informe</a>
                 </div>
                 <div class="col-sm-4">
                     <img class="img-center" src="{{ asset('argon') }}/img/brand/add-escenario.png" width="180" alt="...">
