@@ -120,6 +120,8 @@ Route::get('subresourcereport/{idUnderstage}', 'App\Http\Controllers\ResourcesRe
 Route::get('subresupplyreport/{idUnderstage}', 'App\Http\Controllers\ResourcesReportController@viewSubResupplyReport')->name('subresupplyreport')->middleware(['auth', 'idrole']);
 Route::get('historicreport', 'App\Http\Controllers\HistoricReportController@index')->name('historicreport')->middleware(['auth', 'idrole']);
 Route::get('historicstages', 'App\Http\Controllers\HistoricReportController@stagesHistoricRecords')->name('historicstages')->middleware(['auth', 'idrole']);
+Route::get('historicresources', 'App\Http\Controllers\HistoricReportController@resourcesHistoricRecords')->name('historicresources')->middleware(['auth', 'idrole']);
+Route::get('historicusers', 'App\Http\Controllers\HistoricReportController@usersHistoricRecords')->name('historicusers')->middleware(['auth', 'idrole']);
 
 //Contactenos
 Route::get('contactenos', function(){

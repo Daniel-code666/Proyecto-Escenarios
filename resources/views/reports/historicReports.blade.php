@@ -59,7 +59,7 @@
                         Desde aquí podrá ver toda la información que haya sido modificada o eliminada de
                         todas las tablas relacionadas con los inventarios.
                     </p>
-                    <a type="button" class="btn btn-primary" href="">Ver informe</a>
+                    <a type="button" class="btn btn-primary" href="{{url('historicresources')}}">Ver informe</a>
                 </div>
                 <div class="col-sm-4">
                     <img class="img-center" src="{{ asset('argon') }}/img/brand/elements.jpg" width="180" alt="...">
@@ -73,7 +73,7 @@
                         Desde aquí podrá ver toda la información que haya sido modificada o eliminada de todas las
                         tablas relacionadas con los usuarios.
                     </p>
-                    <a type="button" class="btn btn-primary" href="">Ver informe</a>
+                    <a type="button" class="btn btn-primary" href="{{url('historicusers')}}">Ver informe</a>
                 </div>
                 <div class="col-sm-4">
                     <img class="img-center" src="{{ asset('argon') }}/img/brand/user.png" width="180" alt="...">

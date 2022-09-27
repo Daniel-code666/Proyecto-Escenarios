@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resources_Del_Records extends Model
+class resource_updt_records extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_del_resources_rec';
+    protected $primaryKey = 'id_updt_resources_rec';
 }
