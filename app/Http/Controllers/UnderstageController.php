@@ -8,6 +8,7 @@ use App\Models\Disciplines;
 use App\Models\Stage;
 use Illuminate\Support\Facades\Storage;
 use App\Models\MiscListStates;
+use App\Models\Resources;
 use App\Models\warehouse;
 use Carbon\Carbon;
 use PDF;
@@ -221,6 +222,18 @@ class UnderstageController extends Controller
         $underStage = Understage::findOrFail($idUnderstage);
         $stage = Stage::where('id', $underStage->idStage)->first();
         $newUnderStgQty = $stage->underStagesQty - 1;
+        $warehouses = warehouse::where('warehouseLocation', $idUnderstage)
+            ->where('locationCheck', 0)
+            ->get();
+
+        foreach ($warehouses as $warehouse){
+            Resources::where('resources_warehouseId', $warehouse->warehouseId);
+        }
+
+        $warehouses = warehouse::where('warehouseLocation', $idUnderstage)
+            ->where('locationCheck', 0)
+            ->delete();
+
         Stage::where('id', $stage->id)->update(['underStagesQty' => $newUnderStgQty]);
         Storage::delete('public/' . $underStage->photo_understg);
         Understage::destroy($idUnderstage);

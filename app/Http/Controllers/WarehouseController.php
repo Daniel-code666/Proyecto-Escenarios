@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resources;
 use App\Models\warehouse;
 use Illuminate\Http\Request;
 use App\Models\Stage;
@@ -141,6 +142,7 @@ class WarehouseController extends Controller
      */
     public function destroy($warehouseId)
     {
+        Resources::where('resources_warehouseId', $warehouseId)->delete();
         warehouse::destroy($warehouseId);
         return redirect('/almacen')->with('mensaje', 'Almacén eliminado con éxito.');
     }

@@ -239,6 +239,31 @@ class StageController extends Controller
     public function destroy($id)
     {
         $stage = Stage::findOrFail($id);
+        $mainWarehouses = warehouse::where('warehouseLocation', $id)
+            ->where('locationCheck', 1)->get();
+
+        $underStage = Understage::where('idStage', $id)->get();
+
+        foreach ($mainWarehouses as $mainWarehouse){
+            Resources::where('resources_warehouseId', $mainWarehouse->warehouseId)->delete();
+        }
+
+        warehouse::where('warehouseLocation', $id)
+            ->where('locationCheck', 1)
+            ->delete();
+
+        foreach ($underStage as $underStage){
+            $warehouses = warehouse::where('warehouseLocation', $underStage->idUnderstage)->get();
+            foreach ($warehouses as $warehouse){
+                Resources::where('resources_warehouseId', $warehouse->warehouseId)->delete();
+            }
+            warehouse::where('warehouseLocation', $underStage->idUnderstage)
+                ->where('locationCheck', 0)
+                ->delete();
+        }
+
+        Understage::where('idStage', $id)->delete();
+
         Storage::delete('public/' . $stage->photo);
         Stage::destroy($id);
         return redirect('/escenario')->with('mensaje', 'Escenario eliminado con éxito.');
