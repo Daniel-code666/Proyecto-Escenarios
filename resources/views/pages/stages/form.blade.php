@@ -192,17 +192,17 @@
         <label class="form-control-label">Barrio</label>
         <select class="form-control" name="neighborhoodid">
             @if (isset($stage->neighborhoodid))
-            @foreach ($neighbordhoods as $neighbordhood)
-            @if ($neighbordhood->hoodId == $stage->neighborhoodid)
-            <option value="{{$neighbordhood->hoodId}}" selected>{{$neighbordhood->hoodName}}</option>
+                @foreach ($neighbordhoods as $neighbordhood)
+                    @if ($neighbordhood->hoodId == $stage->neighborhoodid)
+                     <option value="{{$neighbordhood->hoodId}}" selected>{{$neighbordhood->hoodName}}</option>
+                    @else
+                     <option value="{{$neighbordhood->hoodId}}">{{$neighbordhood->hoodName}}</option>
+                    @endif
+                @endforeach
             @else
-            <option value="{{$neighbordhood->hoodId}}">{{$neighbordhood->hoodName}}</option>
-            @endif
-            @endforeach
-            @else
-            @foreach ($neighbordhoods as $neighbordhood)
-            <option value="{{$neighbordhood->hoodId}}">{{$neighbordhood->hoodName}}</option>
-            @endforeach
+                @foreach ($neighbordhoods as $neighbordhood)
+                 <option value="{{$neighbordhood->hoodId}}">{{$neighbordhood->hoodName}}</option>
+                @endforeach
             @endif
 
         </select>

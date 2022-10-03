@@ -12,6 +12,7 @@ use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\MiscListStatesInventaryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GrandstandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,9 @@ Route::get('genpdf/{id}', 'App\Http\Controllers\StageController@pdfStageGeneral'
 // disciplines
 Route::resource('discipline', App\Http\Controllers\DisciplinesController::class)->middleware(['auth', 'idrole']);
 
+// Graderías
+Route::resource('grandstand', App\Http\Controllers\GrandstandController::class)->middleware(['auth', 'idrole']);
+
 // generate PDF for understages
 Route::get('genunderstpdf{idUnderstage}', 'App\Http\Controllers\UnderstageController@pdfUnderstageGeneral')->name('genunderstpdf')->middleware(['auth', 'idrole']);
 
@@ -88,7 +92,7 @@ Route::get('score/{id}', 'App\Http\Controllers\StageController@updateScore');
 
 // understages
 Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
-Route::get('listUnderSt', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
+Route::get('listUnderSt/{id}', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');
 
 // user profile
