@@ -241,18 +241,13 @@ class UnderstageController extends Controller
         return redirect('/understage')->with('mensaje', 'Escenario eliminado con éxito.');
     }
 
-    public function listUnderSt()
+    public function listUnderSt($id)
     {
-        $underStages['underStages'] = Understage::join(
-            'disciplines',
-            'disciplines.disciplineId',
-            '=',
-            'understages.discipline_understg'
-        )
-            ->join('stages', 'stages.id', '=', 'understages.idStage')
-            ->paginate(10);
-
-        return view('pages.Understages.listUnderSt', $underStages);
+        $disciplines = Disciplines::all();
+        $stages = Stage::findOrFail($id);
+        $underStage = Understage::where('idStage', $id)->get();
+        $states = MiscListStates::where("tableParent", "=", 'stages')->get();
+        return view('pages.Understages.listUnderSt', compact('underStage', 'disciplines', 'stages', 'states'));
     }
 
     /**

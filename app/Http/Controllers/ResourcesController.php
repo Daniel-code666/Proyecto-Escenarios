@@ -14,6 +14,7 @@ use App\Reports\MyReportPDF;
 use App\Reports\ResourcesCard;
 use PDF;
 use Carbon\Carbon;
+use App\Models\grandstand;
 
 class ResourcesController extends Controller
 {
@@ -81,7 +82,8 @@ class ResourcesController extends Controller
             ->where('locationCheck', 0)
             ->get();
         $states = MiscListStates::where("tableParent", "=", 'inventary')->get();
-        return view('pages.Inventary.items.add', compact('warehouses', 'states', 'warehousesSub'));
+        $grandstands = grandstand::all();
+        return view('pages.Inventary.items.add', compact('warehouses', 'states', 'warehousesSub', 'grandstands'));
     }
 
     /**
@@ -167,7 +169,8 @@ class ResourcesController extends Controller
             ->get();
         $states = MiscListStates::where("tableParent", "=", 'inventary')->get();
         $resource = Resources::FindOrFail($idResource);
-        return view('pages.Inventary.items.edit', compact('warehouses', 'warehousesSub', 'states', 'resource'));
+        $grandstands = grandstand::all();
+        return view('pages.Inventary.items.edit', compact('warehouses', 'warehousesSub', 'states', 'resource', 'grandstands'));
     }
 
     /**

@@ -1,7 +1,6 @@
 @extends('layouts.app', ['title' => __('Escenario'), $menu = Session::get('menu') , $submenu = Session::get('submenu')])
 
 @section('content')
-<br>
     @include('users.partials.header', [
         'title' => $stage->name,
         'description' => __(''),
@@ -18,6 +17,8 @@
                             <div class="col-7">
                                 <p>
                                     {{$stage->descripcion}}
+                                    <br>
+                                    {{$stage->HTMLBase64}}
                                 </p>   
                             </div>
                             <div class="col-5">
@@ -138,7 +139,7 @@
                                         <hr style="margin-top: 60%">                     
                                         <div class="row justify-content-center ml--5">
                                             <div class="col-md-3">
-                                                <a href="{{route('listUnderSt')}}" type="button" class="btn btn-primary">Sub escenarios</a>
+                                                <a href="{{route('listUnderSt', ['id'=>$stage->id])}}" type="button" class="btn btn-primary">Sub escenarios</a>
                                             </div>
                                         </div>
                                     @endif

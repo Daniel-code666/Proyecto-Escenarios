@@ -61,23 +61,27 @@
         @enderror
     </div>
 </div>
-
+<br>
 <div class="row">
     <div class="col-md-10">
         <label class="form-control-label">Ubicación</label>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <input type="checkbox" class="cb" id="esc" onclick="toggleSelectMain()" onchange="cbChange(this)">
                 <label>¿Escenario principal?</label>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <input type="checkbox" class="cb" id="sub" onclick="toggleSelectSub()" onchange="cbChange(this)">
                 <label>¿Sub escenario?</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" class="cb" id="gran" onclick="toggleSelectGrandstand()">
+                <label>¿Maneja graderías?</label>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <select class="form-control" name="resources_warehouseId" id="selectEsc" disabled>
                     @if (isset($resource->resources_warehouseId))
                     @foreach ($warehouses as $warehouse)
@@ -94,7 +98,7 @@
                     @endif
                 </select>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <select class="form-control" name="resources_warehouseId" id="selectSub" disabled>
                     @if (isset($resource->resources_warehouseId))
                     @foreach ($warehousesSub as $warehouse)
@@ -111,9 +115,28 @@
                     @endif
                 </select>
             </div>
+            <div class="col-md-4">
+                <select required class="form-control" name="grandstandid" id="grandstand" disabled>
+                    @if (isset($resource->grandstandid))
+                        @foreach ($grandstands as $grandstand)
+                            @if ($grandstand->grandstandid == $resource->grandstandid)
+                                <option value="{{$grandstand->grandstandid}}" selected>{{$grandstand->grandstandname}}</option>
+                            @else
+                                <option value="{{$grandstand->grandstandid}}">{{$grandstand->grandstandname}}</option>
+                            @endif
+                         @endforeach
+                    @else
+                        <option value="">-- Seleccione --</option>
+                        @foreach ($grandstands as $grandstand)
+                            <option value="{{$grandstand->grandstandid}}">{{$grandstand->grandstandname}}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
         </div>
     </div>
 </div>
+<br>
 
 <div class="row">
     <div class="col-md-3">
@@ -135,7 +158,7 @@
         </select>
     </div>
 
-    <div class="col-md-4">
+    <div class="col">
         <label class="form-control-label">Descripción del estado</label>
         <textarea class="form-control @error('resourceMsgState') is-invalid @enderror" id="exampleFormControlTextarea1" rows="1" name="resourceMsgState">{{isset($resource->resourceMsgState)?$resource->resourceMsgState:old('resourceMsgState')}}</textarea>
         @error('resourceMsgState')
@@ -145,7 +168,7 @@
         @enderror
     </div>
 </div>
-
+<br>
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
@@ -157,8 +180,8 @@
         </div>
     </div>
 </div>
-
-<div class="row justify-content-md-center" style="margin-top: 10px">
+<br>
+<div class="row justify-content-md-center">
     <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
 </div>
 
@@ -182,6 +205,16 @@
             document.getElementById("selectSub").disabled = false;
         } else {
             document.getElementById("selectSub").disabled = true;
+        }
+    }
+
+    function toggleSelectGrandstand() {
+        var isChecked = document.getElementById("gran").checked;
+
+        if (isChecked) {
+            document.getElementById("grandstand").disabled = false;
+        } else {
+            document.getElementById("grandstand").disabled = true;
         }
     }
 
