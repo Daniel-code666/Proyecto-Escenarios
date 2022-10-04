@@ -138,6 +138,15 @@ class StageController extends Controller
         //$stage = Stage::find($id);
 
         $stageDef = Stage::find($id);
+
+        if($stageDef == null){
+            $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
+            ->paginate(10);
+
+             return view('pages.stages.listStages', $stages);
+        }
+            
+
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
         $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
             ->where('id', $stageDef->id)
@@ -154,21 +163,22 @@ class StageController extends Controller
                 return view('pages.stages.views.stagetwo', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
             case 3:
-                return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
+                return view('pages.stages.views.stagethree', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
             case 4:
-                return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
+                return view('pages.stages.views.stagefour', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
             case 5:
-                return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
+                return view('pages.stages.views.stagefive', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
             case 6:
-                return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
+                return view('pages.stages.views.stagesix', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
             case 7:
-                return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
+                return view('pages.stages.views.stageseven', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
-            case 8:
+            default:
+                return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
         }
     }
