@@ -40,9 +40,9 @@ Route::get('/parametrizaciones', [App\Http\Controllers\HomeController::class, 's
 Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
 
 // email verification
-Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
-Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
+// Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
+// Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
+// Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
 
 // Route::get('/verify', [App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verify');
 
