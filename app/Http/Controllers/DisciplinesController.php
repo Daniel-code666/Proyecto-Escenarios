@@ -14,7 +14,7 @@ class DisciplinesController extends Controller
      */
     public function index()
     {
-        $disciplines['disciplines'] = Disciplines::paginate(10);
+        $disciplines['disciplines'] = Disciplines::get();
         return view('pages.disciplines.disciplinesAdm', $disciplines);
     }
 

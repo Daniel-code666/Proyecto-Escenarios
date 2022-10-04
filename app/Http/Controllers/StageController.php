@@ -181,7 +181,6 @@ class StageController extends Controller
                 return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
         }
-  
     }
 
     /**

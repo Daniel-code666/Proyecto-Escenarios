@@ -26,7 +26,7 @@ use App\Http\Controllers\GrandstandController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 // Auth::routes(['verify' => true]);
@@ -38,6 +38,11 @@ Route::get('/parametrizaciones', [App\Http\Controllers\HomeController::class, 's
 
 // main page
 Route::get('/', 'App\Http\Controllers\IndexController@index')->name('main');
+
+// email verification
+Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
+Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
 
 // Route::get('/verify', [App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verify');
 
@@ -62,7 +67,9 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware(['auth', 'idrole']);
 
 // maps
-Route::get('map', function () {return view('pages.Maps.stagesLocations');})->name('map')->middleware(['auth', 'idrole']);
+Route::get('map', function () {
+	return view('pages.Maps.stagesLocations');
+})->name('map')->middleware(['auth', 'idrole']);
 
 // generate PDF for stages
 Route::get('genpdf/{id}', 'App\Http\Controllers\StageController@pdfStageGeneral')->name('genpdf')->middleware(['auth', 'idrole']);
@@ -89,9 +96,15 @@ Route::get('listUnderSt/{id}', 'App\Http\Controllers\UnderstageController@listUn
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');
 
 // user profile
-Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade')->middleware(['auth', 'idrole']); 
-Route::get('icons', function () {return view('pages.icons');})->name('icons')->middleware(['auth', 'idrole']); 
-Route::get('table-list', function () {return view('pages.tables');})->name('table')->middleware(['auth', 'idrole']);
+Route::get('upgrade', function () {
+	return view('pages.upgrade');
+})->name('upgrade')->middleware(['auth', 'idrole']);
+Route::get('icons', function () {
+	return view('pages.icons');
+})->name('icons')->middleware(['auth', 'idrole']);
+Route::get('table-list', function () {
+	return view('pages.tables');
+})->name('table')->middleware(['auth', 'idrole']);
 Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password'])->middleware(['auth', 'idrole']);
 
 //MiscListStates
@@ -128,6 +141,6 @@ Route::get('historicresources', 'App\Http\Controllers\HistoricReportController@r
 Route::get('historicusers', 'App\Http\Controllers\HistoricReportController@usersHistoricRecords')->name('historicusers')->middleware(['auth', 'idrole']);
 
 //Contactenos
-Route::get('contactenos', function(){
+Route::get('contactenos', function () {
 	return view('pages.contact');
 })->name('contactenos');;

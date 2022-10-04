@@ -78,7 +78,13 @@
               @foreach ($underStages as $underStage)
               <tr>
                 <td>{{$underStage->idUnderstage}}</td>
-                <td><img src="{{asset('storage').'/'.$underStage->photo_understg}}" alt="" width="100"></td>
+                <td>
+                  @if ($underStage->photo_understg != null)
+                  <img src="{{asset('storage').'/'.$underStage->photo_understg}}" alt="" width="100">
+                  @else
+                  <b>Sin foto</b>
+                  @endif
+                </td>
                 <td>{{$underStage->name_understg}}</td>
                 <td>{{$underStage->name}}</td>
                 <td>{{$underStage->address_understg}}</td>

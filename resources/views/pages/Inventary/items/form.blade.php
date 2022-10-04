@@ -92,6 +92,7 @@
                     @endif
                     @endforeach
                     @else
+                    <option value="">-- Seleccione --</option>
                     @foreach ($warehouses as $warehouse)
                     <option value="{{$warehouse->warehouseId}}">{{$warehouse->warehouseName}} - {{$warehouse->name}}</option>
                     @endforeach
@@ -109,6 +110,7 @@
                     @endif
                     @endforeach
                     @else
+                    <option value="">-- Seleccione --</option>
                     @foreach ($warehousesSub as $warehouse)
                     <option value="{{$warehouse->warehouseId}}">{{$warehouse->warehouseName}} - {{$warehouse->name_understg}}</option>
                     @endforeach
@@ -124,7 +126,7 @@
                             @else
                                 <option value="{{$grandstand->grandstandid}}">{{$grandstand->grandstandname}}</option>
                             @endif
-                         @endforeach
+                        @endforeach
                     @else
                         <option value="">-- Seleccione --</option>
                         @foreach ($grandstands as $grandstand)

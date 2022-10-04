@@ -221,7 +221,7 @@
         </div>
         <hr>
         <div class="row">
-            <h3>Sub escenarios eliminados</h3>
+            <h3>Sub escenarios actualizados</h3>
         </div>
         <div class="row">
             @if(count($subStagesUpdt) == 0)
