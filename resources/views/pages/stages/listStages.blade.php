@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <div class="table-responsive m-2">
                             <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
+                                <thead class="table-light">
                                     <tr>
                                         <th scope="col" class="sort" data-sort="name">Id</th>
                                         <th scope="col" class="sort" data-sort="status">Foto</th>
@@ -39,7 +39,7 @@
                                         <td>{{$stage->discipline_name}}</td>
                                         <td>{{$stage->score}}</td>
                                         <td>
-                                            <a type="button" class="btn btn-info" href="{{ route('show', ['id'=>$stage->id]) }}">Detalle</a>
+                                            <a type="button" class="btn btn-primary" href="{{ route('show', ['id'=>$stage->id]) }}">Detalle</a>
                                         </td>
                                     </tr>
                                     @endforeach
