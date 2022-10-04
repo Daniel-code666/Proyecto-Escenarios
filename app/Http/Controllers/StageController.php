@@ -171,7 +171,6 @@ class StageController extends Controller
             case 8:
                 break;
         }
-  
     }
 
     /**
