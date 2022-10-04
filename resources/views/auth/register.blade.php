@@ -62,19 +62,6 @@
                                     <input class="form-control" placeholder="{{ __('Confirmar contraseña') }}" type="password" name="password_confirmation" required>
                                 </div>
                             </div>
-                            <div class="text-muted font-italic">
-                                <small>{{ __('seguridad de la contraseña') }}: <span class="text-success font-weight-700">{{ __('strong') }}</span></small>
-                            </div>
-                            <div class="row my-4">
-                                <div class="col-12">
-                                    <div class="custom-control custom-control-alternative custom-checkbox">
-                                        <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                                        <label class="custom-control-label" for="customCheckRegister">
-                                            <span class="text-muted">{{ __('He leído y acepto las ') }} <a href="#!">{{ __('Políticas de Privacidad') }}</a></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary mt-4">{{ __('Crear cuenta') }}</button>
                             </div>

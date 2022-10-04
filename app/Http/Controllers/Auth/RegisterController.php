@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -70,13 +71,13 @@ class RegisterController extends Controller
         {
             $createdUser = $this->createUser($data);
 
-            if($createdUser)
-            {
-                $email = $data['email'];
-                $user = User::where("email", "=", $email)->first();
-                $userId = (int) $user->id;
-                User::where("email", $email)->where("id", $userId)->update(["role_idrole" => 3]);   
-            }
+            // if($createdUser)
+            // {
+            //     $email = $data['email'];
+            //     $user = User::where("email", "=", $email)->first();
+            //     $userId = (int) $user->id;
+            //     User::where("email", $email)->where("id", $userId)->update(["role_idrole" => 3]);   
+            // }
             
             return $createdUser;
         }catch(Exception $ex){
@@ -89,7 +90,9 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'email_verified_at' => Carbon::now()->toTimeString(),
             'password' => Hash::make($data['password']),
+            'role_idrole' => 3
         ]);
     }
 }
