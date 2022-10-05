@@ -12,6 +12,8 @@ use App\Models\Resources;
 use App\Models\warehouse;
 use Carbon\Carbon;
 use PDF;
+use App\Models\Locality;
+use App\Models\Neighborhood;
 
 class UnderstageController extends Controller
 {
@@ -46,7 +48,9 @@ class UnderstageController extends Controller
         $disciplines = Disciplines::all();
         $stages = Stage::all();
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        return view('pages.Understages.underStCreate', compact('disciplines', 'stages', 'states'));
+        $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
+        return view('pages.Understages.underStCreate', compact('disciplines', 'stages', 'states', 'localities', 'neighbordhoods'));
     }
 
     /**
@@ -155,7 +159,9 @@ class UnderstageController extends Controller
         $stages = Stage::all();
         $underStage = Understage::findOrFail($idUnderstage);
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
-        return view('pages.Understages.underStEdit', compact('underStage', 'disciplines', 'stages', 'states'));
+        $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
+        return view('pages.Understages.underStEdit', compact('underStage', 'disciplines', 'stages', 'states', 'localities', 'neighbordhoods'));
     }
 
     /**

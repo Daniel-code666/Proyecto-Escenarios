@@ -26,6 +26,8 @@
     </div>
 </div>
 
-<div class="row justify-content-md-center" style="margin-top: 10px">
-    <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
+<div class="row justify-content-md-center" style="margin-top: 20px">
+    <button type="submit" class="btn btn-success" value="Guardar" style="display: flex; width: 30%; justify-content: center">
+        Guardar
+    </button>
 </div>
