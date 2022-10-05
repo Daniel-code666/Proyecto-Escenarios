@@ -20,6 +20,8 @@
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
         <link href="/assets-old/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/1d6cbfb61c.js" crossorigin="anonymous"></script>
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -68,6 +70,8 @@
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js"></script>
         <script src="{{ asset('argon') }}/js/map.js"></script>
+
+        
         
     </body>
 </html>

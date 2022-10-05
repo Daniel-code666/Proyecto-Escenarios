@@ -50,8 +50,6 @@
                             </tbody>
                         </table>
                     </div>
-                   
-
                     <hr>
                     <h2 class="h2">Ubicación:</h2>
                     <br>
