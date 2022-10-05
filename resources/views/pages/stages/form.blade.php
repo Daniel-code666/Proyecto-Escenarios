@@ -2,7 +2,7 @@
 
 <div class="row">
 
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre</label>
             <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{isset($stage->name)?$stage->name:old('name')}}">
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Código</label>
             <input class="form-control @error('stegeCode') is-invalid @enderror" type="text" name="stegeCode" value="{{isset($stage->stegeCode)?$stage->stegeCode:old('stegeCode')}}">
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline">
             @if (isset($stage->discipline))
@@ -52,7 +52,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">N° Sub escenarios</label>
             <input class="form-control @error('underStagesQty') is-invalid @enderror" type="number" name="underStagesQty" value="{{isset($stage->underStagesQty)?$stage->underStagesQty:old('underStagesQty')}}" placeholder="0">
@@ -63,7 +63,7 @@
             @enderror
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Capacidad</label>
             <input class="form-control @error('capacity') is-invalid @enderror" type="number" name="capacity" value="{{isset($stage->capacity)?$stage->capacity:old('capacity')}}" placeholder="0">
@@ -74,7 +74,7 @@
             @enderror
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Área m<sup>2</sup></label>
             <input class="form-control @error('area') is-invalid @enderror" type="number" name="area" value="{{isset($stage->area)?$stage->area:old('area')}}" placeholder="0">
@@ -100,8 +100,6 @@
         </div>
     </div>
 </div>
-
-<hr>
 
 <!-- Tercer fila -->
 <div class="row">
@@ -241,11 +239,13 @@
 <div class="row">
     <div class="col">
         <div class="card border-0">
-            <div id="map-default" class="map-canvas" style="height: 500px;"></div>
+            <div id="map-default" class="map-canvas" style="height: 400px;"></div>
         </div>
     </div>
 </div>
 
-<div class="row justify-content-md-center" style="margin-top: 10px">
-    <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
+<div class="row justify-content-md-center" style="margin-top: 20px">
+    <button type="submit" class="btn btn-success" value="Guardar" style="display: flex; width: 30%; justify-content: center">
+        Guardar
+    </button>
 </div>

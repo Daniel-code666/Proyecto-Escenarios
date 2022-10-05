@@ -83,8 +83,10 @@
                                 </div>
 
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4">{{ __('Guardar') }}</button>
+                                <div class="row justify-content-md-center" style="margin-top: 20px">
+                                    <button type="submit" class="btn btn-success" value="Guardar" style="display: flex; width: 30%; justify-content: center">
+                                        Guardar
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -130,8 +132,10 @@
                                     <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirmar contraseña') }}" value="" required>
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4">{{ __('Cambiar contraseña') }}</button>
+                                <div class="row justify-content-md-center" style="margin-top: 20px">
+                                    <button type="submit" class="btn btn-success" value="Guardar" style="display: flex; width: 30%; justify-content: center">
+                                        Actualizar contraseña
+                                    </button>
                                 </div>
                             </div>
                         </form>
