@@ -136,7 +136,6 @@
 
 <hr>
 <h2 class="card-title">Añadir ubicación del escenario</h2>
-<hr>
 
 <!-- Segunda fila -->
 
