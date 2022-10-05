@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             NeighborhoodTableSeeder::class, LocalitiesTableSeeder::class, UsersTableSeeder::class, 
             MenuTableSeeder::class, SubmenuTableSeeder::class, UserSecurityCmdsTableSeeder::class,
-            UserSecurityFormsTableSeeder::class, UserTriggersSeeder::class, StagesTriggersSeeder::class,
-            UnderstagesTriggerSeeder::class, ResourcesTriggersSeeder::class
+            UserSecurityFormsTableSeeder::class
         ]);
     }
 }
