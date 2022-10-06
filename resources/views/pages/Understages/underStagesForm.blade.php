@@ -1,7 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <div class="row">
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Nombre de sub escenario</label>
             <input  class="form-control @error('name_understg') is-invalid @enderror" type="text" name="name_understg" value="{{isset($underStage->name_understg)?$underStage->name_understg:old('name_understg')}}">
@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline_understg" value="{{isset($underStage->discipline_understg)?$underStage->discipline_understg:''}}">
             @foreach ($disciplines as $discipline)
@@ -22,7 +22,7 @@
         </select>
     </div>
 
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <label class="form-control-label">Escenario principal</label>
         <select class="form-control" name="idStage" value="{{isset($underStage->idStage)?$underStage->idStage:''}}">
             @foreach ($stages as $stage)
@@ -31,10 +31,67 @@
         </select>
     </div>
 
+    <div class="form-group">
+        <label for="example-text-input" class="form-control-label">Código</label>
+        <input  class="form-control @error('understagecode') is-invalid @enderror" type="text" name="understagecode" value="{{isset($underStage->understagecode)?$underStage->understagecode:old('understagecode')}}">
+        @error('understagecode') 
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
+    </div>
+
 </div>
 
 <div class="row">
-    <div class="col-md-4 col-sm-12">
+
+
+     <div class="col-md-3 col-sm-12">
+        <label class="form-control-label">Escala</label>
+        <select class="form-control" name="understagescale">
+            @if (isset($underStage->understagescale))
+
+            @switch($underStage->understagescale)
+                @case("Metropolitano")
+                    <option value="Metropolitano" selected>Metropolitano</option>
+                    <option value="Zonal">Zonal</option>
+                    <option value="Regional">Regional</option>
+                    <option value="Regional">Vecinal</option>
+                    @break
+                @case("Zonal")
+                    <option value="Metropolitano">Metropolitano</option>
+                    <option value="Zonal" selected>Zonal</option>
+                    <option value="Regional">Regional</option>
+                    <option value="Vecinal">Vecinal</option>
+                    @break
+                @case("Regional")
+                    <option value="Metropolitano">Metropolitano</option>
+                    <option value="Zonal">Zonal</option>
+                    <option value="Regional" selected>Regional</option>
+                    <option value="Vecinal">Vecinal</option>
+                    @break
+                @case("Vecinal")
+                    <option value="Metropolitano">Metropolitano</option>
+                    <option value="Zonal">Zonal</option>
+                    <option value="Regional">Regional</option>
+                    <option value="Vecinal" selected>Vecinal</option>
+                    @break
+
+                    
+            @endswitch
+
+            @else
+                <option value="Vecinal" selected>-- Seleccione --</option>
+                <option value="Metropolitano">Metropolitano</option>
+                <option value="Zonal">Zonal</option>
+                <option value="Regional">Regional</option>
+                <option value="Vecinal">Vecinal</option>
+            @endif
+        </select>
+
+    </div> 
+
+    <div class="col-md-3 col-sm-12">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Capacidad</label>
             <input class="form-control @error('capacity_understg') is-invalid @enderror" type="number" name="capacity_understg" value="{{isset($underStage->capacity_understg)?$underStage->capacity_understg:old('capacity_understg')}}">
@@ -45,7 +102,7 @@
             @enderror
         </div>
     </div>
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Área m<sup>2</sup></label>
             <input class="form-control @error('area_understg') is-invalid @enderror" type="number" name="area_understg" value="{{isset($underStage->area_understg)?$underStage->area_understg:old('area_understg')}}">
@@ -57,7 +114,7 @@
         </div>
     </div>
 
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
         <div class="form-group">
             <label for="example-number-input" class="form-control-label">Cantidad</label>
             <input class="form-control @error('understageqty') is-invalid @enderror" type="number" name="understageqty" value="{{isset($underStage->understageqty)?$underStage->area_understg:old('area_understg')}}">

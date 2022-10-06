@@ -153,7 +153,7 @@
 
 <div class="row">
 
-    <div class="col-md-3">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="example-text-input" class="form-control-label">Direccion</label>
             <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" value="{{isset($stage->address)?$stage->address:old('address')}}" id="address">
@@ -165,7 +165,7 @@
         </div>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <label class="form-control-label">Localidad</label>
         <select class="form-control" name="localityid">
             @if (isset($stage->localityid))
@@ -186,7 +186,7 @@
     </div>
 
 
-    <div class="col-sm-3">
+    <div class="col-md-4 col-sm-12">
         <label class="form-control-label">Barrio</label>
         <select class="form-control" name="neighborhoodid">
             @if (isset($stage->neighborhoodid))
