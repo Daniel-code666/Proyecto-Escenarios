@@ -154,6 +154,7 @@ class StageController extends Controller
         $disciplines = Disciplines::all();
         $localities = Locality::select("*")->orderBy('localityName','ASC')->get();
         $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName','ASC')->get();
+        $subStages = Understage::where("idStage", $id)->get();
 
         switch($id){
             case 1:
@@ -163,7 +164,7 @@ class StageController extends Controller
                 return view('pages.stages.views.stagetwo', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
             case 3:
-                return view('pages.stages.views.stagethree', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
+                return view('pages.stages.views.stagethree', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods', 'subStages'));
                 break;
             case 4:
                 return view('pages.stages.views.stagefour', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
@@ -175,7 +176,7 @@ class StageController extends Controller
                 return view('pages.stages.views.stagesix', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
             case 7:
-                return view('pages.stages.views.stageseven', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
+                return view('pages.stages.views.stageseven', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods', 'subStages'));
                 break;
             default:
                 return view('pages.stages.guestStagesView', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));

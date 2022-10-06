@@ -38,23 +38,19 @@
                                 <th class="text-center" style="width: 5%">#</th>
                                 <th style="width: 15%">Nombre</th>
                                 <th style="width: 5%">Cantidad</th>
-                                <th style="white-space: pre-wrap; width: 75%">Condiciones de uso</th>
+                                <th style="white-space: pre-wrap; width: 75%">Descripción</th>
                             </tr>
                         </thead>
                         <tbody >
-                            <tr style="align-items: center">
-                                <td class="text-center" style="width: 5%">1</td>
-                                <td style="width: 15%">Andrew Mike</td>
-                                <td style="width: 5%">2</td>
-                                <td style="white-space: pre-wrap; width: 75%">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia corrupti ullam adipisci at ipsam porro reiciendis consectetur? Fugiat quo quisquam odit aperiam error rerum, doloribus ex, facere dignissimos voluptatem laudantium. Velit aut natus numquam fuga repudiandae explicabo deserunt pariatur ad voluptates earum deleniti facilis sed cupiditate, iure tenetur adipisci sunt, vero, magnam cum quam laudantium? Odit et repellat molestiae obcaecati in quas ducimus perferendis beatae amet itaque tempora facere tempore dignissimos vero suscipit, ut ad alias labore. Ullam laudantium aperiam natus consectetur et velit porro praesentium cupiditate voluptatum. Esse, commodi ab? Qui, sit libero reiciendis rem sed sapiente tenetur mollitia.  
-                                </td>
-                            </tr>
-                            <tr style="align-items: center">
-                                <td class="text-center" style="width: 5%">2</td>
-                                <td style="width: 15%">John Doe</td>
-                                <td style="width: 5%">3</td>
-                                <td style="white-space: pre-wrap; width: 75%">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia corrupti ullam adipisci at ipsam porro reiciendis consectetur? Fugiat quo quisquam odit aperiam error rerum, doloribus ex, facere dignissimos voluptatem laudantium. Velit aut natus numquam fuga repudiandae explicabo deserunt pariatur ad voluptates earum deleniti facilis sed cupiditate, iure tenetur adipisci sunt, vero, magnam cum quam laudantium? Odit et repellat molestiae obcaecati in quas ducimus perferendis beatae amet itaque tempora facere tempore dignissimos vero suscipit, ut ad alias labore. Ullam laudantium aperiam natus consectetur et velit porro praesentium cupiditate voluptatum. Esse, commodi ab? Qui, sit libero reiciendis rem sed sapiente tenetur mollitia.</td>
-                            </tr>
+
+                            @foreach ($subStages as $substage)
+                                <tr style="align-items: center">
+                                    <td class="text-center" style="width: 5%">{{ $loop->index + 1 }}</td>
+                                    <td style="width: 15%">{{$substage->name_understg}}</td>
+                                    <td style="width: 5%">{{$substage->understageqty}}</td>
+                                    <td style="white-space: pre-wrap; width: 75%">{{$substage->description_understg}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <p style="font-size: 15px">

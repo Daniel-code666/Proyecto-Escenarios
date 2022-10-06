@@ -34,58 +34,36 @@
                                     <th style="width: 20%">Nombre</th>
                                     <th style="width: 15%">Escala</th>
                                     <th style="width: 15%">Localidad</th>
-                                    <th style="width: 15%">Tipo de escenario</th>
+                                    <th style="width: 15%">Descripción</th>
                                     <th style="width: 25%">Practicas</th>
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr style="align-items: center">
-                                    <td style="width: 10%">Codigo</td>
-                                    <td style="width: 20%">Nombre</td>
-                                    <td style="width: 15%">Escala</td>
-                                    <td style="width: 15%">Localidad</td>
-                                    <td style="width: 15%">Tipo de escenario</td>
-                                    <td style="width: 25%">Practicas</td>
-                                </tr>
+                                @foreach ($subStages as $substage)
+                                    <tr style="align-items: center">
+                                        <td style="width: 10%">{{$substage->understagecode}}</td>
+                                        <td style="width: 20%">{{$substage->name_understg}}</td>
+                                        <td style="width: 15%">{{$substage->understagescale}}</td>
+                                        @foreach ($localities as $locality)
+                                            @if ($locality->localityId == $substage->localityid)
+                                                <td style="width: 15%">{{$locality->localityName}}</td>
+                                            @endif
+                                        @endforeach      
+                                        <td style="width: 15%; white-space: pre-wrap;">{{$substage->description_understg}}</td>
+                                        @foreach ($disciplines as $displine)
+                                            @if ($displine->disciplineId == $substage->discipline_understg)
+                                                <td style="width: 15%">{{$displine->discipline_name}}</td>
+                                            @endif
+                                        @endforeach 
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
+
+                    @if(!Auth::guest())
                     <hr>
-                    <h2 class="h2">Ubicación:</h2>
                     <br>
-                    <div class="row">
-                        
-                        <div class="form-group" hidden>
-                            <input class="form-control @error('latitude') is-invalid @enderror" type="text" name="latitude" value="{{isset($stage->latitude)?$stage->latitude:old('latitude')}}" id="lat" readonly="true">
-                        </div>
-                    
-                        <div class="form-group" hidden>
-                            <input class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:old('longitude')}}" id="lng" readonly="true">
-                        </div>
-                        <div class="col-7">
-                            <div id="map-default" class="map-canvas" style="max-height: 360px"></div>
-                        </div>
-                        <div class="col-5">
-                            <div>
-                                @foreach ($localities as $locality)
-                                    @if ($locality->localityId == $stage->localityid)
-                                    <label for=""><strong>Localidad: </strong>{{$locality->localityName}}</label>
-                                    @endif
-                                @endforeach  
-                                
-                            </div>
-                            <div>
-                                @foreach ($neighbordhoods as $neighbordhood)
-                                    @if ($neighbordhood->hoodId == $stage->neighborhoodid)
-                                    <label for=""><strong>Barrio: </strong>{{$neighbordhood->hoodName}}</label>
-                                    @endif
-                                @endforeach     
-                            </div>
-                            <div>
-                                <label for=""><strong>Dirección: </strong>{{$stage->address}}</label>
-                            </div>
-                            @if(!Auth::guest())
-                                <hr>
                                 @if (Session::has('mensaje'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <span class="alert-text">{{Session::get('mensaje')}}
@@ -129,7 +107,9 @@
                                             <button type="submit" class="btn btn-success" value="Guardar" disabled>Enviar</button>
                                         @endif
                                             
-                                    </form>   
+                                    </form> 
+                                    <br>
+                                    <br>  
                                 </div>
 {{--         
                                 @if ($stage->underStagesQty > 0) 
@@ -150,8 +130,6 @@
                                     </div>
                                 @endif --}}
                             @endif
-        
-                        </div>
                     </div>
                 </div>
                 </div>
