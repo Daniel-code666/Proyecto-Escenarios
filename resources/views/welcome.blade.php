@@ -3,11 +3,14 @@
 @section('content')
     <div class="header bg-gradient-primary py-7 py-lg-8">
         <div class="container">
-            @if(session()->has('notification'))
+            <div class="text-center" style="color: #542c86; font-size: 20px">
+                @if(session()->has('notification'))
                 <div class="notification">
                     {{Session::get('notification')}}
                 </div>
-            @endif
+                @endif
+            </div>
+
             <div class="header-body text-center mt-7 mb-7">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-md-6">

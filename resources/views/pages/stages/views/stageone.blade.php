@@ -78,7 +78,7 @@
                             <input class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{isset($stage->longitude)?$stage->longitude:old('longitude')}}" id="lng" readonly="true">
                         </div>
                         <div class="col-7">
-                            <div id="map-default" class="map-canvas"></div>
+                            <div id="map-default" class="map-canvas" style="max-height: 360px"></div>
                         </div>
                         <div class="col-5">
                             <div>
@@ -99,7 +99,6 @@
                             <div>
                                 <label for=""><strong>Dirección: </strong>{{$stage->address}}</label>
                             </div>
-                            <br>
                             @if(!Auth::guest())
                                 <hr>
                                 @if (Session::has('mensaje'))
@@ -148,23 +147,23 @@
                                     </form>   
                                 </div>
         
-                                @if ($stage->underStagesQty > 0) 
+{{--                                 @if ($stage->underStagesQty > 0) 
                                 <hr style="margin-top: 20%">                     
                                     <div class="row justify-content-center ml--5">
                                         <div class="col-md-3">
                                             <a href="{{route('listUnderSt')}}" type="button" class="btn btn-primary">Sub escenarios</a>
                                         </div>
                                     </div>
-                                @endif
+                                @endif --}}
                             @else
-                                @if ($stage->underStagesQty > 0) 
+{{--                                 @if ($stage->underStagesQty > 0) 
                                     <hr style="margin-top: 60%">                     
                                     <div class="row justify-content-center ml--5">
                                         <div class="col-md-3">
                                             <a href="{{route('listUnderSt', ['id'=>$stage->id])}}" type="button" class="btn btn-primary">Sub escenarios</a>
                                         </div>
                                     </div>
-                                @endif
+                                @endif --}}
                             @endif
         
                         </div>

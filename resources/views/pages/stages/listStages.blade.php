@@ -4,7 +4,7 @@
 @section('content')
     @include('users.partials.header', [
         'title' => __('Escenarios'),
-        'description' => __('Estos son los escenarios administrador por el IDRD en Bogotá'),
+        'description' => __('Esta es la lista de grandes escenarios administrador por el IDRD en Bogotá'),
         'class' => 'col-lg-12'
     ])   
     
