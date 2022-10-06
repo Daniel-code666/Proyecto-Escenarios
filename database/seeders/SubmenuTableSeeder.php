@@ -17,18 +17,18 @@ class SubmenuTableSeeder extends Seeder
     {
         DB::unprepared("
             INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('1', 'Administrar Usuarios','ni ni-badge','/users');
-            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('2', 'Principales','ni ni-building','/escenario');
+            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('2', 'Principales','fa fa-building','/escenario');
             INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('2', 'Sub Escenarios','ni ni-building','/understage');
-            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('3', 'Items','ni ni-archive-2','/item');
-            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('3', 'Almacenes','ni ni-shop','/almacen');
+            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('3', 'Items','fa fa-boxes-stacked','/item');
+            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('3', 'Almacenes','fa fa-warehouse','/almacen');
             INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('4', 'Escenarios','ni ni-building','/stagereport');
             INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('4', 'Inventarios','ni ni-app','/resourcereport');
             INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('4', 'Otros','ni ni-single-copy-04','/historicreport');
-            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('5', 'Escenarios','ni ni-map-big','map');
+            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('5', 'Escenarios','fa fa-map-location','map');
             INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('6', 'Disciplinas','ni ni-user-run','/discipline');
-            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('6', 'Estado Escenarios','ni ni-bullet-list-67','/states');
-            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('6', 'Estado Inventarios','ni ni-bullet-list-67','/inventarystates');
-            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('6', 'Graderías','ni ni-bullet-list-67','/grandstand');
+            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('6', 'Estado Escenarios','fa fa-building-circle-check','/states');
+            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('6', 'Estado Inventarios','fa fa-clipboard-check','/inventarystates');
+            INSERT INTO `idrdsystem`.`submenus` (`menuid`, `name`,`logo`,`route`) VALUES ('6', 'Graderías','fa fa-stairs','/grandstand');
         ");
     }
 }
