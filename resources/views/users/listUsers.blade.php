@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    Desde aquí puede administrar a los usuarios para conceder permisos a la plataforma.
+                    Desde aquí puede administrar a los usuarios registrados con el fin de otorgarles los permisos correspondientes.
                 </p>
             </div>
             <div class="col-sm-4">
@@ -82,7 +82,10 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <a type="button" class="btn btn-primary dropdown-item" href="{{ url('/user/'.$user->id)}}">Actualizar permisos</a>
+                                    @if ($user->role_idrole == "2")
+                                     <a type="button" class="btn btn-primary dropdown-item" href="{{ url('/user/'.$user->id)}}">Actualizar permisos</a>
+                                    @endif
+                                    
                                     <button type="button" class="btn btn-primary dropdown-item" data-toggle="modal" data-target="#updateUserRol" data-target-id="{{$user->id}}">
                                         <span>Actualizar Rol</span>
                                     </button>

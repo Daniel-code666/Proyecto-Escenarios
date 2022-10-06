@@ -15,7 +15,7 @@
         </button>
     </div>
     @endif
-
+    <br>
     <div class="warpper">
         <input class="radio" id="one" name="group" type="radio" checked>
         <input class="radio" id="two" name="group" type="radio">
@@ -31,16 +31,16 @@
 
             <!-- panel de permisos -->
             <div class="panel" id="two-panel">
-                <div class="card" style="width: 100%;">
+                <div class="card" style="width: 100%;" >
                     <div class="card-body">
                     <h2 class="card-title">Formularios</h2>
                     <hr>
-                    <form action="{{ url('/user/'.$user->id.'/edit'),$user->id}}" method="post">
+                    <form action="{{ url('/user/'.$user->id.'/edit'),$user->id}}" method="post" style="display: flex; flex-wrap: wrap; padding: 10px">
                         @csrf
                         {{method_field('PUT')}}
                         @foreach ($menu as $itemMenu)
                         
-                            <div class="card m-2" style="width: 30%; border-width: 2px; display: inline-block; margin: 0px">
+                            <div class="card-item">
                                 <div class="card-body">
                                     <h3 class="card-title" style="font-size: 20px;">{{$itemMenu->name}}</h3>
                                     <hr style="margin: 10px;">
@@ -63,8 +63,10 @@
                             </div>
                         @endforeach
                         
-                        <div class="row justify-content-md-center" style="margin-top: 10px">
-                            <button type="submit" class="btn btn-success" value="Guardar">Guardar</button>
+                        <div class="row justify-content-md-center" style="margin-top: 20px">
+                            <button type="submit" class="btn btn-success" value="Guardar" style="width: 250px; justify-content: center">
+                                Guardar
+                            </button>
                         </div>
             
                     </form>
@@ -77,6 +79,32 @@
 </div>
 
 @endsection
+
+<style>
+
+.card-item{
+    border: 3px solid #542c86;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px;
+    width: 30%; 
+    border-width:1px; 
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+  @media (max-width: 1010px) {
+    .card-item{
+        width: 42%; 
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card-item{
+        width: 100%; 
+    }
+  }
+
+</style>
 
 @push('js')
 <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
