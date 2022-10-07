@@ -178,6 +178,8 @@
                             <th scope="col" class="sort">Area</th>
                             <th scope="col" class="sort">Capacidad</th>
                             <th>Dirección</th>
+                            <th>Localidad</th>
+                            <th>Barrio</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -188,6 +190,8 @@
                             <td>{{$subStagesDel->area_understg}}</td>
                             <td>{{$subStagesDel->capacity_understg}}</td>
                             <td>{{$subStagesDel->address_understg}}</td>
+                            <td>{{$subStagesDel->localityName}}</td>
+                            <td>{{$subStagesDel->hoodName}}</td>
                             <td>{{$subStagesDel->deleted_at}}</td>
                         </tr>
                         @endforeach
@@ -237,6 +241,8 @@
                             <th scope="col" class="sort">Area</th>
                             <th scope="col" class="sort">Capacidad</th>
                             <th>Dirección</th>
+                            <th>Localidad</th>
+                            <th>Barrio</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -247,7 +253,9 @@
                             <td>{{$subStagesUpdt->area_understg}}</td>
                             <td>{{$subStagesUpdt->capacity_understg}}</td>
                             <td>{{$subStagesUpdt->address_understg}}</td>
-                            <td>{{$subStagesUpdt->deleted_at}}</td>
+                            <td>{{$subStagesUpdt->localityName}}</td>
+                            <td>{{$subStagesUpdt->hoodName}}</td>
+                            <td>{{$subStagesUpdt->updt_at}}</td>
                         </tr>
                         @endforeach
                     </tbody>

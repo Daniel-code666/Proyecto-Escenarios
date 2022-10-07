@@ -24,12 +24,18 @@ class HistoricReportController extends Controller
         $mainStagesDel = stage_deleted_records::join('localities', 'localityId', '=', 'locality')
             ->join('neighborhoods', 'hoodId', '=', 'neighborhood')
             ->get();
-        $subStagesDel = understage_deleted_records::get();
+
+        $subStagesDel = understage_deleted_records::join('localities', 'localities.localityId', '=', 'understage_deleted_records.localityid')
+            ->join('neighborhoods', 'hoodId', '=', 'neighborhoodid')
+            ->get();
 
         $mainStagesUpdt = stage_updated_records::join('localities', 'localityId', '=', 'locality_updt')
             ->join('neighborhoods', 'hoodId', '=', 'neighborhood_updt')
             ->get();
-        $subStagesUpdt = understage_updt_records::get();
+
+        $subStagesUpdt = understage_updt_records::join('localities', 'localities.localityId', '=', 'understage_updt_records.localityid')
+            ->join('neighborhoods', 'hoodId', '=', 'neighborhoodid')
+            ->get();
 
         return view('reports.historicReportView.stagesHistoric', compact('mainStagesDel', 'subStagesDel', 'mainStagesUpdt', 'subStagesUpdt'));
     }

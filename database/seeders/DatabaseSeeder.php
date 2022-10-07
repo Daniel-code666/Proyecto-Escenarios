@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             NeighborhoodTableSeeder::class, LocalitiesTableSeeder::class, UsersTableSeeder::class, 
             MenuTableSeeder::class, SubmenuTableSeeder::class, UserSecurityCmdsTableSeeder::class,
-            UserSecurityFormsTableSeeder::class
+            UserSecurityFormsTableSeeder::class, Cmd_Mislist_StatesTableSeeder::class, Cmd_DisciplinesTableSeeder::class
         ]);
     }
 }
