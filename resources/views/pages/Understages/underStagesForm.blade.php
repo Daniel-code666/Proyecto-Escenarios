@@ -16,18 +16,40 @@
     <div class="col-md-3 col-sm-12">
         <label class="form-control-label">Disciplina</label>
         <select class="form-control" name="discipline_understg" value="{{isset($underStage->discipline_understg)?$underStage->discipline_understg:''}}">
-            @foreach ($disciplines as $discipline)
-            <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
-            @endforeach
+            @if (isset($underStage->discipline_understg))
+                @foreach ($disciplines as $discipline)
+                    @if ($underStage->discipline_understg == $discipline->disciplineId)
+                        <option value="{{$discipline->disciplineId}}" selected>{{$discipline->discipline_name}}</option>
+                    @else
+                        <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($disciplines as $discipline)
+                    <option value="{{$discipline->disciplineId}}">{{$discipline->discipline_name}}</option>
+                @endforeach
+            @endif
+
         </select>
     </div>
 
     <div class="col-md-3 col-sm-12">
         <label class="form-control-label">Escenario principal</label>
         <select class="form-control" name="idStage" value="{{isset($underStage->idStage)?$underStage->idStage:''}}">
-            @foreach ($stages as $stage)
-            <option value="{{$stage->id}}">{{$stage->name}}</option>
-            @endforeach
+            @if (isset($underStage->idStage))
+                @foreach ($stages as $stage)
+                    @if ($underStage->idStage == $stage->id)
+                        <option value="{{$stage->id}}" selected>{{$stage->name}}</option>
+                    @else
+                        <option value="{{$stage->id}}">{{$stage->name}}</option>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($stages as $stage)
+                    <option value="{{$stage->id}}">{{$stage->name}}</option>
+                @endforeach
+            @endif
+            
         </select>
     </div>
 
@@ -81,7 +103,7 @@
             @endswitch
 
             @else
-                <option value="Vecinal" selected>-- Seleccione --</option>
+                <option value="" selected>-- Seleccione --</option>
                 <option value="Metropolitano">Metropolitano</option>
                 <option value="Zonal">Zonal</option>
                 <option value="Regional">Regional</option>
@@ -229,17 +251,17 @@
         <label class="form-control-label">Localidad</label>
         <select class="form-control" name="localityid">
             @if (isset($underStage->localityid))
-            @foreach ($localities as $locality)
-            @if ($locality->localityId == $underStage->localityid)
-            <option value="{{$locality->localityId}}" selected>{{$locality->localityName}}</option>
+                @foreach ($localities as $locality)
+                    @if ($locality->localityId == $underStage->localityid)
+                        <option value="{{$locality->localityId}}" selected>{{$locality->localityName}}</option>
+                    @else
+                        <option value="{{$locality->localityId}}">{{$locality->localityName}}</option>
+                    @endif
+                @endforeach
             @else
-            <option value="{{$locality->localityId}}">{{$locality->localityName}}</option>
-            @endif
-            @endforeach
-            @else
-            @foreach ($localities as $locality)
-            <option value="{{$locality->localityId}}">{{$locality->localityName}}</option>
-            @endforeach
+                @foreach ($localities as $locality)
+                    <option value="{{$locality->localityId}}">{{$locality->localityName}}</option>
+                @endforeach
             @endif
 
         </select>
