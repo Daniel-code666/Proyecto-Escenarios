@@ -50,6 +50,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ url('/mapaescenarios') }}">
+                        <i class="ni ni-square-pin circle"></i>
+                        <span class="nav-link-inner--text">{{ __('Mapa') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('profile.edit') }}">
                         <i class="ni ni-single-02 circle"></i>
                         <span class="nav-link-inner--text">{{ __('Ver perfil') }}</span>
@@ -58,7 +64,7 @@
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('contactenos') }}">
                         <i class="ni ni-send circle"></i>
-                        <span class="nav-link-inner--text">{{ __('contactenos') }}</span>
+                        <span class="nav-link-inner--text">{{ __('Contactenos') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">

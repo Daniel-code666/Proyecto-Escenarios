@@ -392,4 +392,10 @@ class StageController extends Controller
         ->with('score', $score)
         ->with('mensaje', 'Calificación enviada.');
     }
+
+    public function mapaescenarios()
+    {
+        $stages = Stage::all();
+        return view('layouts.appMaps', $stages)->with('stages', $stages);
+    }
 }

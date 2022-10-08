@@ -67,6 +67,12 @@
                         <span class="nav-link-inner--text">{{ __('Escenarios') }}</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ url('/mapaescenarios') }}">
+                        <i class="ni ni-square-pin circle"></i>
+                        <span class="nav-link-inner--text">{{ __('Mapa') }}</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
