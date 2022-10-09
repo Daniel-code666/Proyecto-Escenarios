@@ -7,9 +7,13 @@
 
 <h2 class="text-center fw-bold mt-2">Ubicación de escenarios</h2>
 
-<div class="card border-0">
-    <div id="map-default" class="map-canvas" style="height: 420px;"></div>
+<div style="padding: 0px 5px">
+    <div class="card border-1 " style="padding: 10px">
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1xaqToYQBZnTfIQtKMkbK9II7UMobi9E&ehbc=2E312F" width="100%" height="420px"></iframe>
+    </div>
 </div>
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLkTMsqM_wWsRik7JueLXvAmcy3WOofCg"></script>
 @endsection

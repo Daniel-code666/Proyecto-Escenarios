@@ -30,14 +30,14 @@
 <div class="warpper">
   <div class="panels">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-8 col-sm-12">
         <p>
-          En esta sección puede parametrizar las graderías con el fin de sectorizar con mayor precisión algunos de sus inventarios como es el caso de las sillas de los estadios.
+          En esta sección puede parametrizar las graderías, esto con el fin de sectorizar con mayor precisión algunos de sus inventarios como es el caso de las sillas de los estadios.
         </p>
         <a type="button" class="btn btn-primary" href="{{ url('/grandstand/create') }}">Crear Gradería</a>
       </div>
-      <div class="col-sm-4">
-        <img class="img-center" src="{{ asset('argon') }}/img/brand/sports.png" width="180" alt="...">
+      <div class="col-md-4 col-sm-12">
+        <img class="img-center" src="{{ asset('argon') }}/img/brand/gradas.png" width="200" alt="...">
       </div>
     </div>
     <hr>

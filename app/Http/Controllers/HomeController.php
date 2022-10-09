@@ -31,10 +31,10 @@ class HomeController extends Controller
     {
         $userId = session()->get('id');
 
-        $menu['menu'] = Menu::join("user_securiry_forms", "user_securiry_forms.menuid", "=", "Menus.menuid")
-            ->select("Menus.name", "Menus.menuid", "Menus.logo", "user_securiry_forms.show", "user_securiry_forms.can")
+        $menu['menu'] = Menu::join("user_securiry_forms", "user_securiry_forms.menuid", "=", "menus.menuid")
+            ->select("menus.name", "menus.menuid", "menus.logo", "user_securiry_forms.show", "user_securiry_forms.can")
             ->where("user_securiry_forms.userid", "=", $userId)
-            ->groupBy('Menus.menuid')
+            ->groupBy('menus.menuid')
             ->get();
 
 
