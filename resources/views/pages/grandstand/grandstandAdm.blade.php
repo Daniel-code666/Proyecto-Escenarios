@@ -37,7 +37,7 @@
         <a type="button" class="btn btn-primary" href="{{ url('/grandstand/create') }}">Crear Gradería</a>
       </div>
       <div class="col-md-4 col-sm-12">
-        <img class="img-center" src="{{ asset('argon') }}/img/brand/gradas.png" width="200" alt="...">
+        <img class="img-center" src="{{ asset('argon') }}/img/brand/gradas.png" width="200" alt="..." style="border-radius: 10px">
       </div>
     </div>
     <hr>
