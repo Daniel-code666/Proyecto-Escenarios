@@ -11,6 +11,8 @@ use App\Models\userSecurityCMD;
 use Carbon\Carbon;
 use App\Models\Menu;
 use App\Models\SubMenu;
+use App\Models\user_updt_records;
+
 class UserController extends Controller
 
 {
@@ -76,11 +78,23 @@ class UserController extends Controller
         $idUserCur = $datos['userId'];
         User::where('id','=',$idUserCur)->update(['role_idrole'=> $datos['role_idrole']]);
 
+        $user = User::findOrFail($idUserCur);
+
         if($datos['role_idrole'] == '2'){
             $userSecuCmdList = UserSecuriryForm::where("user_securiry_forms.userid", "=", $idUserCur)->get();
             if($userSecuCmdList->count() <= 0)
                 $this->fillUserSecuriry($idUserCur);  
         } 
+
+        user_updt_records::insert(
+            [
+                'name' => $user->name,
+                'email' => $user->email,
+                'rol' => $user->role_idrole,
+                'deleted_at' => Carbon::now(),
+                'userEmail' => session()->get('userEmail')
+            ]
+        );
 
         return redirect('/users')->with('mensaje', 'Rol actualizado con éxito..');
     }

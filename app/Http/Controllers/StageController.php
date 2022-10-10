@@ -8,6 +8,8 @@ use App\Models\MiscListStates;
 use App\Models\Locality;
 use App\Models\Neighborhood;
 use App\Models\Resources;
+use App\Models\stage_deleted_records;
+use App\Models\stage_updated_records;
 use App\Models\Understage;
 use App\Models\warehouse;
 use DateTime;
@@ -30,10 +32,10 @@ class StageController extends Controller
     public function index()
     {
         $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
-        ->join('misc_list_states', 'misc_list_states.statesId', '=', 'stages.id_category')
-        ->join('localities', 'localities.localityid', '=', 'stages.localityid')
-        ->join('neighborhoods', 'neighborhoods.hoodId', '=', 'stages.neighborhoodid')
-        ->where('misc_list_states.tableParent', 'stages')->get();
+            ->join('misc_list_states', 'misc_list_states.statesId', '=', 'stages.id_category')
+            ->join('localities', 'localities.localityid', '=', 'stages.localityid')
+            ->join('neighborhoods', 'neighborhoods.hoodId', '=', 'stages.neighborhoodid')
+            ->where('misc_list_states.tableParent', 'stages')->get();
         $disciplines['disciplines'] = Disciplines::get();
         $misclist['misclist'] = MiscListStates::where("tableParent", "=", 'stages')->get();
         return view('pages.stages.admin', $stages)->with('disciplines', $disciplines)->with('misclist', $misclist);
@@ -71,46 +73,46 @@ class StageController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate(
-            [
-                'id_category' => 'required',
-                'message_state' => 'required | max:500',
-                'discipline' => 'required',
-                'name' => 'required | unique:Stages| max : 100',
-                'area' => 'required | numeric',
-                'address' => 'required',
-                'capacity' => 'required | numeric',
-                'descripcion' => 'required | max:500',
-                'latitude' => 'required',
-                'longitude' => 'required',
-                'underStagesQty' => 'required',
-                'stegeCode' => 'required',
-                'localityid' => 'required',
-                'neighborhoodid' => 'required'
-            ],
-            [
-                'id_category.required' => 'Este campo es requerido',
-                'message_state.required' => 'Este campo es requerido',
-                'discipline.required' => 'Este campo es requerido',
-                'name.required' => 'Este campo es requerido',
-                'area.required' => 'Este campo es requerido',
-                'address.required' => 'Este campo es requerido',
-                'capacity.required' => 'Este campo es requerido',
-                'descripcion.required' => 'Este campo es requerido',
-                'latitude.required' => 'Este campo es requerido',
-                'longitude.required' => 'Este campo es requerido',
-                'underStagesQty.required' => 'Este campo es requerido',
-                'stegeCode.required' => 'Este campo es requerido',
-                'localityid.required' => 'Este campo es requerido',
-                'neighborhoodid.required' => 'Este campo es requerido',
-                'message_state.max' => 'El máximo de caracteres es 500',
-                'descripcion.max' => 'El máximo de caracteres es 500',
-                'area.numeric' => 'Debe ser un campo numérico',
-                'capacity.numeric' => 'Debe ser un campo numérico',
-                'name.unique' => 'Nombre ya registrado',
-                'name.max' => 'El máximo de caracteres es 100',
-            ]
-        );
+        // $request->validate(
+        //     [
+        //         'id_category' => 'required',
+        //         'message_state' => 'required | max:500',
+        //         'discipline' => 'required',
+        //         'name' => 'required | unique:Stages| max : 100',
+        //         'area' => 'required | numeric',
+        //         'address' => 'required',
+        //         'capacity' => 'required | numeric',
+        //         'descripcion' => 'required | max:500',
+        //         'latitude' => 'required',
+        //         'longitude' => 'required',
+        //         'underStagesQty' => 'required',
+        //         'stegeCode' => 'required',
+        //         'localityid' => 'required',
+        //         'neighborhoodid' => 'required'
+        //     ],
+        //     [
+        //         'id_category.required' => 'Este campo es requerido',
+        //         'message_state.required' => 'Este campo es requerido',
+        //         'discipline.required' => 'Este campo es requerido',
+        //         'name.required' => 'Este campo es requerido',
+        //         'area.required' => 'Este campo es requerido',
+        //         'address.required' => 'Este campo es requerido',
+        //         'capacity.required' => 'Este campo es requerido',
+        //         'descripcion.required' => 'Este campo es requerido',
+        //         'latitude.required' => 'Este campo es requerido',
+        //         'longitude.required' => 'Este campo es requerido',
+        //         'underStagesQty.required' => 'Este campo es requerido',
+        //         'stegeCode.required' => 'Este campo es requerido',
+        //         'localityid.required' => 'Este campo es requerido',
+        //         'neighborhoodid.required' => 'Este campo es requerido',
+        //         'message_state.max' => 'El máximo de caracteres es 500',
+        //         'descripcion.max' => 'El máximo de caracteres es 500',
+        //         'area.numeric' => 'Debe ser un campo numérico',
+        //         'capacity.numeric' => 'Debe ser un campo numérico',
+        //         'name.unique' => 'Nombre ya registrado',
+        //         'name.max' => 'El máximo de caracteres es 100',
+        //     ]
+        // );
 
         $datos = request()->except('_token');
 
@@ -139,24 +141,24 @@ class StageController extends Controller
 
         $stageDef = Stage::find($id);
 
-        if($stageDef == null){
+        if ($stageDef == null) {
             $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
-            ->paginate(10);
+                ->paginate(10);
 
-             return view('pages.stages.listStages', $stages);
+            return view('pages.stages.listStages', $stages);
         }
-            
+
 
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
         $stage = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')
             ->where('id', $stageDef->id)
             ->first();
         $disciplines = Disciplines::all();
-        $localities = Locality::select("*")->orderBy('localityName','ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName','ASC')->get();
+        $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
+        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         $subStages = Understage::where("idStage", $id)->get();
 
-        switch($id){
+        switch ($id) {
             case 1:
                 return view('pages.stages.views.stageone', compact('stage', 'states', 'disciplines', 'localities', 'neighbordhoods'));
                 break;
@@ -255,13 +257,25 @@ class StageController extends Controller
         $datosToSend->created_at = Carbon::now()->toTimeString();
         $datosToSend->updated_at = Carbon::now()->toTimeString();
         $datosToSend = $datos;
-        
+
+        $stage = Stage::findOrFail($id);
+
         if ($request->hasFile('photo')) {
-            $stage = Stage::findOrFail($id);
             Storage::delete('public/' . $stage->photo);
             $datosToSend['photo'] = $request->file('photo')->store('uploads', 'public');
         }
+
         Stage::where('id', '=', $id)->update($datosToSend);
+
+        stage_updated_records::insert(
+            [
+                'name' => $stage->name, 'area' => $stage->area, 'capacity' => $stage->capacity,
+                'address' => $stage->address, 'underStageQty' => $stage->underStagesQty,
+                'stegeCode' => $stage->stegeCode, 'locality_updt' => $stage->localityid,
+                'neighborhood_updt' => $stage->neighborhoodid, 'updt_at' => Carbon::now(),
+                'userEmail' => session()->get('userEmail')
+            ]
+        );
         //return response()->json($datosToSend);
         return redirect('/escenario')->with('mensaje', 'Escenario editado con éxito.');
     }
@@ -280,7 +294,7 @@ class StageController extends Controller
 
         $underStage = Understage::where('idStage', $id)->get();
 
-        foreach ($mainWarehouses as $mainWarehouse){
+        foreach ($mainWarehouses as $mainWarehouse) {
             Resources::where('resources_warehouseId', $mainWarehouse->warehouseId)->delete();
         }
 
@@ -288,9 +302,9 @@ class StageController extends Controller
             ->where('locationCheck', 1)
             ->delete();
 
-        foreach ($underStage as $underStage){
+        foreach ($underStage as $underStage) {
             $warehouses = warehouse::where('warehouseLocation', $underStage->idUnderstage)->get();
-            foreach ($warehouses as $warehouse){
+            foreach ($warehouses as $warehouse) {
                 Resources::where('resources_warehouseId', $warehouse->warehouseId)->delete();
             }
             warehouse::where('warehouseLocation', $underStage->idUnderstage)
@@ -302,6 +316,16 @@ class StageController extends Controller
 
         Storage::delete('public/' . $stage->photo);
         Stage::destroy($id);
+
+        stage_deleted_records::insert(
+            [
+                'name' => $stage->name, 'area' => $stage->area, 'capacity' => $stage->capacity,
+                'address' => $stage->address, 'underStageQty' => $stage->underStagesQty,
+                'stegeCode' => $stage->stegeCode, 'locality' => $stage->localityid,
+                'neighborhood' => $stage->neighborhoodid, 'deleted_at' => Carbon::now(-1),
+                'userEmail' => session()->get('userEmail')
+            ]
+        );
         return redirect('/escenario')->with('mensaje', 'Escenario eliminado con éxito.');
     }
 
@@ -380,17 +404,17 @@ class StageController extends Controller
     }
 
     public function updateScore(Request $request, $id)
-    {    
+    {
         $datos = request()->except('_token', '_method');
         $curStage = Stage::find($id);
-        if($curStage->score == null)
+        if ($curStage->score == null)
             $curStage->score = 5;
         $score = $datos['score'];
         $avrScore = (float)($curStage->score + $score) / 2;
-        Stage::where('id', $id)->update(['score'=> $avrScore]);
-        return redirect('/show/'.$id)
-        ->with('score', $score)
-        ->with('mensaje', 'Calificación enviada.');
+        Stage::where('id', $id)->update(['score' => $avrScore]);
+        return redirect('/show/' . $id)
+            ->with('score', $score)
+            ->with('mensaje', 'Calificación enviada.');
     }
 
     public function mapaescenarios()

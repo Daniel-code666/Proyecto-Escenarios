@@ -61,6 +61,7 @@ class LoginController extends Controller
                 $id = DB::table('users')->where('email', $credentials['email'])->select('id')->first();
                 $idConvert = current((array) $id);
                 session(['id'=> $idConvert]);
+                session(['userEmail' => $credentials['email']]);
 
                 if($role == 3)
                 {
