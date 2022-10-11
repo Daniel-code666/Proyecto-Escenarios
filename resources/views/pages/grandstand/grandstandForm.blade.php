@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
-            <label for="example-text-input" class="form-control-label">Nombre de la disciplina</label>
+            <label for="example-text-input" class="form-control-label">Nombre de la gradería</label>
             <input class="form-control @error('grandstandname') is-invalid @enderror" type="text" name="grandstandname" value="{{isset($grandstand->grandstandname)?$grandstand->grandstandname:old('grandstandname')}}">
             @error('grandstandname') 
             <div class="invalid-feedback">
@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Descripción de la disciplina</label>
+            <label for="exampleFormControlTextarea1">Descripción de la gradería</label>
             <textarea class="form-control @error('description') is-invalid @enderror" id="exampleFormControlTextarea1" rows="2" name="description">{{isset($grandstand->description)?$grandstand->description:old('description')}}</textarea>
             @error('description') 
             <div class="invalid-feedback">
