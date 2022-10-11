@@ -15,6 +15,8 @@ use App\Reports\ResourcesCard;
 use PDF;
 use Carbon\Carbon;
 use App\Models\grandstand;
+use App\Models\resource_del_records;
+use App\Models\resource_updt_records;
 
 class ResourcesController extends Controller
 {
@@ -219,13 +221,25 @@ class ResourcesController extends Controller
         $dataToSend = new Resources();
         $dataToSend = (array) $tempObj;
 
+        $resource = Resources::findOrFail($idResource);
+
         if ($request->hasFile('resourcePhoto')) {
-            $resource = Resources::findOrFail($idResource);
             Storage::delete('public/' . $resource->resourcePhoto);
             $dataToSend['resourcePhoto'] = $request->file('resourcePhoto')->store('uploads', 'public');
         }
 
         Resources::where('idResource', '=', $idResource)->update($dataToSend);
+
+        resource_updt_records::insert(
+            [
+                'resourceName' => $resource->resourceName,
+                'resourceCode' => $resource->resourceCode,
+                'amount' => $resource->amount,
+                'amountInUse' => $resource->amountInUse,
+                'updated_at' => Carbon::now(),
+                'userEmail' => session()->get('userEmail')
+            ]
+        );
 
         return redirect('/item')->with('mensaje', 'Recurso actualizado con éxito.');
     }
@@ -238,7 +252,18 @@ class ResourcesController extends Controller
      */
     public function destroy($idResource)
     {
+        $resource = Resources::findOrFail($idResource);
         Resources::destroy($idResource);
+        resource_del_records::insert(
+            [
+                'resourceName' => $resource->resourceName,
+                'resourceCode' => $resource->resourceCode,
+                'amount' => $resource->amount,
+                'amountInUse' => $resource->amountInUse,
+                'deleted_at' => Carbon::now(),
+                'userEmail' => session()->get('userEmail')
+            ]
+        );
         return redirect('/item')->with('mensaje', 'Recurso eliminado con éxito.');
     }
 

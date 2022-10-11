@@ -43,6 +43,7 @@
                             <th>Nombre obj</th>
                             <th>Email</th>
                             <th>Rol</th>
+                            <th>Eliminado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@
                             <td>{{$userDel->name}}</td>
                             <td>{{$userDel->email}}</td>
                             <td>{{$userDel->rol}}</td>
+                            <td>{{$userDel->userEmail}}</td>
                             <td>{{$userDel->deleted_at}}</td>
                         </tr>
                         @endforeach
@@ -100,6 +102,7 @@
                             <th>Nombre obj</th>
                             <th>Email</th>
                             <th>Rol</th>
+                            <th>Editado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -109,7 +112,8 @@
                             <td>{{$userUpdt->name}}</td>
                             <td>{{$userUpdt->email}}</td>
                             <td>{{$userUpdt->rol}}</td>
-                            <td>{{$userUpdt->updt_at}}</td>
+                            <td>{{$userUpdt->userEmail}}</td>
+                            <td>{{$userUpdt->deleted_at}}</td>
                         </tr>
                         @endforeach
                     </tbody>

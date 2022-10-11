@@ -44,6 +44,7 @@
                             <th>Código</th>
                             <th>Cantidad</th>
                             <th>Cantidad en uso</th>
+                            <th>Eliminado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -54,6 +55,7 @@
                             <td>{{$resourceDel->resourceCode}}</td>
                             <td>{{$resourceDel->amount}}</td>
                             <td>{{$resourceDel->amountInUse}}</td>
+                            <td>{{$resourceDel->userEmail}}</td>
                             <td>{{$resourceDel->delted_at}}</td>
                         </tr>
                         @endforeach
@@ -103,6 +105,7 @@
                             <th>Código</th>
                             <th>Cantidad</th>
                             <th>Cantidad en uso</th>
+                            <th>Editado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -113,6 +116,7 @@
                             <td>{{$resourceUpdt->resourceCode}}</td>
                             <td>{{$resourceUpdt->amount}}</td>
                             <td>{{$resourceUpdt->amountInUse}}</td>
+                            <td>{{$resourceDel->userEmail}}</td>
                             <td>{{$resourceUpdt->update_at}}</td>
                         </tr>
                         @endforeach

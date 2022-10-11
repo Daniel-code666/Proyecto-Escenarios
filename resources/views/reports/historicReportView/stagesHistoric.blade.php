@@ -48,6 +48,7 @@
                             <th scope="col" class="sort">Código</th>
                             <th scope="col" class="sort">Localidad</th>
                             <th scope="col" class="sort">Barrio</th>
+                            <th>Eliminado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -62,6 +63,7 @@
                             <td>{{$stageDel->stegeCode}}</td>
                             <td>{{$stageDel->localityName}}</td>
                             <td>{{$stageDel->hoodName}}</td>
+                            <td>{{$stageDel->userEmail}}</td>
                             <td>{{$stageDel->deleted_at}}</td>
                         </tr>
                         @endforeach
@@ -115,6 +117,7 @@
                             <th scope="col" class="sort">Código</th>
                             <th scope="col" class="sort">Localidad</th>
                             <th scope="col" class="sort">Barrio</th>
+                            <th>Editado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -129,6 +132,7 @@
                             <td>{{$stageUpdt->stegeCode}}</td>
                             <td>{{$stageUpdt->localityName}}</td>
                             <td>{{$stageUpdt->hoodName}}</td>
+                            <td>{{$stageUpdt->userEmail}}</td>
                             <td>{{$stageUpdt->updt_at}}</td>
                         </tr>
                         @endforeach
@@ -180,6 +184,10 @@
                             <th>Dirección</th>
                             <th>Localidad</th>
                             <th>Barrio</th>
+                            <th>Qty</th>
+                            <th>Código</th>
+                            <th>Escala</th>
+                            <th>Eliminado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -192,6 +200,10 @@
                             <td>{{$subStagesDel->address_understg}}</td>
                             <td>{{$subStagesDel->localityName}}</td>
                             <td>{{$subStagesDel->hoodName}}</td>
+                            <td>{{$subStagesDel->understageqty}}</td>
+                            <td>{{$subStagesDel->understagecode}}</td>
+                            <td>{{$subStagesDel->understagescale}}</td>
+                            <td>{{$subStagesDel->userEmail}}</td>
                             <td>{{$subStagesDel->deleted_at}}</td>
                         </tr>
                         @endforeach
@@ -243,6 +255,10 @@
                             <th>Dirección</th>
                             <th>Localidad</th>
                             <th>Barrio</th>
+                            <th>Qty</th>
+                            <th>Código</th>
+                            <th>Escala</th>
+                            <th>Editado por</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -255,6 +271,10 @@
                             <td>{{$subStagesUpdt->address_understg}}</td>
                             <td>{{$subStagesUpdt->localityName}}</td>
                             <td>{{$subStagesUpdt->hoodName}}</td>
+                            <td>{{$subStagesUpdt->understageqty}}</td>
+                            <td>{{$subStagesUpdt->understagecode}}</td>
+                            <td>{{$subStagesUpdt->understagescale}}</td>
+                            <td>{{$subStagesUpdt->userEmail}}</td>
                             <td>{{$subStagesUpdt->updt_at}}</td>
                         </tr>
                         @endforeach

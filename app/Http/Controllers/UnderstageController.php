@@ -14,6 +14,8 @@ use Carbon\Carbon;
 use PDF;
 use App\Models\Locality;
 use App\Models\Neighborhood;
+use App\Models\understage_deleted_records;
+use App\Models\understage_updt_records;
 
 class UnderstageController extends Controller
 {
@@ -204,15 +206,34 @@ class UnderstageController extends Controller
         $data = request()->except('_token', '_method');
 
         $dataToSend = new Understage();
+        $dataToSend->created_at = Carbon::now()->toTimeString();
+        $dataToSend->updated_at = Carbon::now()->toTimeString();
         $dataToSend = $data;
-        //$datosToSend->created_at = Carbon::now()->toTimeString();
-        //$datosToSend->updated_at = Carbon::now()->toTimeString();
+
+        $underStage = Understage::findOrFail($idUnderstage);
+
         if ($request->hasFile('photo_understg')) {
-            $underStage = Understage::findOrFail($idUnderstage);
             Storage::delete('public/' . $underStage->photo_understg);
             $dataToSend['photo_understg'] = $request->file('photo_understg')->store('uploads', 'public');
         }
+
         Understage::where('idUnderstage', '=', $idUnderstage)->update($dataToSend);
+
+        understage_updt_records::insert(
+            [
+                'name_understg' => $underStage->name_understg,
+                'area_understg' => $underStage->area_understg,
+                'capacity_understg' => $underStage->capacity_understg,
+                'address_understg' => $underStage->address_understg,
+                'updt_at' => Carbon::now(), 
+                'understageqty' => $underStage->understageqty,
+                'localityid' => $underStage->localityid, 
+                'neighborhoodid' => $underStage->neighborhoodid,
+                'understagecode' => $underStage->understagecode, 
+                'understagescale' => $underStage->understagescale,
+                'userEmail' => session()->get('userEmail')
+            ]
+        );
         //return response()->json($datosToSend);
         return redirect('/understage')->with('mensaje', 'Escenario editado con éxito.');
     }
@@ -243,6 +264,22 @@ class UnderstageController extends Controller
         Stage::where('id', $stage->id)->update(['underStagesQty' => $newUnderStgQty]);
         Storage::delete('public/' . $underStage->photo_understg);
         Understage::destroy($idUnderstage);
+
+        understage_deleted_records::insert(
+            [
+                'name_understg' => $underStage->name_understg,
+                'area_understg' => $underStage->area_understg,
+                'capacity_understg' => $underStage->capacity_understg,
+                'address_understg' => $underStage->address_understg,
+                'deleted_at' => Carbon::now(), 
+                'understageqty' => $underStage->understageqty,
+                'localityid' => $underStage->localityid, 
+                'neighborhoodid' => $underStage->neighborhoodid,
+                'understagecode' => $underStage->understagecode, 
+                'understagescale' => $underStage->understagescale,
+                'userEmail' => session()->get('userEmail')
+            ]
+        );
 
         return redirect('/understage')->with('mensaje', 'Escenario eliminado con éxito.');
     }
