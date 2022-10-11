@@ -59,9 +59,12 @@ class LoginController extends Controller
                 session(['rol'=> $role]);
 
                 $id = DB::table('users')->where('email', $credentials['email'])->select('id')->first();
+                $imgRoute = DB::table('users')->where('email', $credentials['email'])->select('photo')->first(); 
                 $idConvert = current((array) $id);
+                $userPhoto = current((array) $imgRoute);
                 session(['id'=> $idConvert]);
                 session(['userEmail' => $credentials['email']]);
+                session(['userPhoto' => $userPhoto]);
 
                 if($role == 3)
                 {

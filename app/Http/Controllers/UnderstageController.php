@@ -211,6 +211,12 @@ class UnderstageController extends Controller
         $dataToSend = $data;
 
         $underStage = Understage::findOrFail($idUnderstage);
+        $stage = Stage::findOrFail($idUnderstage);
+
+        if (!($underStage->idStage == $dataToSend['idStage'])){
+            $newUnderStgQty = $stage->underStagesQty - 1;
+            Stage::where('id', '=', $dataToSend['idStage'])->update(['underStagesQty' => $newUnderStgQty]);
+        }
 
         if ($request->hasFile('photo_understg')) {
             Storage::delete('public/' . $underStage->photo_understg);
