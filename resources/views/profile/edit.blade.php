@@ -63,15 +63,11 @@
                                     </div>
                                     <div class="col-3 row justify-content-center mt-5">
                                         <div class="col-lg-3 order-lg-2">
-                                            @if (auth()->user()->photo == null || auth()->user()->photo == "")
-                                                <div class="card-profile-image">
-                                                    <img src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg" class="rounded-circle">
-                                                </div>
-                                            @else
-                                                <div class="card-profile-image">
-                                                    <img src="{{isset(auth()->user()->photo)?asset('storage').'/'.auth()->user()->photo:''}}" class="rounded-circle">
-                                                </div>
-                                            @endif
+
+                                            <div class="card-profile-image">
+                                                <img src="{{isset(auth()->user()->photo)?asset('storage').'/'.auth()->user()->photo:''}}" class="rounded-circle" alt="....">
+                                            </div>
+
 
                                             <div class="ml--9 mt-9">
                                                 <input type="file" name="photo" id="photo" value="{{isset(auth()->user()->photo)?auth()->user()->photo:''}}">
