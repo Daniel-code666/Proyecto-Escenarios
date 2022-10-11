@@ -11,7 +11,13 @@
                     <h5 class="text-center card-title h2" style="color: antiquewhite">Escenarios</h5>
                     <div class="row">
                         <div class="col-7">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ut vitae, necessitatibus quos corporis totam, ipsam optio voluptatum impedit, quod expedita quaerat incidunt error. Modi deserunt pariatur debitis voluptas assumenda?</p>
+                            <p>
+                                Bienvenido {{auth()->user()->name}}, ahora podrá hacerse cargo de los diversos
+                                espacios deportivos de una manera más sencilla y con una trazabilidad más 
+                                clara. Con esta herramienta podrá establecer disciplinas, almacenes, gradería,
+                                inventarios y mucho más. Para empezar establesca configuraciones iniciales que le
+                                ayudarán para definir mejor los espacios deportivos.
+                            </p>
                         </div>
                         <div class="col-5 mt--6">
                             <a href="#"><img src="{{ asset('argon') }}/img/theme/estadio.jpg" style="max-height: 200px" class="rounded-circle" ></a>
@@ -22,10 +28,16 @@
                     <h5 class="text-center card-title h2" style="color: antiquewhite">Escenarios</h5>
                     <div class="row">
                         <div class="col-7">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ut vitae, necessitatibus quos corporis totam, ipsam optio voluptatum impedit, quod expedita quaerat incidunt error. Modi deserunt pariatur debitis voluptas assumenda?</p>
+                            <p>
+                                Bienvenido {{auth()->user()->name}}, ahora podrá hacerse cargo de los diversos
+                                espacios deportivos de una manera más sencilla y con una trazabilidad más 
+                                clara. Con esta herramienta podrá establecer disciplinas, almacenes, gradería,
+                                inventarios y mucho más. Para empezar establesca configuraciones iniciales que le
+                                ayudarán para definir mejor los espacios deportivos.
+                            </p>
                         </div>
                         <div class="col-5 mt--6">
-                            <a href="#"><img src="{{ asset('argon') }}/img/theme/profile-cover.jpg" style="max-height: 200px" class="rounded-circle" ></a>
+                            <a href="#"><img src="{{ asset('argon') }}/img/theme/palacio_de_los_deportes.jpg" style="max-height: 200px" class="rounded-circle" ></a>
                         </div>
                     </div>
                 </div>
