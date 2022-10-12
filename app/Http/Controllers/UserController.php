@@ -27,64 +27,90 @@ class UserController extends Controller
         return view('users.index');
     }
 
-    public function listUsers(){
+    public function listUsers()
+    {
         $users = User::get()->where('role_idrole', "!=", "1");
         return view('users.listUsers', compact('users'));
     }
 
-    public function ShowUser($id){
+    public function ShowUser($id)
+    {
         $user = User::find($id);
 
-        $menu = Menu::join("user_securiry_forms","user_securiry_forms.menuid", "=", "Menus.menuid")
-        ->select("Menus.name","Menus.menuid","Menus.logo","user_securiry_forms.show", "user_securiry_forms.can")
-        ->where("user_securiry_forms.userid", "=", $id)
-        ->groupBy('Menus.menuid')
-        ->get(); 
+        $menu = Menu::join("user_securiry_forms", "user_securiry_forms.menuid", "=", "menus.menuid")
+            ->select("menus.name", "menus.menuid", "menus.logo", "user_securiry_forms.show", "user_securiry_forms.can")
+            ->where("user_securiry_forms.userid", "=", $id)
+            ->groupBy('menus.menuid')
+            ->get();
 
-        $submenu = SubMenu::join("user_securiry_forms","user_securiry_forms.submenuid", "=", "submenus.submenuid")
-        ->select("submenus.name","user_securiry_forms.menuid","user_securiry_forms.submenuid","submenus.logo","submenus.route","user_securiry_forms.show", "user_securiry_forms.can")
-        ->where("user_securiry_forms.userid", "=", $id)
-        ->distinct('submenus.name')
-        ->get();
+        $submenu = SubMenu::join("user_securiry_forms", "user_securiry_forms.submenuid", "=", "submenus.submenuid")
+            ->select("submenus.name", "user_securiry_forms.menuid", "user_securiry_forms.submenuid", "submenus.logo", "submenus.route", "user_securiry_forms.show", "user_securiry_forms.can")
+            ->where("user_securiry_forms.userid", "=", $id)
+            ->distinct('submenus.name')
+            ->get();
 
-        return view('users.showUser', compact('user','menu','submenu'));
+        return view('users.showUser', compact('user', 'menu', 'submenu'));
     }
 
-    public function UpdateUserForm(Request $request, $userId){
-        $checkboxes = request()->except('_token','_method');
+    public function UpdateUserForm(Request $request, $userId)
+    {
+        $checkboxes = request()->except('_token', '_method');
+        $cont = 0;
         for ($i = 1; $i <= 12; $i++) {
             $found = false;
-            foreach($checkboxes['forms'] as $check){
-               if($check == (string)$i){
-                $found = true;
-               } 
+            foreach ($checkboxes['forms'] as $check) {
+                if ($check == (string)$i) {
+                    $found = true;
+                }
             }
 
-            if($found){
-                UserSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can'=> true]);
-            }else{
-                UserSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can'=> false]);
-            }
+            if ($found) {
+                UserSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can' => true]);
+            } else {
+                $menuid = SubMenu::select('menuid')
+                    ->where('submenuid', $i)
+                    ->first();
 
+                $submenus = Menu::join('submenus', 'submenus.menuid', 'menus.menuid')
+                    ->select('submenuid')
+                    ->where('menus.menuid', $menuid->menuid)
+                    ->get();
+
+                foreach ($submenus as $id){
+                    if ($id->submenuid == $i){
+                        $cont++;
+                    }
+                }
+
+                if ($cont == $submenus->count()){
+                    $cont = 0;
+                    UserSecuriryForm::where('userid', '=', $userId)
+                        ->where('menuid', '=', $menuid->menuid)
+                        ->update(['show' => false, 'can' => false]);
+                }
+
+                UserSecuriryForm::where('userid', $userId)
+                    ->where('submenuid', $i)
+                    ->update(['can' => false]);
+            }
         }
 
-        return redirect('/user/'.$userId)->with('mensaje', 'Permisos de usuario actualizados con éxito');
-
+        return redirect('/user/' . $userId)->with('mensaje', 'Permisos de usuario actualizados con éxito');
     }
 
     public function updateRol(Request $request)
     {
-        $datos = request()->except('_token','_method');
+        $datos = request()->except('_token', '_method');
         $idUserCur = $datos['userId'];
-        User::where('id','=',$idUserCur)->update(['role_idrole'=> $datos['role_idrole']]);
+        User::where('id', '=', $idUserCur)->update(['role_idrole' => $datos['role_idrole']]);
 
         $user = User::findOrFail($idUserCur);
 
-        if($datos['role_idrole'] == '2'){
+        if ($datos['role_idrole'] == '2') {
             $userSecuCmdList = UserSecuriryForm::where("user_securiry_forms.userid", "=", $idUserCur)->get();
-            if($userSecuCmdList->count() <= 0)
-                $this->fillUserSecuriry($idUserCur);  
-        } 
+            if ($userSecuCmdList->count() <= 0)
+                $this->fillUserSecuriry($idUserCur);
+        }
 
         user_updt_records::insert(
             [
@@ -99,13 +125,13 @@ class UserController extends Controller
         return redirect('/users')->with('mensaje', 'Rol actualizado con éxito..');
     }
 
-    public function fillUserSecuriry($userId){
+    public function fillUserSecuriry($userId)
+    {
 
         $userSecuCmd = userSecurityCMD::all();
         $userSecuCmdConvert = json_decode($userSecuCmd, true);
 
-        foreach($userSecuCmdConvert as $userSec)
-        {
+        foreach ($userSecuCmdConvert as $userSec) {
             $newForm = new UserSecuriryForm();
             $newForm = $userSec;
             $newForm['id'] = null;
@@ -115,9 +141,5 @@ class UserController extends Controller
             UserSecuriryForm::insert($newForm);
         }
         $aux = true;
-
     }
-
-    
-
 }

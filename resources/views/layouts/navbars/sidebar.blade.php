@@ -73,28 +73,30 @@
 
                 @if ($menu != null && $submenu !=null)
                     @foreach ($menu as $item)
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#navbar-examples-{{$item->menuid}}" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-{{$item->menuid}}">
-                                <i class="{{$item->logo}} text-purple"></i>
-                                <span class="nav-link-text">{{$item->name}}</span>
-                            </a>
+                        @if ($item->can == 1)
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#navbar-examples-{{$item->menuid}}" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples-{{$item->menuid}}">
+                                    <i class="{{$item->logo}} text-purple"></i>
+                                    <span class="nav-link-text">{{$item->name}}</span>
+                                </a>
 
-                            <div class="collapse show" id="navbar-examples-{{$item->menuid}}">
-                                @foreach ($submenu as $item2)
-                                    @if ($item2->menuid ==  $item->menuid)
-                                        @if ($item2->can == "1")
-                                        <ul class="nav nav-sm flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ url($item2->route) }}">
-                                                    <i class="{{$item2->logo}} text-purple"></i>{{$item2->name}}
-                                                </a>
-                                            </li>
-                                        </ul>
+                                <div class="collapse show" id="navbar-examples-{{$item->menuid}}">
+                                    @foreach ($submenu as $item2)
+                                        @if ($item2->menuid ==  $item->menuid)
+                                            @if ($item2->can == "1")
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ url($item2->route) }}">
+                                                        <i class="{{$item2->logo}} text-purple"></i>{{$item2->name}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach 
-                            </div>
-                        </li>
+                                    @endforeach 
+                                </div>
+                            </li>
+                        @endif
                     @endforeach
                 @endif
 
