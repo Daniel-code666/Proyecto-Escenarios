@@ -64,6 +64,6 @@ trait RegistersUsers
     protected function registered(Request $request, $user)
     {
         //
-        session()->flash('notification', 'Gracias por registrarse, para finalizar verifique su cuenta a través del link enviado a su correo.');
+        session()->flash('notification', 'Gracias por registrarse');
     }
 }
