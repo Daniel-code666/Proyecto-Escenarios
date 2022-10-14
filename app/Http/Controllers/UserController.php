@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\UserSecuriryForm;
 use App\Models\userSecurityCMD;
 use Carbon\Carbon;
-use App\Models\Menu;
+use App\Models\menu;
 use App\Models\SubMenu;
 use App\Models\user_updt_records;
 
@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $menu = Menu::join("user_securiry_forms", "user_securiry_forms.menuid", "=", "menus.menuid")
+        $menu = menu::join("user_securiry_forms", "user_securiry_forms.menuid", "=", "menus.menuid")
             ->select("menus.name", "menus.menuid", "menus.logo", "user_securiry_forms.show", "user_securiry_forms.can")
             ->where("user_securiry_forms.userid", "=", $id)
             ->groupBy('menus.menuid')
@@ -71,7 +71,7 @@ class UserController extends Controller
                     ->where('submenuid', $i)
                     ->first();
 
-                $submenus = Menu::join('submenus', 'submenus.menuid', 'menus.menuid')
+                $submenus = menu::join('submenus', 'submenus.menuid', 'menus.menuid')
                     ->select('submenuid')
                     ->where('menus.menuid', $menuid->menuid)
                     ->get();

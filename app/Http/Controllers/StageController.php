@@ -6,7 +6,7 @@ use App\Models\Stage;
 use App\Models\Disciplines;
 use App\Models\MiscListStates;
 use App\Models\Locality;
-use App\Models\Neighborhood;
+use App\Models\neighborhood;
 use App\Models\Resources;
 use App\Models\stage_deleted_records;
 use App\Models\stage_updated_records;
@@ -60,7 +60,7 @@ class StageController extends Controller
         $disciplines = Disciplines::all();
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
         $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
+        $neighbordhoods = neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         return view('pages.stages.add', compact('disciplines', 'states', 'localities', 'neighbordhoods'));
     }
 
@@ -155,7 +155,7 @@ class StageController extends Controller
             ->first();
         $disciplines = Disciplines::all();
         $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
+        $neighbordhoods = neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         $subStages = Understage::where("idStage", $id)->get();
 
         switch ($id) {
@@ -198,7 +198,7 @@ class StageController extends Controller
         $stage = Stage::findOrFail($id);
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
         $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
+        $neighbordhoods = neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         return view('pages.stages.edit', compact('stage', 'disciplines', 'states', 'localities', 'neighbordhoods'));
     }
 
