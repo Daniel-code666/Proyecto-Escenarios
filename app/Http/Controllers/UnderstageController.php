@@ -13,7 +13,7 @@ use App\Models\warehouse;
 use Carbon\Carbon;
 use PDF;
 use App\Models\Locality;
-use App\Models\Neighborhood;
+use App\Models\neighborhood;
 use App\Models\understage_deleted_records;
 use App\Models\understage_updt_records;
 
@@ -51,7 +51,7 @@ class UnderstageController extends Controller
         $stages = Stage::all();
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
         $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
+        $neighbordhoods = neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         return view('pages.Understages.underStCreate', compact('disciplines', 'stages', 'states', 'localities', 'neighbordhoods'));
     }
 
@@ -162,7 +162,7 @@ class UnderstageController extends Controller
         $underStage = Understage::findOrFail($idUnderstage);
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
         $localities = Locality::select("*")->orderBy('localityName', 'ASC')->get();
-        $neighbordhoods = Neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
+        $neighbordhoods = neighborhood::select("*")->orderBy('hoodName', 'ASC')->get();
         return view('pages.Understages.underStEdit', compact('underStage', 'disciplines', 'stages', 'states', 'localities', 'neighbordhoods'));
     }
 
