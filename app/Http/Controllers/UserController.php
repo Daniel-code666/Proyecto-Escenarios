@@ -10,7 +10,7 @@ use App\Models\UserSecuriryForm;
 use App\Models\userSecurityCMD;
 use Carbon\Carbon;
 use App\Models\menu;
-use App\Models\SubMenu;
+use App\Models\submenu;
 use App\Models\user_updt_records;
 
 class UserController extends Controller
@@ -43,7 +43,7 @@ class UserController extends Controller
             ->groupBy('menus.menuid')
             ->get();
 
-        $submenu = SubMenu::join("user_securiry_forms", "user_securiry_forms.submenuid", "=", "submenus.submenuid")
+        $submenu = submenu::join("user_securiry_forms", "user_securiry_forms.submenuid", "=", "submenus.submenuid")
             ->select("submenus.name", "user_securiry_forms.menuid", "user_securiry_forms.submenuid", "submenus.logo", "submenus.route", "user_securiry_forms.show", "user_securiry_forms.can")
             ->where("user_securiry_forms.userid", "=", $id)
             ->distinct('submenus.name')
@@ -67,7 +67,7 @@ class UserController extends Controller
             if ($found) {
                 UserSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can' => true]);
             } else {
-                $menuid = SubMenu::select('menuid')
+                $menuid = submenu::select('menuid')
                     ->where('submenuid', $i)
                     ->first();
 
