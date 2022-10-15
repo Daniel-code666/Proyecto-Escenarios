@@ -13,7 +13,7 @@
       <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" enctype="multipart/form-data">
         @csrf
         {{method_field('PUT')}}
-        @include('pages.inventary.warehouse.form')
+        @include('pages.Inventary.warehouse.form')
 
       </form>
     </div>
