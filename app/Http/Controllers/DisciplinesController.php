@@ -37,7 +37,7 @@ class DisciplinesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'discipline_name'=>'required | max:100 | unique:Disciplines',
+            'discipline_name'=>'required | max:100 | unique:disciplines',
             'discipline_description'=>'required | max:500'
         ],
         [

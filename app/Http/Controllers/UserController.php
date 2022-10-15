@@ -11,7 +11,7 @@ use App\Models\userSecurityCMD;
 use Carbon\Carbon;
 use App\Models\menu;
 use App\Models\submenu;
-use App\Models\user_updt_records;
+use App\Models\User_Updt_Records;
 
 class UserController extends Controller
 
@@ -112,7 +112,7 @@ class UserController extends Controller
                 $this->fillUserSecuriry($idUserCur);
         }
 
-        user_updt_records::insert(
+        User_Updt_Records::insert(
             [
                 'name' => $user->name,
                 'email' => $user->email,

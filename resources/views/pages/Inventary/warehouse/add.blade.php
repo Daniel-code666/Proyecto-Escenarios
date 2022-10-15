@@ -12,7 +12,7 @@
 
       <form action="{{ url('/almacen') }} " method="post" enctype="multipart/form-data">
         @csrf
-        @include('pages.inventary.warehouse.form')
+        @include('pages.Inventary.warehouse.form')
 
       </form>
     </div>

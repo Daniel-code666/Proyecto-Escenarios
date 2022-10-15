@@ -8,8 +8,8 @@ use App\Models\stage_deleted_records;
 use App\Models\stage_updated_records;
 use App\Models\understage_deleted_records;
 use App\Models\understage_updt_records;
-use App\Models\user_del_records;
-use App\Models\user_updt_records;
+use App\Models\User_Del_Records;
+use App\Models\User_Updt_Records;
 use Illuminate\Http\Request;
 
 class HistoricReportController extends Controller
@@ -49,8 +49,8 @@ class HistoricReportController extends Controller
 
     public function usersHistoricRecords()
     {
-        $usersDel = user_del_records::get();
-        $usersUpdt = user_updt_records::get();
+        $usersDel = User_Del_Records::get();
+        $usersUpdt = User_Updt_Records::get();
 
         return view('reports.historicReportView.usersHistoric', compact('usersDel', 'usersUpdt'));
     }

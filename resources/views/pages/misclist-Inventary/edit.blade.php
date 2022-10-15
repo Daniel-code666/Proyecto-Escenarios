@@ -10,7 +10,7 @@
       <h2 class="card-title">Editar Estado</h2>
       <hr>
 
-      <form action="{{ url('/inventarystates/'.$stateInventary->id) }} " method="post" enctype="multipart/form-data">
+      <form action="{{ url('/inventarystates/'.$stateInventary->statesId) }} " method="post" enctype="multipart/form-data">
         @csrf
         {{method_field('PUT')}}
         @include('pages.misclist-Inventary.form')

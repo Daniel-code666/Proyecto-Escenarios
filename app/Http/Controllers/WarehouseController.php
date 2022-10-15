@@ -32,7 +32,7 @@ class WarehouseController extends Controller
         'disciplines.disciplineId', '=', 'understages.discipline_understg')
         ->join('stages', 'stages.id', '=', 'understages.idStage')->get();
 
-        return view('pages.inventary.warehouse.admin', compact('warehouses', 'stages', 'warehousesSub', 'underStages'));
+        return view('pages.Inventary.warehouse.admin', compact('warehouses', 'stages', 'warehousesSub', 'underStages'));
     }
 
     /**
@@ -44,7 +44,7 @@ class WarehouseController extends Controller
     {
         $stages = Stage::all();
         $underStages = Understage::all();
-        return view('pages.inventary.warehouse.add', compact('stages', 'underStages'));
+        return view('pages.Inventary.warehouse.add', compact('stages', 'underStages'));
     }
 
     /**
@@ -87,7 +87,7 @@ class WarehouseController extends Controller
     public function show($warehouseId)
     {
         $warehouse = warehouse::find($warehouseId);
-        return view('pages.inventary.warehouse.show', compact('warehouse'));
+        return view('pages.Inventary.warehouse.show', compact('warehouse'));
     }
 
     /**
@@ -101,7 +101,7 @@ class WarehouseController extends Controller
         $warehouse = warehouse::find($warehouseId);
         $stages = Stage::all();
         $underStages = Understage::all();
-        return view('pages.inventary.warehouse.edit', compact('warehouse', 'stages', 'underStages'));
+        return view('pages.Inventary.warehouse.edit', compact('warehouse', 'stages', 'underStages'));
     }
 
     /**

@@ -23,9 +23,9 @@ class SubStageResReport extends \koolreport\KoolReport
                     "class" => '\koolreport\laravel\Eloquent', // This is important
                 ),
                 "mysql2" => array(
-                    "connectionString" => "mysql:host=localhost;dbname=idrdsystem",
+                    "connectionString" => "mysql:host=idrdsystem.cjyd7vrf96n5.us-east-1.rds.amazonaws.com;dbname=idrdsystem",
                     "username" => "root",
-                    "password" => "1234",
+                    "password" => "1234idrd",
                     "charset" => "utf8"
                 )
             )
