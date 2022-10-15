@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\UserSecuriryForm;
+use App\Models\userSecuriryForm;
 use App\Models\userSecurityCMD;
 use Carbon\Carbon;
 use App\Models\menu;
@@ -65,7 +65,7 @@ class UserController extends Controller
             }
 
             if ($found) {
-                UserSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can' => true]);
+                userSecuriryForm::where('userid', $userId)->where('submenuid', $i)->update(['can' => true]);
             } else {
                 $menuid = submenu::select('menuid')
                     ->where('submenuid', $i)
@@ -84,12 +84,12 @@ class UserController extends Controller
 
                 if ($cont == $submenus->count()){
                     $cont = 0;
-                    UserSecuriryForm::where('userid', '=', $userId)
+                    userSecuriryForm::where('userid', '=', $userId)
                         ->where('menuid', '=', $menuid->menuid)
                         ->update(['show' => false, 'can' => false]);
                 }
 
-                UserSecuriryForm::where('userid', $userId)
+                userSecuriryForm::where('userid', $userId)
                     ->where('submenuid', $i)
                     ->update(['can' => false]);
             }
@@ -107,7 +107,7 @@ class UserController extends Controller
         $user = User::findOrFail($idUserCur);
 
         if ($datos['role_idrole'] == '2') {
-            $userSecuCmdList = UserSecuriryForm::where("user_securiry_forms.userid", "=", $idUserCur)->get();
+            $userSecuCmdList = userSecuriryForm::where("user_securiry_forms.userid", "=", $idUserCur)->get();
             if ($userSecuCmdList->count() <= 0)
                 $this->fillUserSecuriry($idUserCur);
         }
@@ -132,13 +132,13 @@ class UserController extends Controller
         $userSecuCmdConvert = json_decode($userSecuCmd, true);
 
         foreach ($userSecuCmdConvert as $userSec) {
-            $newForm = new UserSecuriryForm();
+            $newForm = new userSecuriryForm();
             $newForm = $userSec;
             $newForm['id'] = null;
             $newForm['userid'] = $userId;
             $newForm['created_at'] = date('Y-m-d H:i:s', strtotime(Carbon::now()));
             $newForm['updated_at'] = date('Y-m-d H:i:s', strtotime(Carbon::now()));
-            UserSecuriryForm::insert($newForm);
+            userSecuriryForm::insert($newForm);
         }
         $aux = true;
     }
