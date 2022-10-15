@@ -37,7 +37,7 @@ class DisciplinesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'discipline_name'=>'required | max:100 | unique:Disciplines',
+            'discipline_name'=>'required | max:100 | unique:disciplines',
             'discipline_description'=>'required | max:500'
         ],
         [
@@ -51,10 +51,10 @@ class DisciplinesController extends Controller
 
         $data = request()->except('_token');
 
-        $dataToSend = new disciplines();
+        $dataToSend = new Disciplines();
         $dataToSend = $data;
 
-        disciplines::insert($dataToSend);
+        Disciplines::insert($dataToSend);
 
         return redirect('/discipline')->with('mensaje','Disciplina creada con éxito.');
     }
@@ -79,7 +79,7 @@ class DisciplinesController extends Controller
     public function edit($disciplineId)
     {
         //
-        $discipline = disciplines::findOrFail($disciplineId);
+        $discipline = Disciplines::findOrFail($disciplineId);
         return view('pages.disciplines.disciplinesEdit', compact('discipline'));
     }
 
@@ -106,10 +106,10 @@ class DisciplinesController extends Controller
 
         $data = request()->except('_token', '_method');
 
-        $dataToSend = new disciplines();
+        $dataToSend = new Disciplines();
         $dataToSend = $data;
 
-        disciplines::where('disciplineId', '=', $disciplineId)->update($dataToSend);
+        Disciplines::where('disciplineId', '=', $disciplineId)->update($dataToSend);
         
         return redirect('/discipline')->with('mensaje','Disciplina editada con éxito.');
     }
@@ -123,7 +123,7 @@ class DisciplinesController extends Controller
     public function destroy($disciplineId)
     {
         // $discipline = Disciplines::findOrFail($discipline_id);
-        disciplines::destroy($disciplineId);   
+        Disciplines::destroy($disciplineId);   
         return redirect('/discipline')->with('mensaje','Disciplina eliminada con éxito.');
     }
 }
