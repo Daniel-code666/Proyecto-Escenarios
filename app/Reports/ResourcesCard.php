@@ -14,10 +14,10 @@ class ResourcesCard extends \koolreport\KoolReport
         return array(
             "dataSources"=>array(
                 "mysql"=>array(
-                    "connectionString"=>"mysql:host=localhost;dbname=idrdsystem",
-                    "username"=>"root",
-                    "password"=>"1234",
-                    "charset"=>"utf8"
+                    "connectionString" => "mysql:host=idrdsystem.cjyd7vrf96n5.us-east-1.rds.amazonaws.com;dbname=idrdsystem",
+                    "username" => "root",
+                    "password" => "1234idrd",
+                    "charset" => "utf8"
                 )
             )
         );
