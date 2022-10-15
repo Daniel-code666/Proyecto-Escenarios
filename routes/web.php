@@ -93,6 +93,7 @@ Route::get('mapaescenarios', 'App\Http\Controllers\StageController@mapaescenario
 
 // understages
 Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
+Route::get('understage', 'App\Http\Controllers\UnderstageController@index')->name('understage')->middleware(['auth', 'idrole']);
 Route::get('listUnderSt/{id}', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');
 
