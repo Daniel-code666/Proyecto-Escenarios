@@ -110,7 +110,7 @@ class MiscListStatesInventaryController extends Controller
         $datosToSend = $datos;  
 /*         $datosToSend['created_at'] = Carbon::now()->toTimeString();
         $datosToSend['updated_at'] = Carbon::now()->toTimeString(); */
-        MiscListStates::where('id','=',$id)->update($datosToSend);
+        MiscListStates::where('statesId','=',$id)->update($datosToSend);
         return redirect('/inventarystates')->with('mensaje','Estado editado con éxito.');
     }
 
