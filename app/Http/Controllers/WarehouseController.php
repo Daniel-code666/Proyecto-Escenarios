@@ -32,7 +32,7 @@ class WarehouseController extends Controller
         'disciplines.disciplineId', '=', 'understages.discipline_understg')
         ->join('stages', 'stages.id', '=', 'understages.idStage')->get();
 
-        return view('pages.inventary.warehouse.admin', compact('warehouses', 'stages', 'warehousesSub', 'underStages'));
+        return view('pages.Inventary.warehouse.admin', compact('warehouses', 'stages', 'warehousesSub', 'underStages'));
     }
 
     /**
