@@ -241,7 +241,7 @@ class UnderstageController extends Controller
             ]
         );
         //return response()->json($datosToSend);
-        return redirect('/understage')->with('mensaje', 'Escenario editado con éxito.');
+        return redirect('understage')->with('mensaje', 'Escenario editado con éxito.');
     }
 
     /**
