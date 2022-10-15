@@ -51,10 +51,10 @@ class DisciplinesController extends Controller
 
         $data = request()->except('_token');
 
-        $dataToSend = new Disciplines();
+        $dataToSend = new disciplines();
         $dataToSend = $data;
 
-        Disciplines::insert($dataToSend);
+        disciplines::insert($dataToSend);
 
         return redirect('/discipline')->with('mensaje','Disciplina creada con éxito.');
     }
@@ -79,7 +79,7 @@ class DisciplinesController extends Controller
     public function edit($disciplineId)
     {
         //
-        $discipline = Disciplines::findOrFail($disciplineId);
+        $discipline = disciplines::findOrFail($disciplineId);
         return view('pages.disciplines.disciplinesEdit', compact('discipline'));
     }
 
@@ -106,10 +106,10 @@ class DisciplinesController extends Controller
 
         $data = request()->except('_token', '_method');
 
-        $dataToSend = new Disciplines();
+        $dataToSend = new disciplines();
         $dataToSend = $data;
 
-        Disciplines::where('disciplineId', '=', $disciplineId)->update($dataToSend);
+        disciplines::where('disciplineId', '=', $disciplineId)->update($dataToSend);
         
         return redirect('/discipline')->with('mensaje','Disciplina editada con éxito.');
     }
@@ -123,7 +123,7 @@ class DisciplinesController extends Controller
     public function destroy($disciplineId)
     {
         // $discipline = Disciplines::findOrFail($discipline_id);
-        Disciplines::destroy($disciplineId);   
+        disciplines::destroy($disciplineId);   
         return redirect('/discipline')->with('mensaje','Disciplina eliminada con éxito.');
     }
 }
