@@ -49,8 +49,8 @@ class HistoricReportController extends Controller
 
     public function usersHistoricRecords()
     {
-        $usersDel = user_del_records::get();
-        $usersUpdt = user_updt_records::get();
+        $usersDel = User_Del_Records::get();
+        $usersUpdt = User_Updt_Records::get();
 
         return view('reports.historicReportView.usersHistoric', compact('usersDel', 'usersUpdt'));
     }

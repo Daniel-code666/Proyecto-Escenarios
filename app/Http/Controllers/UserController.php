@@ -112,7 +112,7 @@ class UserController extends Controller
                 $this->fillUserSecuriry($idUserCur);
         }
 
-        user_updt_records::insert(
+        User_Updt_Records::insert(
             [
                 'name' => $user->name,
                 'email' => $user->email,
