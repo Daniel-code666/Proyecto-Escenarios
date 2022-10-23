@@ -58,7 +58,7 @@ class SubStageResReport extends \koolreport\KoolReport
         // query info recursos para la tabla
         $this->src("mysql")->query(
             Resources::select('idResource as Id','resourceName as Nombre del objeto', 'resourceCode as Código',
-                'amount as Cantidad', 'statesName as Estado', 'warehouseName as Almacén')
+                'amount as Cantidad', 'statesName as Estado', 'resourceMsgState as Condición', 'warehouseName as Almacén')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
                 ->where('warehouses.warehouseLocation', '=', $this->params["idUnderstage"])
@@ -112,7 +112,7 @@ class SubStageResReport extends \koolreport\KoolReport
         // query info recursos en USO para la tabla
         $this->src("mysql")->query(
             Resources::select('idResource as Id','resourceName as Nombre del objeto', 'resourceCode as Código',
-                'amountInUse as Cantidad', 'statesName as Estado', 'warehouseName as Almacén')
+                'amountInUse as Cantidad', 'statesName as Estado', 'resourceMsgState as Condición', 'warehouseName as Almacén')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
                 ->where('warehouses.warehouseLocation', '=', $this->params["idUnderstage"])
