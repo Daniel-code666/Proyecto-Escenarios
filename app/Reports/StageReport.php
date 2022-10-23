@@ -145,7 +145,8 @@ class StageReport extends \koolreport\KoolReport
                 'amount as Cantidad en almacén',
                 'statesName as Estado',
                 'resourceMsgState as Condición',
-                'warehouseName as Almacén'
+                'warehouseName as Almacén',
+                'name_understg as Sub escenario'
             )
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
