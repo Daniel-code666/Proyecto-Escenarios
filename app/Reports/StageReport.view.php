@@ -194,7 +194,7 @@ use \koolreport\widgets\koolphp\Card;
                         </thead>
                         <tbody class="list">
                             <?php
-                            foreach ($this->dataStore("resources") as $dataR) {
+                            foreach ($this->dataStore("resourcesStateMsg") as $dataR) {
                                 echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
                             <td>" . (string) $dataR['Cantidad en almacén'] . "</td>
                             <td>" . (string) $dataR['Estado'] . "</td>
