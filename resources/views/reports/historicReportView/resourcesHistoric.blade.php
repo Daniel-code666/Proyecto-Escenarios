@@ -56,7 +56,7 @@
                             <td>{{$resourceDel->amount}}</td>
                             <td>{{$resourceDel->amountInUse}}</td>
                             <td>{{$resourceDel->userEmail}}</td>
-                            <td>{{$resourceDel->delted_at}}</td>
+                            <td>{{$resourceDel->deleted_at}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -117,7 +117,7 @@
                             <td>{{$resourceUpdt->amount}}</td>
                             <td>{{$resourceUpdt->amountInUse}}</td>
                             <td>{{$resourceDel->userEmail}}</td>
-                            <td>{{$resourceUpdt->update_at}}</td>
+                            <td>{{$resourceUpdt->updated_at}}</td>
                         </tr>
                         @endforeach
                     </tbody>
