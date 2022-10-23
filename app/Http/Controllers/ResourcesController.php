@@ -101,7 +101,7 @@ class ResourcesController extends Controller
                 'resourceName' => 'required | max:100',
                 'resourceMsgState' => 'required | max:500',
                 'resourceDescription' => 'required | max:500',
-                'resourceCode' => 'required | max:50 | unique:resources',
+                'resourceCode' => 'required | max:50',
                 'amount' => 'required | numeric',
             ],
             [
