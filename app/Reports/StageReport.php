@@ -83,6 +83,17 @@ class StageReport extends \koolreport\KoolReport
                 ->where('warehouses.locationCheck', '=', 1)
         )->pipe($this->dataStore("resources"));
 
+        // query info recursos con mensaje del estado, escenario principal
+        $this->src("mysql")->query(
+            Resources::select('resourceName as Nombre del objeto', 'amount as Cantidad en almacén', 'statesName as Estado', 'resourceMsgState as Condición', 'warehouseName as Almacén')
+                ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
+                ->join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')
+                ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
+                ->where('stages.id', '=', $this->params["id"])
+                ->where('misc_list_states.tableParent', '=', 'inventary')
+                ->where('warehouses.locationCheck', '=', 1)
+        )->pipe($this->dataStore("resourcesStateMsg"));
+
         // query info recursos en uso escenario principal
         $this->src("mysql")->query(
             Resources::select('resourceName as Nombre del objeto', 'amountInUse as Cantidad en uso', 'statesName as Estado', 'warehouseName as Almacén')
