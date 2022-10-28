@@ -267,7 +267,7 @@
                     $('#inventory_table_sub thead tr')
                         .clone(true)
                         .addClass('filters')
-                        .appendTo('#inventory_table thead');
+                        .appendTo('#inventory_table_sub thead');
 
                     $('#inventory_table_sub').DataTable({
                         dom: 'Bfrtip',
