@@ -61,8 +61,8 @@
             @else
             <div class="table-responsive m-2">
                 <table id="inventory_table" class="table align-items-center table-flush">
-                    <thead id="thead_inv_table" class="thead-light">
-                        <tr id="tr_inv_table">
+                    <thead class="thead-light">
+                        <tr>
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
@@ -77,7 +77,7 @@
                     <tbody class="list">
                         @foreach ($resources as $rs)
                         @foreach ($rs as $resource)
-                        <tr id="tr_inv_table">
+                        <tr>
                             <td>{{$resource->idResource}}</td>
                             <!-- <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td> -->
                             <td>{{$resource->resourceName}}</td>
@@ -111,10 +111,10 @@
             </div>
             <script>
                 $(document).ready(function() {
-                    $('#inventory_table #thead_inv_table #tr_inv_table')
+                    $('#inventory_table thead tr')
                         .clone(true)
                         .addClass('filters')
-                        .appendTo('#inventory_table #thead_inv_table');
+                        .appendTo('#inventory_table thead');
 
                     var table = $('#inventory_table').DataTable({
                         dom: 'Bfrtip',
@@ -214,8 +214,8 @@
             @else
             <div class="table-responsive m-2">
                 <table id="inventory_table_sub" class="table align-items-center table-flush">
-                    <thead id="thead_inv_table_sub" class="thead-light">
-                        <tr id="tr_inv_table_sub">
+                    <thead class="thead-light">
+                        <tr>
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
@@ -230,7 +230,7 @@
                     <tbody class="list">
                         @foreach ($resourcesSub as $rs)
                         @foreach ($rs as $resource)
-                        <tr id="tr_inv_table_sub">
+                        <tr>
                             <td>{{$resource->idResource}}</td>
                             <!-- <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td> -->
                             <td>{{$resource->resourceName}}</td>
@@ -264,10 +264,10 @@
             </div>
             <script>
                 $(document).ready(function() {
-                    $('#inventory_table_sub #thead_inv_table_sub #tr_inv_table_sub')
-                        .clone(true)
-                        .addClass('filters')
-                        .appendTo('#inventory_table_sub #thead_inv_table_sub');
+                    // $('#inventory_table_sub #thead_inv_table_sub #tr_inv_table_sub')
+                    //     .clone(true)
+                    //     .addClass('filters')
+                    //     .appendTo('#inventory_table_sub #thead_inv_table_sub');
 
                     var table = $('#inventory_table_sub').DataTable({
                         dom: 'Bfrtip',
@@ -287,57 +287,57 @@
                                 pageLength: 'Mostrando %d filas'
                             },
                         },
-                        orderCellsTop: true,
-                        fixedHeader: true,
-                        initComplete: function() {
-                            var api = this.api();
+                        // orderCellsTop: true,
+                        // fixedHeader: true,
+                        // initComplete: function() {
+                        //     var api = this.api();
 
-                            // For each column
-                            api
-                                .columns()
-                                .eq(0)
-                                .each(function(colIdx) {
-                                    // Set the header cell to contain the input element
-                                    var cell = $('.filters th').eq(
-                                        $(api.column(colIdx).header()).index()
-                                    );
-                                    var title = $(cell).text();
-                                    $(cell).html('<input type="text" placeholder="' + title + '" />');
+                        //     // For each column
+                        //     api
+                        //         .columns()
+                        //         .eq(0)
+                        //         .each(function(colIdx) {
+                        //             // Set the header cell to contain the input element
+                        //             var cell = $('.filters th').eq(
+                        //                 $(api.column(colIdx).header()).index()
+                        //             );
+                        //             var title = $(cell).text();
+                        //             $(cell).html('<input type="text" placeholder="' + title + '" />');
 
-                                    // On every keypress in this input
-                                    $(
-                                            'input',
-                                            $('.filters th').eq($(api.column(colIdx).header()).index())
-                                        )
-                                        .off('keyup change')
-                                        .on('change', function(e) {
-                                            // Get the search value
-                                            $(this).attr('title', $(this).val());
-                                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                        //             // On every keypress in this input
+                        //             $(
+                        //                     'input',
+                        //                     $('.filters th').eq($(api.column(colIdx).header()).index())
+                        //                 )
+                        //                 .off('keyup change')
+                        //                 .on('change', function(e) {
+                        //                     // Get the search value
+                        //                     $(this).attr('title', $(this).val());
+                        //                     var regexr = '({search})'; //$(this).parents('th').find('select').val();
 
-                                            var cursorPosition = this.selectionStart;
-                                            // Search the column for that value
-                                            api
-                                                .column(colIdx)
-                                                .search(
-                                                    this.value != '' ?
-                                                    regexr.replace('{search}', '(((' + this.value + ')))') :
-                                                    '',
-                                                    this.value != '',
-                                                    this.value == ''
-                                                )
-                                                .draw();
-                                        })
-                                        .on('keyup', function(e) {
-                                            e.stopPropagation();
+                        //                     var cursorPosition = this.selectionStart;
+                        //                     // Search the column for that value
+                        //                     api
+                        //                         .column(colIdx)
+                        //                         .search(
+                        //                             this.value != '' ?
+                        //                             regexr.replace('{search}', '(((' + this.value + ')))') :
+                        //                             '',
+                        //                             this.value != '',
+                        //                             this.value == ''
+                        //                         )
+                        //                         .draw();
+                        //                 })
+                        //                 .on('keyup', function(e) {
+                        //                     e.stopPropagation();
 
-                                            $(this).trigger('change');
-                                            $(this)
-                                                .focus()[0]
-                                                .setSelectionRange(cursorPosition, cursorPosition);
-                                        });
-                                });
-                        },
+                        //                     $(this).trigger('change');
+                        //                     $(this)
+                        //                         .focus()[0]
+                        //                         .setSelectionRange(cursorPosition, cursorPosition);
+                        //                 });
+                        //         });
+                        // },
                     });
                 });
             </script>
