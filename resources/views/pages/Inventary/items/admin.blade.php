@@ -77,7 +77,7 @@
                     <tbody class="list">
                         @foreach ($resources as $rs)
                         @foreach ($rs as $resource)
-                        <tr>
+                        <tr id="tr_inv_table">
                             <td>{{$resource->idResource}}</td>
                             <!-- <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td> -->
                             <td>{{$resource->resourceName}}</td>
@@ -214,8 +214,8 @@
             @else
             <div class="table-responsive m-2">
                 <table id="inventory_table_sub" class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
+                    <thead id="thead_inv_table_sub" class="thead-light">
+                        <tr id="tr_inv_table_sub">
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
@@ -230,7 +230,7 @@
                     <tbody class="list">
                         @foreach ($resourcesSub as $rs)
                         @foreach ($rs as $resource)
-                        <tr>
+                        <tr id="tr_inv_table_sub">
                             <td>{{$resource->idResource}}</td>
                             <!-- <td><img src="{{asset('storage').'/'.$resource->resourcePhoto}}" alt="" width="100"></td> -->
                             <td>{{$resource->resourceName}}</td>
@@ -264,10 +264,10 @@
             </div>
             <script>
                 $(document).ready(function() {
-                    $('#inventory_table_sub thead tr')
+                    $('#inventory_table_sub #thead_inv_table_sub #tr_inv_table_sub')
                         .clone(true)
                         .addClass('filters')
-                        .appendTo('#inventory_table_sub thead');
+                        .appendTo('#inventory_table_sub #thead_inv_table_sub');
 
                     var table = $('#inventory_table_sub').DataTable({
                         dom: 'Bfrtip',
