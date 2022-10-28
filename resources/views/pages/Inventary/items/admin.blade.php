@@ -61,8 +61,8 @@
             @else
             <div class="table-responsive m-2">
                 <table id="inventory_table" class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
+                    <thead id="thead_inv_table" class="thead-light">
+                        <tr id="tr_inv_table">
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
@@ -111,10 +111,10 @@
             </div>
             <script>
                 $(document).ready(function() {
-                    $('#inventory_table thead tr')
+                    $('#inventory_table #thead_inv_table #tr_inv_table')
                         .clone(true)
                         .addClass('filters')
-                        .appendTo('#inventory_table thead');
+                        .appendTo('#inventory_table #thead_inv_table');
 
                     var table = $('#inventory_table').DataTable({
                         dom: 'Bfrtip',
@@ -269,7 +269,7 @@
                         .addClass('filters')
                         .appendTo('#inventory_table_sub thead');
 
-                    $('#inventory_table_sub').DataTable({
+                    var table = $('#inventory_table_sub').DataTable({
                         dom: 'Bfrtip',
                         buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
                         language: {
