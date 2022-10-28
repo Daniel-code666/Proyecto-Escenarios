@@ -264,10 +264,10 @@
             </div>
             <script>
                 $(document).ready(function() {
-                    // $('#inventory_table_sub #thead_inv_table_sub #tr_inv_table_sub')
-                    //     .clone(true)
-                    //     .addClass('filters')
-                    //     .appendTo('#inventory_table_sub #thead_inv_table_sub');
+                    $('#inventory_table_sub thead tr')
+                        .clone(true)
+                        .addClass('filters')
+                        .appendTo('#inventory_table_sub thead');
 
                     var table = $('#inventory_table_sub').DataTable({
                         dom: 'Bfrtip',
