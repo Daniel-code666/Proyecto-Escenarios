@@ -243,7 +243,7 @@
       </div>
       <script>
         $(document).ready(function() {
-          $('#warehouse_table thead tr')
+          $('#warehouse_table_sub thead tr')
             .clone(true)
             .addClass('filters2')
             .appendTo('#warehouse_table_sub thead');
