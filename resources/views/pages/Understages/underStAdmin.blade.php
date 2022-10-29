@@ -97,6 +97,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                       <a class="dropdown-item" href="{{ route('showUnderSt', ['idUnderstage'=>$underStage->idUnderstage]) }}">Ver</a>
+                      <a class="dropdown-item" href="{{ url('viewresourcesunderstage/'.$underStage->idUnderstage) }}">Ver recursos</a>
                       <a class="dropdown-item" href="{{ url('/understage/'.$underStage->idUnderstage.'/edit') }}">Editar</a>
                       <form action="{{ url('/understage/'.$underStage->idUnderstage) }} " method="post" style="display: inline-block">
                         @csrf

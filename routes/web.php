@@ -90,11 +90,13 @@ Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show
 Route::get('viewStageInfo/{id}', 'App\Http\Controllers\StageController@viewStageInfo')->name('viewStageInfo')->middleware(['auth', 'idrole']);
 Route::get('score/{id}', 'App\Http\Controllers\StageController@updateScore');
 Route::get('mapaescenarios', 'App\Http\Controllers\StageController@mapaescenarios');
+Route::get('viewresourcesmain/{id}', 'App\Http\Controllers\StageController@viewResourcesMain')->name('viewresourcesmain')->middleware(['auth', 'idrole']);
 
 // understages
 Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
 Route::get('listUnderSt/{id}', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');
+Route::get('viewresourcesunderstage/{idUnderstage}', 'App\Http\Controllers\UnderstageController@viewResourcesUnderstage')->name('viewresourcesunderstage')->middleware(['auth', 'idrole']);
 
 // user profile
 Route::get('upgrade', function () {
