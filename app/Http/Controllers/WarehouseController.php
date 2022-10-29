@@ -28,9 +28,13 @@ class WarehouseController extends Controller
 
         $stages['stages'] = Stage::join('disciplines', 'disciplines.disciplineId', '=', 'stages.discipline')->get();
 
-        $underStages['underStages'] = Understage::join('disciplines', 
-        'disciplines.disciplineId', '=', 'understages.discipline_understg')
-        ->join('stages', 'stages.id', '=', 'understages.idStage')->get();
+        $underStages['underStages'] = Understage::join(
+            'disciplines',
+            'disciplines.disciplineId',
+            '=',
+            'understages.discipline_understg'
+        )
+            ->join('stages', 'stages.id', '=', 'understages.idStage')->get();
 
         return view('pages.Inventary.warehouse.admin', compact('warehouses', 'stages', 'warehousesSub', 'underStages'));
     }
@@ -145,5 +149,38 @@ class WarehouseController extends Controller
         Resources::where('resources_warehouseId', $warehouseId)->delete();
         warehouse::destroy($warehouseId);
         return redirect('/almacen')->with('mensaje', 'Almacén eliminado con éxito.');
+    }
+
+    public function viewResources($warehouseId)
+    {
+        $warehouse = warehouse::where('warehouseId', $warehouseId)
+            ->where('locationCheck', 1)
+            ->first();
+        $resources = Resources::join('warehouses', 'warehouses.warehouseId', 'resources.resources_warehouseId')
+            ->join('stages', 'stages.id', 'warehouses.warehouseLocation')
+            ->join('misc_list_states', 'misc_list_states.statesId', 'resources.id_category')
+            ->where('resources_warehouseId', $warehouseId)
+            ->where('tableParent', 'inventary')
+            ->where('warehouses.locationCheck', 1)
+            ->get();
+
+        return view('pages.Inventary.warehouse.viewResources', compact('resources', 'warehouse'));
+    }
+
+    public function viewResourcesSub($warehouseId)
+    {
+        $warehouse = warehouse::where('warehouseId', $warehouseId)
+            ->where('locationCheck', 0)
+            ->first();
+
+        $resources = Resources::join('warehouses', 'warehouses.warehouseId', 'resources.resources_warehouseId')
+            ->join('understages', 'understages.idUnderstage', 'warehouses.warehouseLocation')
+            ->join('misc_list_states', 'misc_list_states.statesId', 'resources.id_category')
+            ->where('resources_warehouseId', $warehouseId)
+            ->where('tableParent', 'inventary')
+            ->where('warehouses.locationCheck', 0)
+            ->get();
+
+        return view('pages.Inventary.warehouse.viewResourcesSub', compact('warehouse', 'resources'));
     }
 }

@@ -84,6 +84,7 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="{{ url('viewresources/'.$warehouse->warehouseId) }}">Ver recursos</a>
                     <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
                     <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
                       @csrf
@@ -226,6 +227,7 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="{{ url('viewresourcessub/'.$warehouse->warehouseId) }}">Ver recursos</a>
                     <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
                     <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
                       @csrf

@@ -125,6 +125,8 @@ Route::put('/setback/{idResource}', 'App\Http\Controllers\ResourcesController@se
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);
 Route::get('quantity/{id}', 'App\Http\Controllers\ResourcesController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
 Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->name('testpdf')->middleware(['auth', 'idrole']);
+Route::get('viewresources/{warehouseId}', 'App\Http\Controllers\WarehouseController@viewResources')->name('viewresources')->middleware(['auth', 'idrole']);
+Route::get('viewresourcessub/{warehouseId}', 'App\Http\Controllers\WarehouseController@viewResourcesSub')->name('viewresourcessub')->middleware(['auth', 'idrole']);
 
 //reports
 Route::get('stagereport', 'App\Http\Controllers\StageReportController@index')->middleware(['auth', 'idrole']);
