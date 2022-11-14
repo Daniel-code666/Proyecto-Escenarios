@@ -90,6 +90,7 @@
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                     <!-- <a class="dropdown-item" href="{{ route('genpdf', ['id'=>$stage->id]) }}">PDF</a> -->
                     <a class="dropdown-item" href="{{ route('viewStageInfo', ['id'=>$stage->id]) }}">Ver</a>
+                    <a class="dropdown-item" href="{{ url('viewresourcesmain/'.$stage->id) }}">Ver recursos</a>
                     <a class="dropdown-item" href="{{ url('/escenario/'.$stage->id.'/edit') }}">Editar</a>
                     <form action="{{ url('/escenario/'.$stage->id) }} " method="post" style="display: inline-block">
                       @csrf

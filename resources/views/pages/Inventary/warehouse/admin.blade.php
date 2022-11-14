@@ -84,6 +84,7 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="{{ url('viewresources/'.$warehouse->warehouseId) }}">Ver recursos</a>
                     <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
                     <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
                       @csrf
@@ -101,6 +102,11 @@
       </div>
       <script>
         $(document).ready(function() {
+          $('#warehouse_table thead tr')
+            .clone(true)
+            .addClass('filters')
+            .appendTo('#warehouse_table thead');
+
           $('#warehouse_table').DataTable({
             dom: 'Bfrtip',
             buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
@@ -118,6 +124,57 @@
               buttons: {
                 pageLength: 'Mostrando %d filas'
               },
+            },
+            orderCellsTop: true,
+            fixedHeader: true,
+            initComplete: function() {
+              var api = this.api();
+
+              // For each column
+              api
+                .columns()
+                .eq(0)
+                .each(function(colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                    .off('keyup change')
+                    .on('change', function(e) {
+                      // Get the search value
+                      $(this).attr('title', $(this).val());
+                      var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                      var cursorPosition = this.selectionStart;
+                      // Search the column for that value
+                      api
+                        .column(colIdx)
+                        .search(
+                          this.value != '' ?
+                          regexr.replace('{search}', '(((' + this.value + ')))') :
+                          '',
+                          this.value != '',
+                          this.value == ''
+                        )
+                        .draw();
+                    })
+                    .on('keyup', function(e) {
+                      e.stopPropagation();
+
+                      $(this).trigger('change');
+                      $(this)
+                        .focus()[0]
+                        .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+                });
             },
           });
         });
@@ -170,6 +227,7 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="{{ url('viewresourcessub/'.$warehouse->warehouseId) }}">Ver recursos</a>
                     <a class="dropdown-item" href="{{ url('/almacen/'.$warehouse->warehouseId.'/edit') }}">Editar</a>
                     <form action="{{ url('/almacen/'.$warehouse->warehouseId) }} " method="post" style="display: inline-block">
                       @csrf
@@ -187,6 +245,11 @@
       </div>
       <script>
         $(document).ready(function() {
+          $('#warehouse_table_sub thead tr')
+            .clone(true)
+            .addClass('filters2')
+            .appendTo('#warehouse_table_sub thead');
+
           $('#warehouse_table_sub').DataTable({
             dom: 'Bfrtip',
             buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
@@ -205,6 +268,57 @@
                 pageLength: 'Mostrando %d filas'
               },
             },
+            orderCellsTop: true,
+            fixedHeader: true,
+            initComplete: function() {
+              var api = this.api();
+
+              // For each column
+              api
+                .columns()
+                .eq(0)
+                .each(function(colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters2 th').eq(
+                    $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters2 th').eq($(api.column(colIdx).header()).index())
+                    )
+                    .off('keyup change')
+                    .on('change', function(e) {
+                      // Get the search value
+                      $(this).attr('title', $(this).val());
+                      var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                      var cursorPosition = this.selectionStart;
+                      // Search the column for that value
+                      api
+                        .column(colIdx)
+                        .search(
+                          this.value != '' ?
+                          regexr.replace('{search}', '(((' + this.value + ')))') :
+                          '',
+                          this.value != '',
+                          this.value == ''
+                        )
+                        .draw();
+                    })
+                    .on('keyup', function(e) {
+                      e.stopPropagation();
+
+                      $(this).trigger('change');
+                      $(this)
+                        .focus()[0]
+                        .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+                });
+            },
           });
         });
       </script>
@@ -216,7 +330,7 @@
         <div class="col-md-8">
           <p>
             Aquí puede ver los escenarios principales que ya han sido establecidos, si aun no hay ningún escenario
-            puede ir a establecerlos. 
+            puede ir a establecerlos.
           </p>
           <div>
             <a type="button" class="btn btn-primary" href="{{ url('/escenario') }}">Ir a escenarios principales</a>
@@ -304,7 +418,7 @@
       <div class="row">
         <div class="col-md-8">
           <p>
-            Aquí puede ver los sub escenarios que ya han sido establecidos, si aun no hay ningún 
+            Aquí puede ver los sub escenarios que ya han sido establecidos, si aun no hay ningún
             sub escenario puede ir a establecerlos.
           </p>
           <div>

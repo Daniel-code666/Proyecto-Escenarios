@@ -111,7 +111,12 @@
             </div>
             <script>
                 $(document).ready(function() {
-                    $('#inventory_table').DataTable({
+                    $('#inventory_table thead tr')
+                        .clone(true)
+                        .addClass('filters')
+                        .appendTo('#inventory_table thead');
+
+                    var table = $('#inventory_table').DataTable({
                         dom: 'Bfrtip',
                         buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
                         language: {
@@ -128,6 +133,57 @@
                             buttons: {
                                 pageLength: 'Mostrando %d filas'
                             },
+                        },
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        initComplete: function() {
+                            var api = this.api();
+
+                            // For each column
+                            api
+                                .columns()
+                                .eq(0)
+                                .each(function(colIdx) {
+                                    // Set the header cell to contain the input element
+                                    var cell = $('.filters th').eq(
+                                        $(api.column(colIdx).header()).index()
+                                    );
+                                    var title = $(cell).text();
+                                    $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                                    // On every keypress in this input
+                                    $(
+                                            'input',
+                                            $('.filters th').eq($(api.column(colIdx).header()).index())
+                                        )
+                                        .off('keyup change')
+                                        .on('change', function(e) {
+                                            // Get the search value
+                                            $(this).attr('title', $(this).val());
+                                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                            var cursorPosition = this.selectionStart;
+                                            // Search the column for that value
+                                            api
+                                                .column(colIdx)
+                                                .search(
+                                                    this.value != '' ?
+                                                    regexr.replace('{search}', '(((' + this.value + ')))') :
+                                                    '',
+                                                    this.value != '',
+                                                    this.value == ''
+                                                )
+                                                .draw();
+                                        })
+                                        .on('keyup', function(e) {
+                                            e.stopPropagation();
+
+                                            $(this).trigger('change');
+                                            $(this)
+                                                .focus()[0]
+                                                .setSelectionRange(cursorPosition, cursorPosition);
+                                        });
+                                });
                         },
                     });
                 });
@@ -208,7 +264,12 @@
             </div>
             <script>
                 $(document).ready(function() {
-                    $('#inventory_table_sub').DataTable({
+                    $('#inventory_table_sub thead tr')
+                        .clone(true)
+                        .addClass('filters2')
+                        .appendTo('#inventory_table_sub thead');
+
+                    var table = $('#inventory_table_sub').DataTable({
                         dom: 'Bfrtip',
                         buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
                         language: {
@@ -225,6 +286,57 @@
                             buttons: {
                                 pageLength: 'Mostrando %d filas'
                             },
+                        },
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        initComplete: function() {
+                            var api = this.api();
+
+                            // For each column
+                            api
+                                .columns()
+                                .eq(0)
+                                .each(function(colIdx) {
+                                    // Set the header cell to contain the input element
+                                    var cell = $('.filters2 th').eq(
+                                        $(api.column(colIdx).header()).index()
+                                    );
+                                    var title = $(cell).text();
+                                    $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                                    // On every keypress in this input
+                                    $(
+                                            'input',
+                                            $('.filters2 th').eq($(api.column(colIdx).header()).index())
+                                        )
+                                        .off('keyup change')
+                                        .on('change', function(e) {
+                                            // Get the search value
+                                            $(this).attr('title', $(this).val());
+                                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                            var cursorPosition = this.selectionStart;
+                                            // Search the column for that value
+                                            api
+                                                .column(colIdx)
+                                                .search(
+                                                    this.value != '' ?
+                                                    regexr.replace('{search}', '(((' + this.value + ')))') :
+                                                    '',
+                                                    this.value != '',
+                                                    this.value == ''
+                                                )
+                                                .draw();
+                                        })
+                                        .on('keyup', function(e) {
+                                            e.stopPropagation();
+
+                                            $(this).trigger('change');
+                                            $(this)
+                                                .focus()[0]
+                                                .setSelectionRange(cursorPosition, cursorPosition);
+                                        });
+                                });
                         },
                     });
                 });
@@ -299,6 +411,11 @@
             </div>
             <script>
                 $(document).ready(function() {
+                    $('#warehouse_table thead tr')
+                        .clone(true)
+                        .addClass('filters3')
+                        .appendTo('#warehouse_table thead');
+
                     $('#warehouse_table').DataTable({
                         dom: 'Bfrtip',
                         buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
@@ -316,6 +433,57 @@
                             buttons: {
                                 pageLength: 'Mostrando %d filas'
                             },
+                        },
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        initComplete: function() {
+                            var api = this.api();
+
+                            // For each column
+                            api
+                                .columns()
+                                .eq(0)
+                                .each(function(colIdx) {
+                                    // Set the header cell to contain the input element
+                                    var cell = $('.filters3 th').eq(
+                                        $(api.column(colIdx).header()).index()
+                                    );
+                                    var title = $(cell).text();
+                                    $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                                    // On every keypress in this input
+                                    $(
+                                            'input',
+                                            $('.filters3 th').eq($(api.column(colIdx).header()).index())
+                                        )
+                                        .off('keyup change')
+                                        .on('change', function(e) {
+                                            // Get the search value
+                                            $(this).attr('title', $(this).val());
+                                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                            var cursorPosition = this.selectionStart;
+                                            // Search the column for that value
+                                            api
+                                                .column(colIdx)
+                                                .search(
+                                                    this.value != '' ?
+                                                    regexr.replace('{search}', '(((' + this.value + ')))') :
+                                                    '',
+                                                    this.value != '',
+                                                    this.value == ''
+                                                )
+                                                .draw();
+                                        })
+                                        .on('keyup', function(e) {
+                                            e.stopPropagation();
+
+                                            $(this).trigger('change');
+                                            $(this)
+                                                .focus()[0]
+                                                .setSelectionRange(cursorPosition, cursorPosition);
+                                        });
+                                });
                         },
                     });
                 });

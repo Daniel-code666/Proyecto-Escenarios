@@ -57,6 +57,7 @@ class SubStageReport extends \koolreport\KoolReport
                 'resourceName as Nombre del objeto',
                 'amount as Cantidad en almacén',
                 'statesName as Estado',
+                'resourceMsgState as Condición',
                 'warehouseName as Almacén',
                 'name_understg as Sub escenario'
             )
@@ -74,6 +75,7 @@ class SubStageReport extends \koolreport\KoolReport
                 'resourceName as Nombre del objeto',
                 'amountInUse as Cantidad en uso',
                 'statesName as Estado',
+                'resourceMsgState as Condición',
                 'warehouseName as Almacén'
             )
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')

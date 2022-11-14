@@ -90,11 +90,13 @@ Route::get('show/{id}', 'App\Http\Controllers\StageController@show')->name('show
 Route::get('viewStageInfo/{id}', 'App\Http\Controllers\StageController@viewStageInfo')->name('viewStageInfo')->middleware(['auth', 'idrole']);
 Route::get('score/{id}', 'App\Http\Controllers\StageController@updateScore');
 Route::get('mapaescenarios', 'App\Http\Controllers\StageController@mapaescenarios');
+Route::get('viewresourcesmain/{id}', 'App\Http\Controllers\StageController@viewResourcesMain')->name('viewresourcesmain')->middleware(['auth', 'idrole']);
 
 // understages
 Route::resource('understage', App\Http\Controllers\UnderstageController::class)->middleware(['auth', 'idrole']);
 Route::get('listUnderSt/{id}', 'App\Http\Controllers\UnderstageController@listUnderSt')->name('listUnderSt');
 Route::get('showUnderSt/{idUnderstage}', 'App\Http\Controllers\UnderstageController@show')->name('showUnderSt');
+Route::get('viewresourcesunderstage/{idUnderstage}', 'App\Http\Controllers\UnderstageController@viewResourcesUnderstage')->name('viewresourcesunderstage')->middleware(['auth', 'idrole']);
 
 // user profile
 Route::get('upgrade', function () {
@@ -125,6 +127,8 @@ Route::put('/setback/{idResource}', 'App\Http\Controllers\ResourcesController@se
 Route::resource('almacen', App\Http\Controllers\WarehouseController::class)->middleware(['auth', 'idrole']);
 Route::get('quantity/{id}', 'App\Http\Controllers\ResourcesController@inventoryQuantityReport')->name('quantity')->middleware(['auth', 'idrole']);
 Route::get('testpdf/{id}', 'App\Http\Controllers\ResourcesController@testPDF')->name('testpdf')->middleware(['auth', 'idrole']);
+Route::get('viewresources/{warehouseId}', 'App\Http\Controllers\WarehouseController@viewResources')->name('viewresources')->middleware(['auth', 'idrole']);
+Route::get('viewresourcessub/{warehouseId}', 'App\Http\Controllers\WarehouseController@viewResourcesSub')->name('viewresourcessub')->middleware(['auth', 'idrole']);
 
 //reports
 Route::get('stagereport', 'App\Http\Controllers\StageReportController@index')->middleware(['auth', 'idrole']);

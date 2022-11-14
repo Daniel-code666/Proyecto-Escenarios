@@ -422,4 +422,19 @@ class StageController extends Controller
         $stages = Stage::all();
         return view('layouts.appMaps', $stages)->with('stages', $stages);
     }
+
+    public function viewResourcesMain($id)
+    {
+        $stage = Stage::where('id', $id)->first();
+
+        $resources = Resources::join('warehouses', 'warehouses.warehouseId', 'resources_warehouseId')
+            ->join('misc_list_states', 'misc_list_states.statesId', 'resources.id_category')
+            ->join('stages', 'stages.id', 'warehouseLocation')
+            ->where('stages.id', $id)
+            ->where('tableParent', 'inventary')
+            ->where('warehouses.locationCheck', 1)
+            ->get();
+
+        return view('pages.stages.viewResourcesMain', compact('stage', 'resources'));
+    }
 }

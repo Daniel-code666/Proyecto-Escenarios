@@ -75,12 +75,12 @@ class LoginController extends Controller
             }
             else
             {
-                return back()->withErrors(['email' => trans('auth.failed')]);
+                return back()->withErrors(['email' => trans('Correo o contraseña incorrectos')]);
             }   
 
         }catch(Exception $ex)
         {
-            return back()->withErrors(['email' => trans('auth.failed')]);
+            return back()->withErrors(['email' => trans('Correo o contraseña incorrectos')]);
         }
     }
 }

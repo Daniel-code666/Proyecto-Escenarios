@@ -188,15 +188,17 @@ use \koolreport\widgets\koolphp\Card;
                                 <th>Nombre del objeto</th>
                                 <th>Cantidad en el almacén</th>
                                 <th>Estado</th>
+                                <th>Condición</th>
                                 <th>Almacén</th>
                             </tr>
                         </thead>
                         <tbody class="list">
                             <?php
-                            foreach ($this->dataStore("resources") as $dataR) {
+                            foreach ($this->dataStore("resourcesStateMsg") as $dataR) {
                                 echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
                             <td>" . (string) $dataR['Cantidad en almacén'] . "</td>
                             <td>" . (string) $dataR['Estado'] . "</td>
+                            <td>" . (string) $dataR['Condición'] . "</td>
                             <td>" . (string) $dataR['Almacén'] . "</td></tr>");
                             }
                             ?>
@@ -293,15 +295,17 @@ use \koolreport\widgets\koolphp\Card;
                                 <th>Nombre del objeto</th>
                                 <th>Cantidad en uso</th>
                                 <th>Estado</th>
+                                <th>Condición</th>
                                 <th>Almacén</th>
                             </tr>
                         </thead>
                         <tbody class="list">
                             <?php
-                            foreach ($this->dataStore("resourcesInUse") as $dataR) {
+                            foreach ($this->dataStore("resourcesInUseStateMsg") as $dataR) {
                                 echo ("<tr><td>" . (string) $dataR['Nombre del objeto'] . "</td>
                             <td>" . (string) $dataR['Cantidad en uso'] . "</td>
                             <td>" . (string) $dataR['Estado'] . "</td>
+                            <td>" . (string) $dataR['Condición'] . "</td>
                             <td>" . (string) $dataR['Almacén'] . "</td></tr>");
                             }
                             ?>

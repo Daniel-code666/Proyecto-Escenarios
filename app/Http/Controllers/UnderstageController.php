@@ -213,7 +213,7 @@ class UnderstageController extends Controller
         $underStage = Understage::findOrFail($idUnderstage);
         $stage = Stage::findOrFail($idUnderstage);
 
-        if (!($underStage->idStage == $dataToSend['idStage'])){
+        if (!($underStage->idStage == $dataToSend['idStage'])) {
             $newUnderStgQty = $stage->underStagesQty - 1;
             Stage::where('id', '=', $dataToSend['idStage'])->update(['underStagesQty' => $newUnderStgQty]);
         }
@@ -231,11 +231,11 @@ class UnderstageController extends Controller
                 'area_understg' => $underStage->area_understg,
                 'capacity_understg' => $underStage->capacity_understg,
                 'address_understg' => $underStage->address_understg,
-                'updt_at' => Carbon::now(), 
+                'updt_at' => Carbon::now(),
                 'understageqty' => $underStage->understageqty,
-                'localityid' => $underStage->localityid, 
+                'localityid' => $underStage->localityid,
                 'neighborhoodid' => $underStage->neighborhoodid,
-                'understagecode' => $underStage->understagecode, 
+                'understagecode' => $underStage->understagecode,
                 'understagescale' => $underStage->understagescale,
                 'userEmail' => session()->get('userEmail')
             ]
@@ -259,7 +259,7 @@ class UnderstageController extends Controller
             ->where('locationCheck', 0)
             ->get();
 
-        foreach ($warehouses as $warehouse){
+        foreach ($warehouses as $warehouse) {
             Resources::where('resources_warehouseId', $warehouse->warehouseId);
         }
 
@@ -277,11 +277,11 @@ class UnderstageController extends Controller
                 'area_understg' => $underStage->area_understg,
                 'capacity_understg' => $underStage->capacity_understg,
                 'address_understg' => $underStage->address_understg,
-                'deleted_at' => Carbon::now(), 
+                'deleted_at' => Carbon::now(),
                 'understageqty' => $underStage->understageqty,
-                'localityid' => $underStage->localityid, 
+                'localityid' => $underStage->localityid,
                 'neighborhoodid' => $underStage->neighborhoodid,
-                'understagecode' => $underStage->understagecode, 
+                'understagecode' => $underStage->understagecode,
                 'understagescale' => $underStage->understagescale,
                 'userEmail' => session()->get('userEmail')
             ]
@@ -297,6 +297,21 @@ class UnderstageController extends Controller
         $underStage = Understage::where('idStage', $id)->get();
         $states = MiscListStates::where("tableParent", "=", 'stages')->get();
         return view('pages.Understages.listUnderSt', compact('underStage', 'disciplines', 'stages', 'states'));
+    }
+
+    public function viewResourcesUnderstage($idUnderstage)
+    {
+        $underStage = Understage::where('idUnderstage', $idUnderstage)->first();
+
+        $resources = Resources::join('warehouses', 'warehouses.warehouseId', 'resources_warehouseId')
+            ->join('misc_list_states', 'misc_list_states.statesId', 'resources.id_category')
+            ->join('understages', 'understages.idUnderstage', 'warehouseLocation')
+            ->where('idUnderstage', $idUnderstage)
+            ->where('tableParent', 'inventary')
+            ->where('warehouses.locationCheck', 0)
+            ->get();
+
+        return view('pages.Understages.viewResourcesSub', compact('underStage', 'resources'));
     }
 
     /**
