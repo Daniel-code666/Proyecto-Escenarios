@@ -58,11 +58,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="fondo">
-                        <h5 class="text-center card-title h3" style="color: aliceblue; height:30px">Configuraciones iniciales</h5>
+                        <h5 class="text-center card-title h3" style="color: aliceblue; height:30px">
+                            Configuraciones iniciales
+                        </h5>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="card-text">Antes de manipular el sistema es necesario definir algunas parametrizaciones, para ello dirigirse al menu lateral izquierdo en la sección de configuraciones.</p>
+                            <p class="card-text">
+                                Antes de manipular el sistema es necesario definir algunas 
+                                parametrizaciones, para ello puede dirigirse al menu lateral izquierdo en la 
+                                sección de configuraciones.
+                            </p>
                         </div>
                     </div>
                     <hr>
