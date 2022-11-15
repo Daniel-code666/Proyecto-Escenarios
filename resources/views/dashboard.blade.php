@@ -69,7 +69,7 @@
 
                     <div class="row">
                         <div class="col-9">
-                            <p>En caso de no tener parametrizaciones específicas pondrás optar por dejar las parametrizaciones por defecto.</p>
+                            <p>En caso de no tener parametrizaciones específicas podrá optar por dejar las parametrizaciones por defecto.</p>
                         </div>
                         <div class="col-3">
                             <a href="{{route('save_misclist')}}" class="btn btn-primary">Click aquí</a>
