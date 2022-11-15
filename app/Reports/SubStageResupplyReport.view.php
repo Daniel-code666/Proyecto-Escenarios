@@ -29,7 +29,7 @@ use \koolreport\widgets\koolphp\Card;
         <?php
         foreach ($this->dataStore("subStageDef") as $data) {
             echo ("<title>" . (string) $data['name_understg'] . "</title>");
-            echo ("<h1 style='text-align:center'>Informe sobre los reabastecimientos del escenario " . (string) $data['name_understg'] . "</h1>");
+            echo ("<h1 style='text-align:center'>Informe sobre los reabastecimientos del sub escenario " . (string) $data['name_understg'] . "</h1>");
         }
         ?>
     </div>
@@ -116,7 +116,7 @@ use \koolreport\widgets\koolphp\Card;
                             <td>" . (string) $rData['warehouseName'] . "</td>
                             <td>" . (string) $rData['statesName'] . "</td>
                             <td>" . (string) $rData['resupplyAmount'] . "</td>
-                            <td>" . substr((string) $rData['updated_at'],  0, -17) . "</td></tr>");
+                            <td>" . substr((string) $rData['updated_at'],  0, -9) . "</td></tr>");
                             }
                             ?>
                         </tbody>

@@ -41,7 +41,9 @@ class ResupplyReport extends \koolreport\KoolReport
 
         // query info sobre los reabastecimientos
         $this->src("mysql")->query(
-            Resources::join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
+            Resources::select('idResource', 'resourceName', 'resourceCode', 'name', 'amount', 'warehouseName',
+            'statesName', 'amountInUse', 'resupplyAmount', 'resupply_records.updated_at')
+                ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('resupply_records', 'resupply_records.idResourceFk', '=', 'resources.idResource')
                 ->join('stages', 'stages.id', '=', 'warehouses.warehouseLocation')

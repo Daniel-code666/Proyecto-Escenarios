@@ -116,7 +116,7 @@ use \koolreport\widgets\koolphp\Card;
                             <td>" . (string) $rData['warehouseName'] . "</td>
                             <td>" . (string) $rData['statesName'] . "</td>
                             <td>" . (string) $rData['resupplyAmount'] . "</td>
-                            <td>" . substr((string) $rData['updated_at'],  0, -17) . "</td></tr>");
+                            <td>" . substr((string) $rData['updated_at'],  0, -9) . "</td></tr>");
                             }
                             ?>
                         </tbody>
