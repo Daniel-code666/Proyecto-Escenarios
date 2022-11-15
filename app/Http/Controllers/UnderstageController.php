@@ -211,7 +211,7 @@ class UnderstageController extends Controller
         $dataToSend = $data;
 
         $underStage = Understage::findOrFail($idUnderstage);
-        $stage = Stage::findOrFail($idUnderstage);
+        $stage = Stage::findOrFail($underStage['idStage']);
 
         if (!($underStage->idStage == $dataToSend['idStage'])) {
             $newUnderStgQty = $stage->underStagesQty - 1;
