@@ -66,8 +66,8 @@
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
-                            <th scope="col" class="sort">Qty en Almacén</th>
-                            <th>Qty en uso</th>
+                            <th scope="col" class="sort">Cant. en Almacén</th>
+                            <th>Cant. en uso</th>
                             <th>Estado</th>
                             <th scope="col" class="sort">Almacén</th>
                             <th scope="col" class="sort">Escenario</th>
@@ -219,8 +219,8 @@
                             <th scope="col" class="sort">Id</th>
                             <!-- <th scope="col" class="sort">Imagen</th> -->
                             <th scope="col" class="sort">Nombre</th>
-                            <th scope="col" class="sort">Qty en almacén</th>
-                            <th>Qty en uso</th>
+                            <th scope="col" class="sort">Cant. en almacén</th>
+                            <th>Cant. en uso</th>
                             <th>Estado</th>
                             <th scope="col" class="sort">Almacén</th>
                             <th scope="col" class="sort">Escenario</th>
