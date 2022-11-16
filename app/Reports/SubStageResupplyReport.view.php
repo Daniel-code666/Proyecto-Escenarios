@@ -101,7 +101,7 @@ use \koolreport\widgets\koolphp\Card;
                                 <th>Cant. USO</th>
                                 <th>Almacén</th>
                                 <th>Estado</th>
-                                <th>Qty re-ingreso</th>
+                                <th>Cant. re-ingreso</th>
                                 <th>Último re-ingreso</th>
                             </tr>
                         </thead>
