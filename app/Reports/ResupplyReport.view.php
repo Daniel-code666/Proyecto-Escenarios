@@ -98,10 +98,10 @@ use \koolreport\widgets\koolphp\Card;
                                 <th>Nom. obj</th>
                                 <th>Cód</th>
                                 <th>Escenario</th>
-                                <th>Qty almacén</th>
+                                <th>Cant. almacén</th>
                                 <th>Almacén</th>
                                 <th>Estado</th>
-                                <th>Qty re-ingreso</th>
+                                <th>Cant. re-ingreso</th>
                                 <th>Último re-ingreso</th>
                             </tr>
                         </thead>

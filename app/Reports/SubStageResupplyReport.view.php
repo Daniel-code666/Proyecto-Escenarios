@@ -97,8 +97,8 @@ use \koolreport\widgets\koolphp\Card;
                                 <th>Id</th>
                                 <th>Nom. obj</th>
                                 <th>Cód</th>
-                                <th>Qty almacén</th>
-                                <th>Qty USO</th>
+                                <th>Cant. almacén</th>
+                                <th>Cant. USO</th>
                                 <th>Almacén</th>
                                 <th>Estado</th>
                                 <th>Qty re-ingreso</th>
