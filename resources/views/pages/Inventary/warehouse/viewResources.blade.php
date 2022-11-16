@@ -41,8 +41,8 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Estado</th>
-                        <th>Qty</th>
-                        <th>Qty en uso</th>
+                        <th>Cant. en almacén</th>
+                        <th>Cant. en uso</th>
                         <th>Almacén</th>
                         <th>Escenario</th>
                         <th>Diagnóstico</th>
