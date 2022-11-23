@@ -53,8 +53,8 @@ use \koolreport\widgets\koolphp\Card;
                 foreach ($this->dataStore("warehouses") as $data1) {
                     // sección de recursos en almacén
                     foreach ($this->dataStore("resupplyDataGraph") as $data2) {
-                        if ($data1['warehouseName'] == $data2['Alm']) {
-                            $data2['Ult. re-ingreso'] = substr((string) $data2['Ult. re-ingreso'],  0, -9);
+                        if ($data1['warehouseName'] == $data2['Almacén']) {
+                            $data2['Fecha último re-ingreso'] = substr((string) $data2['Fecha último re-ingreso'],  0, -9);
                             array_push($resources, $data2);
                         }
                     }
@@ -95,14 +95,14 @@ use \koolreport\widgets\koolphp\Card;
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nom. obj</th>
-                                <th>Cód</th>
+                                <th>Nombre objetoss</th>
+                                <th>Código</th>
                                 <th>Escenario</th>
-                                <th>Cant. almacén</th>
+                                <th>Cantidad almacén</th>
                                 <th>Almacén</th>
                                 <th>Estado</th>
-                                <th>Cant. re-ingreso</th>
-                                <th>Último re-ingreso</th>
+                                <th>Cantidad re-ingreso</th>
+                                <th>Fecha último re-ingreso</th>
                             </tr>
                         </thead>
                         <tbody class="list">

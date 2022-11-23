@@ -50,9 +50,9 @@ class SubStageResupplyReport extends \koolreport\KoolReport
 
         // query info reabastecimientos para gráfica
         $this->src("mysql")->query(
-            Resources::select('idResource as Id', 'resourceName as Nom. obj', 'resourceCode as Cód',
-                'amount as Qty alm', 'amountInUse as Qty USO', 'warehouseName as Alm', 'statesName as Estado',
-                'resupplyAmount as Qty re-ingreso', 'resupply_records.updated_at as Ult. re-ingreso')
+            Resources::select('idResource as Id', 'resourceName as Nombre objeto', 'resourceCode as Código',
+                'amount as Cantidad Almacén', 'amountInUse as Cantidad en USO', 'warehouseName as Almacén', 'statesName as Estado',
+                'resupplyAmount as Cantidad re-ingreso', 'resupply_records.updated_at as Fecha último re-ingreso')
                 ->join('warehouses', 'warehouses.warehouseId', '=', 'resources.resources_warehouseId')
                 ->join('misc_list_states', 'misc_list_states.statesId', '=', 'resources.id_category')
                 ->join('resupply_records', 'resupply_records.idResourceFk', '=', 'resources.idResource')
