@@ -38,14 +38,14 @@
                 </tr>
             </thead>
             <tbody class="list">
-                @foreach ($stagesWhRatings as $stageWhR)
-                    @foreach ($stageWhR as $stageWhRatings)
+                @foreach ($stagesWhRatings as $stageWhRatings)
+
                         <tr>
-                            <td>{{$stageWhRatings[0]}}</td>
-                            <td>{{$stageWhRatings[1]}}</td>
-                            <td>{{$stageWhRatings[2]}}</td>
+                            <td>{{$stageWhRatings['0']}}</td>
+                            <td>{{$stageWhRatings['1']}}</td>
+                            <td>{{$stageWhRatings['2']}}</td>
                         </tr>
-                    @endforeach
+
                 @endforeach
             </tbody>
         </table>
