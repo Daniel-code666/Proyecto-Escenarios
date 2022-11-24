@@ -6,6 +6,7 @@ use App\Models\stageratings;
 use Illuminate\Http\Request;
 use App\Models\Stage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 
 class StageratingsController extends Controller
 {
@@ -29,9 +30,28 @@ class StageratingsController extends Controller
         //
     }
 
-    public function closePeriod(){
-        
-        return view('reports.stageRatings.stageRatingsView');
+    public function setRatings(){
+        $stages = Stage::all();
+        $ratings = stageratings::where("created_at", "<=", Carbon::now()->toDateString())
+            ->where("created_at", ">",  $stages[0]['lastRatingProm'])
+            ->get();
+
+        foreach($stages as $stage){
+            $count = 0;
+            $average = 0;
+            foreach($ratings as $rating){
+                if($rating['id_stage'] == $stage['id']){
+                    $count++;
+                    $average = $average + $rating['rating'];
+                }
+            }
+            //Si no tiene calificaciones deja la antigua 
+            $average = $count == 0 ? $stage['score'] : $average/$count;
+
+            Stage::where('id', $stage['id'])->update(array('score' => $average));
+        }
+
+        return Redirect::back()->with('mensaje','¡Calificación actualizada!');
     }
 
     /**
@@ -111,7 +131,7 @@ class StageratingsController extends Controller
             //Si no tiene calificaciones deja la antigua 
             $average = $count == 0 ? $stage['score'] : $average/$count;
 
-            array_push($stagesWhRatings, [$stage->name, $stage->lastRatingProm, $average, $stage['score']]);
+            array_push($stagesWhRatings, [$stage->name, $stage->lastRatingProm, $stage['score'], $average]);
         }
 
         return view('reports.stageRatings.stageRatingsView', compact('stagesWhRatings'));

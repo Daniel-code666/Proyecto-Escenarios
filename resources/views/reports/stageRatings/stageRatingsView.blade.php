@@ -34,45 +34,51 @@
                 <tr>
                     <th>Escenario</th>
                     <th>Fecha de promedio</th>
-                    <th>Calificación</th>
+                    <th>Calificación anterior</th>
+                    <th>Calificacion</th>
                 </tr>
             </thead>
             <tbody class="list">
                 @foreach ($stagesWhRatings as $stageWhRatings)
 
-                        <tr>
-                            <td>{{$stageWhRatings['0']}}</td>
-                            <td>{{$stageWhRatings['1']}}</td>
-                            <td>{{$stageWhRatings['2']}}</td>
-                        </tr>
+                <tr>
+                    <td>{{$stageWhRatings['0']}}</td>
+                    <td>{{$stageWhRatings['1']}}</td>
+                    <td>{{$stageWhRatings['2']}}</td>
+                    <td>{{$stageWhRatings['3']}}</td>
+                </tr>
 
                 @endforeach
             </tbody>
         </table>
-        <script>
-            $(document).ready(function() {
-                $('#stageratings').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
-                    language: {
-                        lengthMenu: 'Mostrando _MENU_ registros por página',
-                        zeroRecords: 'No hay registros para mostrar',
-                        info: 'Mostrando página _PAGE_ de _PAGES_',
-                        infoEmpty: 'No hay registros disponibles',
-                        infoFiltered: '(filtrando de _MAX_ registros disponibles)',
-                        sSearch: 'Buscar',
-                        'paginate': {
-                            'previous': '<i class="fas fa-light fa-arrow-left"></i>',
-                            'next': '<i class="fas fa-light fa-arrow-right"></i>'
-                        },
-                        buttons: {
-                            pageLength: 'Mostrando %d filas'
-                        },
-                    },
-                });
-            });
-        </script>
+        <hr>
+        <div style="text-align:right">
+            <a  type="button" class="btn btn-primary" href="{{ url('setratings') }}">Establecer calificaciones</a>
+        </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#stageratings').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['pageLength', 'excelHtml5', 'pdfHtml5'],
+                language: {
+                    lengthMenu: 'Mostrando _MENU_ registros por página',
+                    zeroRecords: 'No hay registros para mostrar',
+                    info: 'Mostrando página _PAGE_ de _PAGES_',
+                    infoEmpty: 'No hay registros disponibles',
+                    infoFiltered: '(filtrando de _MAX_ registros disponibles)',
+                    sSearch: 'Buscar',
+                    'paginate': {
+                        'previous': '<i class="fas fa-light fa-arrow-left"></i>',
+                        'next': '<i class="fas fa-light fa-arrow-right"></i>'
+                    },
+                    buttons: {
+                        pageLength: 'Mostrando %d filas'
+                    },
+                },
+            });
+        });
+    </script>
 </div>
 
 @include('layouts.footers.auth')

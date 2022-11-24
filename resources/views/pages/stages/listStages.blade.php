@@ -26,6 +26,7 @@
                                         <th scope="col" class="sort" data-sort="completion">Dirección</th>
                                         <th scope="col" class="sort" data-sort="completion">Disciplina</th>
                                         <th scope="col" class="sort" data-sort="completion">Calificación</th>
+                                        <th>Fecha de calificación</th>
                                         <th scope="col" class="sort" data-sort="completion">Acciones</th>
                                     </tr>
                                 </thead>
@@ -33,11 +34,16 @@
                                     @foreach ($stages as $stage)
                                     <tr>
                                         <td>{{$stage->id}}</td>
+                                        @if ($stage->photo == null)
+                                        <td><b>Sin foto</b></td>
+                                        @else
                                         <td><img src="{{asset('storage').'/'.$stage->photo}}" alt="" width="100"></td>
+                                        @endif
                                         <td>{{$stage->name}}</td>
                                         <td>{{$stage->address}}</td>
                                         <td>{{$stage->discipline_name}}</td>
                                         <td>{{$stage->score}}</td>
+                                        <td>{{$stage->lastRatingProm}}</td>
                                         <td>
                                             <a type="button" class="btn btn-primary" href="{{ route('show', ['id'=>$stage->id]) }}">Detalle</a>
                                         </td>
