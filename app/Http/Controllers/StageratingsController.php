@@ -30,6 +30,7 @@ class StageratingsController extends Controller
     }
 
     public function closePeriod(){
+        
         return view('reports.stageRatings.stageRatingsView');
     }
 
@@ -95,7 +96,7 @@ class StageratingsController extends Controller
         $ratings = stageratings::where("created_at", "<=", Carbon::now()->toDateString())
             ->where("created_at", ">",  $stages[0]['lastRatingProm'])
             ->get();
-        
+
         $array = Array();
 
         foreach($stages as $stage){
@@ -110,14 +111,9 @@ class StageratingsController extends Controller
 
             $average = $average/$count++;
 
-            array_push($array, [valor1, valor2, valor3]);
-
+            array_push($array, $stage->name, $stage->lastRatingProm, $average);
         }
 
-        
-
-        return redirect('/show/' . $id)
-            ->with('score', $score)
-            ->with('mensaje', 'Calificación enviada.');
+        redirect(Request::url());
     }
 }
