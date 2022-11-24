@@ -108,7 +108,7 @@ class StageratingsController extends Controller
                 }
             }
 
-            $average = $average/$count;
+            $average = $count == 0 ? $stage['score'] : $average/$count;
 
             array_push($array, [
                 'beforeQty' => $stage['score'],
