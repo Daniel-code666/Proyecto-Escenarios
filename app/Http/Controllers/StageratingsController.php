@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\stageratings;
 use Illuminate\Http\Request;
+use App\Models\Stage;
+use Carbon\Carbon;
 
 class StageratingsController extends Controller
 {
@@ -85,5 +87,37 @@ class StageratingsController extends Controller
     public function destroy(stageratings $stageratings)
     {
         //
+    }
+
+    public function ShowRatings()
+    {
+        $stages = Stage::all();
+        $ratings = stageratings::where("created_at", "<=", Carbon::now()->toDateString())
+            ->where("created_at", ">",  $stages[0]['lastRatingProm'])
+            ->get();
+        
+        $array = Array();
+
+        foreach($stages as $stage){
+            $count = 0;
+            $average = 0;
+            foreach($ratings as $rating){
+                if($rating['id_stage'] == $stage['id']){
+                    $count++;
+                    $average = $average + $rating['rating'];
+                }
+            }
+
+            $average = $average/$count++;
+
+            array_push($array, [valor1, valor2, valor3]);
+
+        }
+
+        
+
+        return redirect('/show/' . $id)
+            ->with('score', $score)
+            ->with('mensaje', 'Calificación enviada.');
     }
 }

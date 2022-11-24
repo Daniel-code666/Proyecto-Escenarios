@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use PDF;
 use App\Reports\MyReport;
 use Ramsey\Uuid\Type\Decimal;
+use App\Models\stageratings;
 
 class StageController extends Controller
 {
@@ -117,6 +118,7 @@ class StageController extends Controller
         $datos = request()->except('_token');
 
         $datosToSend = new Stage();
+        $datosToSend['underStagesQty'] = 0;
         $datosToSend->created_at = Carbon::now()->toTimeString();
         $datosToSend->updated_at = Carbon::now()->toTimeString();
         $datosToSend = $datos;
@@ -257,6 +259,7 @@ class StageController extends Controller
         $datosToSend->created_at = Carbon::now()->toTimeString();
         $datosToSend->updated_at = Carbon::now()->toTimeString();
         $datosToSend = $datos;
+        $datosToSend['underStagesQty'] = 0;
 
         $stage = Stage::findOrFail($id);
 
@@ -406,12 +409,19 @@ class StageController extends Controller
     public function updateScore(Request $request, $id)
     {
         $datos = request()->except('_token', '_method');
-        $curStage = Stage::find($id);
-        if ($curStage->score == null)
-            $curStage->score = 5;
         $score = $datos['score'];
-        $avrScore = (float)($curStage->score + $score) / 2;
-        Stage::where('id', $id)->update(['score' => $avrScore]);
+
+        $stageratings = new stageratings();
+        $stageratings['id_stage'] = $id;
+        $stageratings['rating'] = $score;
+        $stageratings['created_at'] = Carbon::now()->toTimeString();
+
+        stageratings::insert([
+            'id_stage' => $stageratings['id_stage'],
+            'rating' => $stageratings['rating'],
+            'created_at' => $stageratings['created_at']
+        ]);
+
         return redirect('/show/' . $id)
             ->with('score', $score)
             ->with('mensaje', 'Calificación enviada.');
