@@ -106,14 +106,14 @@ class StageratingsController extends Controller
 
             $average = $average/$count++;
 
-            array_push($array, [valor1, valor2, valor3]);
+            array_push($array, [
+                'beforeQty' => $stage['score'],
+                'beforeDate' => $stage['lastRatingProm'],
+                'newRating' => $average
+            ]);
+        }   
 
-        }
-
-        
-
-        return redirect('/show/' . $id)
-            ->with('score', $score)
-            ->with('mensaje', 'Calificación enviada.');
+        return redirect('/closeratings')
+            ->with('stagestable', $array);
     }
 }
