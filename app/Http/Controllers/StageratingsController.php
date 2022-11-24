@@ -111,7 +111,7 @@ class StageratingsController extends Controller
 
             $average = $count == 0 ? $stage['score'] : $average/$count;
 
-            array_push($stagesWhRatings, $stage->name, $stage->lastRatingProm, $average);
+            array_push($stagesWhRatings, [$stage->name, $stage->lastRatingProm, $average, $stage['score']]);
         }
 
         return view('reports.stageRatings.stageRatingsView', compact('stagesWhRatings'));

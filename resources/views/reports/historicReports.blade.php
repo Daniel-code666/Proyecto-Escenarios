@@ -31,10 +31,13 @@
     <input class="radio" id="one" name="group" type="radio" checked>
     <input class="radio" id="two" name="group" type="radio">
     <input class="radio" id="three" name="group" type="radio">
+    <input class="radio" id="four" name="group" type="radio">
+
     <div class="tabs">
         <label class="tab" id="one-tab" for="one">Historico sobre escenarios</label>
         <label class="tab" id="two-tab" for="two">Historico sobre inventarios</label>
         <label class="tab" id="three-tab" for="three">Historico sobre usuarios</label>
+        <label class="tab" id="four-tab" for="four">Calificaciones de escenarios</label>
     </div>
 
     <div class="panels">
@@ -77,6 +80,17 @@
                 </div>
                 <div class="col-sm-4">
                     <img class="img-center" src="{{ asset('argon') }}/img/brand/user.png" width="180" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="four-panel">
+            <div class="row">
+                <div class="col-8">
+                    <p>
+                        Desde aquí podrá ver todas las calificaciones recibidas para los escenarios por parte de
+                        la ciudadanía.
+                    </p>
+                    <a  type="button" class="btn btn-primary" href="{{ url('showratings') }}">Cerrar calificaciones</a>
                 </div>
             </div>
         </div>
