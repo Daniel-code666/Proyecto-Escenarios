@@ -108,7 +108,7 @@ class StageratingsController extends Controller
                     $average = $average + $rating['rating'];
                 }
             }
-
+            //Si no tiene calificaciones deja la antigua 
             $average = $count == 0 ? $stage['score'] : $average/$count;
 
             array_push($stagesWhRatings, [$stage->name, $stage->lastRatingProm, $average, $stage['score']]);
