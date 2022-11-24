@@ -145,6 +145,9 @@ Route::get('historicstages', 'App\Http\Controllers\HistoricReportController@stag
 Route::get('historicresources', 'App\Http\Controllers\HistoricReportController@resourcesHistoricRecords')->name('historicresources')->middleware(['auth', 'idrole']);
 Route::get('historicusers', 'App\Http\Controllers\HistoricReportController@usersHistoricRecords')->name('historicusers')->middleware(['auth', 'idrole']);
 
+// ratings
+route::resource('ratings', app\http\controllers\StageratingsController::class)->middleware(['auth', 'idrole']);
+
 //Contactenos
 Route::get('contactenos', function () {
 	return view('pages.contact');
