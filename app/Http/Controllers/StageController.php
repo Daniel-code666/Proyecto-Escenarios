@@ -414,7 +414,7 @@ class StageController extends Controller
         $stageratings = new stageratings();
         $stageratings['id_stage'] = $id;
         $stageratings['rating'] = $score;
-        $stageratings['created_at'] = Carbon::now()->toTimeString();;
+        $stageratings['created_at'] = Carbon::now()->toTimeString();
 
         stageratings::insert([
             'id_stage' => $stageratings['id_stage'],
