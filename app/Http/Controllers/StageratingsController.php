@@ -27,6 +27,10 @@ class StageratingsController extends Controller
         //
     }
 
+    public function closePeriod(){
+        return view('reports.stageRatings.stageRatingsView');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
