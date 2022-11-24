@@ -97,7 +97,7 @@ class StageratingsController extends Controller
             ->where("created_at", ">",  $stages[0]['lastRatingProm'])
             ->get();
 
-        $array = Array();
+        $stagesWhRatings = Array();
 
         foreach($stages as $stage){
             $count = 0;
@@ -111,9 +111,9 @@ class StageratingsController extends Controller
 
             $average = $average/$count;
 
-            array_push($array, $stage->name, $stage->lastRatingProm, $average);
+            array_push($stagesWhRatings, $stage->name, $stage->lastRatingProm, $average);
         }
 
-        redirect(Request::url());
+        return view('reports.stageRatings.stageRatingsView', compact('stagesWhRatings'));
     }
 }
