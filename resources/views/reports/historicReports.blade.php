@@ -87,8 +87,10 @@
             <div class="row">
                 <div class="col-8">
                     <p>
-                        Desde aquí podrá ver todas las calificaciones recibidas para los escenarios por parte de
-                        la ciudadanía.
+                        Desde aquí podrá ver la calificación promediada de todos los escenarios hasta el momento,
+                        así podrá comparar el puntaje dado por la ciudadanía a los escenarios en un rango de tiempo.
+                        Haciendo click en el botón promediará todas las calificaciones de los escenarios hasta el 
+                        momento.
                     </p>
                     <a  type="button" class="btn btn-primary" href="{{ url('showratings') }}">Cerrar calificaciones</a>
                 </div>

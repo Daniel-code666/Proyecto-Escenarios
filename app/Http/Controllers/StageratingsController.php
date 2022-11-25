@@ -48,7 +48,7 @@ class StageratingsController extends Controller
             //Si no tiene calificaciones deja la antigua 
             $average = $count == 0 ? $stage['score'] : $average/$count;
 
-            Stage::where('id', $stage['id'])->update(array('score' => $average));
+            Stage::where('id', $stage['id'])->update(array('score' => $average, 'lastRatingProm' => Carbon::now()->toDateString()));
         }
 
         return Redirect::back()->with('mensaje','¡Calificación actualizada!');

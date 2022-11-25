@@ -29,6 +29,11 @@
 
 <div class="warpper">
     <div class="panels">
+        <div>
+            <b>La siguiente tabla muestra el nombre del escenario, la fecha del último promedio, el último promedio de
+            calificaciones y el promedio que se acaba de calcular.</b> 
+        </div>
+        <hr>
         <table id="stageratings">
             <thead class="thead-light">
                 <tr>
@@ -52,8 +57,15 @@
             </tbody>
         </table>
         <hr>
+        <div>
+            <b>
+                Haciendo click en el botón, el sistema actualizará la fecha del último promedio y la calificación
+                anterior de cada escenario por la fecha actual y el nuevo promedio calculado.
+            </b>
+        </div>
+        <br>
         <div style="text-align:right">
-            <a  type="button" class="btn btn-primary" href="{{ url('setratings') }}">Establecer calificaciones</a>
+            <a  type="button" class="btn btn-primary" href="{{ url('setratings') }}">Actualizar calificaciones</a>
         </div>
     </div>
     <script>
